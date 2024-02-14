@@ -23,6 +23,14 @@ public class Combat : MonoBehaviour
     {
         Player.EndTurn();
 
+        for (int i = 0; i < Enemy.Length; i++)
+        {
+            if (enemyAlive[i])
+            {
+                Enemy[i].EndTurn();
+            }
+        }
+
         Invoke("EnemyTurns", 0.5f);
     }
 
@@ -56,7 +64,7 @@ public class Combat : MonoBehaviour
         {
             whichEnemy++;
         }
-        Enemy[whichEnemy].EndTurn();
+        Enemy[whichEnemy].Move();
         whichEnemy++;
     }
 }

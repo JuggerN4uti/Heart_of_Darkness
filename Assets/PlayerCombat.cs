@@ -11,14 +11,22 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Stats")]
     public int maxHealth;
-    public int health, energy, attacks, mana, attackDamage;
+    public int health, shield, block, energy, mana;
     public int strength, resistance;
     int tempi;
 
+    [Header("Weapon")]
+    public GameObject TheWeapon;
+    public int baseDamage, strengthScaling, energyCost;
+    public TMPro.TextMeshProUGUI TheWeaponCost, TheWeaponEffect;
+
     [Header("UI")]
+    public GameObject ShieldDisplay;
+    public GameObject BlockDisplay;
     public Image HealthBarFil;
     public Image EnergyBarFill;
-    public TMPro.TextMeshProUGUI HealthValue, EnergyValue, ManaValue, AttackValue;
+    public Button WeaponUseButton;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, EnergyValue, ManaValue;
 
     void Start()
     {
@@ -27,8 +35,9 @@ public class PlayerCombat : MonoBehaviour
 
     public void StartTurn()
     {
-        attacks = 1;
-        mana = 3;
+        block = 0;
+        GainEnergy(10);
+        GainMana(3);
         Cards.Draw(5);
         UpdateInfo();
     }
@@ -36,30 +45,119 @@ public class PlayerCombat : MonoBehaviour
     void UpdateInfo()
     {
         HealthBarFil.fillAmount = (health * 1f) / (maxHealth * 1f);
-        EnergyBarFill.fillAmount = (energy * 1f) / 10f;
+        EnergyBarFill.fillAmount = (energy * 1f) / (energyCost * 1f);
         HealthValue.text = health.ToString("") + "/" + maxHealth.ToString("");
-        EnergyValue.text = energy.ToString("") + "/10";
+        EnergyValue.text = energy.ToString("");
         ManaValue.text = mana.ToString("");
-        if (attacks > 1)
-            AttackValue.text = attackDamage.ToString("") + " x" + attacks.ToString("");
-        else AttackValue.text = attackDamage.ToString("");
+        if (shield > 0)
+        {
+            ShieldDisplay.SetActive(true);
+            ShieldValue.text = shield.ToString("");
+        }
+        else ShieldDisplay.SetActive(false);
+        if (block > 0)
+        {
+            BlockDisplay.SetActive(true);
+            BlockValue.text = block.ToString("");
+        }
+        else BlockDisplay.SetActive(false);
+        if (energy >= energyCost)
+            WeaponUseButton.interactable = true;
+        else WeaponUseButton.interactable = false;
     }
 
     public void EndTurn()
     {
-        for (int i = 0; i < attacks; i++)
-        {
-            BasicAttack();
-        }
+        if (energy > 10)
+            energy = 10;
+        Cards.ShuffleHand();
     }
 
-    void BasicAttack()
+    void GainBlock(int amount)
     {
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(attackDamage);
+        block += amount;
+        UpdateInfo();
+    }
+
+    void GainEnergy(int amount)
+    {
+        energy += amount;
+        UpdateInfo();
+    }
+
+    void SpendEnergy(int amount)
+    {
+        energy -= amount;
+        UpdateInfo();
+    }
+
+    void GainMana(int amount)
+    {
+        mana += amount;
+        UpdateInfo();
+    }
+
+    public void SpendMana(int amount)
+    {
+        mana -= amount;
+        UpdateInfo();
+    }
+
+    public void WeaponHovered()
+    {
+        TheWeapon.SetActive(true);
+        //TheWeapon.sprite = Library.Cards[CardsID[which]].CardSprite;
+        //TheCardName.text = Library.Cards[CardsID[which]].CardName;
+        TheWeaponCost.text = energyCost.ToString("");
+        TheWeaponEffect.text = "Deal " + WeaponDamage().ToString("") + " Damage";
+    }
+
+    public void Unhovered()
+    {
+        TheWeapon.SetActive(false);
+    }
+
+    public void UseWeapon()
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(WeaponDamage());
+        SpendEnergy(energyCost);
+        UpdateInfo();
+    }
+
+    int WeaponDamage()
+    {
+        tempi = baseDamage + strengthScaling * strength;
+        return tempi;
     }
 
     public void TakeDamage(int amount)
     {
+        if (block > 0)
+        {
+            if (block > amount)
+            {
+                block -= amount;
+                amount = 0;
+            }
+            else
+            {
+                amount -= block;
+                block = 0;
+            }
+        }
+        if (shield > 0)
+        {
+            if (shield > amount)
+            {
+                shield -= amount;
+                amount = 0;
+            }
+            else
+            {
+                amount -= shield;
+                shield = 0;
+            }
+        }
         health -= amount;
         UpdateInfo();
     }
@@ -80,6 +178,12 @@ public class PlayerCombat : MonoBehaviour
             case 3:
                 Judgement();
                 break;
+            case 4:
+                BolaShot();
+                break;
+            case 5:
+                CripplingStrike();
+                break;
         }
     }
 
@@ -92,9 +196,13 @@ public class PlayerCombat : MonoBehaviour
             case 1:
                 return "Gain " + DefendBlock().ToString("") + " Block";
             case 2:
-                return "Break " + SpearThrustBreak().ToString("") + "\n Deal " + SpearThrustDamage().ToString("") + " Damage";
+                return "Break up to " + SpearThrustBreak().ToString("") + "Shield\n Deal " + SpearThrustDamage().ToString("") + " Damage";
             case 3:
                 return "Deal " + JudgementDamage().ToString("") + " Damage";
+            case 4:
+                return "Deal " + BolaShotDamage().ToString("") + " Damage\n Apply " + BolaShotSlow().ToString("") + " Slow";
+            case 5:
+                return "Deal " + CripplingStrikeDamage().ToString("") + " Damage\n Apply " + CripplingStrikeBleed().ToString("") + " Bleed";
         }
         return "";
     }
@@ -113,7 +221,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Defend() // ID 1
     {
-        //GainBlock(DefendBlock());
+        GainBlock(DefendBlock());
     }
 
     int DefendBlock()
@@ -124,7 +232,7 @@ public class PlayerCombat : MonoBehaviour
 
     void SpearThrust() // ID 2
     {
-        // Break Shield
+        CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(SpearThrustBreak());
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SpearThrustDamage());
     }
 
@@ -149,6 +257,42 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 13 + strength;
         // if intedns +6 dmg
+        return tempi;
+    }
+
+    void BolaShot() // ID 4
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BolaShotDamage());
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(BolaShotSlow());
+    }
+
+    int BolaShotDamage()
+    {
+        tempi = 10 + strength;
+        return tempi;
+    }
+
+    int BolaShotSlow()
+    {
+        tempi = 2;
+        return tempi;
+    }
+
+    void CripplingStrike() // ID 5
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CripplingStrikeDamage());
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CripplingStrikeBleed());
+    }
+
+    int CripplingStrikeDamage()
+    {
+        tempi = 7 + strength;
+        return tempi;
+    }
+
+    int CripplingStrikeBleed()
+    {
+        tempi = 4;
         return tempi;
     }
 }

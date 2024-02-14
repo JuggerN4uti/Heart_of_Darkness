@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class WeaponHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Hand Cards;
-    public int which;
+    public PlayerCombat Player;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Cards.CardHovered(which);
+        Player.WeaponHovered();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Cards.Unhovered();
+        Player.Unhovered();
     }
 }

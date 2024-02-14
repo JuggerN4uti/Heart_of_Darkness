@@ -24,8 +24,8 @@ public class Hand : MonoBehaviour
     public TMPro.TextMeshProUGUI TheCardName, TheCardCost, TheCardEffect;
 
     [Header("Stats")]
-    public int[] CardsID;
     public int CardsInHand;
+    public int[] CardsID;
 
     void Start()
     {
@@ -79,6 +79,7 @@ public class Hand : MonoBehaviour
         CardDiscard.ShuffleIn(CardsID[which]);
 
         Player.UseAbility(CardsID[which]);
+        Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost);
 
         for (int i = which; i < CardsInHand; i++)
         {
@@ -88,5 +89,17 @@ public class Hand : MonoBehaviour
 
         UpdateInfo();
         Unhovered();
+    }
+
+    public void ShuffleHand()
+    {
+        for (int i = 0; i < CardsInHand; i++)
+        {
+            CardDiscard.ShuffleIn(CardsID[i]);
+        }
+
+        CardsInHand = 0;
+
+        UpdateInfo();
     }
 }

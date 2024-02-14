@@ -15,7 +15,7 @@ public class DiscardPile : MonoBehaviour
         UpdateInfo();
     }
 
-    void UpdateInfo()
+    public void UpdateInfo()
     {
         CardsAmountValue.text = cardsInPile.ToString("");
     }
