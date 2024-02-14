@@ -7,22 +7,50 @@ public class EnemyCombat : MonoBehaviour
 {
     [Header("Scripts")]
     public Combat CombatScript;
+    public EnemiesLibrary Library;
 
     [Header("Stats")]
-    public int maxHealth;
-    public int health, shield, block, slow, tenacity, attackDamage;
+    public int unitID;
+    public int maxHealth, health, shield, block, slow, tenacity;
     public int bleed;
+
+    [Header("Moves")]
+    public int[] movesValue;
+    public int movesCount, currentMove;
+    public bool[] attackIntentions;
+    public string[] movesText;
+    public Image IntentionSprite;
+    public Sprite[] MovesSprites;
+    public Sprite StunSprite;
+    public TMPro.TextMeshProUGUI AttackValue;
 
     [Header("UI")]
     public GameObject ShieldDisplay;
     public GameObject BlockDisplay;
-    public Image HealthBarFil;
-    public Image StunBarFill;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SlowVale, AttackValue;
+    public Image UnitSprite, HealthBarFil, StunBarFill;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SlowVale;
 
     void Start()
     {
+        SetUnit(unitID);
+        StartTurn();
         UpdateInfo();
+    }
+
+    void SetUnit(int ID)
+    {
+        maxHealth = Library.Enemies[ID].UnitHealth;
+        health = maxHealth;
+        shield = Library.Enemies[ID].UnitShield;
+        UnitSprite.sprite = Library.Enemies[ID].UnitSprite;
+        movesCount = Library.Enemies[ID].MovesCount;
+        for (int i = 0; i < movesCount; i++)
+        {
+            MovesSprites[i] = Library.Enemies[ID].MovesSprite[i];
+            movesValue[i] = Library.Enemies[ID].MovesValues[i];
+            movesText[i] = Library.Enemies[ID].additionalText[i];
+            attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
+        }
     }
 
     void UpdateInfo()
@@ -43,7 +71,20 @@ public class EnemyCombat : MonoBehaviour
         }
         else BlockDisplay.SetActive(false);
         SlowVale.text = slow.ToString("") + "/" + tenacity.ToString("");
-        AttackValue.text = attackDamage.ToString("");
+        if (slow >= tenacity)
+        {
+            IntentionSprite.sprite = StunSprite;
+            AttackValue.text = "";
+        }
+    }
+
+    public void StartTurn()
+    {
+        currentMove = Random.Range(0, movesCount);
+        IntentionSprite.sprite = MovesSprites[currentMove];
+        if (attackIntentions[currentMove])
+            AttackValue.text = movesValue[currentMove].ToString("") + movesText[currentMove];
+        else AttackValue.text = "";
     }
 
     public void EndTurn()
@@ -54,7 +95,13 @@ public class EnemyCombat : MonoBehaviour
 
     public void Move()
     {
-        CombatScript.Player.TakeDamage(attackDamage);
+        if (slow >= tenacity)
+        {
+            slow -= tenacity;
+            tenacity++;
+            UpdateInfo();
+        }
+        else CombatScript.Player.TakeDamage(movesValue[currentMove]);
     }
 
     public void TakeDamage(int amount)
@@ -130,5 +177,10 @@ public class EnemyCombat : MonoBehaviour
     {
         bleed += amount;
         UpdateInfo();
+    }
+
+    public bool IntentToAttack()
+    {
+        return attackIntentions[currentMove];
     }
 }

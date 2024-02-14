@@ -14,18 +14,19 @@ public class Hand : MonoBehaviour
     [Header("UI")]
     public RectTransform CardsPosition;
     public GameObject[] Card;
-    public Image[] CardIcon;
+    public Image[] CardIcon, CardRarity;
+    public Sprite[] CardsSprites;
     public Button[] CardButton;
     public TMPro.TextMeshProUGUI[] CardManaCostValue;
 
     [Header("Card Details")]
     public GameObject TheCard;
-    public Image TheCardIcon;
+    public Image TheCardIcon, TheCardRarity;
     public TMPro.TextMeshProUGUI TheCardName, TheCardCost, TheCardEffect;
 
     [Header("Stats")]
     public int CardsInHand;
-    public int[] CardsID;
+    public int[] CardsID, CardsLevel;
 
     void Start()
     {
@@ -42,8 +43,9 @@ public class Hand : MonoBehaviour
         {
             Card[i].SetActive(true);
             CardIcon[i].sprite = Library.Cards[CardsID[i]].CardSprite;
-            CardManaCostValue[i].text = Library.Cards[CardsID[i]].CardManaCost.ToString("");
-            if (Player.mana >= Library.Cards[CardsID[i]].CardManaCost)
+            CardRarity[i].sprite = CardsSprites[CardsLevel[i]];
+            CardManaCostValue[i].text = Library.Cards[CardsID[i]].CardManaCost[CardsLevel[i]].ToString("");
+            if (Player.mana >= Library.Cards[CardsID[i]].CardManaCost[CardsLevel[i]])
                 CardButton[i].interactable = true;
             else CardButton[i].interactable = false;
         }
@@ -55,6 +57,7 @@ public class Hand : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             CardsID[CardsInHand] = CardDraw.Draw();
+            CardsLevel[CardsInHand] = CardDraw.DrawLevel();
             CardsInHand++;
         }
         UpdateInfo();
@@ -64,9 +67,10 @@ public class Hand : MonoBehaviour
     {
         TheCard.SetActive(true);
         TheCardIcon.sprite = Library.Cards[CardsID[which]].CardSprite;
+        TheCardRarity.sprite = CardsSprites[CardsLevel[which]];
         TheCardName.text = Library.Cards[CardsID[which]].CardName;
-        TheCardCost.text = Library.Cards[CardsID[which]].CardManaCost.ToString("");
-        TheCardEffect.text = Player.AbilityInfo(CardsID[which]);
+        TheCardCost.text = Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]].ToString("");
+        TheCardEffect.text = Player.AbilityInfo(CardsID[which], CardsLevel[which]);
     }
 
     public void Unhovered()
@@ -76,14 +80,15 @@ public class Hand : MonoBehaviour
 
     public void PlayCard(int which)
     {
-        CardDiscard.ShuffleIn(CardsID[which]);
+        CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
 
-        Player.UseAbility(CardsID[which]);
-        Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost);
+        Player.UseAbility(CardsID[which], CardsLevel[which]);
+        Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]]);
 
         for (int i = which; i < CardsInHand; i++)
         {
             CardsID[i] = CardsID[i + 1];
+            CardsLevel[i] = CardsLevel[i + 1];
         }
         CardsInHand--;
 
@@ -95,7 +100,7 @@ public class Hand : MonoBehaviour
     {
         for (int i = 0; i < CardsInHand; i++)
         {
-            CardDiscard.ShuffleIn(CardsID[i]);
+            CardDiscard.ShuffleIn(CardsID[i], CardsLevel[i]);
         }
 
         CardsInHand = 0;

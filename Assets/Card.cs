@@ -6,5 +6,6 @@ public class Card : MonoBehaviour
 {
     public Sprite CardSprite;
     public string CardName;
-    public int CardManaCost;
+    public int[] CardManaCost;
+    public bool SingleUse;
 }

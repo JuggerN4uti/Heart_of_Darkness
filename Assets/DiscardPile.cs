@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DiscardPile : MonoBehaviour
 {
-    public int[] CardID;
+    public int[] CardID, CardLevel;
     public int cardsInPile;
 
     public TMPro.TextMeshProUGUI CardsAmountValue;
@@ -20,9 +20,10 @@ public class DiscardPile : MonoBehaviour
         CardsAmountValue.text = cardsInPile.ToString("");
     }
 
-    public void ShuffleIn(int card)
+    public void ShuffleIn(int card, int level)
     {
         CardID[cardsInPile] = card;
+        CardLevel[cardsInPile] = level;
         cardsInPile++;
         UpdateInfo();
     }

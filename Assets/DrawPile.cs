@@ -10,8 +10,9 @@ public class DrawPile : MonoBehaviour
 
     [Header("Stats")]
     public int[] CardID;
+    public int[] CardLevel;
     public int cardsInPile;
-    int roll, card;
+    int roll, card, level;
 
     public TMPro.TextMeshProUGUI CardsAmountValue;
 
@@ -34,10 +35,12 @@ public class DrawPile : MonoBehaviour
         {
             roll = Random.Range(0, cardsInPile);
             card = CardID[roll];
+            level = CardLevel[roll];
 
             for (int i = roll; i < cardsInPile; i++)
             {
                 CardID[i] = CardID[i + 1];
+                CardLevel[i] = CardLevel[i + 1];
             }
             cardsInPile--;
         }
@@ -46,11 +49,17 @@ public class DrawPile : MonoBehaviour
         return card;
     }
 
+    public int DrawLevel()
+    {
+        return level;
+    }
+
     void ReshuffleDecks()
     {
         for (int i = 0; i < CardDiscard.cardsInPile; i++)
         {
             CardID[i] = CardDiscard.CardID[i];
+            CardLevel[i] = CardDiscard.CardLevel[i];
         }
 
         cardsInPile = CardDiscard.cardsInPile;

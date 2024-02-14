@@ -56,6 +56,13 @@ public class Combat : MonoBehaviour
         TurnCounter.text = turn.ToString("");
 
         Player.StartTurn();
+        for (int i = 0; i < Enemy.Length; i++)
+        {
+            if (enemyAlive[i])
+            {
+                Enemy[i].StartTurn();
+            }
+        }
     }
 
     void EnemyTurn()

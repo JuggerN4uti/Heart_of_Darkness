@@ -70,6 +70,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (energy > 10)
             energy = 10;
+        mana = 0;
         Cards.ShuffleHand();
     }
 
@@ -162,137 +163,147 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    public void UseAbility(int which)
+    public void UseAbility(int which, int level)
     {
         switch (which)
         {
             case 0:
-                Strike();
+                Strike(level);
                 break;
             case 1:
-                Defend();
+                Defend(level);
                 break;
             case 2:
-                SpearThrust();
+                SpearThrust(level);
                 break;
             case 3:
-                Judgement();
+                Judgement(level);
                 break;
             case 4:
-                BolaShot();
+                BolaShot(level);
                 break;
             case 5:
-                CripplingStrike();
+                CripplingStrike(level);
                 break;
         }
     }
 
-    public string AbilityInfo(int which)
+    public string AbilityInfo(int which, int level)
     {
         switch (which)
         {
             case 0:
-                return "Deal " + StrikeDamage().ToString("") + " Damage";
+                return "Deal " + StrikeDamage(level).ToString("") + " Damage";
             case 1:
-                return "Gain " + DefendBlock().ToString("") + " Block";
+                return "Gain " + DefendBlock(level).ToString("") + " Block";
             case 2:
-                return "Break up to " + SpearThrustBreak().ToString("") + "Shield\n Deal " + SpearThrustDamage().ToString("") + " Damage";
+                return "Break up to " + SpearThrustBreak(level).ToString("") + "Shield\n Deal " + SpearThrustDamage(level).ToString("") + " Damage";
             case 3:
-                return "Deal " + JudgementDamage().ToString("") + " Damage";
+                return "Deal " + JudgementDamage(level).ToString("") + " Damage";
             case 4:
-                return "Deal " + BolaShotDamage().ToString("") + " Damage\n Apply " + BolaShotSlow().ToString("") + " Slow";
+                return "Deal " + BolaShotDamage(level).ToString("") + " Damage\n Apply " + BolaShotSlow(level).ToString("") + " Slow";
             case 5:
-                return "Deal " + CripplingStrikeDamage().ToString("") + " Damage\n Apply " + CripplingStrikeBleed().ToString("") + " Bleed";
+                return "Deal " + CripplingStrikeDamage(level).ToString("") + " Damage\n Apply " + CripplingStrikeBleed(level).ToString("") + " Bleed";
         }
         return "";
     }
 
     // Abilities ---
-    void Strike() // ID 0
+    void Strike(int level) // ID 0
     {
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StrikeDamage());
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StrikeDamage(level));
     }
 
-    int StrikeDamage()
+    int StrikeDamage(int level)
     {
         tempi = 9 + strength;
+        tempi += 3 * level;
         return tempi;
     }
 
-    void Defend() // ID 1
+    void Defend(int level) // ID 1
     {
-        GainBlock(DefendBlock());
+        GainBlock(DefendBlock(level));
     }
 
-    int DefendBlock()
+    int DefendBlock(int level)
     {
         tempi = 8 + resistance;
+        tempi += 3 * level;
         return tempi;
     }
 
-    void SpearThrust() // ID 2
+    void SpearThrust(int level) // ID 2
     {
-        CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(SpearThrustBreak());
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SpearThrustDamage());
+        CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(SpearThrustBreak(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SpearThrustDamage(level));
     }
 
-    int SpearThrustBreak()
+    int SpearThrustBreak(int level)
     {
         tempi = 8;
+        tempi += 4 * level;
         return tempi;
     }
 
-    int SpearThrustDamage()
+    int SpearThrustDamage(int level)
+    {
+        tempi = 11 + strength;
+        tempi += 3 * level;
+        return tempi;
+    }
+
+    void Judgement(int level) // ID 3
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(JudgementDamage(level));
+    }
+
+    int JudgementDamage(int level)
     {
         tempi = 12 + strength;
+        tempi += 4 * level;
+        if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
+            tempi += 8 + 4 * level;
         return tempi;
     }
 
-    void Judgement() // ID 3
+    void BolaShot(int level) // ID 4
     {
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(JudgementDamage());
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BolaShotDamage(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(BolaShotSlow(level));
     }
 
-    int JudgementDamage()
-    {
-        tempi = 13 + strength;
-        // if intedns +6 dmg
-        return tempi;
-    }
-
-    void BolaShot() // ID 4
-    {
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BolaShotDamage());
-        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(BolaShotSlow());
-    }
-
-    int BolaShotDamage()
+    int BolaShotDamage(int level)
     {
         tempi = 10 + strength;
+        tempi += 3 * level;
         return tempi;
     }
 
-    int BolaShotSlow()
+    int BolaShotSlow(int level)
     {
         tempi = 2;
+        tempi += 1 * level;
         return tempi;
     }
 
-    void CripplingStrike() // ID 5
+    void CripplingStrike(int level) // ID 5
     {
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CripplingStrikeDamage());
-        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CripplingStrikeBleed());
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CripplingStrikeDamage(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CripplingStrikeBleed(level));
     }
 
-    int CripplingStrikeDamage()
+    int CripplingStrikeDamage(int level)
     {
         tempi = 7 + strength;
+        tempi += 2 * level;
         return tempi;
     }
 
-    int CripplingStrikeBleed()
+    int CripplingStrikeBleed(int level)
     {
         tempi = 4;
+        tempi += 2 * level;
         return tempi;
     }
 }
