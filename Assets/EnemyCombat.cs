@@ -12,7 +12,9 @@ public class EnemyCombat : MonoBehaviour
     [Header("Stats")]
     public int unitID;
     public int maxHealth, health, shield, block, slow, tenacity;
-    public int bleed;
+    // status effects:
+    public int weak, bleed, daze;
+    bool stunned;
 
     [Header("Moves")]
     public int[] movesValue;
@@ -71,7 +73,7 @@ public class EnemyCombat : MonoBehaviour
         }
         else BlockDisplay.SetActive(false);
         SlowVale.text = slow.ToString("") + "/" + tenacity.ToString("");
-        if (slow >= tenacity)
+        if (stunned)
         {
             IntentionSprite.sprite = StunSprite;
             AttackValue.text = "";
@@ -80,10 +82,12 @@ public class EnemyCombat : MonoBehaviour
 
     public void StartTurn()
     {
+        if (weak > 0)
+            weak--;
         currentMove = Random.Range(0, movesCount);
         IntentionSprite.sprite = MovesSprites[currentMove];
         if (attackIntentions[currentMove])
-            AttackValue.text = movesValue[currentMove].ToString("") + movesText[currentMove];
+            AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
         else AttackValue.text = "";
     }
 
@@ -95,13 +99,26 @@ public class EnemyCombat : MonoBehaviour
 
     public void Move()
     {
-        if (slow >= tenacity)
-        {
-            slow -= tenacity;
-            tenacity++;
-            UpdateInfo();
-        }
-        else CombatScript.Player.TakeDamage(movesValue[currentMove]);
+        if (stunned)
+            stunned = false;
+        else CombatScript.Player.TakeDamage(AttackDamage());
+    }
+
+    void Stunned()
+    {
+        stunned = true;
+        slow -= tenacity;
+        tenacity++;
+        if (daze > 0)
+            TakeDamage(daze);
+        UpdateInfo();
+    }
+
+    public int AttackDamage()
+    {
+        if (weak > 0)
+            return (movesValue[currentMove] * 3) / 4;
+        else return movesValue[currentMove];
     }
 
     public void TakeDamage(int amount)
@@ -170,12 +187,28 @@ public class EnemyCombat : MonoBehaviour
     public void GainSlow(int amount)
     {
         slow += amount;
+        if (slow >= tenacity && !stunned)
+        {
+            Stunned();
+        }
+        UpdateInfo();
+    }
+
+    public void GainWeak(int amount)
+    {
+        weak += amount;
         UpdateInfo();
     }
 
     public void GainBleed(int amount)
     {
         bleed += amount;
+        UpdateInfo();
+    }
+
+    public void GainDaze(int amount)
+    {
+        daze += amount;
         UpdateInfo();
     }
 

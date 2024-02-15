@@ -80,10 +80,10 @@ public class Hand : MonoBehaviour
 
     public void PlayCard(int which)
     {
-        CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
-
         Player.UseAbility(CardsID[which], CardsLevel[which]);
         Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]]);
+
+        CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
 
         for (int i = which; i < CardsInHand; i++)
         {
