@@ -5,4 +5,5 @@ using UnityEngine;
 public class CardLibrary : MonoBehaviour
 {
     public Card[] Cards;
+    public Sprite[] CardLevel;
 }

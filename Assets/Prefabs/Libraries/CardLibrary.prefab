@@ -48,9 +48,6 @@ MonoBehaviour:
   CardName: Defend
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip:
-  - Gain 8 Block
-  - Gain 11 Block
 --- !u!1 &144162809316781829
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,7 +96,6 @@ MonoBehaviour:
   CardName: Shield Bash
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &959071048080588986
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +144,6 @@ MonoBehaviour:
   CardName: Shield Glare
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &1101227934036142529
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +192,6 @@ MonoBehaviour:
   CardName: Heavy Armor
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &1262869571070354953
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,7 +240,6 @@ MonoBehaviour:
   CardName: Fortify
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &1458681913183884305
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +288,6 @@ MonoBehaviour:
   CardName: Empower
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &1963042950331429763
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +336,6 @@ MonoBehaviour:
   CardName: Golden Aegis
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &2312856137628458427
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,7 +384,6 @@ MonoBehaviour:
   CardName: Inspire
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &2426100786124245634
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +432,6 @@ MonoBehaviour:
   CardName: Judgement
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &2462809486461673001
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +480,6 @@ MonoBehaviour:
   CardName: Crushing Blow
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &2853611984503561597
 GameObject:
   m_ObjectHideFlags: 0
@@ -540,7 +528,6 @@ MonoBehaviour:
   CardName: Holy Light
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
-  CardTooltip: []
 --- !u!1 &2954933077985121303
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,7 +576,6 @@ MonoBehaviour:
   CardName: Desperate Stand
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &3065999187759993969
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +624,6 @@ MonoBehaviour:
   CardName: Desperate Stand
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &3594482170667357575
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +672,6 @@ MonoBehaviour:
   CardName: Blinding Light
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &3627225682483906447
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,9 +720,6 @@ MonoBehaviour:
   CardName: Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip:
-  - Deal 9 Damage
-  - Deal 12 Damage
 --- !u!1 &4307091882574880402
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +768,6 @@ MonoBehaviour:
   CardName: Smite
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &4636076682024060067
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +816,6 @@ MonoBehaviour:
   CardName: Chastise
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +917,12 @@ MonoBehaviour:
   - {fileID: 651450876920323592}
   - {fileID: 1936360071866250141}
   - {fileID: 9158440768495474521}
+  CardLevel:
+  - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
+  - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
+  - {fileID: 21300000, guid: 7023fd98320485449bcc49a8a68983a7, type: 3}
+  - {fileID: 21300000, guid: 93ae9aec85b7d054ba708d5059803bf1, type: 3}
+  - {fileID: 21300000, guid: 24522fd3b4e1dcf40b43125e90a25f82, type: 3}
 --- !u!1 &5368283676432036145
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,7 +971,6 @@ MonoBehaviour:
   CardName: Holy Bolt
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &5631511503270810478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1035,7 +1019,6 @@ MonoBehaviour:
   CardName: Bola Shot
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &5638787253458269351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1067,6 @@ MonoBehaviour:
   CardName: Surge of Light
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
-  CardTooltip: []
 --- !u!1 &6256575464566816610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,7 +1115,6 @@ MonoBehaviour:
   CardName: Counter Attack
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &6703391293828820304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1163,6 @@ MonoBehaviour:
   CardName: Consecration
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &6724833001348074672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1211,6 @@ MonoBehaviour:
   CardName: Crippling Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &7467217022583733082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1280,7 +1259,6 @@ MonoBehaviour:
   CardName: Lay on Hands
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 1
-  CardTooltip: []
 --- !u!1 &7733901304945894842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,7 +1307,6 @@ MonoBehaviour:
   CardName: Bulwark of Light
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &8747331849559699352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1355,6 @@ MonoBehaviour:
   CardName: Patient Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &8959023271854829270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,7 +1403,6 @@ MonoBehaviour:
   CardName: Shield Wall
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip: []
 --- !u!1 &9138291028712447086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1451,3 @@ MonoBehaviour:
   CardName: Spear Thrust
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
-  CardTooltip:
-  - Break up to 8 Shield  Deal 11 Damage
-  - Break up to 12 Shield\nDeal 14 Damage
