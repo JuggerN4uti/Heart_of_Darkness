@@ -8,4 +8,5 @@ public class Card : MonoBehaviour
     public string CardName;
     public int[] CardManaCost;
     public bool SingleUse;
+    //public string[] CardTooltip;
 }

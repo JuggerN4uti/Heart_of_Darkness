@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DrawPile : MonoBehaviour
 {
     [Header("Scripts")]
+    public Deck CardDeck;
     public DiscardPile CardDiscard;
 
     [Header("Stats")]
@@ -18,6 +19,19 @@ public class DrawPile : MonoBehaviour
 
     void Start()
     {
+        UpdateInfo();
+    }
+
+    public void SetDeck()
+    {
+        for (int i = 0; i < CardDeck.cardsInDeck; i++)
+        {
+            CardID[i] = CardDeck.CardID[i];
+            CardLevel[i] = CardDeck.CardLevel[i];
+        }
+
+        cardsInPile = CardDeck.cardsInDeck;
+
         UpdateInfo();
     }
 

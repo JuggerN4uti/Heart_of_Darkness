@@ -12,9 +12,9 @@ public class EnemyCombat : MonoBehaviour
     [Header("Stats")]
     public int unitID;
     public int maxHealth, health, shield, block, slow, tenacity;
-    // status effects:
-    public int weak, bleed, daze;
+    public int[] effect;
     bool stunned;
+    int tempi;
 
     [Header("Moves")]
     public int[] movesValue;
@@ -31,6 +31,19 @@ public class EnemyCombat : MonoBehaviour
     public GameObject BlockDisplay;
     public Image UnitSprite, HealthBarFil, StunBarFill;
     public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SlowVale;
+
+    [Header("Display")]
+    public GameObject DisplayObject;
+    public GameObject[] StatusObjects;
+    public Image[] StatusImages;
+    public TMPro.TextMeshProUGUI[] StatusValues;
+    public Rigidbody2D Body;
+    public Transform Origin;
+    public Display Displayed;
+    public Sprite DamageSprite, HealthSprite, ShieldSprite, BreakSprite, BlockSprite, SlowSprite;
+    public Sprite[] effectSprite;
+    public int[] effectsActive;
+    int statusCount;
 
     void Start()
     {
@@ -78,12 +91,41 @@ public class EnemyCombat : MonoBehaviour
             IntentionSprite.sprite = StunSprite;
             AttackValue.text = "";
         }
+        else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+
+        // status effects
+        statusCount = 0;
+        for (int i = 0; i < effect.Length; i++)
+        {
+            StatusObjects[i].SetActive(false);
+        }
+        for (int i = 0; i < effect.Length; i++)
+        {
+            if (effect[i] != 0)
+            {
+                effectsActive[statusCount] = i;
+                StatusObjects[statusCount].SetActive(true);
+                StatusImages[statusCount].sprite = effectSprite[i];
+                StatusValues[statusCount].text = effect[i].ToString("0");
+                statusCount++;
+            }
+        }
+    }
+
+    void Display(int amount, Sprite sprite)
+    {
+        Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + Random.Range(-25f, 25f));
+        GameObject display = Instantiate(DisplayObject, Origin.position, transform.rotation);
+        Displayed = display.GetComponent(typeof(Display)) as Display;
+        Displayed.DisplayThis(amount, sprite);
+        Rigidbody2D display_body = display.GetComponent<Rigidbody2D>();
+        display_body.AddForce(Origin.up * Random.Range(1.75f, 2.5f), ForceMode2D.Impulse);
     }
 
     public void StartTurn()
     {
-        if (weak > 0)
-            weak--;
+        if (effect[0] > 0)
+            effect[0]--;
         currentMove = Random.Range(0, movesCount);
         IntentionSprite.sprite = MovesSprites[currentMove];
         if (attackIntentions[currentMove])
@@ -93,14 +135,20 @@ public class EnemyCombat : MonoBehaviour
 
     public void EndTurn()
     {
-        if (bleed > 0)
-            TakeDamage(bleed);
+        if (effect[1] > 0)
+            TakeDamage(effect[1]);
     }
 
     public void Move()
     {
         if (stunned)
+        {
             stunned = false;
+            if (slow >= tenacity)
+            {
+                Stunned();
+            }
+        }
         else CombatScript.Player.TakeDamage(AttackDamage());
     }
 
@@ -109,20 +157,21 @@ public class EnemyCombat : MonoBehaviour
         stunned = true;
         slow -= tenacity;
         tenacity++;
-        if (daze > 0)
-            TakeDamage(daze);
+        if (effect[2] > 0)
+            TakeDamage(effect[2]);
         UpdateInfo();
     }
 
     public int AttackDamage()
     {
-        if (weak > 0)
+        if (effect[0] > 0)
             return (movesValue[currentMove] * 3) / 4;
         else return movesValue[currentMove];
     }
 
     public void TakeDamage(int amount)
     {
+        Display(amount, DamageSprite);
         if (block > 0)
         {
             if (block > amount)
@@ -155,15 +204,18 @@ public class EnemyCombat : MonoBehaviour
 
     public void BreakShield(int amount)
     {
+        tempi = 0;
         if (block > 0)
         {
             if (block > amount)
             {
+                Display(block, BreakSprite);
                 block -= amount;
                 amount = 0;
             }
             else
             {
+                tempi += amount;
                 amount -= block;
                 block = 0;
             }
@@ -172,11 +224,15 @@ public class EnemyCombat : MonoBehaviour
         {
             if (shield > amount)
             {
+                tempi += shield;
+                Display(tempi, BreakSprite);
                 shield -= amount;
                 amount = 0;
             }
             else
             {
+                tempi += amount;
+                Display(tempi, BreakSprite);
                 amount -= shield;
                 shield = 0;
             }
@@ -187,6 +243,7 @@ public class EnemyCombat : MonoBehaviour
     public void GainSlow(int amount)
     {
         slow += amount;
+        Display(amount, SlowSprite);
         if (slow >= tenacity && !stunned)
         {
             Stunned();
@@ -196,19 +253,22 @@ public class EnemyCombat : MonoBehaviour
 
     public void GainWeak(int amount)
     {
-        weak += amount;
+        Display(amount, effectSprite[0]);
+        effect[0] += amount;
         UpdateInfo();
     }
 
     public void GainBleed(int amount)
     {
-        bleed += amount;
+        Display(amount, effectSprite[1]);
+        effect[1] += amount;
         UpdateInfo();
     }
 
     public void GainDaze(int amount)
     {
-        daze += amount;
+        Display(amount, effectSprite[2]);
+        effect[2] += amount;
         UpdateInfo();
     }
 

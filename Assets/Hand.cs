@@ -56,9 +56,16 @@ public class Hand : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            CardsID[CardsInHand] = CardDraw.Draw();
-            CardsLevel[CardsInHand] = CardDraw.DrawLevel();
-            CardsInHand++;
+            if (CardsInHand < 10)
+            {
+                CardsID[CardsInHand] = CardDraw.Draw();
+                CardsLevel[CardsInHand] = CardDraw.DrawLevel();
+                CardsInHand++;
+            }
+            else
+            {
+                CardDiscard.ShuffleIn(CardDraw.Draw(), CardDraw.DrawLevel());
+            }
         }
         UpdateInfo();
     }

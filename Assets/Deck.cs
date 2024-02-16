@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Cards")]
+    public int[] CardID;
+    public int[] CardLevel;
+    public int cardsInDeck;
 }
