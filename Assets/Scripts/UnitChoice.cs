@@ -28,6 +28,7 @@ public class UnitChoice : MonoBehaviour
     [Header("Sprites")]
     public Sprite[] PerkSprites;
     public Sprite[] FlawsSprites;
+    public Sprite UnitSprite, UnitMiniSprite;
 
     public void Start()
     {
@@ -77,11 +78,20 @@ public class UnitChoice : MonoBehaviour
 
     public void EffectHovered(bool ability, bool perk, int order)
     {
-
+        if (ability)
+        {
+            Army.DisplayCardInfo(Abilities[order], AbilitiesLevel[order]);
+        }
+        else
+        {
+            if (perk)
+                Army.DisplayPerkInfo(Perks[order], PerksValue[order]);
+            else Army.DisplayFlawInfo(Flaws[order], FlawsValue[order]);
+        }
     }
 
     public void Unhovered()
     {
-
+        Army.HoveredText.text = "";
     }
 }

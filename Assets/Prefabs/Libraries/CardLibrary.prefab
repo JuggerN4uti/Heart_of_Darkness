@@ -48,6 +48,9 @@ MonoBehaviour:
   CardName: Defend
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 8 Block
+  - Gain 11 Block
 --- !u!1 &144162809316781829
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +99,9 @@ MonoBehaviour:
   CardName: Shield Bash
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal Damage equal to your Block
+  - Gain 3 Block, Deal Damage equal to your Block
 --- !u!1 &959071048080588986
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +150,9 @@ MonoBehaviour:
   CardName: Shield Glare
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 12 Block, Apply 1 Weak
+  - Gain 13 Block, Apply 2 Weak
 --- !u!1 &1101227934036142529
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +201,9 @@ MonoBehaviour:
   CardName: Heavy Armor
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 11 Block. Resistance bonus is Tripled
+  - Gain 14 Block. Resistance bonus is Quadrupled
 --- !u!1 &1262869571070354953
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,6 +252,9 @@ MonoBehaviour:
   CardName: Fortify
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Dain 8 Block & next Turn
+  - Dain 11 Block & next Turn
 --- !u!1 &1458681913183884305
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +303,9 @@ MonoBehaviour:
   CardName: Empower
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 2 Strength
+  - Gain 3 Strength
 --- !u!1 &1963042950331429763
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +354,9 @@ MonoBehaviour:
   CardName: Golden Aegis
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 12 Block, Apply 1 Slow to all Enemies
+  - Gain 15 Block, Apply 2 Slow to all Enemies
 --- !u!1 &2312856137628458427
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +405,9 @@ MonoBehaviour:
   CardName: Inspire
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Draw 2 Cards, Gain 4 Block
+  - Draw 3 Cards, Gain 6 Block
 --- !u!1 &2426100786124245634
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,6 +456,9 @@ MonoBehaviour:
   CardName: Judgement
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 12 Damage, increased by 8 if the target intends to Attack
+  - Deal 16 Damage, increased by 12 if the target intends to Attack
 --- !u!1 &2462809486461673001
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +507,9 @@ MonoBehaviour:
   CardName: Crushing Blow
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 22 Damage, Apply 2 Daze, 1 Slow, 1 Weak & 1 Vulnerable
+  - Deal 26 Damage, Apply 4 Daze, 2 Slow, 2 Weak & 1 Vulnerable
 --- !u!1 &2853611984503561597
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,6 +558,9 @@ MonoBehaviour:
   CardName: Holy Light
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
+  CardTooltip:
+  - Gain 6 Block, Restore 5 Health. Destroy
+  - Gain 9 Block, Restore 7 Health. Destroy
 --- !u!1 &2954933077985121303
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +609,9 @@ MonoBehaviour:
   CardName: Desperate Stand
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 12 Block, if you are below 60% Gain 20 Block instead and Destroy
+  - Gain 16 Block, if you are below 60% Gain 28 Block instead and Destroy
 --- !u!1 &3065999187759993969
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +660,9 @@ MonoBehaviour:
   CardName: Desperate Stand
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 12 Damage, Gain 1 Valor. Damage Dealt increased by Valor
+  - Deal 14 Damage, Gain 2 Valor. Damage Dealt increased by Valor
 --- !u!1 &3594482170667357575
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,6 +711,9 @@ MonoBehaviour:
   CardName: Blinding Light
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 19 Damage, Apply 3 Daze & 2 Weak
+  - Deal 25 Damage, Apply 5 Daze & 3 Weak
 --- !u!1 &3627225682483906447
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +762,9 @@ MonoBehaviour:
   CardName: Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 9 Damage
+  - Deal 12 Damage
 --- !u!1 &4307091882574880402
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +813,9 @@ MonoBehaviour:
   CardName: Smite
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 7 Damage, Apply 1 Slow
+  - Deal 9 Damage, Apply 2 Slow
 --- !u!1 &4636076682024060067
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +864,9 @@ MonoBehaviour:
   CardName: Chastise
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 10 Damage, Apply 6 Daze & 4 Slow. Damage Dealt increased by targets Daze
+  - Deal 15 Damage, Apply 8 Daze & 5 Slow. Damage Dealt increased by targets Daze
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1022,9 @@ MonoBehaviour:
   CardName: Holy Bolt
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 15 Damage. Damage Dealt increased by 3 per Valor
+  - Deal 20 Damage. Damage Dealt increased by 4 per Valor
 --- !u!1 &5631511503270810478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1019,6 +1073,9 @@ MonoBehaviour:
   CardName: Bola Shot
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 10 Damage, Apply 2 Slow
+  - Deal 13 Damage, Apply 3 Slow
 --- !u!1 &5638787253458269351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1124,9 @@ MonoBehaviour:
   CardName: Surge of Light
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
+  CardTooltip:
+  - Gain 1 Valor. At the start of every Turn Gain 1 Valor
+  - Gain 3 Valor. At the start of every Turn Gain 1 Valor
 --- !u!1 &6256575464566816610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1175,9 @@ MonoBehaviour:
   CardName: Counter Attack
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 3 Damage. Damage Dealt increased by targets intented Attack
+  - Deal 8 Damage. Damage Dealt increased by targets intented Attack
 --- !u!1 &6703391293828820304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,6 +1226,11 @@ MonoBehaviour:
   CardName: Consecration
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 18 Damage & Apply 1 Slow to all Enemies, Gain 2 Valor. Damage Dealt increased
+    by Valor
+  - Deal 24 Damage & Apply 2 Slow to all Enemies, Gain 3 Valor. Damage Dealt increased
+    by Valor
 --- !u!1 &6724833001348074672
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,6 +1279,9 @@ MonoBehaviour:
   CardName: Crippling Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 7 Damage, Apply 4 Bleed
+  - Deal 9 Damage, Apply 6 Bleed
 --- !u!1 &7467217022583733082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,6 +1330,9 @@ MonoBehaviour:
   CardName: Lay on Hands
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 1
+  CardTooltip:
+  - Gain 2 Valor, Restore 3 Health. Destroy
+  - Gain 3 Valor, Restore 4 Health. Destroy
 --- !u!1 &7733901304945894842
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,6 +1381,9 @@ MonoBehaviour:
   CardName: Bulwark of Light
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 10 Block, Gain 1 Valor. Block Gained increased by Valor
+  - Gain 12 Block, Gain 2 Valor. Block Gained increased by Valor
 --- !u!1 &8747331849559699352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,6 +1432,9 @@ MonoBehaviour:
   CardName: Patient Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Deal 10 Damage. Damage Dealt increased by 2 every Turn
+  - Deal 13 Damage. Damage Dealt increased by 3 every Turn
 --- !u!1 &8959023271854829270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,6 +1483,9 @@ MonoBehaviour:
   CardName: Shield Wall
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Gain 10 Block, Gain 1 Resistance
+  - Gain 14 Block, Gain 1 Resistance
 --- !u!1 &9138291028712447086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,3 +1534,6 @@ MonoBehaviour:
   CardName: Spear Thrust
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
+  CardTooltip:
+  - Break up to 8 Shield, Deal 11 Damage
+  - Break up to 12 Shield, Deal 14 Damage

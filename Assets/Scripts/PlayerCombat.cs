@@ -550,7 +550,7 @@ public class PlayerCombat : MonoBehaviour
     int InspireBlock(int level)
     {
         tempi = 4 + effect[1];
-        tempi += level;
+        tempi += 2 * level;
         return tempi;
     }
 

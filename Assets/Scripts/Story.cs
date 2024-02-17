@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class Story : MonoBehaviour
 {
+    public SceneChange Fade;
+
     public int StoryChapter, line;
     public Dialogue[] dialogues;
     public Dialogue CurrentDialogue;
 
     [Header("UI")]
+    public GameObject StoryScene;
+    public GameObject ArmySelectScene;
     public Image LeftCharacter;
     public Image RightCharacter;
     public TMPro.TextMeshProUGUI CharacterName, CharacterDialogue;
@@ -25,7 +29,10 @@ public class Story : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (CurrentDialogue.DialoguesCount == line)
-                CharacterDialogue.text = "nigga";
+            {
+                Fade.StartDarken();
+                Invoke("Proceed", 0.4f);
+            }
             else NextLine();
         }
     }
@@ -55,5 +62,16 @@ public class Story : MonoBehaviour
         CharacterDialogue.text = CurrentDialogue.CharacterDialogue[line];
 
         line++;
+    }
+
+    void Proceed()
+    {
+        switch (StoryChapter)
+        {
+            case 1:
+                StoryScene.SetActive(false);
+                ArmySelectScene.SetActive(true);
+                break;
+        }
     }
 }
