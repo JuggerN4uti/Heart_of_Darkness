@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class ArmySelect : MonoBehaviour
 {
     [Header("Scripts")]
+    public Player PlayerScript;
     public CardLibrary Library;
     public UnitChoice[] Units;
+    public Story StoryScript;
 
     [Header("Stats")]
     public int unitSlots;
@@ -112,7 +114,23 @@ public class ArmySelect : MonoBehaviour
 
     public void Proceed()
     {
+        for (int i = 0; i < unitSlots; i++)
+        {
+            PlayerScript.Units[i] = Units[unitsSelected[i]];
+        }
+        PlayerScript.unitUnderCommand = unitSlots;
+        PlayerScript.GainUnitsStats();
 
+        StoryScript.dialogues[1].CharacterDialogue[0] = Units[unitsSelected[0]].UnitName + ", " + Units[unitsSelected[1]].UnitName + " and I are going in. The rest, stay vigilant.\nIf we are not to return in two hours, inform the King...";
+        StoryScript.Fade.StartDarken();
+        Invoke("ContinueStory", 0.4f);
+    }
+
+    void ContinueStory()
+    {
+        StoryScript.NewDialogue();
+        StoryScript.StoryScene.SetActive(true);
+        StoryScript.ArmySelectScene.SetActive(false);
     }
 
     public void DisplayCardInfo(int card, int level)
@@ -153,7 +171,7 @@ public class ArmySelect : MonoBehaviour
         switch (which)
         {
             case 0:
-                HoveredText.text = "Tired\nReduce Mana gained each Turn by 1 for first " + amount.ToString("0") + " Turns";
+                HoveredText.text = "Sluggish\nReduce Mana gained each Turn by 1 for first " + amount.ToString("0") + " Turns";
                 break;
             case 1:
                 HoveredText.text = "Injured\nStart Combat with " + amount.ToString("0") + " Bleed";

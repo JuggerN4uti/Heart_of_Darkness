@@ -8,4 +8,11 @@ public class Deck : MonoBehaviour
     public int[] CardID;
     public int[] CardLevel;
     public int cardsInDeck;
+
+    public void AddACard(int which, int level)
+    {
+        CardID[cardsInDeck] = which;
+        CardLevel[cardsInDeck] = level;
+        cardsInDeck++;
+    }
 }

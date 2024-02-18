@@ -10,8 +10,8 @@ public class UnitChoice : MonoBehaviour
     public CardLibrary Library;
 
     [Header("Other Info")]
-    public string UnitName;
     public int UnitLevel;
+    public string UnitClass, UnitName;
 
     [Header("Abilities, Perks & Flaws")]
     public int AbilitiesAmount;
@@ -37,7 +37,7 @@ public class UnitChoice : MonoBehaviour
 
     public void UpdateInfo()
     {
-        UnitTitle.text = UnitName + " - Level " + UnitLevel.ToString("0");
+        UnitTitle.text = UnitClass + " " + UnitName + " - Level " + UnitLevel.ToString("0");
 
         // Abilities
         for (int i = 0; i < 3; i++)

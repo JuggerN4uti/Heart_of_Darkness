@@ -13,7 +13,7 @@ public class Story : MonoBehaviour
 
     [Header("UI")]
     public GameObject StoryScene;
-    public GameObject ArmySelectScene;
+    public GameObject ArmySelectScene, MapScene;
     public Image LeftCharacter;
     public Image RightCharacter;
     public TMPro.TextMeshProUGUI CharacterName, CharacterDialogue;
@@ -37,7 +37,7 @@ public class Story : MonoBehaviour
         }
     }
 
-    void NewDialogue()
+    public void NewDialogue()
     {
         CurrentDialogue = dialogues[StoryChapter];
         line = 0;
@@ -71,6 +71,10 @@ public class Story : MonoBehaviour
             case 1:
                 StoryScene.SetActive(false);
                 ArmySelectScene.SetActive(true);
+                break;
+            case 2:
+                StoryScene.SetActive(false);
+                MapScene.SetActive(true);
                 break;
         }
     }
