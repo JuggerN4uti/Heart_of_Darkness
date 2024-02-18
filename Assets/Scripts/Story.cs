@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Story : MonoBehaviour
 {
+    [Header("Scripts")]
     public SceneChange Fade;
-
     public int StoryChapter, line;
     public Dialogue[] dialogues;
     public Dialogue CurrentDialogue;

@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardSprite: {fileID: 21300000, guid: 0bd4bdd96554669429bc79511863b14d, type: 3}
-  CardName: Desperate Stand
+  CardName: Decisive Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
