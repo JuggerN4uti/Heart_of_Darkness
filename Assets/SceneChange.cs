@@ -11,6 +11,7 @@ public class SceneChange : MonoBehaviour
 
     public void StartDarken()
     {
+        fadeSpeed = 3f;
         BlackFade.enabled = true;
         active = true;
         Invoke("StartFade", 0.4f);
@@ -27,6 +28,20 @@ public class SceneChange : MonoBehaviour
         BlackFade.enabled = false;
         active = false;
         fadeSpeed *= -1f;
+    }
+
+    public void StartFastDarken()
+    {
+        fadeSpeed = 6f;
+        BlackFade.enabled = true;
+        active = true;
+        Invoke("StartFastFade", 0.25f);
+    }
+
+    public void StartFastFade()
+    {
+        fadeSpeed *= -1f;
+        Invoke("EndFade", 0.25f);
     }
 
     void Update()

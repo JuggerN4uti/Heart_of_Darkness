@@ -5,10 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public string UnitName;
-    public int UnitID, UnitHealth, UnitShield, MovesCount;
+    public int UnitID, UnitHealth, UnitShield, UnitTenacity, MovesCount;
     public Sprite UnitSprite;
     public Sprite[] MovesSprite;
-    public int[] MovesValues;
+    public int[] MovesValues, MovesCooldowns, StartingEffects;
     public string[] additionalText;
-    public bool[] attackIntention;
+    public bool[] attackIntention, normalAttack;
 }

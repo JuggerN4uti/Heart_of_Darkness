@@ -17,7 +17,7 @@ public class Deck : MonoBehaviour
 
     [Header("UI")]
     public TMPro.TextMeshProUGUI CardsInDeckText;
-    public GameObject DeckObjet, DeckButton, SkipButton;
+    public GameObject DeckObjet, DeckButton, SkipButton, PlayerInfoButton;
     public GameObject[] CardObject;
     public Image[] CardRarity, CardIcon;
     public TMPro.TextMeshProUGUI[] CardManaCost;
@@ -43,12 +43,14 @@ public class Deck : MonoBehaviour
         {
             opened = false;
             DeckObjet.SetActive(false);
+            PlayerInfoButton.SetActive(true);
         }
         else
         {
             opened = true;
             DisplayDeckContents();
             DeckObjet.SetActive(true);
+            PlayerInfoButton.SetActive(false);
         }
     }
 
@@ -107,6 +109,7 @@ public class Deck : MonoBehaviour
         DeckObjet.SetActive(true);
         DeckButton.SetActive(false);
         SkipButton.SetActive(true);
+        PlayerInfoButton.SetActive(false);
     }
 
     public void SkipForge()
@@ -115,6 +118,7 @@ public class Deck : MonoBehaviour
         DeckObjet.SetActive(false);
         DeckButton.SetActive(true);
         SkipButton.SetActive(false);
+        PlayerInfoButton.SetActive(true);
     }
 
     public void BackFromForging()

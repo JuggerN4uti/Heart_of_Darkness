@@ -29,7 +29,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6195531571851964968}
+  - {fileID: 811370481288226646}
+  - {fileID: 5335328618324209800}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,6 +48,268 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 8912802861094296742}
+  - {fileID: 1971214115461692466}
+  - {fileID: 7739140068333639569}
+--- !u!1 &2920537358342607625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3879073329354691042}
+  - component: {fileID: 1971214115461692466}
+  m_Layer: 0
+  m_Name: Ghoul
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3879073329354691042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920537358342607625}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811370481288226646}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1971214115461692466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2920537358342607625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Ghoul
+  UnitID: 1
+  UnitHealth: 107
+  UnitShield: 0
+  UnitTenacity: 4
+  MovesCount: 3
+  UnitSprite: {fileID: 21300000, guid: 0b82d3a5ffef1eb43aebb706f1bf7733, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  MovesValues: 110000001000000008000000
+  MovesCooldowns: 010000000300000002000000
+  StartingEffects: 000000000000000000000000000000000100000000000000
+  additionalText:
+  - 
+  - 
+  - ' x2'
+  attackIntention: 010101
+  normalAttack: 010000
+--- !u!1 &3745182918673512095
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6172148069008563964}
+  - component: {fileID: 6726278920593641456}
+  m_Layer: 0
+  m_Name: Faceless One
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6172148069008563964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745182918673512095}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5335328618324209800}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6726278920593641456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3745182918673512095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Faceless One
+  UnitID: 3
+  UnitHealth: 888
+  UnitShield: 44
+  UnitTenacity: 8
+  MovesCount: 3
+  UnitSprite: {fileID: 21300000, guid: 209d0e16be0deff47ab7817c9874cda5, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  MovesValues: 100000000c00000000000000
+  MovesCooldowns: 010000000300000002000000
+  StartingEffects: 000000000000000000000000000000000000000000000000
+  additionalText:
+  - 
+  - 
+  - 
+  attackIntention: 010100
+  normalAttack: 010000
+--- !u!1 &5996746671537136830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5335328618324209800}
+  m_Layer: 0
+  m_Name: Elite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5335328618324209800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5996746671537136830}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6172148069008563964}
+  m_Father: {fileID: 5664719147339333400}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7413051435358042591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4853890636228325446}
+  - component: {fileID: 7739140068333639569}
+  m_Layer: 0
+  m_Name: Husk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4853890636228325446
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413051435358042591}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811370481288226646}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7739140068333639569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7413051435358042591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Husk
+  UnitID: 2
+  UnitHealth: 126
+  UnitShield: 0
+  UnitTenacity: 5
+  MovesCount: 4
+  UnitSprite: {fileID: 21300000, guid: 07ef83d7275f3f548ad2c11fc512f841, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  MovesValues: 1600000000000000070000000a000000
+  MovesCooldowns: 01000000020000000200000004000000
+  StartingEffects: 000000000000000000000000000000000000000001000000
+  additionalText:
+  - 
+  - 
+  - 
+  - 
+  attackIntention: 01000101
+  normalAttack: 00000000
+--- !u!1 &8313040951267365545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 811370481288226646}
+  m_Layer: 0
+  m_Name: Normal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &811370481288226646
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313040951267365545}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6195531571851964968}
+  - {fileID: 3879073329354691042}
+  - {fileID: 4853890636228325446}
+  m_Father: {fileID: 5664719147339333400}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8763182376264766612
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +321,7 @@ GameObject:
   - component: {fileID: 6195531571851964968}
   - component: {fileID: 8912802861094296742}
   m_Layer: 0
-  m_Name: Ghoul
+  m_Name: Risen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,12 +334,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8763182376264766612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5664719147339333400}
+  m_Father: {fileID: 811370481288226646}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8912802861094296742
@@ -91,19 +354,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitName: Ghoul
+  UnitName: Risen
   UnitID: 0
-  UnitHealth: 90
-  UnitShield: 0
+  UnitHealth: 80
+  UnitShield: 40
+  UnitTenacity: 4
   MovesCount: 3
-  UnitSprite: {fileID: 21300000, guid: 0b82d3a5ffef1eb43aebb706f1bf7733, type: 3}
+  UnitSprite: {fileID: 21300000, guid: 209d0e16be0deff47ab7817c9874cda5, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
-  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
-  MovesValues: 0f0000000c00000007000000
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  MovesValues: 100000000c00000000000000
+  MovesCooldowns: 010000000300000002000000
+  StartingEffects: 000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
-  - ' x2'
-  attackIntention: 010101
+  - 
+  attackIntention: 010100
+  normalAttack: 010000

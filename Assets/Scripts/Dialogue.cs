@@ -10,9 +10,4 @@ public class Dialogue : MonoBehaviour
     public Sprite[] LeftCharacterSprite, RightCharacterSprite;
     public bool[] LeftCharacterHighlight, RightCharacterHighlight;
     public int DialoguesCount;
-
-    public void Begin()
-    {
-        
-    }
 }

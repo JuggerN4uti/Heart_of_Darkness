@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerCombat : MonoBehaviour
 {
     [Header("Scripts")]
+    public Player PlayerScript;
     public Combat CombatScript;
     public Hand Cards;
 
@@ -44,8 +45,43 @@ public class PlayerCombat : MonoBehaviour
 
     void Start()
     {
+        //Cards.CardDraw.SetDeck();
+        //StartTurn();
+    }
+
+    public void Reset()
+    {
+        Cards.CardsInHand = 0;
         Cards.CardDraw.SetDeck();
+
+        mana = 0;
+        energy = 0;
+
+        health = PlayerScript.Health;
+        maxHealth = PlayerScript.StatValues[0];
+        shield = PlayerScript.StatValues[2];
+        for (int i = 0; i < effect.Length; i++)
+        {
+            effect[i] = 0;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            effect[i] = PlayerScript.StatValues[i + 4];
+        }
+        effect[6] = PlayerScript.StatValues[3];
+        for (int i = 0; i < 2; i++)
+        {
+            effect[i + 7] = PlayerScript.DrawbackValues[i];
+        }
+
+
         StartTurn();
+    }
+
+    public void Set()
+    {
+        PlayerScript.Health = health;
+        PlayerScript.UpdateInfo();
     }
 
     public void StartTurn()
@@ -57,7 +93,9 @@ public class PlayerCombat : MonoBehaviour
             effect[3] = 0;
         }
         GainEnergy(10 + effect[2]);
-        GainMana(3);
+        if (effect[7] > 0)
+            GainMana(2);
+        else GainMana(3);
         Cards.Draw(5);
         if (effect[5] > 0)
             GainValor(effect[5]);
@@ -121,6 +159,20 @@ public class PlayerCombat : MonoBehaviour
         if (energy > 10)
             energy = 10;
         mana = 0;
+        if (effect[6] > 0)
+            GainBlock(effect[6]);
+        if (effect[7] > 0)
+        {
+            effect[7]--;
+            UpdateInfo();
+        }
+        if (effect[8] > 0)
+            TakeDamage(effect[8]);
+        if (effect[9] > 0)
+        {
+            effect[9]--;
+            UpdateInfo();
+        }
         Cards.ShuffleHand();
     }
 
@@ -185,6 +237,20 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
+    public void GainBleed(int amount)
+    {
+        effect[8] += amount;
+        Display(amount, effectSprite[8]);
+        UpdateInfo();
+    }
+
+    public void GainWeak(int amount)
+    {
+        effect[9] += amount;
+        Display(amount, effectSprite[9]);
+        UpdateInfo();
+    }
+
     public void WeaponHovered()
     {
         TheWeapon.SetActive(true);
@@ -209,13 +275,23 @@ public class PlayerCombat : MonoBehaviour
     int WeaponDamage()
     {
         tempi = baseDamage + strengthScaling * effect[0];
-        return tempi;
+        return DamageDealtModifier(tempi);
     }
 
     public float HealthProcentage()
     {
         temp = (health * 1f) / (maxHealth * 1f);
         return temp;
+    }
+
+    public int DamageDealtModifier(int value)
+    {
+        if (effect[9] > 0)
+        {
+            value *= 3;
+            value /= 4;
+        }
+        return value;
     }
 
     public void TakeDamage(int amount)
@@ -247,6 +323,13 @@ public class PlayerCombat : MonoBehaviour
                 shield = 0;
             }
         }
+        health -= amount;
+        UpdateInfo();
+    }
+
+    public void TakeMagicDamage(int amount)
+    {
+        Display(amount, MagicDamageSprite);
         health -= amount;
         UpdateInfo();
     }
@@ -420,7 +503,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 9 + effect[0];
         tempi += 3 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void Defend(int level) // ID 1
@@ -452,7 +535,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 11 + effect[0];
         tempi += 3 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void Judgement(int level) // ID 3
@@ -466,7 +549,7 @@ public class PlayerCombat : MonoBehaviour
         tempi += 4 * level;
         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
             tempi += 8 + 4 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void BolaShot(int level) // ID 4
@@ -479,7 +562,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 10 + effect[0];
         tempi += 3 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int BolaShotSlow(int level)
@@ -499,7 +582,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 7 + effect[0];
         tempi += 2 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int CripplingStrikeBleed(int level)
@@ -571,7 +654,7 @@ public class PlayerCombat : MonoBehaviour
     int ShieldBashDamage(int level)
     {
         tempi = block + effect[0];
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void DesperateStand(int level) // ID 10
@@ -601,7 +684,7 @@ public class PlayerCombat : MonoBehaviour
         tempi = 12 + effect[0];
         tempi += 2 * level;
         tempi += effect[4];
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int DecisiveStrikeValor(int level)
@@ -705,7 +788,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 7 + effect[0];
         tempi += 2 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int SmiteSlow(int level)
@@ -726,7 +809,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 19 + effect[0];
         tempi += 6 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int BlindingLightWeak(int level)
@@ -760,7 +843,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 18 + effect[0];
         tempi += 6 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int ConsecrationSlow(int level)
@@ -809,7 +892,7 @@ public class PlayerCombat : MonoBehaviour
         tempi = 10 + effect[0];
         tempi += 5 * level;
         tempi += CombatScript.Enemy[CombatScript.targetedEnemy].effect[2];
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int ChastiseSlow(int level)
@@ -836,7 +919,7 @@ public class PlayerCombat : MonoBehaviour
         tempi = 15 + effect[0];
         tempi += 5 * level;
         tempi += (3 + level) * effect[4];
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void LayOnHands(int level) // ID 22
@@ -870,7 +953,7 @@ public class PlayerCombat : MonoBehaviour
         tempi += 5 * level;
         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
             tempi += CombatScript.Enemy[CombatScript.targetedEnemy].AttackDamage();
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void SurgeOfLight(int level) // ID 24
@@ -897,7 +980,7 @@ public class PlayerCombat : MonoBehaviour
         tempi = 10 + effect[0];
         tempi += 3 * level;
         tempi += (2 + level) * CombatScript.turn;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     void CrushingBlow(int level) // ID 26
@@ -913,7 +996,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 22 + effect[0];
         tempi += 4 * level;
-        return tempi;
+        return DamageDealtModifier(tempi); ;
     }
 
     int CrushingBlowSlow(int level)

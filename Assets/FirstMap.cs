@@ -7,6 +7,8 @@ public class FirstMap : MonoBehaviour
 {
     [Header("Scripts")]
     public Player PlayerScript;
+    public Combat CombatScript;
+    public Story StoryScript;
     public SceneChange Fade;
     public CardPick CardChoice;
 
@@ -16,6 +18,7 @@ public class FirstMap : MonoBehaviour
 
     [Header("UI")]
     public GameObject CardPickObject;
+    public GameObject CombatScene, Hand, StoryScene;
     public Button[] TileButton;
     public Image[] TileImage;
 
@@ -36,7 +39,6 @@ public class FirstMap : MonoBehaviour
 
     public void SelectTile(int which)
     {
-        //Fade.StartDarken();
         MoveTile();
 
         switch (tileEvent[which])
@@ -48,6 +50,15 @@ public class FirstMap : MonoBehaviour
             case 1:
                 if (PlayerScript.DeckScript.CommonCardsInDeck() > 0)
                     PlayerScript.DeckScript.ShowCardsToForge();
+                break;
+            case 2:
+                Fade.StartDarken();
+                CombatScript.SetEnemy(0);
+                Invoke("StartCombat", 0.4f);
+                break;
+            case 3:
+                Fade.StartDarken();
+                Invoke("ContinueStory", 0.4f);
                 break;
         }
     }
@@ -67,5 +78,17 @@ public class FirstMap : MonoBehaviour
         {
             UpdateInfo();
         }
+    }
+
+    void StartCombat()
+    {
+        CombatScene.SetActive(true);
+        Hand.SetActive(true);
+    }
+
+    void ContinueStory()
+    {
+        StoryScript.NewDialogue();
+        StoryScene.SetActive(true);
     }
 }

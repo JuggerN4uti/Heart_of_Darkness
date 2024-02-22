@@ -7,13 +7,14 @@ public class Story : MonoBehaviour
 {
     [Header("Scripts")]
     public SceneChange Fade;
+    public Map MapScript;
     public int StoryChapter, line;
     public Dialogue[] dialogues;
     public Dialogue CurrentDialogue;
 
     [Header("UI")]
     public GameObject StoryScene;
-    public GameObject ArmySelectScene, MapScene;
+    public GameObject ArmySelectScene, TutorialMapScene, MapScene;
     public Image LeftCharacter;
     public Image RightCharacter;
     public TMPro.TextMeshProUGUI CharacterName, CharacterDialogue;
@@ -74,6 +75,13 @@ public class Story : MonoBehaviour
                 break;
             case 2:
                 StoryScene.SetActive(false);
+                TutorialMapScene.SetActive(true);
+                break;
+            case 3:
+                StoryScene.SetActive(false);
+                TutorialMapScene.SetActive(false);
+                MapScript.SetTileEvents();
+                MapScript.danger += 0.25f;
                 MapScene.SetActive(true);
                 break;
         }

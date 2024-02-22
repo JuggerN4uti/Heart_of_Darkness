@@ -11,15 +11,17 @@ public class EnemyCombat : MonoBehaviour
 
     [Header("Stats")]
     public int unitID;
-    public int maxHealth, health, shield, block, slow, tenacity;
+    public int order, maxHealth, health, shield, block, slow, tenacity;
     public int[] effect;
     bool stunned;
     int tempi;
 
     [Header("Moves")]
     public int[] movesValue;
+    public int[] movesCooldowns, moveCooldown;
     public int movesCount, currentMove;
-    public bool[] attackIntentions;
+    public bool[] attackIntentions, normalAttacks;
+    public bool viable;
     public string[] movesText;
     public Image IntentionSprite;
     public Sprite[] MovesSprites;
@@ -27,8 +29,8 @@ public class EnemyCombat : MonoBehaviour
     public TMPro.TextMeshProUGUI AttackValue;
 
     [Header("UI")]
-    public GameObject ShieldDisplay;
-    public GameObject BlockDisplay;
+    public GameObject Unit;
+    public GameObject ShieldDisplay, BlockDisplay;
     public Image UnitSprite, HealthBarFil, StunBarFill;
     public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SlowVale;
 
@@ -47,25 +49,44 @@ public class EnemyCombat : MonoBehaviour
 
     void Start()
     {
-        SetUnit(unitID);
-        StartTurn();
+        //SetUnit(unitID);
+        //StartTurn();
         UpdateInfo();
     }
 
-    void SetUnit(int ID)
+    public void SetUnit(int ID)
     {
+        unitID = ID;
+        Reset();
         maxHealth = Library.Enemies[ID].UnitHealth;
         health = maxHealth;
         shield = Library.Enemies[ID].UnitShield;
+        tenacity = Library.Enemies[ID].UnitTenacity;
         UnitSprite.sprite = Library.Enemies[ID].UnitSprite;
         movesCount = Library.Enemies[ID].MovesCount;
         for (int i = 0; i < movesCount; i++)
         {
+            movesCooldowns[i] = Library.Enemies[ID].MovesCooldowns[i];
+            moveCooldown[i] = Library.Enemies[ID].MovesCooldowns[i];
             MovesSprites[i] = Library.Enemies[ID].MovesSprite[i];
             movesValue[i] = Library.Enemies[ID].MovesValues[i];
             movesText[i] = Library.Enemies[ID].additionalText[i];
             attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
+            normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
         }
+        UpdateInfo();
+        StartTurn();
+    }
+
+    void Reset()
+    {
+        block = 0;
+        slow = 0;
+        for (int i = 0; i < Library.Enemies[unitID].StartingEffects.Length; i++)
+        {
+            effect[i] = Library.Enemies[unitID].StartingEffects[i];
+        }
+        stunned = false;
     }
 
     void UpdateInfo()
@@ -91,7 +112,13 @@ public class EnemyCombat : MonoBehaviour
             IntentionSprite.sprite = StunSprite;
             AttackValue.text = "";
         }
-        else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+        else if (attackIntentions[currentMove])
+        {
+            if (unitID == 2 && currentMove == 3)
+                AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
+            else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+        }
+        else AttackValue.text = "";
 
         // status effects
         statusCount = 0;
@@ -126,21 +153,43 @@ public class EnemyCombat : MonoBehaviour
     {
         if (effect[0] > 0)
             effect[0]--;
-        currentMove = Random.Range(0, movesCount);
+        SelectMove();
         IntentionSprite.sprite = MovesSprites[currentMove];
         if (attackIntentions[currentMove])
-            AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+        {
+            if (unitID == 2 && currentMove == 3)
+                AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
+            else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+        }
         else AttackValue.text = "";
+    }
+
+    void SelectMove()
+    {
+        viable = false;
+        do
+        {
+            currentMove = Random.Range(0, movesCount);
+            moveCooldown[currentMove]--;
+            if (moveCooldown[currentMove] == 0)
+                viable = true;
+        } while (!viable);
+
+        moveCooldown[currentMove] += movesCooldowns[currentMove];
     }
 
     public void EndTurn()
     {
         if (effect[1] > 0)
             TakeDamage(effect[1]);
+        if (block > 0)
+            block = 0;
     }
 
     public void Move()
     {
+        if (effect[5] > 0)
+            CombatScript.Player.TakeMagicDamage(effect[5]);
         if (stunned)
         {
             stunned = false;
@@ -149,7 +198,74 @@ public class EnemyCombat : MonoBehaviour
                 Stunned();
             }
         }
-        else CombatScript.Player.TakeDamage(AttackDamage());
+        else ExecuteMove();
+    }
+
+    void ExecuteMove()
+    {
+        if (normalAttacks[currentMove])
+        {
+            CombatScript.Player.TakeDamage(AttackDamage());
+            OnHit();
+        }
+        else
+        {
+            switch (unitID, currentMove)
+            {
+                case (0, 1):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainBlock(10);
+                    break;
+                case (0, 2):
+                    GainStrength(2);
+                    GainBlock(6);
+                    break;
+                case (1, 1):
+                    if (CombatScript.Player.block + CombatScript.Player.shield < AttackDamage())
+                    {
+                        RestoreHealth(AttackDamage() - (CombatScript.Player.block + CombatScript.Player.shield));
+                    }
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainStrength(1);
+                    break;
+                case (1, 2):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    break;
+                case (2, 0):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainSlow(1);
+                    break;
+                case (2, 1):
+                    GainBlock(14 + tenacity);
+                    GainShield(4 + 2 * tenacity);
+                    break;
+                case (2, 2):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainWeak(1);
+                    // Fear?
+                    break;
+                case (2, 3):
+                    CombatScript.Player.TakeDamage(FlySwarmDamage());
+                    OnHit();
+                    effect[5]++;
+                    Display(1, effectSprite[5]);
+                    UpdateInfo();
+                    break;
+            }
+        }
+    }
+
+    void OnHit()
+    {
+        if (effect[4] > 0)
+            CombatScript.Player.GainBleed(effect[4]);
     }
 
     void Stunned()
@@ -164,9 +280,18 @@ public class EnemyCombat : MonoBehaviour
 
     public int AttackDamage()
     {
+        tempi = movesValue[currentMove] + effect[3];
         if (effect[0] > 0)
-            return (movesValue[currentMove] * 3) / 4;
-        else return movesValue[currentMove];
+            return (tempi * 3) / 4;
+        else return tempi;
+    }
+
+    public int FlySwarmDamage()
+    {
+        tempi = movesValue[currentMove] + effect[3] + effect[5] * 3;
+        if (effect[0] > 0)
+            return (tempi * 3) / 4;
+        else return tempi;
     }
 
     public void TakeDamage(int amount)
@@ -199,7 +324,15 @@ public class EnemyCombat : MonoBehaviour
             }
         }
         health -= amount;
+        if (health <= 0)
+            Perish();
         UpdateInfo();
+    }
+
+    void Perish()
+    {
+        Unit.SetActive(false);
+        CombatScript.EnemyDefeated(order);
     }
 
     public void BreakShield(int amount)
@@ -209,34 +342,59 @@ public class EnemyCombat : MonoBehaviour
         {
             if (block > amount)
             {
-                Display(block, BreakSprite);
+                tempi += amount;
                 block -= amount;
                 amount = 0;
             }
             else
             {
-                tempi += amount;
+                tempi += block;
                 amount -= block;
                 block = 0;
             }
         }
-        if (shield > 0)
+
+        if (shield > 0 && amount > 0)
         {
             if (shield > amount)
             {
-                tempi += shield;
-                Display(tempi, BreakSprite);
+                tempi += amount;
                 shield -= amount;
                 amount = 0;
             }
             else
             {
-                tempi += amount;
-                Display(tempi, BreakSprite);
-                amount -= shield;
+                tempi += shield;
                 shield = 0;
             }
         }
+
+        if (tempi > 0)
+            Display(tempi, BreakSprite);
+
+        UpdateInfo();
+    }
+
+    void RestoreHealth(int amount)
+    {
+        health += amount;
+        Display(amount, HealthSprite);
+        if (health > maxHealth)
+            health = maxHealth;
+        UpdateInfo();
+    }
+
+    void GainBlock(int amount)
+    {
+        block += amount;
+        Display(amount, BlockSprite);
+        UpdateInfo();
+    }
+
+    void GainShield(int amount)
+    {
+        shield += amount;
+        Display(amount, ShieldSprite);
         UpdateInfo();
     }
 
@@ -269,6 +427,13 @@ public class EnemyCombat : MonoBehaviour
     {
         Display(amount, effectSprite[2]);
         effect[2] += amount;
+        UpdateInfo();
+    }
+
+    public void GainStrength(int amount)
+    {
+        Display(amount, effectSprite[3]);
+        effect[3] += amount;
         UpdateInfo();
     }
 
