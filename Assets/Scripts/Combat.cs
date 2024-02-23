@@ -43,7 +43,8 @@ public class Combat : MonoBehaviour
     {
         turn = 1;
         Player.Reset();
-
+        TurnCounter.text = turn.ToString("");
+        EndTurnButton.interactable = true;
     }
 
     public void EndTurn()
@@ -173,6 +174,12 @@ public class Combat : MonoBehaviour
             case 8:
                 EffectTooltip.text = "Bleed:\nTake " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Damage at the end of every Turn";
                 break;
+            case 9:
+                EffectTooltip.text = "Weak:\nReduce Damage Dealt by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turns";
+                break;
+            case 10:
+                EffectTooltip.text = "Frail:\nReduce Blcok Gained by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turns";
+                break;
         }
     }
 
@@ -198,11 +205,25 @@ public class Combat : MonoBehaviour
             case 5:
                 EffectTooltip.text = "Fly Nest:\nEvery Turn deal " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Magic Damage to Player";
                 break;
+            case 6:
+                EffectTooltip.text = "Dreadful Aura:\nEvery Turn reduce Player sanity by " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0");
+                break;
         }
     }
 
     public void Unhovered()
     {
         EffectTooltip.text = "";
+    }
+
+    public void EnemiesGainStrength(int value)
+    {
+        for (int i = 0; i < Enemy.Length; i++)
+        {
+            if (enemyAlive[i])
+            {
+                Enemy[i].GainStrength(value);
+            }
+        }
     }
 }

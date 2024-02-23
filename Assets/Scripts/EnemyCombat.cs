@@ -153,15 +153,18 @@ public class EnemyCombat : MonoBehaviour
     {
         if (effect[0] > 0)
             effect[0]--;
-        SelectMove();
-        IntentionSprite.sprite = MovesSprites[currentMove];
-        if (attackIntentions[currentMove])
+        if (!stunned)
         {
-            if (unitID == 2 && currentMove == 3)
-                AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
-            else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+            SelectMove();
+            IntentionSprite.sprite = MovesSprites[currentMove];
+            if (attackIntentions[currentMove])
+            {
+                if (unitID == 2 && currentMove == 3)
+                    AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
+                else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
+            }
+            else AttackValue.text = "";
         }
-        else AttackValue.text = "";
     }
 
     void SelectMove()
@@ -190,6 +193,8 @@ public class EnemyCombat : MonoBehaviour
     {
         if (effect[5] > 0)
             CombatScript.Player.TakeMagicDamage(effect[5]);
+        if (effect[6] > 0)
+            CombatScript.Player.LoseSanity(effect[6]);
         if (stunned)
         {
             stunned = false;
@@ -242,14 +247,14 @@ public class EnemyCombat : MonoBehaviour
                     GainSlow(1);
                     break;
                 case (2, 1):
-                    GainBlock(14 + tenacity);
-                    GainShield(4 + 2 * tenacity);
+                    GainBlock(13 + tenacity);
+                    GainShield(5 + 2 * tenacity);
                     break;
                 case (2, 2):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     CombatScript.Player.GainWeak(1);
-                    // Fear?
+                    CombatScript.Player.LoseSanity(Random.Range(7, 11));
                     break;
                 case (2, 3):
                     CombatScript.Player.TakeDamage(FlySwarmDamage());
@@ -257,6 +262,43 @@ public class EnemyCombat : MonoBehaviour
                     effect[5]++;
                     Display(1, effectSprite[5]);
                     UpdateInfo();
+                    break;
+                case (3, 0):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainStrength(2 + CursesOnPlayer());
+                    break;
+                case (3, 1):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    for (int i = 0; i < 3 + CursesOnPlayer(); i++)
+                    {
+                        tempi = Random.Range(0, 3);
+                        switch (tempi)
+                        {
+                            case 0:
+                                CombatScript.Player.GainWeak(1);
+                                break;
+                            case 1:
+                                CombatScript.Player.GainSlow(1);
+                                break;
+                            case 2:
+                                CombatScript.Player.GainFrail(1);
+                                break;
+                        }
+                    }
+                    CombatScript.Player.LoseSanity(Random.Range(9, 15));
+                    break;
+                case (3, 2):
+                    CombatScript.Player.TakeDamage(TentacleSlamDamage());
+                    OnHit();
+                    GainDaze(TentacleSlamDamage() / 8);
+                    GainSlow(2);
+                    break;
+                case (3, 3):
+                    GainBlock(20 + 3 * effect[6]);
+                    effect[6] += (2 + CursesOnPlayer());
+                    Display(2 + CursesOnPlayer(), effectSprite[6]);
                     break;
             }
         }
@@ -289,6 +331,14 @@ public class EnemyCombat : MonoBehaviour
     public int FlySwarmDamage()
     {
         tempi = movesValue[currentMove] + effect[3] + effect[5] * 3;
+        if (effect[0] > 0)
+            return (tempi * 3) / 4;
+        else return tempi;
+    }
+
+    public int TentacleSlamDamage()
+    {
+        tempi = movesValue[currentMove] + effect[3] * 4;
         if (effect[0] > 0)
             return (tempi * 3) / 4;
         else return tempi;
@@ -440,5 +490,10 @@ public class EnemyCombat : MonoBehaviour
     public bool IntentToAttack()
     {
         return attackIntentions[currentMove];
+    }
+
+    int CursesOnPlayer()
+    {
+        return CombatScript.Player.PlayerScript.CursesCount;
     }
 }

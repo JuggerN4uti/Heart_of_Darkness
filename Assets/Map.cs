@@ -24,7 +24,9 @@ public class Map : MonoBehaviour
     public GameObject CombatScene, Hand, CardPickObject;
     public Slider slider;
     public Image[] TileImage;
+    public Image LastImage;
     public Button[] TileButton;
+    public Button LastButton;
 
     [Header("Sprite")]
     public Sprite[] TileSprites;
@@ -43,6 +45,11 @@ public class Map : MonoBehaviour
             {
                 TileButton[i].interactable = true;
             }
+        }
+        else if (currentTile == tilesAmount)
+        {
+            LastButton.interactable = true;
+            LastImage.color = new Color(1f, 1f, 0.6f, 1f);
         }
         else
         {
@@ -111,6 +118,23 @@ public class Map : MonoBehaviour
         }
     }
 
+    public void SelectLastTile()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            TileImage[currentTile * 3 + i - 2].color = new Color(1f, 1f, 1f, 1f);
+        }
+        TileImage[currentTile * 3 + currentRow - 2].sprite = EmptyTileSprite;
+
+        LastButton.interactable = false;
+        LastImage.sprite = PlayerSprite;
+        LastImage.color = new Color(0.6f, 1f, 0.6f, 1f);
+
+        Fade.StartDarken();
+        CombatScript.SetEnemy(3);
+        Invoke("StartCombat", 0.4f);
+    }
+
     int SetEnemies()
     {
         danger += 0.55f + danger * 0.02f;
@@ -151,10 +175,7 @@ public class Map : MonoBehaviour
         TileImage[currentTile * 3 + currentRow - 2].color = new Color(0.6f, 1f, 0.6f, 1f);
         TileImage[currentTile * 3 + currentRow - 2].sprite = PlayerSprite;
 
-        if (currentTile < tilesAmount)
-        {
-            UpdateInfo();
-        }
+        UpdateInfo();
     }
 
     void StartCombat()

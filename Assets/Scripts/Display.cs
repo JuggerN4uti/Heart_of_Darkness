@@ -13,4 +13,10 @@ public class Display : MonoBehaviour
         Value.text = value.ToString("0");
         Icon.sprite = sprite;
     }
+
+    public void DisplayName(string text, Sprite sprite)
+    {
+        Value.text = text;
+        Icon.sprite = sprite;
+    }
 }

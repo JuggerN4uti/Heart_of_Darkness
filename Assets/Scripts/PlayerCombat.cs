@@ -12,7 +12,7 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Stats")]
     public int maxHealth;
-    public int health, shield, block, energy, mana;
+    public int health, shield, block, energy, mana, sanity, maxSanity;
     public int[] effect;
     int tempi;
     float temp;
@@ -25,10 +25,9 @@ public class PlayerCombat : MonoBehaviour
     [Header("UI")]
     public GameObject ShieldDisplay;
     public GameObject BlockDisplay;
-    public Image HealthBarFil;
-    public Image EnergyBarFill;
+    public Image HealthBarFill, SanityBarFill, EnergyBarFill;
     public Button WeaponUseButton;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, EnergyValue, ManaValue;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ManaValue;
 
     [Header("Display")]
     public GameObject DisplayObject;
@@ -38,7 +37,7 @@ public class PlayerCombat : MonoBehaviour
     public Rigidbody2D Body;
     public Transform Origin;
     public Display Displayed;
-    public Sprite DamageSprite, MagicDamageSprite, HealthSprite, ShieldSprite, BlockSprite;
+    public Sprite DamageSprite, MagicDamageSprite, HealthSprite, ShieldSprite, BlockSprite, InsanitySprite;
     public Sprite[] effectSprite;
     public int[] effectsActive;
     int statusCount;
@@ -60,6 +59,8 @@ public class PlayerCombat : MonoBehaviour
         health = PlayerScript.Health;
         maxHealth = PlayerScript.StatValues[0];
         shield = PlayerScript.StatValues[2];
+        sanity = PlayerScript.Sanity;
+        maxSanity = PlayerScript.MaxSanity;
         for (int i = 0; i < effect.Length; i++)
         {
             effect[i] = 0;
@@ -74,6 +75,12 @@ public class PlayerCombat : MonoBehaviour
             effect[i + 7] = PlayerScript.DrawbackValues[i];
         }
 
+        for (int i = 0; i < PlayerScript.CurseValue.Length; i++)
+        {
+            if (PlayerScript.CurseValue[i] > 0)
+                GainCurseEffect(i, PlayerScript.CurseValue[i]);
+        }
+
 
         StartTurn();
     }
@@ -81,6 +88,8 @@ public class PlayerCombat : MonoBehaviour
     public void Set()
     {
         PlayerScript.Health = health;
+        PlayerScript.Sanity = sanity;
+        PlayerScript.MaxSanity = maxSanity;
         PlayerScript.UpdateInfo();
     }
 
@@ -99,15 +108,19 @@ public class PlayerCombat : MonoBehaviour
         Cards.Draw(5);
         if (effect[5] > 0)
             GainValor(effect[5]);
+        if (PlayerScript.CurseValue[2] > 0)
+            CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
         UpdateInfo();
     }
 
     void UpdateInfo()
     {
-        HealthBarFil.fillAmount = (health * 1f) / (maxHealth * 1f);
+        HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
+        SanityBarFill.fillAmount = (sanity * 1f) / (maxSanity * 1f);
         EnergyBarFill.fillAmount = (energy * 1f) / (energyCost * 1f);
         HealthValue.text = health.ToString("") + "/" + maxHealth.ToString("");
-        EnergyValue.text = energy.ToString("");
+        SanityValue.text = sanity.ToString("") + "/" + maxSanity.ToString("");
+        EnergyValue.text = energy.ToString("") + "/" + energyCost.ToString("");
         ManaValue.text = mana.ToString("");
         if (shield > 0)
         {
@@ -144,7 +157,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    void Display(int amount, Sprite sprite)
+    public void Display(int amount, Sprite sprite)
     {
         Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + Random.Range(-25f, 25f));
         GameObject display = Instantiate(DisplayObject, Origin.position, transform.rotation);
@@ -162,18 +175,77 @@ public class PlayerCombat : MonoBehaviour
         if (effect[6] > 0)
             GainBlock(effect[6]);
         if (effect[7] > 0)
-        {
             effect[7]--;
-            UpdateInfo();
-        }
         if (effect[8] > 0)
             TakeDamage(effect[8]);
         if (effect[9] > 0)
-        {
             effect[9]--;
-            UpdateInfo();
-        }
+        if (effect[10] > 0)
+            effect[10]--;
+        if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
+            TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
+        LoseSanity(TurnSanity());
+        UpdateInfo();
         Cards.ShuffleHand();
+    }
+
+    public void LoseSanity(int amount)
+    {
+        if (amount > 0)
+        {
+            sanity -= amount;
+            Display(amount, InsanitySprite);
+        }
+        if (sanity < 1)
+        {
+            sanity += maxSanity;
+            maxSanity += 10;
+            GainCurse();
+        }
+        UpdateInfo();
+    }
+
+    void GainCurse()
+    {
+        tempi = Random.Range(0, PlayerScript.CurseValue.Length);
+        PlayerScript.CurseValue[tempi]++;
+        PlayerScript.CursesCount++;
+
+        Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + Random.Range(-5f, 5f));
+        GameObject display = Instantiate(DisplayObject, Origin.position, transform.rotation);
+        Displayed = display.GetComponent(typeof(Display)) as Display;
+        Displayed.DisplayName(PlayerScript.CurseName[tempi], InsanitySprite);
+        Rigidbody2D display_body = display.GetComponent<Rigidbody2D>();
+        display_body.AddForce(Origin.up * Random.Range(2f, 2.4f), ForceMode2D.Impulse);
+
+        GainCurseEffect(tempi, 1);
+    }
+
+    void GainCurseEffect(int which, int level)
+    {
+        switch (which)
+        {
+            case 0:
+                GainWeak(2 * level);
+                break;
+            case 2:
+                CombatScript.EnemiesGainStrength(2 * level);
+                break;
+            case 4:
+                GainFrail(2 * level);
+                break;
+        }
+    }
+
+    int TurnSanity()
+    {
+        temp = Random.Range(CombatScript.turn * 0.5f - 0.4f, CombatScript.turn * 0.75f - 0.3f);
+        tempi = 0;
+        for (float i = 1f; i < temp; i += 1f)
+        {
+            tempi++;
+        }
+        return tempi;
     }
 
     void GainBlock(int amount)
@@ -237,6 +309,13 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
+    public void GainSlow(int amount)
+    {
+        effect[7] += amount;
+        Display(amount, effectSprite[7]);
+        UpdateInfo();
+    }
+
     public void GainBleed(int amount)
     {
         effect[8] += amount;
@@ -248,6 +327,13 @@ public class PlayerCombat : MonoBehaviour
     {
         effect[9] += amount;
         Display(amount, effectSprite[9]);
+        UpdateInfo();
+    }
+
+    public void GainFrail(int amount)
+    {
+        effect[10] += amount;
+        Display(amount, effectSprite[10]);
         UpdateInfo();
     }
 
@@ -289,7 +375,17 @@ public class PlayerCombat : MonoBehaviour
         if (effect[9] > 0)
         {
             value *= 3;
-            value /= 4;
+            value /= 4 + PlayerScript.CurseValue[0];
+        }
+        return value;
+    }
+
+    public int BlockGainedModifier(int value)
+    {
+        if (effect[10] > 0)
+        {
+            value *= 3;
+            value /= 4 + PlayerScript.CurseValue[4];
         }
         return value;
     }
@@ -324,6 +420,8 @@ public class PlayerCombat : MonoBehaviour
             }
         }
         health -= amount;
+        if (PlayerScript.CurseValue[3] > 0 && amount > 0)
+            LoseSanity(Random.Range(PlayerScript.CurseValue[3] * 2, PlayerScript.CurseValue[3] * 3 + 1));
         UpdateInfo();
     }
 
@@ -422,6 +520,9 @@ public class PlayerCombat : MonoBehaviour
             case 27:
                 HeavyArmor(level);
                 break;
+            case 28:
+                ShieldOfHope(level);
+                break;
         }
     }
 
@@ -489,6 +590,8 @@ public class PlayerCombat : MonoBehaviour
                 return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowDaze(level).ToString("") + " Daze\n" + CrushingBlowSlow(level).ToString("") + " Slow\n" + CrushingBlowWeak(level).ToString("") + " Weak\n& 1 Vulnerable";
             case 27:
                 return "Gain " + HeavyArmorBlock(level).ToString("") + " Block";
+            case 29:
+                return "Gain " + ShieldOfHopeBlock(level).ToString("") + " Block. Destroy";
         }
         return "";
     }
@@ -515,7 +618,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 8 + effect[1];
         tempi += 3 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     void SpearThrust(int level) // ID 2
@@ -602,7 +705,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 8 + effect[1];
         tempi += 3 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     void Empower(int level) // ID 7
@@ -634,7 +737,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 4 + effect[1];
         tempi += 2 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     void ShieldBash(int level) // ID 9
@@ -648,7 +751,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = effect[1];
         tempi += 3 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     int ShieldBashDamage(int level)
@@ -670,7 +773,7 @@ public class PlayerCombat : MonoBehaviour
         tempi += 4 * level;
         if (HealthProcentage() < 0.6f)
             tempi += 8 + 4 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     void DecisiveStrike(int level) // ID 11
@@ -705,7 +808,7 @@ public class PlayerCombat : MonoBehaviour
         tempi = 10 + effect[1];
         tempi += 2 * level;
         tempi += effect[4];
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     int BulwarkOfLightValor(int level)
@@ -729,7 +832,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 12 + effect[1];
         tempi += 3 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     int GoldenAegisSlow(int level)
@@ -749,7 +852,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 10 + effect[1];
         tempi += 4 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     int ShieldWallResistance(int level)
@@ -768,7 +871,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 12 + effect[1];
         tempi += level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     int ShieldGlareWeak(int level)
@@ -870,7 +973,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 6 + effect[1];
         tempi += 3 * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
     }
 
     int HolyLightHeal(int level)
@@ -977,8 +1080,8 @@ public class PlayerCombat : MonoBehaviour
 
     int PatientStrikeDamage(int level)
     {
-        tempi = 10 + effect[0];
-        tempi += 3 * level;
+        tempi = 8 + effect[0];
+        tempi += 2 * level;
         tempi += (2 + level) * CombatScript.turn;
         return DamageDealtModifier(tempi); ;
     }
@@ -1029,6 +1132,38 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 11 + 3 * effect[1];
         tempi += (3 + effect[1]) * level;
-        return tempi;
+        return BlockGainedModifier(tempi);
+    }
+
+    void ShieldOfHope(int level) // ID 28
+    {
+        GainBlock(ShieldOfHopeBlock(level));
+    }
+
+    int ShieldOfHopeBlock(int level)
+    {
+        tempi = (maxHealth - health) + effect[1];
+        //tempi += (3 + effect[1]) * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    void HammerOfWrath(int level) // ID 28
+    {
+        baseDamage += HammerOfWrathDamage(level);
+
+    }
+
+    int HammerOfWrathDamage(int level)
+    {
+        tempi = 4;
+        tempi += level;
+        return BlockGainedModifier(tempi);
+    }
+
+    int HammerOfWrathDaze(int level)
+    {
+        tempi = 2;
+        tempi += level;
+        return BlockGainedModifier(tempi);
     }
 }

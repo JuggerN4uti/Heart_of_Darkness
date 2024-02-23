@@ -27,6 +27,10 @@ public class Hand : MonoBehaviour
     [Header("Stats")]
     public int CardsInHand;
     public int[] CardsID, CardsLevel;
+    public int skipDraw;
+
+    [Header("Sprites")]
+    public Sprite CardDrawSkipSprite;
 
     void Start()
     {
@@ -56,15 +60,25 @@ public class Hand : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            if (CardsInHand < 10)
+            if (skipDraw >= 5)
             {
-                CardsID[CardsInHand] = CardDraw.Draw();
-                CardsLevel[CardsInHand] = CardDraw.DrawLevel();
-                CardsInHand++;
+                skipDraw -= 5;
+                Player.Display(1, CardDrawSkipSprite);
             }
             else
             {
-                CardDiscard.ShuffleIn(CardDraw.Draw(), CardDraw.DrawLevel());
+                if (Player.PlayerScript.CurseValue[3] > 0)
+                    skipDraw += Player.PlayerScript.CurseValue[3];
+                if (CardsInHand < 10)
+                {
+                    CardsID[CardsInHand] = CardDraw.Draw();
+                    CardsLevel[CardsInHand] = CardDraw.DrawLevel();
+                    CardsInHand++;
+                }
+                else
+                {
+                    CardDiscard.ShuffleIn(CardDraw.Draw(), CardDraw.DrawLevel());
+                }
             }
         }
         UpdateInfo();

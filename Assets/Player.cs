@@ -11,16 +11,22 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Health;
+    public int Sanity, MaxSanity;
     public int[] StatValues;
     public int[] DrawbackValues;
     public int unitUnderCommand;
     public bool opened;
 
+    [Header("Curses")]
+    public int CursesCount;
+    public int[] CurseValue;
+    public string[] CurseName;
+
     [Header("UI")]
     public GameObject InfoObject;
     public GameObject DeckOpenButton;
-    public Image HealthFill;
-    public TMPro.TextMeshProUGUI HealthText;
+    public Image HealthFill, SanityFill;
+    public TMPro.TextMeshProUGUI HealthText, SanityText;
 
     public void GainUnitsStats()
     {
@@ -40,6 +46,8 @@ public class Player : MonoBehaviour
             }
         }
         Health = StatValues[0];
+        MaxSanity = 50;
+        Sanity = MaxSanity;
         UpdateInfo();
     }
 
@@ -47,6 +55,9 @@ public class Player : MonoBehaviour
     {
         HealthFill.fillAmount = (Health * 1f) / (StatValues[0] * 1f);
         HealthText.text = Health.ToString("") + "/" + StatValues[0].ToString("");
+
+        SanityFill.fillAmount = (Sanity * 1f) / (MaxSanity * 1f);
+        SanityText.text = Sanity.ToString("") + "/" + MaxSanity.ToString("");
     }
 
     public void ShowInfo()
