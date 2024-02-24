@@ -10,14 +10,14 @@ public class FirstMap : MonoBehaviour
     public Combat CombatScript;
     public Story StoryScript;
     public SceneChange Fade;
-    public CardPick CardChoice;
+    public ForgeChoice ForgeScript;
 
     [Header("Stats")]
     public int[] tileEvent; // 0 - Card Pick, 1 - Forge, 2 - Threat, 3 - Watchtower
     public int tilesAmount, currentTile;
 
     [Header("UI")]
-    public GameObject CardPickObject;
+    public GameObject CardEventObject;
     public GameObject CombatScene, Hand, StoryScene;
     public Button[] TileButton;
     public Image[] TileImage;
@@ -44,12 +44,10 @@ public class FirstMap : MonoBehaviour
         switch (tileEvent[which])
         {
             case 0:
-                CardChoice.RollCards();
-                CardPickObject.SetActive(true);
+                CardEventObject.SetActive(true);
                 break;
             case 1:
-                if (PlayerScript.DeckScript.CommonCardsInDeck() > 0)
-                    PlayerScript.DeckScript.ShowCardsToForge();
+                ForgeScript.Open();
                 break;
             case 2:
                 Fade.StartDarken();

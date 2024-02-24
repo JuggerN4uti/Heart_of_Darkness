@@ -22,12 +22,21 @@ public class Deck : MonoBehaviour
     public Image[] CardRarity, CardIcon;
     public TMPro.TextMeshProUGUI[] CardManaCost;
 
+    [Header("Forge/Merge")]
+    public GameObject ForgeConfirmObject;
+    public int selectedCard;
+    public TMPro.TextMeshProUGUI ChoiceMessage;
+
     [Header("Forge")]
     public bool forge;
-    public GameObject ForgeConfirmObject;
     public Image[] ForgeCardIcon;
     public TMPro.TextMeshProUGUI[] ForgeCardManaCost, ForgeCardName, ForgeCardEffect;
-    public int selectedCard;
+
+    [Header("Merge")]
+    public CardChoice CardEvent;
+    public bool merge, found;
+    public int selectedCardID, selectedCardLevel, foundCard;// foundCardID, foundCardLevel;
+    public TMPro.TextMeshProUGUI ErrorMessage;
 
     public void AddACard(int which, int level)
     {
@@ -67,6 +76,41 @@ public class Deck : MonoBehaviour
                 ForgeCardEffect[i].text = Library.Cards[CardID[currentCard[slot]]].CardTooltip[i];
             }
             ForgeConfirmObject.SetActive(true);
+            ChoiceMessage.text = "Upgrade";
+        }
+        else if (merge)
+        {
+            selectedCard = currentCard[slot];
+            selectedCardID = CardID[currentCard[slot]];
+            selectedCardLevel = CardLevel[currentCard[slot]];
+
+            found = false;
+            for (int i = 0; i < cardsInDeck; i++) // szukanie drugiej identycznej
+            {
+                if (i != selectedCard && CardID[i] == selectedCardID && CardLevel[i] == selectedCardLevel)
+                {
+                    foundCard = i;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                ErrorMessage.text = "Found no Card to Merge";
+                Invoke("ErrorEnd", 0.6f);
+            }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    ForgeCardIcon[i].sprite = Library.Cards[CardID[currentCard[slot]]].CardSprite;
+                    ForgeCardName[i].text = Library.Cards[CardID[currentCard[slot]]].CardName;
+                    ForgeCardManaCost[i].text = Library.Cards[CardID[currentCard[slot]]].CardManaCost[i].ToString("");
+                    ForgeCardEffect[i].text = Library.Cards[CardID[currentCard[slot]]].CardTooltip[i];
+                }
+                ForgeConfirmObject.SetActive(true);
+                ChoiceMessage.text = "Merge";
+            }
         }
     }
 
@@ -115,6 +159,7 @@ public class Deck : MonoBehaviour
     public void SkipForge()
     {
         forge = false;
+        merge = false;
         DeckObjet.SetActive(false);
         DeckButton.SetActive(true);
         SkipButton.SetActive(false);
@@ -126,10 +171,45 @@ public class Deck : MonoBehaviour
         ForgeConfirmObject.SetActive(false);
     }
 
+    public void ShowCardsToMerge()
+    {
+        merge = true;
+        DisplayCommonCards();
+        DeckObjet.SetActive(true);
+        DeckButton.SetActive(false);
+        SkipButton.SetActive(true);
+        PlayerInfoButton.SetActive(false);
+    }
+
     public void Upgrade()
     {
         ForgeConfirmObject.SetActive(false);
-        CardLevel[selectedCard]++;
+        if (forge)
+            CardLevel[selectedCard]++;
+        else if (merge)
+        {
+            CardLevel[selectedCard]++;
+            if (selectedCard < foundCard)
+            {
+                for (int i = selectedCard + 1; i < cardsInDeck; i++)
+                {
+                    CardID[i] = CardID[i + 1];
+                    CardLevel[i] = CardLevel[i + 1];
+                }
+            }
+            else
+            {
+                for (int i = foundCard + 1; i < cardsInDeck; i++)
+                {
+                    CardID[i] = CardID[i + 1];
+                    CardLevel[i] = CardLevel[i + 1];
+                }
+            }
+            cardsInDeck--;
+            CardObject[cardsInDeck].SetActive(false);
+            CardsInDeckText.text = cardsInDeck.ToString("0");
+            CardEvent.CardChoiceObject.SetActive(false);
+        }
         SkipForge();
     }
 
@@ -143,5 +223,10 @@ public class Deck : MonoBehaviour
         }
 
         return tempi;
+    }
+
+    void ErrorEnd()
+    {
+        ErrorMessage.text = "";
     }
 }

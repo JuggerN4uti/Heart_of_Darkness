@@ -22,11 +22,26 @@ public class Player : MonoBehaviour
     public int[] CurseValue;
     public string[] CurseName;
 
+    [Header("Weapon")]
+    public int weaponLevel;
+    public int weaponDamage, weaponStrengthBonus, weaponEnergyRequirement;
+
+    [Header("Info")]
+    public TMPro.TextMeshProUGUI[] WeaponInfoText;
+    public GameObject[] EffectObject, CurseObject;
+    public Image[] EffectIcon, CurseIcon;
+    public TMPro.TextMeshProUGUI[] EffectValueText, CurseValueText;
+    int count;
+
     [Header("UI")]
     public GameObject InfoObject;
     public GameObject DeckOpenButton;
     public Image HealthFill, SanityFill;
     public TMPro.TextMeshProUGUI HealthText, SanityText;
+
+    [Header("Sprites")]
+    public Sprite[] EffectSprite;
+    public Sprite[] CurseSprite;
 
     public void GainUnitsStats()
     {
@@ -77,8 +92,48 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void RestoreHealth(int amount)
+    {
+        Health += amount;
+        if (Health > StatValues[0])
+            Health = StatValues[0];
+        UpdateInfo();
+    }
+
+    public void RestoreSanity(int amount)
+    {
+        Sanity += amount;
+        UpdateInfo();
+    }
+
     void DisplayPlayerInfo()
     {
+        WeaponInfoText[0].text = weaponDamage.ToString("");
+        WeaponInfoText[1].text = "+" + weaponStrengthBonus.ToString("") + "/";
+        WeaponInfoText[2].text = weaponEnergyRequirement.ToString("");
 
+        count = 0;
+        for (int i = 1; i < StatValues.Length; i++)
+        {
+            if (StatValues[i] > 0)
+            {
+                EffectObject[count].SetActive(true);
+                EffectIcon[count].sprite = EffectSprite[i];
+                EffectValueText[count].text = StatValues[i].ToString("");
+                count++;
+            }
+        }
+
+        count = 0;
+        for (int i = 0; i < CurseValue.Length; i++)
+        {
+            if (CurseValue[i] > 0)
+            {
+                CurseObject[count].SetActive(true);
+                CurseIcon[count].sprite = CurseSprite[i];
+                CurseValueText[count].text = CurseValue[i].ToString("");
+                count++;
+            }
+        }
     }
 }

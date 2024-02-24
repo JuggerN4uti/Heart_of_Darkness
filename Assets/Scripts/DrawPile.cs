@@ -31,6 +31,7 @@ public class DrawPile : MonoBehaviour
         }
 
         cardsInPile = CardDeck.cardsInDeck;
+        CardDiscard.cardsInPile = 0;
 
         UpdateInfo();
     }

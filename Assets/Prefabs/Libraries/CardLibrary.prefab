@@ -1180,8 +1180,8 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Valor. At the start of every Turn Gain 1 Valor
-  - Gain 3 Valor. At the start of every Turn Gain 1 Valor
+  - Gain 2 Dexterity, Gain 4 Energy. Destroy
+  - Gain 3 Dexterity, Gain 5 Energy. Destroy
 --- !u!1 &6256575464566816610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,13 +1277,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardSprite: {fileID: 21300000, guid: c352447c9ea8edd41a992e4cfeae1bf3, type: 3}
+  CardSprite: {fileID: 21300000, guid: d2e445c2007338b4bbd8a6a3d39c8980, type: 3}
   CardName: Hammer of Wrath
   CardManaCost: 0100000001000000010000000100000001000000
-  SingleUse: 0
+  SingleUse: 1
   CardTooltip:
-  - Increase your Weapon Damage by 4. Weapon hits Apply 2 Daze
-  - Increase your Weapon Damage by 5. Weapon hits Apply 3 Daze
+  - Increase your Weapon Damage by 3. Weapon hits Draw 1 Card
+  - Increase your Weapon Damage by 5. Weapon hits Draw 1 Card
 --- !u!1 &6703391293828820304
 GameObject:
   m_ObjectHideFlags: 0

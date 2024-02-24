@@ -10,8 +10,9 @@ public class Map : MonoBehaviour
     public MapTile[] MidTiles, BotTiles;
     public Player PlayerScript;
     public Combat CombatScript;
+    public ForgeChoice ForgeScript;
+    public CampChoice CampScript;
     public SceneChange Fade;
-    public CardPick CardChoice;
 
     [Header("Stats")]
     public int[] tileEvent;
@@ -21,7 +22,7 @@ public class Map : MonoBehaviour
 
     [Header("UI")]
     public RectTransform SlidingMap;
-    public GameObject CombatScene, Hand, CardPickObject;
+    public GameObject CombatScene, Hand, CardEventObject;
     public Slider slider;
     public Image[] TileImage;
     public Image LastImage;
@@ -103,17 +104,18 @@ public class Map : MonoBehaviour
         switch (tileEvent[currentTile * 3 + currentRow - 2])
         {
             case 0:
-                CardChoice.RollCards();
-                CardPickObject.SetActive(true);
+                CardEventObject.SetActive(true);
                 break;
             case 1:
-                if (PlayerScript.DeckScript.CommonCardsInDeck() > 0)
-                    PlayerScript.DeckScript.ShowCardsToForge();
+                ForgeScript.Open();
                 break;
             case 2:
                 Fade.StartDarken();
                 CombatScript.SetEnemy(SetEnemies());
                 Invoke("StartCombat", 0.4f);
+                break;
+            case 3:
+                CampScript.Open();
                 break;
         }
     }

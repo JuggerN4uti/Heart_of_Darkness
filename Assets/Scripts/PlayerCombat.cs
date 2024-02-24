@@ -61,6 +61,11 @@ public class PlayerCombat : MonoBehaviour
         shield = PlayerScript.StatValues[2];
         sanity = PlayerScript.Sanity;
         maxSanity = PlayerScript.MaxSanity;
+
+        baseDamage = PlayerScript.weaponDamage;
+        strengthScaling = PlayerScript.weaponStrengthBonus;
+        energyCost = PlayerScript.weaponEnergyRequirement;
+
         for (int i = 0; i < effect.Length; i++)
         {
             effect[i] = 0;
@@ -101,13 +106,11 @@ public class PlayerCombat : MonoBehaviour
             GainBlock(effect[3]);
             effect[3] = 0;
         }
-        GainEnergy(10 + effect[2]);
+        GainEnergy(8 + effect[2]);
         if (effect[7] > 0)
             GainMana(2);
         else GainMana(3);
         Cards.Draw(5);
-        if (effect[5] > 0)
-            GainValor(effect[5]);
         if (PlayerScript.CurseValue[2] > 0)
             CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
         UpdateInfo();
@@ -302,6 +305,13 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
+    void GainDexterity(int amount)
+    {
+        effect[2] += amount;
+        Display(amount, effectSprite[2]);
+        UpdateInfo();
+    }
+
     void GainValor(int amount)
     {
         effect[4] += amount;
@@ -355,6 +365,8 @@ public class PlayerCombat : MonoBehaviour
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(WeaponDamage());
         SpendEnergy(energyCost);
+        if (effect[5] > 0)
+            Cards.Draw(effect[5]);
         UpdateInfo();
     }
 
@@ -523,6 +535,9 @@ public class PlayerCombat : MonoBehaviour
             case 28:
                 ShieldOfHope(level);
                 break;
+            case 29:
+                HammerOfWrath(level);
+                break;
         }
     }
 
@@ -573,25 +588,27 @@ public class PlayerCombat : MonoBehaviour
             case 18:
                 return "Deal " + ConsecrationDamage(level).ToString("") + " Damage\nApply " + ConsecrationSlow(level).ToString("") + " Slow\nto All Enemies\n Gain " + ConsecrationValor(level).ToString("") + " Valor";
             case 19:
-                return "Gain " + HolyLightBlock(level).ToString("") + " Block\nRestore " + HolyLightHeal(level).ToString("") + " Health";
+                return "Gain " + HolyLightBlock(level).ToString("") + " Block\nRestore " + HolyLightHeal(level).ToString("") + " Health\nDestroy";
             case 20:
                 return "Deal " + ChastiseDamage(level).ToString("") + " Damage\nApply " + ChastiseDaze(level).ToString("") + " Daze & " + ChastiseSlow(level).ToString("") + " Slow";
             case 21:
                 return "Deal " + HolyBoltDamage(level).ToString("") + " Damage";
             case 22:
-                return "Gain " + LayOnHandsValor(level).ToString("") + " Valor\nRestore " + LayOnHandsHeal(level).ToString("") + " Health";
+                return "Gain " + LayOnHandsValor(level).ToString("") + " Valor\nRestore " + LayOnHandsHeal(level).ToString("") + " Health\nDestroy";
             case 23:
                 return "Deal " + CounterAttackDamage(level).ToString("") + " Damage";
             case 24:
-                return "Gain " + SurgeOfLightValor(level).ToString("") + " Valor\nGain 1 Valor at the Start of Each Turn";
+                return "Gain " + SurgeOfLightDexterity(level).ToString("") + " Dexterity\n& " + SurgeOfLightEnergy(level).ToString("") + " Energy\nDestroy";
             case 25:
                 return "Deal " + PatientStrikeDamage(level).ToString("") + " Damage";
             case 26:
                 return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowDaze(level).ToString("") + " Daze\n" + CrushingBlowSlow(level).ToString("") + " Slow\n" + CrushingBlowWeak(level).ToString("") + " Weak\n& 1 Vulnerable";
             case 27:
                 return "Gain " + HeavyArmorBlock(level).ToString("") + " Block";
+            case 28:
+                return "Gain " + ShieldOfHopeBlock(level).ToString("") + " Block\nDestroy";
             case 29:
-                return "Gain " + ShieldOfHopeBlock(level).ToString("") + " Block. Destroy";
+                return "Increase your Weapon Damage by " + HammerOfWrathDamage(level).ToString("") + "\nEvery Weapon Attack Draws 1 Card\nDestroy";
         }
         return "";
     }
@@ -863,7 +880,7 @@ public class PlayerCombat : MonoBehaviour
 
     void ShieldGlare(int level) // ID 15
     {
-        GainBlock(ShieldWallBlock(level));
+        GainBlock(ShieldGlareBlock(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(ShieldGlareWeak(level));
     }
 
@@ -1061,15 +1078,21 @@ public class PlayerCombat : MonoBehaviour
 
     void SurgeOfLight(int level) // ID 24
     {
-        GainValor(SurgeOfLightValor(level));
-        effect[5]++;
-        Display(1, effectSprite[5]);
+        GainDexterity(SurgeOfLightDexterity(level));
+        GainEnergy(SurgeOfLightEnergy(level));
     }
 
-    int SurgeOfLightValor(int level)
+    int SurgeOfLightDexterity(int level)
     {
-        tempi = 1;
-        tempi += 2 * level;
+        tempi = 2;
+        tempi += 1 * level;
+        return tempi;
+    }
+
+    int SurgeOfLightEnergy(int level)
+    {
+        tempi = 4;
+        tempi += 1 * level;
         return tempi;
     }
 
@@ -1150,20 +1173,14 @@ public class PlayerCombat : MonoBehaviour
     void HammerOfWrath(int level) // ID 28
     {
         baseDamage += HammerOfWrathDamage(level);
-
+        effect[5]++;
+        Display(1, effectSprite[5]);
     }
 
     int HammerOfWrathDamage(int level)
     {
-        tempi = 4;
-        tempi += level;
-        return BlockGainedModifier(tempi);
-    }
-
-    int HammerOfWrathDaze(int level)
-    {
-        tempi = 2;
-        tempi += level;
+        tempi = 3;
+        tempi += 2 * level;
         return BlockGainedModifier(tempi);
     }
 }

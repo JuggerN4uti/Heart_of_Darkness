@@ -163,22 +163,22 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Valor:\nEmpower effects of certain Cards by " + Player.effect[Player.effectsActive[effect]].ToString("0");
                 break;
             case 5:
-                EffectTooltip.text = "Light Surge:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Valor at the start of every Turn";
+                EffectTooltip.text = "Hammer of Wrath:\nEvery Weapon Attack Draws " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s";
                 break;
             case 6:
                 EffectTooltip.text = "Armor:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block at the end of every Turn";
                 break;
             case 7:
-                EffectTooltip.text = "Slow:\nGain 1 less Mana at the start of Turn for " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turns";
+                EffectTooltip.text = "Slow:\nGain 1 less Mana at the start of Turn for " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
             case 8:
                 EffectTooltip.text = "Bleed:\nTake " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Damage at the end of every Turn";
                 break;
             case 9:
-                EffectTooltip.text = "Weak:\nReduce Damage Dealt by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turns";
+                EffectTooltip.text = "Weak:\nReduce Damage Dealt by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
             case 10:
-                EffectTooltip.text = "Frail:\nReduce Blcok Gained by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turns";
+                EffectTooltip.text = "Frail:\nReduce Blcok Gained by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
         }
     }
@@ -188,7 +188,7 @@ public class Combat : MonoBehaviour
         switch (Enemy[enemy].effectsActive[effect])
         {
             case 0:
-                EffectTooltip.text = "Weak:\nReduce Damage Dealt by 25%\nlasts " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turns";
+                EffectTooltip.text = "Weak:\nReduce Damage Dealt by 25%\nlasts " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
             case 1:
                 EffectTooltip.text = "Bleed:\nTake " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Damage at the start of every Turn";

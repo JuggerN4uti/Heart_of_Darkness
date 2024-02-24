@@ -161,6 +161,8 @@ public class EnemyCombat : MonoBehaviour
             {
                 if (unitID == 2 && currentMove == 3)
                     AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
+                else if (unitID == 3 && currentMove == 2)
+                    AttackValue.text = TentacleSlamDamage().ToString("") + movesText[currentMove];
                 else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
             }
             else AttackValue.text = "";
@@ -287,7 +289,7 @@ public class EnemyCombat : MonoBehaviour
                                 break;
                         }
                     }
-                    CombatScript.Player.LoseSanity(Random.Range(9, 15));
+                    CombatScript.Player.LoseSanity(Random.Range(11, 17));
                     break;
                 case (3, 2):
                     CombatScript.Player.TakeDamage(TentacleSlamDamage());
@@ -296,9 +298,10 @@ public class EnemyCombat : MonoBehaviour
                     GainSlow(2);
                     break;
                 case (3, 3):
-                    GainBlock(20 + 3 * effect[6]);
+                    GainBlock(18 + 4 * effect[6]);
                     effect[6] += (2 + CursesOnPlayer());
                     Display(2 + CursesOnPlayer(), effectSprite[6]);
+                    UpdateInfo();
                     break;
             }
         }

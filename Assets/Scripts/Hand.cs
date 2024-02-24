@@ -104,7 +104,15 @@ public class Hand : MonoBehaviour
         Player.UseAbility(CardsID[which], CardsLevel[which]);
         Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]]);
 
-        CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
+        if (!Library.Cards[CardsID[which]].SingleUse)
+        {
+            if (CardsID[which] == 10)
+            {
+                if (Player.HealthProcentage() >= 0.6f)
+                    CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
+            }
+            else CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
+        }
 
         for (int i = which; i < CardsInHand; i++)
         {
