@@ -51,7 +51,7 @@ public class FirstMap : MonoBehaviour
                 break;
             case 2:
                 Fade.StartDarken();
-                CombatScript.SetEnemy(0);
+                CombatScript.SetEnemy(0, 0);
                 Invoke("StartCombat", 0.4f);
                 break;
             case 3:

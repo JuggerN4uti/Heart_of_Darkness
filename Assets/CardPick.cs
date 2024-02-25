@@ -19,7 +19,7 @@ public class CardPick : MonoBehaviour
     public Image[] CardRarityImage, CardIcon;
     public TMPro.TextMeshProUGUI[] CardManaCost, CardNameText, CardEffectText;
 
-    public void RollCards()
+    public void RollCards(int rarity = 0)
     {
         roll = Random.Range(2, Library.Cards.Length);
         rolledID[0] = roll;
@@ -36,15 +36,16 @@ public class CardPick : MonoBehaviour
         } while (roll == rolledID[0] || roll == rolledID[1]);
         rolledID[2] = roll;
 
+        cardsRarity = rarity;
         SetCards();
     }
 
     void SetCards()
     {
-        // potem daæ luck na rzadsze karty
         for (int i = 0; i < 3; i++)
         {
             CardIcon[i].sprite = Library.Cards[rolledID[i]].CardSprite;
+            CardRarityImage[i].sprite = Library.CardLevel[cardsRarity];
             CardManaCost[i].text = Library.Cards[rolledID[i]].CardManaCost[cardsRarity].ToString("0");
             CardNameText[i].text = Library.Cards[rolledID[i]].CardName;
             CardEffectText[i].text = Library.Cards[rolledID[i]].CardTooltip[cardsRarity];

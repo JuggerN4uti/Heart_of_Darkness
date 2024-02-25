@@ -9,7 +9,6 @@ public class Combat : MonoBehaviour
     public PlayerCombat Player;
     public EnemyCombat[] Enemy;
     public SceneChange Fade;
-    public CardPick CardChoice;
 
     [Header("Stats")]
     public bool[] enemyAlive;
@@ -20,18 +19,22 @@ public class Combat : MonoBehaviour
     [Header("UI")]
     public Button EndTurnButton;
     public TMPro.TextMeshProUGUI TurnCounter, EffectTooltip;
-    public GameObject CombatScene, Hand, CardPickObject;
+    public GameObject CombatScene, Hand;
     // public string/image[] playerEffects, enemyEffects; mo¿e potem zamieniæ na premade tooltipy
+
+    [Header("Loot")]
+    public LootChoice LootEvent;
+    public float mapDanger;
 
     public void Start()
     {
         //EffectTooltip.text = Player.Cards.Library.Cards[2].CardTooltip[0];
     }
 
-    public void SetEnemy(int enemyID)
+    public void SetEnemy(int enemyID, int enemyLevel)
     {
         Enemy[0].Unit.SetActive(true);
-        Enemy[0].SetUnit(enemyID);
+        Enemy[0].SetUnit(enemyID, enemyLevel);
         enemyAlive[0] = true;
         targetedEnemy = 0;
         enemiesAlive = 1;
@@ -128,8 +131,7 @@ public class Combat : MonoBehaviour
 
     void ReturnToMap()
     {
-        CardChoice.RollCards();
-        CardPickObject.SetActive(true);
+        LootEvent.SetRewards(mapDanger);
         CombatScene.SetActive(false);
         Hand.SetActive(false);
     }

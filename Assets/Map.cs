@@ -18,7 +18,8 @@ public class Map : MonoBehaviour
     public int[] tileEvent;
     public int currentTile, currentRow, tilesAmount;
     public float danger;
-    int roll;
+    int roll, tempi;
+    float temp;
 
     [Header("UI")]
     public RectTransform SlidingMap;
@@ -111,7 +112,7 @@ public class Map : MonoBehaviour
                 break;
             case 2:
                 Fade.StartDarken();
-                CombatScript.SetEnemy(SetEnemies());
+                SetEnemies();
                 Invoke("StartCombat", 0.4f);
                 break;
             case 3:
@@ -133,18 +134,26 @@ public class Map : MonoBehaviour
         LastImage.color = new Color(0.6f, 1f, 0.6f, 1f);
 
         Fade.StartDarken();
-        CombatScript.SetEnemy(3);
+        CombatScript.SetEnemy(3, 0);
         Invoke("StartCombat", 0.4f);
     }
 
-    int SetEnemies()
+    void SetEnemies()
     {
         danger += 0.55f + danger * 0.02f;
         if (danger < 1.6f)
-            return 0;
+            CombatScript.SetEnemy(0, 0);
         else
         {
-            return Random.Range(1, 3);
+            tempi = 0;
+            temp = danger;
+            while (temp > 3.2f)
+            {
+                temp -= 1.28f + tempi * 0.28f;
+                tempi++;
+            }
+            roll = Random.Range(1, 3);
+            CombatScript.SetEnemy(roll, tempi);
         }
     }
 
@@ -183,6 +192,7 @@ public class Map : MonoBehaviour
     void StartCombat()
     {
         CombatScene.SetActive(true);
+        CombatScript.mapDanger = danger;
         Hand.SetActive(true);
     }
 

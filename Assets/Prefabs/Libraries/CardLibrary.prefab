@@ -149,7 +149,7 @@ MonoBehaviour:
   CardSprite: {fileID: 21300000, guid: c352447c9ea8edd41a992e4cfeae1bf3, type: 3}
   CardName: Shield of Hope
   CardManaCost: 0200000001000000010000000100000001000000
-  SingleUse: 0
+  SingleUse: 1
   CardTooltip:
   - Gain Block equal to your missing Health. Destroy
   - Gain Block equal to your missing Health. Destroy

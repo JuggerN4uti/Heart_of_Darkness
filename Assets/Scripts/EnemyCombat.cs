@@ -11,7 +11,7 @@ public class EnemyCombat : MonoBehaviour
 
     [Header("Stats")]
     public int unitID;
-    public int order, maxHealth, health, shield, block, slow, tenacity;
+    public int order, level, maxHealth, health, shield, block, slow, tenacity;
     public int[] effect;
     bool stunned;
     int tempi;
@@ -32,7 +32,7 @@ public class EnemyCombat : MonoBehaviour
     public GameObject Unit;
     public GameObject ShieldDisplay, BlockDisplay;
     public Image UnitSprite, HealthBarFil, StunBarFill;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SlowVale;
+    public TMPro.TextMeshProUGUI LevelValue, HealthValue, ShieldValue, BlockValue, SlowVale;
 
     [Header("Display")]
     public GameObject DisplayObject;
@@ -54,14 +54,15 @@ public class EnemyCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    public void SetUnit(int ID)
+    public void SetUnit(int ID, int Level = 0)
     {
         unitID = ID;
+        level = Level;
         Reset();
-        maxHealth = Library.Enemies[ID].UnitHealth;
+        maxHealth = LevelCalculated(Library.Enemies[ID].UnitHealth);
         health = maxHealth;
-        shield = Library.Enemies[ID].UnitShield;
-        tenacity = Library.Enemies[ID].UnitTenacity;
+        shield = LevelCalculated(Library.Enemies[ID].UnitShield);
+        tenacity = LevelCalculated(Library.Enemies[ID].UnitTenacity);
         UnitSprite.sprite = Library.Enemies[ID].UnitSprite;
         movesCount = Library.Enemies[ID].MovesCount;
         for (int i = 0; i < movesCount; i++)
@@ -69,11 +70,12 @@ public class EnemyCombat : MonoBehaviour
             movesCooldowns[i] = Library.Enemies[ID].MovesCooldowns[i];
             moveCooldown[i] = Library.Enemies[ID].MovesCooldowns[i];
             MovesSprites[i] = Library.Enemies[ID].MovesSprite[i];
-            movesValue[i] = Library.Enemies[ID].MovesValues[i];
+            movesValue[i] = LevelCalculated(Library.Enemies[ID].MovesValues[i]);
             movesText[i] = Library.Enemies[ID].additionalText[i];
             attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
             normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
         }
+        LevelValue.text = (level + 1).ToString("0");
         UpdateInfo();
         StartTurn();
     }
@@ -84,7 +86,7 @@ public class EnemyCombat : MonoBehaviour
         slow = 0;
         for (int i = 0; i < Library.Enemies[unitID].StartingEffects.Length; i++)
         {
-            effect[i] = Library.Enemies[unitID].StartingEffects[i];
+            effect[i] = LevelCalculated(Library.Enemies[unitID].StartingEffects[i]);
         }
         stunned = false;
     }
@@ -222,11 +224,11 @@ public class EnemyCombat : MonoBehaviour
                 case (0, 1):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainBlock(10);
+                    GainBlock(LevelCalculated(10));
                     break;
                 case (0, 2):
-                    GainStrength(2);
-                    GainBlock(6);
+                    GainStrength(LevelCalculated(2));
+                    GainBlock(LevelCalculated(6));
                     break;
                 case (1, 1):
                     if (CombatScript.Player.block + CombatScript.Player.shield < AttackDamage())
@@ -235,7 +237,7 @@ public class EnemyCombat : MonoBehaviour
                     }
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainStrength(1);
+                    GainStrength(LevelCalculated(1));
                     break;
                 case (1, 2):
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -249,31 +251,31 @@ public class EnemyCombat : MonoBehaviour
                     GainSlow(1);
                     break;
                 case (2, 1):
-                    GainBlock(13 + tenacity);
-                    GainShield(5 + 2 * tenacity);
+                    GainBlock(LevelCalculated(13 + tenacity));
+                    GainShield(LevelCalculated(5 + 2 * tenacity));
                     break;
                 case (2, 2):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     CombatScript.Player.GainWeak(1);
-                    CombatScript.Player.LoseSanity(Random.Range(7, 11));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(7), LevelCalculated(11)));
                     break;
                 case (2, 3):
                     CombatScript.Player.TakeDamage(FlySwarmDamage());
                     OnHit();
-                    effect[5]++;
-                    Display(1, effectSprite[5]);
+                    effect[5] += LevelCalculated(1);
+                    Display(LevelCalculated(1), effectSprite[5]);
                     UpdateInfo();
                     break;
                 case (3, 0):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainStrength(2 + CursesOnPlayer());
+                    GainStrength(LevelCalculated(2 + CursesOnPlayer()));
                     break;
                 case (3, 1):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    for (int i = 0; i < 3 + CursesOnPlayer(); i++)
+                    for (int i = 0; i < LevelCalculated(3 + CursesOnPlayer()); i++)
                     {
                         tempi = Random.Range(0, 3);
                         switch (tempi)
@@ -289,7 +291,7 @@ public class EnemyCombat : MonoBehaviour
                                 break;
                         }
                     }
-                    CombatScript.Player.LoseSanity(Random.Range(11, 17));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(11), LevelCalculated(17)));
                     break;
                 case (3, 2):
                     CombatScript.Player.TakeDamage(TentacleSlamDamage());
@@ -298,9 +300,9 @@ public class EnemyCombat : MonoBehaviour
                     GainSlow(2);
                     break;
                 case (3, 3):
-                    GainBlock(18 + 4 * effect[6]);
-                    effect[6] += (2 + CursesOnPlayer());
-                    Display(2 + CursesOnPlayer(), effectSprite[6]);
+                    GainBlock(LevelCalculated(18 + 4 * effect[6]));
+                    effect[6] += LevelCalculated(2 + CursesOnPlayer());
+                    Display(LevelCalculated(2 + CursesOnPlayer()), effectSprite[6]);
                     UpdateInfo();
                     break;
             }
@@ -333,7 +335,7 @@ public class EnemyCombat : MonoBehaviour
 
     public int FlySwarmDamage()
     {
-        tempi = movesValue[currentMove] + effect[3] + effect[5] * 3;
+        tempi = movesValue[currentMove] + effect[3] + LevelCalculated(effect[5] * 3);
         if (effect[0] > 0)
             return (tempi * 3) / 4;
         else return tempi;
@@ -498,5 +500,12 @@ public class EnemyCombat : MonoBehaviour
     int CursesOnPlayer()
     {
         return CombatScript.Player.PlayerScript.CursesCount;
+    }
+
+    int LevelCalculated(int value)
+    {
+        value *= (18 + level);
+        value /= 18;
+        return value;
     }
 }

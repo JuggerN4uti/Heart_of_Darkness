@@ -137,9 +137,9 @@ public class ForgeChoice : MonoBehaviour
     void ChargeArmor(float amount)
     {
         shieldCharge += amount;
-        while (shieldCharge >= 6f)
+        while (shieldCharge >= 5.8f)
         {
-            shieldCharge -= 6f;
+            shieldCharge -= 5.8f;
             nextShield++;
         }
 
@@ -167,5 +167,10 @@ public class ForgeChoice : MonoBehaviour
             ChargeArmor(0.9f);
         }
         ForgeEventObject.SetActive(false);
+    }
+
+    void ErrorEnd()
+    {
+        ErrorMessage.text = "";
     }
 }

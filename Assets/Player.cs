@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Health;
-    public int Sanity, MaxSanity;
+    public int Sanity, MaxSanity, Silver;
     public int[] StatValues;
     public int[] DrawbackValues;
     public int unitUnderCommand;
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     public GameObject InfoObject;
     public GameObject DeckOpenButton;
     public Image HealthFill, SanityFill;
-    public TMPro.TextMeshProUGUI HealthText, SanityText;
+    public TMPro.TextMeshProUGUI HealthText, SanityText, SilverText;
 
     [Header("Sprites")]
     public Sprite[] EffectSprite;
@@ -73,6 +73,8 @@ public class Player : MonoBehaviour
 
         SanityFill.fillAmount = (Sanity * 1f) / (MaxSanity * 1f);
         SanityText.text = Sanity.ToString("") + "/" + MaxSanity.ToString("");
+
+        SilverText.text = Silver.ToString("");
     }
 
     public void ShowInfo()
@@ -103,6 +105,12 @@ public class Player : MonoBehaviour
     public void RestoreSanity(int amount)
     {
         Sanity += amount;
+        UpdateInfo();
+    }
+
+    public void GainSilver(int amount)
+    {
+        Silver += amount;
         UpdateInfo();
     }
 
