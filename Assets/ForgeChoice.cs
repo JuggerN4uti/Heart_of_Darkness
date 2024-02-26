@@ -144,16 +144,16 @@ public class ForgeChoice : MonoBehaviour
         }
 
         armorCharge += amount;
-        while (armorCharge >= 15f)
+        while (armorCharge >= 14.7f)
         {
-            armorCharge -= 15f;
+            armorCharge -= 14.7f;
             nextArmor++;
         }
 
         resistanceCharge += amount;
-        while (resistanceCharge >= 26f)
+        while (resistanceCharge >= 25.6f)
         {
-            resistanceCharge -= 26f;
+            resistanceCharge -= 25.6f;
             nextResistance++;
         }
     }

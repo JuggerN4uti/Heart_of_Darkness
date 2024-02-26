@@ -12,14 +12,17 @@ public class Map : MonoBehaviour
     public Combat CombatScript;
     public ForgeChoice ForgeScript;
     public CampChoice CampScript;
+    public MerchantChoice MerchantScript;
     public SceneChange Fade;
 
     [Header("Stats")]
     public int[] tileEvent;
+    public int[] EventCooldown, EventsCooldowns;
     public int currentTile, currentRow, tilesAmount;
     public float danger;
     int roll, tempi;
     float temp;
+    bool viable;
 
     [Header("UI")]
     public RectTransform SlidingMap;
@@ -118,6 +121,9 @@ public class Map : MonoBehaviour
             case 3:
                 CampScript.Open();
                 break;
+            case 4:
+                MerchantScript.Open();
+                break;
         }
     }
 
@@ -200,7 +206,19 @@ public class Map : MonoBehaviour
     {
         for (int i = 1; i < TileImage.Length; i++)
         {
-            roll = Random.Range(0, TileSprites.Length);
+            viable = false;
+            do
+            {
+                roll = Random.Range(0, TileSprites.Length);
+                EventCooldown[roll]--;
+                if (EventCooldown[roll] == 0)
+                    viable = true;
+            } while (!viable);
+
+            EventCooldown[roll] += EventsCooldowns[roll];
+            if (roll > 2)
+                EventsCooldowns[roll]++;
+
             TileImage[i].sprite = TileSprites[roll];
             tileEvent[i] = roll;
         }

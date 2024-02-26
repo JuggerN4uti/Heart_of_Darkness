@@ -568,7 +568,7 @@ public class PlayerCombat : MonoBehaviour
                     return "Gain " + ShieldBashBlock(level).ToString("") + " Block\nDeal " + (ShieldBashBlock(level) + ShieldBashDamage(level)).ToString("") + " Damage";
                 else return "Deal " + ShieldBashDamage(level).ToString("") + " Damage";
             case 10:
-                if (HealthProcentage() < 0.6f)
+                if (HealthProcentage() < 0.5f)
                     return "Gain " + DesperateStandBlock(level).ToString("") + " Block\nDestroy";
                 else return "Gain " + DesperateStandBlock(level).ToString("") + " Block";
             case 11:
@@ -780,16 +780,14 @@ public class PlayerCombat : MonoBehaviour
     void DesperateStand(int level) // ID 10
     {
         GainBlock(DesperateStandBlock(level));
-        //if (HealthProcentage() < 0.6f)
-        //    Cards.DestroyCard();
     }
 
     int DesperateStandBlock(int level)
     {
         tempi = 12 + effect[1];
         tempi += 4 * level;
-        if (HealthProcentage() < 0.6f)
-            tempi += 8 + 4 * level;
+        if (HealthProcentage() < 0.5f)
+            tempi += 9 + 4 * level;
         return BlockGainedModifier(tempi);
     }
 
@@ -963,6 +961,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 18 + effect[0];
         tempi += 6 * level;
+        tempi += effect[4];
         return DamageDealtModifier(tempi); ;
     }
 

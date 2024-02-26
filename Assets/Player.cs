@@ -114,6 +114,12 @@ public class Player : MonoBehaviour
         UpdateInfo();
     }
 
+    public void SpendSilver(int amount)
+    {
+        Silver -= amount;
+        UpdateInfo();
+    }
+
     void DisplayPlayerInfo()
     {
         WeaponInfoText[0].text = weaponDamage.ToString("");

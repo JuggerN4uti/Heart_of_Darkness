@@ -108,7 +108,7 @@ public class Hand : MonoBehaviour
         {
             if (CardsID[which] == 10)
             {
-                if (Player.HealthProcentage() >= 0.6f)
+                if (Player.HealthProcentage() >= 0.5f)
                     CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
             }
             else CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);

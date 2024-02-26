@@ -661,8 +661,8 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 12 Block, if you are below 60% Gain 20 Block instead and Destroy
-  - Gain 16 Block, if you are below 60% Gain 28 Block instead and Destroy
+  - Gain 12 Block, if you are below 50% Gain 21 Block instead and Destroy
+  - Gain 16 Block, if you are below 50% Gain 29 Block instead and Destroy
 --- !u!1 &3065999187759993969
 GameObject:
   m_ObjectHideFlags: 0
