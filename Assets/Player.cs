@@ -11,11 +11,10 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Health;
-    public int Sanity, MaxSanity, Silver;
-    public int[] StatValues, DrawbackValues, EffectID, CurseID;
+    public int MaxHealth, Sanity, MaxSanity, Silver;
+    public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
     public bool opened, map;
-    public bool[] virtue;
 
     [Header("Curses")]
     public int CursesCount;
@@ -36,46 +35,57 @@ public class Player : MonoBehaviour
 
     [Header("UI")]
     public GameObject InfoObject;
-    public GameObject DeckOpenButton, MapInfo;
+    public GameObject DeckOpenButton, MapInfo, AddCommonButton, AddUncommonButton;
     public Image HealthFill, SanityFill;
-    public TMPro.TextMeshProUGUI HealthText, SanityText, SilverText;
+    public TMPro.TextMeshProUGUI HealthText, SanityText, SilverText, CommonsText, UncommonsText, CommonAddText, UncommonAddText;
 
     [Header("Sprites")]
     public Sprite[] EffectSprite;
-    public Sprite[] DrawbackSprite, CurseSprite;
+    public Sprite[] CurseSprite;
 
     public void GainUnitsStats()
     {
         for (int j = 0; j < unitUnderCommand; j++)
         {
-            for (int i = 0; i < Units[j].AbilitiesAmount; i++)
+            for (int i = 0; i < StatValues.Length; i++)
             {
-                DeckScript.AddACard(Units[j].Abilities[i], Units[j].AbilitiesLevel[i]);
-            }
-            for (int i = 0; i < Units[j].PerksAmount; i++)
-            {
-                StatValues[Units[j].Perks[i]] += Units[j].PerksValue[i];
-            }
-            for (int i = 0; i < Units[j].FlawsAmount; i++)
-            {
-                DrawbackValues[Units[j].Flaws[i]] += Units[j].FlawsValue[i];
+                StatValues[i] += Units[j].PerksValue[i];
             }
         }
-        MaxSanity += StatValues[7];
-        Health = StatValues[0];
+        MaxHealth += StatValues[0];
+        MaxSanity += StatValues[1];
+        Silver += StatValues[4];
+        Health = MaxHealth;
         Sanity = MaxSanity;
+        Sanity -= StatValues[10];
         UpdateInfo();
     }
 
     public void UpdateInfo()
     {
-        HealthFill.fillAmount = (Health * 1f) / (StatValues[0] * 1f);
-        HealthText.text = Health.ToString("") + "/" + StatValues[0].ToString("");
+        HealthFill.fillAmount = (Health * 1f) / (MaxHealth * 1f);
+        HealthText.text = Health.ToString("") + "/" + MaxHealth.ToString("");
 
         SanityFill.fillAmount = (Sanity * 1f) / (MaxSanity * 1f);
         SanityText.text = Sanity.ToString("") + "/" + MaxSanity.ToString("");
 
         SilverText.text = Silver.ToString("");
+        CommonsText.text = DeckScript.CommonCardsInDeck().ToString("0");
+        UncommonsText.text = (DeckScript.cardsInDeck - DeckScript.CommonCardsInDeck()).ToString("0");
+
+        if (StatValues[2] > 0)
+        {
+            AddCommonButton.SetActive(true);
+            CommonAddText.text = StatValues[2].ToString("0");
+        }
+        else AddCommonButton.SetActive(false);
+
+        if (StatValues[3] > 0)
+        {
+            AddUncommonButton.SetActive(true);
+            UncommonAddText.text = StatValues[3].ToString("0");
+        }
+        else AddUncommonButton.SetActive(false);
     }
 
     public void ShowInfo()
@@ -112,8 +122,8 @@ public class Player : MonoBehaviour
     public void RestoreHealth(int amount)
     {
         Health += amount;
-        if (Health > StatValues[0])
-            Health = StatValues[0];
+        if (Health > MaxHealth)
+            Health = MaxHealth;
         UpdateInfo();
     }
 
@@ -135,6 +145,18 @@ public class Player : MonoBehaviour
         UpdateInfo();
     }
 
+    public void AddCommon()
+    {
+        StatValues[2]--;
+        UpdateInfo();
+    }
+
+    public void AddUncommon()
+    {
+        StatValues[3]--;
+        UpdateInfo();
+    }
+
     void DisplayPlayerInfo()
     {
         WeaponInfoText[0].text = weaponDamage.ToString("");
@@ -142,27 +164,14 @@ public class Player : MonoBehaviour
         WeaponInfoText[2].text = weaponEnergyRequirement.ToString("");
 
         count = 0;
-        for (int i = 1; i < StatValues.Length; i++)
+        for (int i = 5; i < StatValues.Length - 1; i++)
         {
             if (StatValues[i] > 0)
             {
                 EffectObject[count].SetActive(true);
-                EffectIcon[count].sprite = EffectSprite[i];
+                EffectIcon[count].sprite = EffectSprite[i - 5];
                 EffectValueText[count].text = StatValues[i].ToString("");
                 EffectID[count] = i;
-                virtue[count] = true;
-                count++;
-            }
-        }
-        for (int i = 0; i < DrawbackValues.Length; i++)
-        {
-            if (DrawbackValues[i] > 0)
-            {
-                EffectObject[count].SetActive(true);
-                EffectIcon[count].sprite = DrawbackSprite[i];
-                EffectValueText[count].text = DrawbackValues[i].ToString("");
-                EffectID[count] = i;
-                virtue[count] = false;
                 count++;
             }
         }
@@ -206,44 +215,23 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (virtue[order])
+            switch (EffectID[order])
             {
-                switch (EffectID[order])
-                {
-                    case 1:
-                        HoveredText.text = "Resilience\nRestores " + StatValues[EffectID[order]].ToString("0") + " Health after each Combat";
-                        break;
-                    case 2:
-                        HoveredText.text = "Shield\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Shield";
-                        break;
-                    case 3:
-                        HoveredText.text = "Armor\nGives " + StatValues[EffectID[order]].ToString("0") + " Block at the end of each Turn during Combat";
-                        break;
-                    case 4:
-                        HoveredText.text = "Strength:\nIncrease Damage Dealt by " + StatValues[EffectID[order]].ToString("0");
-                        break;
-                    case 5:
-                        HoveredText.text = "Resistance:\nIncrease Block Gained by " + StatValues[EffectID[order]].ToString("0");
-                        break;
-                    case 6:
-                        HoveredText.text = "Dexterity:\nIncrease Energy Gained by " + StatValues[EffectID[order]].ToString("0");
-                        break;
-                    case 7:
-                        HoveredText.text = "Brave\nIncreases Max Sanity of Your Army by " + StatValues[EffectID[order]].ToString("0");
-                        break;
-                }
-            }
-            else
-            {
-                switch (EffectID[order])
-                {
-                    case 0:
-                        HoveredText.text = "Sluggish\nReduce Mana gained each Turn by 1 for first " + DrawbackValues[EffectID[order]].ToString("0") + " Turns";
-                        break;
-                    case 1:
-                        HoveredText.text = "Injured\nStart Combat with " + DrawbackValues[EffectID[order]].ToString("0") + " Bleed";
-                        break;
-                }
+                case 5:
+                    HoveredText.text = "Shield\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Shield";
+                    break;
+                case 6:
+                    HoveredText.text = "Armor\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Armor";
+                    break;
+                case 7:
+                    HoveredText.text = "Resistance:\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Resistance";
+                    break;
+                case 8:
+                    HoveredText.text = "Strength:\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Strength";
+                    break;
+                case 9:
+                    HoveredText.text = "Dexterity:\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Dexterity";
+                    break;
             }
         }
     }

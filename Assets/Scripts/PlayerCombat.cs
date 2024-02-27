@@ -60,8 +60,8 @@ public class PlayerCombat : MonoBehaviour
         energy = 0;
 
         health = PlayerScript.Health;
-        maxHealth = PlayerScript.StatValues[0];
-        shield = PlayerScript.StatValues[2];
+        maxHealth = PlayerScript.MaxHealth;
+        shield = PlayerScript.StatValues[5];
         sanity = PlayerScript.Sanity;
         maxSanity = PlayerScript.MaxSanity;
 
@@ -73,14 +73,10 @@ public class PlayerCombat : MonoBehaviour
         {
             effect[i] = 0;
         }
+        effect[6] = PlayerScript.StatValues[6];
         for (int i = 0; i < 3; i++)
         {
-            effect[i] = PlayerScript.StatValues[i + 4];
-        }
-        effect[6] = PlayerScript.StatValues[3];
-        for (int i = 0; i < 2; i++)
-        {
-            effect[i + 7] = PlayerScript.DrawbackValues[i];
+            effect[i] = PlayerScript.StatValues[i + 7];
         }
 
         for (int i = 0; i < PlayerScript.CurseValue.Length; i++)

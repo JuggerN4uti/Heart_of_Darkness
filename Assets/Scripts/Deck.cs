@@ -7,6 +7,7 @@ public class Deck : MonoBehaviour
 {
     [Header("Scripts")]
     public CardLibrary Library;
+    public Player PlayerScript;
 
     [Header("Cards")]
     public int[] CardID;
@@ -44,6 +45,7 @@ public class Deck : MonoBehaviour
         CardLevel[cardsInDeck] = level;
         cardsInDeck++;
         CardsInDeckText.text = cardsInDeck.ToString("0");
+        PlayerScript.UpdateInfo();
     }
 
     public void ShowDeck()
@@ -215,6 +217,7 @@ public class Deck : MonoBehaviour
             CardsInDeckText.text = cardsInDeck.ToString("0");
             CardEvent.CardChoiceObject.SetActive(false);
         }
+        PlayerScript.UpdateInfo();
         SkipForge();
     }
 

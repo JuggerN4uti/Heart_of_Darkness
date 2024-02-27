@@ -101,7 +101,10 @@ public class CardPick : MonoBehaviour
     public void CollectCard(int slot)
     {
         if (forge)
+        {
             CardDeck.CardLevel[rolledID[slot]]++;
+            CardDeck.PlayerScript.UpdateInfo();
+        }
         else CardDeck.AddACard(rolledID[slot], cardsRarity);
         CardPickObject.SetActive(false);
     }

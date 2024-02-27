@@ -156,10 +156,6 @@ public class ArmySelect : MonoBehaviour
         StoryScript.ArmySelectScene.SetActive(false);
     }
 
-    public void DisplayCardInfo(int card, int level)
-    {
-        HoveredText.text = cardLevelsNames[level] + " '" + Library.Cards[card].CardName + "' - " + Library.Cards[card].CardManaCost[level].ToString("0") + " Mana\n" + Library.Cards[card].CardTooltip[level];
-    }
 
     public void DisplayPerkInfo(int which, int amount)
     {
@@ -169,38 +165,34 @@ public class ArmySelect : MonoBehaviour
                 HoveredText.text = "Vitality\nIncreases Max Health of Your Army by " + amount.ToString("0");
                 break;
             case 1:
-                HoveredText.text = "Resilience\nRestores " + amount.ToString("0") + " Health after each Combat";
+                HoveredText.text = "Bravery\nIncreases Max Sanity of Your Army by " + amount.ToString("0");
                 break;
             case 2:
-                HoveredText.text = "Shield\nStart each Combat with " + amount.ToString("0") + " Shield";
+                HoveredText.text = "Common Card\nStart Adventure with " + amount.ToString("0") + " chosen common Card/s";
                 break;
             case 3:
-                HoveredText.text = "Armor\nGives " + amount.ToString("0") + " Block at the end of each Turn during Combat";
+                HoveredText.text = "Uncommon Card\nStart Adventure with " + amount.ToString("0") + " chosen uncommon Card/s";
                 break;
             case 4:
-                HoveredText.text = "Strength:\nIncrease Damage Dealt by " + amount.ToString("0");
+                HoveredText.text = "Silver\nStart Adventure with " + amount.ToString("0") + " Silver";
                 break;
             case 5:
-                HoveredText.text = "Resistance:\nIncrease Block Gained by " + amount.ToString("0");
+                HoveredText.text = "Shield\nStart each Combat with " + amount.ToString("0") + " Shield";
                 break;
             case 6:
-                HoveredText.text = "Dexterity:\nIncrease Energy Gained by " + amount.ToString("0");
+                HoveredText.text = "Armor\nStart each Combat with " + amount.ToString("0") + " Armor";
                 break;
             case 7:
-                HoveredText.text = "Brave\nIncreases Max Sanity of Your Army by " + amount.ToString("0");
+                HoveredText.text = "Resistance:\nStart each Combat with " + amount.ToString("0") + " Resistance";
                 break;
-        }
-    }
-
-    public void DisplayFlawInfo(int which, int amount)
-    {
-        switch (which)
-        {
-            case 0:
-                HoveredText.text = "Sluggish\nReduce Mana gained each Turn by 1 for first " + amount.ToString("0") + " Turns";
+            case 8:
+                HoveredText.text = "Strength:\nStart each Combat with " + amount.ToString("0") + " Strength";
                 break;
-            case 1:
-                HoveredText.text = "Injured\nStart Combat with " + amount.ToString("0") + " Bleed";
+            case 9:
+                HoveredText.text = "Dexterity:\nStart each Combat with " + amount.ToString("0") + " Dexterity";
+                break;
+            case 10:
+                HoveredText.text = "Shattered\nStart Adventure with " + amount.ToString("0") + " Sanity Lost";
                 break;
         }
     }

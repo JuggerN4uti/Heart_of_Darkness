@@ -10,11 +10,10 @@ public class PerkHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     [Header("Stats")]
     public int order;
-    public bool ability, perk;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Unit.EffectHovered(ability, perk, order);
+        Unit.EffectHovered(order);
     }
 
     public void OnPointerExit(PointerEventData eventData)

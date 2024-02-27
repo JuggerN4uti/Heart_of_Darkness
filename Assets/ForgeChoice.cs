@@ -62,13 +62,13 @@ public class ForgeChoice : MonoBehaviour
             switch (roll)
             {
                 case 0:
-                    PlayerScript.StatValues[2] += (shieldAmount + nextShield);
+                    PlayerScript.StatValues[5] += (shieldAmount + nextShield);
                     break;
                 case 1:
-                    PlayerScript.StatValues[3] += (armorAmount + nextArmor);
+                    PlayerScript.StatValues[6] += (armorAmount + nextArmor);
                     break;
                 case 2:
-                    PlayerScript.StatValues[5] += nextResistance;
+                    PlayerScript.StatValues[7] += nextResistance;
                     break;
             }
             ChargeArmor(5.4f);
