@@ -12,10 +12,10 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public int Health;
     public int Sanity, MaxSanity, Silver;
-    public int[] StatValues;
-    public int[] DrawbackValues;
+    public int[] StatValues, DrawbackValues, EffectID, CurseID;
     public int unitUnderCommand;
-    public bool opened;
+    public bool opened, map;
+    public bool[] virtue;
 
     [Header("Curses")]
     public int CursesCount;
@@ -30,18 +30,19 @@ public class Player : MonoBehaviour
     public TMPro.TextMeshProUGUI[] WeaponInfoText;
     public GameObject[] EffectObject, CurseObject;
     public Image[] EffectIcon, CurseIcon;
+    public TMPro.TextMeshProUGUI HoveredText;
     public TMPro.TextMeshProUGUI[] EffectValueText, CurseValueText;
     int count;
 
     [Header("UI")]
     public GameObject InfoObject;
-    public GameObject DeckOpenButton;
+    public GameObject DeckOpenButton, MapInfo;
     public Image HealthFill, SanityFill;
     public TMPro.TextMeshProUGUI HealthText, SanityText, SilverText;
 
     [Header("Sprites")]
     public Sprite[] EffectSprite;
-    public Sprite[] CurseSprite;
+    public Sprite[] DrawbackSprite, CurseSprite;
 
     public void GainUnitsStats()
     {
@@ -60,8 +61,8 @@ public class Player : MonoBehaviour
                 DrawbackValues[Units[j].Flaws[i]] += Units[j].FlawsValue[i];
             }
         }
+        MaxSanity += StatValues[7];
         Health = StatValues[0];
-        MaxSanity = 50;
         Sanity = MaxSanity;
         UpdateInfo();
     }
@@ -91,6 +92,20 @@ public class Player : MonoBehaviour
             DisplayPlayerInfo();
             InfoObject.SetActive(true);
             DeckOpenButton.SetActive(false);
+        }
+    }
+
+    public void ShowMap()
+    {
+        if (!map)
+        {
+            MapInfo.SetActive(true);
+            map = true;
+        }
+        else
+        {
+            MapInfo.SetActive(false);
+            map = false;
         }
     }
 
@@ -134,6 +149,20 @@ public class Player : MonoBehaviour
                 EffectObject[count].SetActive(true);
                 EffectIcon[count].sprite = EffectSprite[i];
                 EffectValueText[count].text = StatValues[i].ToString("");
+                EffectID[count] = i;
+                virtue[count] = true;
+                count++;
+            }
+        }
+        for (int i = 0; i < DrawbackValues.Length; i++)
+        {
+            if (DrawbackValues[i] > 0)
+            {
+                EffectObject[count].SetActive(true);
+                EffectIcon[count].sprite = DrawbackSprite[i];
+                EffectValueText[count].text = DrawbackValues[i].ToString("");
+                EffectID[count] = i;
+                virtue[count] = false;
                 count++;
             }
         }
@@ -146,8 +175,81 @@ public class Player : MonoBehaviour
                 CurseObject[count].SetActive(true);
                 CurseIcon[count].sprite = CurseSprite[i];
                 CurseValueText[count].text = CurseValue[i].ToString("");
+                CurseID[count] = i;
                 count++;
             }
         }
+    }
+
+    public void InfoHovered(bool curse, int order)
+    {
+        if (curse)
+        {
+            switch (CurseID[order])
+            {
+                case 0:
+                    HoveredText.text = "Doubt:\nGain " + (2 * CurseValue[CurseID[order]]).ToString("0") + " Weak. Weak is more effective";
+                    break;
+                case 1:
+                    HoveredText.text = "Madness:\nAt the end of each Turn take " + (4 * CurseValue[CurseID[order]]).ToString("0") + " Damage for every Card left in your hand";
+                    break;
+                case 2:
+                    HoveredText.text = "Pride:\nEnemies gain " + (2 * CurseValue[CurseID[order]]).ToString("0") + " Strength. Each Turn enemies gain " + CurseValue[CurseID[order]].ToString("0") + " Strength";
+                    break;
+                case 3:
+                    HoveredText.text = "Fear:\nGain " + (20 * CurseValue[CurseID[order]]).ToString("0") + "% Card draw skip. Taking unblocked Damage also reduces Sanity";
+                    break;
+                case 4:
+                    HoveredText.text = "Frailty:\nGain " + (2 * CurseValue[CurseID[order]]).ToString("0") + " Frail. Frail is more effective";
+                    break;
+            }
+        }
+        else
+        {
+            if (virtue[order])
+            {
+                switch (EffectID[order])
+                {
+                    case 1:
+                        HoveredText.text = "Resilience\nRestores " + StatValues[EffectID[order]].ToString("0") + " Health after each Combat";
+                        break;
+                    case 2:
+                        HoveredText.text = "Shield\nStart each Combat with " + StatValues[EffectID[order]].ToString("0") + " Shield";
+                        break;
+                    case 3:
+                        HoveredText.text = "Armor\nGives " + StatValues[EffectID[order]].ToString("0") + " Block at the end of each Turn during Combat";
+                        break;
+                    case 4:
+                        HoveredText.text = "Strength:\nIncrease Damage Dealt by " + StatValues[EffectID[order]].ToString("0");
+                        break;
+                    case 5:
+                        HoveredText.text = "Resistance:\nIncrease Block Gained by " + StatValues[EffectID[order]].ToString("0");
+                        break;
+                    case 6:
+                        HoveredText.text = "Dexterity:\nIncrease Energy Gained by " + StatValues[EffectID[order]].ToString("0");
+                        break;
+                    case 7:
+                        HoveredText.text = "Brave\nIncreases Max Sanity of Your Army by " + StatValues[EffectID[order]].ToString("0");
+                        break;
+                }
+            }
+            else
+            {
+                switch (EffectID[order])
+                {
+                    case 0:
+                        HoveredText.text = "Sluggish\nReduce Mana gained each Turn by 1 for first " + DrawbackValues[EffectID[order]].ToString("0") + " Turns";
+                        break;
+                    case 1:
+                        HoveredText.text = "Injured\nStart Combat with " + DrawbackValues[EffectID[order]].ToString("0") + " Bleed";
+                        break;
+                }
+            }
+        }
+    }
+
+    public void Unhovered()
+    {
+        HoveredText.text = "";
     }
 }

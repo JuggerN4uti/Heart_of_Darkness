@@ -189,7 +189,12 @@ public class Deck : MonoBehaviour
         else if (merge)
         {
             CardLevel[selectedCard]++;
-            if (selectedCard < foundCard)
+            for (int i = foundCard; i < cardsInDeck; i++)
+            {
+                CardID[i] = CardID[i + 1];
+                CardLevel[i] = CardLevel[i + 1];
+            }
+            /*if (selectedCard < foundCard)
             {
                 for (int i = selectedCard + 1; i < cardsInDeck; i++)
                 {
@@ -204,7 +209,7 @@ public class Deck : MonoBehaviour
                     CardID[i] = CardID[i + 1];
                     CardLevel[i] = CardLevel[i + 1];
                 }
-            }
+            }*/
             cardsInDeck--;
             CardObject[cardsInDeck].SetActive(false);
             CardsInDeckText.text = cardsInDeck.ToString("0");

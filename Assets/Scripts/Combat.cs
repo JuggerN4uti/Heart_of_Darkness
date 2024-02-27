@@ -137,10 +137,14 @@ public class Combat : MonoBehaviour
     }
 
     // Display
-    public void EffectHovered(bool player, int enemy, int effect)
+    public void EffectHovered(bool player, bool curse, int enemy, int effect)
     {
         if (player)
-            DisplayPlayerEffect(effect);
+        {
+            if (curse)
+                DisplayCurse(effect);
+            else DisplayPlayerEffect(effect);
+        }
         else
             DisplayEnemyEffect(enemy, effect);
     }
@@ -209,6 +213,31 @@ public class Combat : MonoBehaviour
                 break;
             case 6:
                 EffectTooltip.text = "Dreadful Aura:\nEvery Turn reduce Player sanity by " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0");
+                break;
+            case 7:
+                EffectTooltip.text = "Rot:\nEvery Turn Gain " + (3 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Block, " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength & Slow";
+                break;
+        }
+    }
+
+    public void DisplayCurse(int curse)
+    {
+        switch (curse)
+        {
+            case 0:
+                EffectTooltip.text = "Doubt:\nGain " + (2 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Weak. Weak is more effective";
+                break;
+            case 1:
+                EffectTooltip.text = "Madness:\nAt the end of each Turn take " + (4 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Damage for every Card left in your hand";
+                break;
+            case 2:
+                EffectTooltip.text = "Pride:\nEnemies gain " + (2 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Strength. Each Turn enemies gain " + Player.PlayerScript.CurseValue[curse].ToString("0") + " Strength";
+                break;
+            case 3:
+                EffectTooltip.text = "Fear:\nGain " + (20 * Player.PlayerScript.CurseValue[curse]).ToString("0") + "% Card draw skip. Taking unblocked Damage also reduces Sanity";
+                break;
+            case 4:
+                EffectTooltip.text = "Frailty:\nGain " + (2 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Frail. Frail is more effective";
                 break;
         }
     }

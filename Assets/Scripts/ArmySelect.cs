@@ -7,6 +7,7 @@ public class ArmySelect : MonoBehaviour
 {
     [Header("Scripts")]
     public Player PlayerScript;
+    public PlayerCombat PlayerCombatScript;
     public CardLibrary Library;
     public UnitChoice[] Units;
     public Story StoryScript;
@@ -18,7 +19,6 @@ public class ArmySelect : MonoBehaviour
     public bool[] selected, slotFilled;
 
     [Header("UI")]
-    public GameObject PlayerHUD;
     public TMPro.TextMeshProUGUI HoveredText;
     public Button ProceedButton;
     public Image[] SelectedUnits, UnitButtons;
@@ -118,20 +118,33 @@ public class ArmySelect : MonoBehaviour
         for (int i = 0; i < unitSlots; i++)
         {
             PlayerScript.Units[i] = Units[unitsSelected[i]];
+            PlayerCombatScript.UnitObject[i].SetActive(true);
+            PlayerCombatScript.UnitSprite[i].sprite = Units[unitsSelected[i]].UnitSprite;
         }
         PlayerScript.unitUnderCommand = unitSlots;
         PlayerScript.GainUnitsStats();
-        PlayerHUD.SetActive(true);
 
         StoryScript.dialogues[1].CharacterDialogue[0] = Units[unitsSelected[0]].UnitName + ", " + Units[unitsSelected[1]].UnitName + " and I are going in. The rest, stay vigilant.\nIf we are not to return in two hours, inform the King...";
         StoryScript.dialogues[2].CharacterName[1] = Units[unitsSelected[0]].UnitClass + " " + Units[unitsSelected[0]].UnitName;
         StoryScript.dialogues[2].CharacterName[4] = Units[unitsSelected[1]].UnitClass + " " + Units[unitsSelected[1]].UnitName;
         StoryScript.dialogues[2].CharacterName[6] = Units[unitsSelected[1]].UnitClass + " " + Units[unitsSelected[1]].UnitName;
         StoryScript.dialogues[2].CharacterName[8] = Units[unitsSelected[0]].UnitClass + " " + Units[unitsSelected[0]].UnitName;
+        StoryScript.dialogues[2].RightCharacterSprite[0] = Units[unitsSelected[0]].UnitSprite;
         StoryScript.dialogues[2].RightCharacterSprite[1] = Units[unitsSelected[0]].UnitSprite;
+        StoryScript.dialogues[2].RightCharacterSprite[2] = Units[unitsSelected[0]].UnitSprite;
+        StoryScript.dialogues[2].RightCharacterSprite[3] = Units[unitsSelected[0]].UnitSprite;
         StoryScript.dialogues[2].RightCharacterSprite[4] = Units[unitsSelected[1]].UnitSprite;
+        StoryScript.dialogues[2].RightCharacterSprite[5] = Units[unitsSelected[1]].UnitSprite;
         StoryScript.dialogues[2].RightCharacterSprite[6] = Units[unitsSelected[1]].UnitSprite;
+        StoryScript.dialogues[2].RightCharacterSprite[7] = Units[unitsSelected[1]].UnitSprite;
         StoryScript.dialogues[2].RightCharacterSprite[8] = Units[unitsSelected[0]].UnitSprite;
+        StoryScript.dialogues[3].CharacterName[0] = Units[unitsSelected[0]].UnitClass + " " + Units[unitsSelected[0]].UnitName;
+        StoryScript.dialogues[3].CharacterName[3] = Units[unitsSelected[1]].UnitClass + " " + Units[unitsSelected[1]].UnitName;
+        StoryScript.dialogues[3].RightCharacterSprite[0] = Units[unitsSelected[0]].UnitSprite;
+        StoryScript.dialogues[3].RightCharacterSprite[1] = Units[unitsSelected[0]].UnitSprite;
+        StoryScript.dialogues[3].RightCharacterSprite[2] = Units[unitsSelected[1]].UnitSprite;
+        StoryScript.dialogues[3].RightCharacterSprite[3] = Units[unitsSelected[1]].UnitSprite;
+        StoryScript.dialogues[3].RightCharacterSprite[4] = Units[unitsSelected[0]].UnitSprite;
         StoryScript.Fade.StartDarken();
         Invoke("ContinueStory", 0.4f);
     }
@@ -172,6 +185,9 @@ public class ArmySelect : MonoBehaviour
                 break;
             case 6:
                 HoveredText.text = "Dexterity:\nIncrease Energy Gained by " + amount.ToString("0");
+                break;
+            case 7:
+                HoveredText.text = "Brave\nIncreases Max Sanity of Your Army by " + amount.ToString("0");
                 break;
         }
     }

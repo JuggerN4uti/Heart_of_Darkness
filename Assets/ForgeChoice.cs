@@ -8,6 +8,7 @@ public class ForgeChoice : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
     public Deck DeckScript;
+    public CardPick CardPickScript;
 
     [Header("Stats")]
     public int roll;
@@ -15,6 +16,7 @@ public class ForgeChoice : MonoBehaviour
 
     [Header("UI")]
     public GameObject ForgeEventObject;
+    public GameObject CarEventObject;
     public Image SecondOptionImage;
     public TMPro.TextMeshProUGUI ErrorMessage;
 
@@ -34,25 +36,16 @@ public class ForgeChoice : MonoBehaviour
         roll = Random.Range(0, 3);
         SetGearOption(roll);
         ForgeEventObject.SetActive(true);
+        CarEventObject.SetActive(false);
     }
 
     public void UpgradeCard()
     {
-        if (DeckScript.CommonCardsInDeck() > 0)
-        {
-            viable = false;
-            do
-            {
-                roll = Random.Range(0, DeckScript.cardsInDeck);
-                if (DeckScript.CardLevel[roll] == 0)
-                    viable = true;
-            } while (!viable);
-            DeckScript.CardLevel[roll]++;
-            Close(true);
-        }
+        if (DeckScript.CommonCardsInDeck() > 2)
+            SetCardsOption();
         else
         {
-            ErrorMessage.text = "Found no Card to Upgrade";
+            ErrorMessage.text = "Found not Enough Card to Upgrade";
             Invoke("ErrorEnd", 0.6f);
         }
     }
@@ -80,7 +73,17 @@ public class ForgeChoice : MonoBehaviour
             }
             ChargeArmor(5.4f);
         }
-        Close(false);
+        Close();
+    }
+
+    void SetCardsOption()
+    {
+        CardPickScript.RollForge();
+        CarEventObject.SetActive(true);
+
+        temp = PlayerScript.weaponEnergyRequirement * 0.0325f + PlayerScript.weaponStrengthBonus * 0.0033f;
+        ChargeWeapon(temp);
+        ChargeArmor(0.9f);
     }
 
     void SetGearOption(int which)
@@ -158,14 +161,8 @@ public class ForgeChoice : MonoBehaviour
         }
     }
 
-    public void Close(bool cardChosen)
+    public void Close()
     {
-        if (cardChosen)
-        {
-            temp = PlayerScript.weaponEnergyRequirement * 0.0325f + PlayerScript.weaponStrengthBonus * 0.0033f;
-            ChargeWeapon(temp);
-            ChargeArmor(0.9f);
-        }
         ForgeEventObject.SetActive(false);
     }
 

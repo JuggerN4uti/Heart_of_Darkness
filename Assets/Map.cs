@@ -8,6 +8,7 @@ public class Map : MonoBehaviour
     [Header("Scipts")]
     public MapTile[] TopTiles;
     public MapTile[] MidTiles, BotTiles;
+    public Story StoryScript;
     public Player PlayerScript;
     public Combat CombatScript;
     public ForgeChoice ForgeScript;
@@ -26,7 +27,7 @@ public class Map : MonoBehaviour
 
     [Header("UI")]
     public RectTransform SlidingMap;
-    public GameObject CombatScene, Hand, CardEventObject;
+    public GameObject CombatScene, Hand, CardEventObject, StoryScene;
     public Slider slider;
     public Image[] TileImage;
     public Image LastImage;
@@ -129,6 +130,9 @@ public class Map : MonoBehaviour
 
     public void SelectLastTile()
     {
+        Fade.StartDarken();
+        Invoke("ContinueStory", 0.4f);
+
         for (int i = 0; i < 3; i++)
         {
             TileImage[currentTile * 3 + i - 2].color = new Color(1f, 1f, 1f, 1f);
@@ -139,9 +143,14 @@ public class Map : MonoBehaviour
         LastImage.sprite = PlayerSprite;
         LastImage.color = new Color(0.6f, 1f, 0.6f, 1f);
 
-        Fade.StartDarken();
-        CombatScript.SetEnemy(3, 0);
-        Invoke("StartCombat", 0.4f);
+        CombatScript.SetEnemy(4, 0);
+        //Invoke("StartCombat", 0.4f);
+    }
+
+    void ContinueStory()
+    {
+        StoryScript.NewDialogue();
+        StoryScene.SetActive(true);
     }
 
     void SetEnemies()
@@ -158,7 +167,7 @@ public class Map : MonoBehaviour
                 temp -= 1.28f + tempi * 0.28f;
                 tempi++;
             }
-            roll = Random.Range(1, 3);
+            roll = Random.Range(1, 4);
             CombatScript.SetEnemy(roll, tempi);
         }
     }
@@ -195,7 +204,7 @@ public class Map : MonoBehaviour
         UpdateInfo();
     }
 
-    void StartCombat()
+    public void StartCombat()
     {
         CombatScene.SetActive(true);
         CombatScript.mapDanger = danger;

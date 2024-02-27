@@ -118,6 +118,8 @@ public class EnemyCombat : MonoBehaviour
         {
             if (unitID == 2 && currentMove == 3)
                 AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
+            else if (unitID == 4 && currentMove == 2)
+                AttackValue.text = TentacleSlamDamage().ToString("") + movesText[currentMove];
             else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
         }
         else AttackValue.text = "";
@@ -155,6 +157,12 @@ public class EnemyCombat : MonoBehaviour
     {
         if (effect[0] > 0)
             effect[0]--;
+        if (effect[7] > 0)
+        {
+            GainBlock(effect[7] * 3);
+            GainStrength(effect[7]);
+            GainSlow(effect[7]);
+        }
         if (!stunned)
         {
             SelectMove();
@@ -163,7 +171,7 @@ public class EnemyCombat : MonoBehaviour
             {
                 if (unitID == 2 && currentMove == 3)
                     AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
-                else if (unitID == 3 && currentMove == 2)
+                else if (unitID == 4 && currentMove == 2)
                     AttackValue.text = TentacleSlamDamage().ToString("") + movesText[currentMove];
                 else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
             }
@@ -231,10 +239,8 @@ public class EnemyCombat : MonoBehaviour
                     GainBlock(LevelCalculated(6));
                     break;
                 case (1, 1):
-                    if (CombatScript.Player.block + CombatScript.Player.shield < AttackDamage())
-                    {
-                        RestoreHealth(AttackDamage() - (CombatScript.Player.block + CombatScript.Player.shield));
-                    }
+                    if (AttackDamage() > CombatScript.Player.TotalBlock())
+                        RestoreHealth(AttackDamage() - CombatScript.Player.TotalBlock());
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     GainStrength(LevelCalculated(1));
@@ -270,9 +276,25 @@ public class EnemyCombat : MonoBehaviour
                 case (3, 0):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainStrength(LevelCalculated(2 + CursesOnPlayer()));
+                    RestoreHealth(LevelCalculated(9 + (2 * effect[3]) / 3));
                     break;
                 case (3, 1):
+                    CombatScript.Player.GainSlow(2);
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(3), LevelCalculated(6)));
+                    break;
+                case (3, 2):
+                    if (AttackDamage() > CombatScript.Player.TotalBlock() + 1)
+                        CombatScript.Player.GainBleed((AttackDamage() - CombatScript.Player.TotalBlock()) / 2);
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    break;
+                    // Faceless One ID
+                case (4, 0):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainStrength(LevelCalculated(2 + CursesOnPlayer()));
+                    break;
+                case (4, 1):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     for (int i = 0; i < LevelCalculated(3 + CursesOnPlayer()); i++)
@@ -293,13 +315,13 @@ public class EnemyCombat : MonoBehaviour
                     }
                     CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(11), LevelCalculated(17)));
                     break;
-                case (3, 2):
+                case (4, 2):
                     CombatScript.Player.TakeDamage(TentacleSlamDamage());
                     OnHit();
                     GainDaze(TentacleSlamDamage() / 8);
                     GainSlow(2);
                     break;
-                case (3, 3):
+                case (4, 3):
                     GainBlock(LevelCalculated(18 + 4 * effect[6]));
                     effect[6] += LevelCalculated(2 + CursesOnPlayer());
                     Display(LevelCalculated(2 + CursesOnPlayer()), effectSprite[6]);

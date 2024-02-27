@@ -12,6 +12,7 @@ public class CardPick : MonoBehaviour
     [Header("Stats")]
     public int[] rolledID;
     public int cardsRarity;
+    public bool forge, viable;
     int roll;
 
     [Header("UI")]
@@ -40,6 +41,39 @@ public class CardPick : MonoBehaviour
         SetCards();
     }
 
+    public void RollForge()
+    {
+        viable = false;
+        do
+        {
+            roll = Random.Range(0, CardDeck.cardsInDeck);
+            if (CardDeck.CardLevel[roll] == 0)
+                viable = true;
+        } while (!viable);
+        rolledID[0] = roll;
+
+        viable = false;
+        do
+        {
+            roll = Random.Range(0, CardDeck.cardsInDeck);
+            if (CardDeck.CardLevel[roll] == 0 && roll != rolledID[0])
+                viable = true;
+        } while (!viable);
+        rolledID[1] = roll;
+
+        viable = false;
+        do
+        {
+            roll = Random.Range(0, CardDeck.cardsInDeck);
+            if (CardDeck.CardLevel[roll] == 0 && roll != rolledID[0] && roll != rolledID[1])
+                viable = true;
+        } while (!viable);
+        rolledID[2] = roll;
+
+        cardsRarity = 0;
+        SetForgeCards();
+    }
+
     void SetCards()
     {
         for (int i = 0; i < 3; i++)
@@ -52,9 +86,23 @@ public class CardPick : MonoBehaviour
         }
     }
 
+    void SetForgeCards()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            CardIcon[i].sprite = Library.Cards[CardDeck.CardID[rolledID[i]]].CardSprite;
+            CardRarityImage[i].sprite = Library.CardLevel[0];
+            CardManaCost[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardManaCost[0].ToString("0");
+            CardNameText[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardName;
+            CardEffectText[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardTooltip[0];
+        }
+    }
+
     public void CollectCard(int slot)
     {
-        CardDeck.AddACard(rolledID[slot], cardsRarity);
+        if (forge)
+            CardDeck.CardLevel[rolledID[slot]]++;
+        else CardDeck.AddACard(rolledID[slot], cardsRarity);
         CardPickObject.SetActive(false);
     }
 

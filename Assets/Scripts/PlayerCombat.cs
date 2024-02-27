@@ -28,6 +28,9 @@ public class PlayerCombat : MonoBehaviour
     public Image HealthBarFill, SanityBarFill, EnergyBarFill;
     public Button WeaponUseButton;
     public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ManaValue;
+    public TMPro.TextMeshProUGUI[] CurseText;
+    public GameObject[] UnitObject, CurseObject;
+    public Image[] UnitSprite;
 
     [Header("Display")]
     public GameObject DisplayObject;
@@ -226,6 +229,10 @@ public class PlayerCombat : MonoBehaviour
 
     void GainCurseEffect(int which, int level)
     {
+        CurseObject[which].SetActive(true);
+        if (PlayerScript.CurseValue[which] > 1)
+            CurseText[which].text = PlayerScript.CurseValue[which].ToString("0");
+        else CurseText[which].text = "";
         switch (which)
         {
             case 0:
@@ -1181,5 +1188,12 @@ public class PlayerCombat : MonoBehaviour
         tempi = 3;
         tempi += 2 * level;
         return BlockGainedModifier(tempi);
+    }
+
+    // checks
+    public int TotalBlock()
+    {
+        tempi = shield + block;
+        return tempi;
     }
 }
