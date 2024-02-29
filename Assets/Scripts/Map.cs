@@ -130,8 +130,11 @@ public class Map : MonoBehaviour
 
     public void SelectLastTile()
     {
-        Fade.StartDarken();
-        Invoke("ContinueStory", 0.4f);
+        if (StoryScript.StoryChapter == 3)
+        {
+            Fade.StartDarken();
+            Invoke("ContinueStory", 0.4f);
+        }
 
         for (int i = 0; i < 3; i++)
         {

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Combat : MonoBehaviour
 {
     [Header("Scripts")]
     public PlayerCombat Player;
     public EnemyCombat[] Enemy;
+    public Story StoryScript;
     public SceneChange Fade;
 
     [Header("Stats")]
@@ -124,9 +126,15 @@ public class Combat : MonoBehaviour
 
     void WonCombat()
     {
-        Fade.StartFastDarken();
+        Fade.StartDarken();
         Player.Set();
         Invoke("ReturnToMap", 0.25f);
+    }
+
+    public void HeroesDefeated()
+    {
+        Fade.StartDarken();
+        Invoke("ReturnToCamp", 0.25f);
     }
 
     void ReturnToMap()
@@ -134,6 +142,15 @@ public class Combat : MonoBehaviour
         LootEvent.SetRewards(mapDanger);
         CombatScene.SetActive(false);
         Hand.SetActive(false);
+    }
+
+    void ReturnToCamp()
+    {
+        CombatScene.SetActive(false);
+        Hand.SetActive(false);
+        if (StoryScript.StoryChapter == 4)
+            StoryScript.NewDialogue();
+        else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
     // Display

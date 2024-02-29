@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Health;
-    public int MaxHealth, Sanity, MaxSanity, Silver;
+    public int MaxHealth, Sanity, MaxSanity, Silver, SanityLost;
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
     public bool opened, map;
@@ -52,13 +52,26 @@ public class Player : MonoBehaviour
                 StatValues[i] += Units[j].PerksValue[i];
             }
         }
+        SanityLost = 0;
         MaxHealth += StatValues[0];
         MaxSanity += StatValues[1];
         Silver += StatValues[4];
         Health = MaxHealth;
         Sanity = MaxSanity;
-        Sanity -= StatValues[10];
+        LoseSanity(StatValues[10], false);
         UpdateInfo();
+    }
+
+    public void LoseSanity(int amount, bool considerated)
+    {
+        if (considerated)
+            SanityLost += amount;
+        else
+        {
+            SanityLost += amount;
+            Sanity -= amount;
+            UpdateInfo();
+        }
     }
 
     public void UpdateInfo()

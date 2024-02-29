@@ -89,6 +89,9 @@ public class Story : MonoBehaviour
                 StoryScene.SetActive(false);
                 MapScript.StartCombat();
                 break;
+            case 5:
+                StoryScene.SetActive(false);
+                break;
         }
     }
 }

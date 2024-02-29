@@ -74,10 +74,9 @@ public class PlayerCombat : MonoBehaviour
             effect[i] = 0;
         }
         effect[6] = PlayerScript.StatValues[6];
-        for (int i = 0; i < 3; i++)
-        {
-            effect[i] = PlayerScript.StatValues[i + 7];
-        }
+        effect[0] = PlayerScript.StatValues[8];
+        effect[1] = PlayerScript.StatValues[7];
+        effect[2] = PlayerScript.StatValues[9];
 
         for (int i = 0; i < PlayerScript.CurseValue.Length; i++)
         {
@@ -198,6 +197,7 @@ public class PlayerCombat : MonoBehaviour
             sanity -= amount;
             Display(amount, InsanitySprite);
         }
+        PlayerScript.LoseSanity(amount, true);
         if (sanity < 1)
         {
             sanity += maxSanity;
@@ -437,6 +437,8 @@ public class PlayerCombat : MonoBehaviour
         health -= amount;
         if (PlayerScript.CurseValue[3] > 0 && amount > 0)
             LoseSanity(Random.Range(PlayerScript.CurseValue[3] * 2, PlayerScript.CurseValue[3] * 3 + 1));
+        if (health <= 0)
+            Lost();
         UpdateInfo();
     }
 
@@ -444,7 +446,14 @@ public class PlayerCombat : MonoBehaviour
     {
         Display(amount, MagicDamageSprite);
         health -= amount;
+        if (health <= 0)
+            Lost();
         UpdateInfo();
+    }
+
+    void Lost()
+    {
+        CombatScript.HeroesDefeated();
     }
 
     public void UseAbility(int which, int level)
