@@ -20,7 +20,7 @@ public class Map : MonoBehaviour
     public int[] tileEvent;
     public int[] EventCooldown, EventsCooldowns;
     public int currentTile, currentRow, tilesAmount;
-    public float danger;
+    public float danger, experience;
     int roll, tempi;
     float temp;
     bool viable;
@@ -216,6 +216,7 @@ public class Map : MonoBehaviour
 
     public void SetTileEvents()
     {
+        experience = 0f;
         for (int i = 1; i < TileImage.Length; i++)
         {
             viable = false;

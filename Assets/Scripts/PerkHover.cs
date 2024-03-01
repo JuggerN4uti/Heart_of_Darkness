@@ -7,17 +7,22 @@ public class PerkHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
     [Header("Scripts")]
     public UnitChoice Unit;
+    public UnitResults Unit2;
 
     [Header("Stats")]
     public int order;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Unit.EffectHovered(order);
+        if (Unit)
+            Unit.EffectHovered(order);
+        else Unit2.EffectHovered(order);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Unit.Unhovered();
+        if (Unit)
+            Unit.Unhovered();
+        else Unit2.Unhovered();
     }
 }

@@ -11,10 +11,12 @@ public class LootChoice : MonoBehaviour
 
     [Header("Stats")]
     public int silver;
-    public int cards, uncommonCards, roll, rollsCount;
-    public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card
-    public float bonusCardCharge, qualityUpgradeCharge;
+    public int cards, uncommonCards, roll, rollsCount, gemID;
+    public bool gem;
+    public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card, 3 - gem
+    public float gemCharge, bonusCardCharge, qualityUpgradeCharge;
     int current;
+    float temp;
 
     [Header("UI")]
     public GameObject LootEventObject;
@@ -26,10 +28,23 @@ public class LootChoice : MonoBehaviour
     [Header("Sprites")]
     public Sprite SilverSprite;
     public Sprite CommonSprite, UncommonSprite;
+    public Sprite[] GemSprites;
 
     public void SetRewards(float dangerBonus)
     {
         silver = Random.Range(8, 13);
+        temp = dangerBonus + gemCharge;
+        if (temp >= Random.Range(0f, 100f + temp))
+        {
+            gem = true;
+            gemID = Random.Range(0, GemSprites.Length);
+            gemCharge = 0f;
+        }
+        else
+        {
+            gem = false;
+            gemCharge += dangerBonus * 0.4f;
+        }
         cards = 1;
         uncommonCards = 0;
         rollsCount = 0;
@@ -73,11 +88,19 @@ public class LootChoice : MonoBehaviour
             lootID[current] = 0;
             current++;
         }
+        if (gem)
+        {
+            PicksObject[current].SetActive(true);
+            PicksImages[current].sprite = GemSprites[gemID];
+            PicksValue[current].text = "Gem!";
+            lootID[current] = 3;
+            current++;
+        }
         for (int i = 0; i < cards; i++)
         {
             PicksObject[current].SetActive(true);
             PicksImages[current].sprite = CommonSprite;
-            PicksValue[current].text = "card";
+            PicksValue[current].text = "Card";
             lootID[current] = 1;
             current++;
         }
@@ -85,7 +108,7 @@ public class LootChoice : MonoBehaviour
         {
             PicksObject[current].SetActive(true);
             PicksImages[current].sprite = UncommonSprite;
-            PicksValue[current].text = "card!";
+            PicksValue[current].text = "Card";
             lootID[current] = 2;
             current++;
         }
@@ -108,6 +131,10 @@ public class LootChoice : MonoBehaviour
                 CardCollection.RollCards(1);
                 CardPickObject.SetActive(true);
                 uncommonCards--;
+                break;
+            case 3:
+                PlayerScript.Gems[gemID]++;
+                gem = false;
                 break;
         }
 

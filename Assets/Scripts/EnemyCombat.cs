@@ -280,7 +280,7 @@ public class EnemyCombat : MonoBehaviour
                     break;
                 case (3, 1):
                     CombatScript.Player.GainSlow(2);
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(3), LevelCalculated(6)));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(5), LevelCalculated(9)));
                     break;
                 case (3, 2):
                     if (AttackDamage() > CombatScript.Player.TotalBlock() + 1)
@@ -313,16 +313,16 @@ public class EnemyCombat : MonoBehaviour
                                 break;
                         }
                     }
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(11), LevelCalculated(17)));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(11), LevelCalculated(16)));
                     break;
                 case (4, 2):
                     CombatScript.Player.TakeDamage(TentacleSlamDamage());
                     OnHit();
-                    GainDaze(TentacleSlamDamage() / 8);
+                    GainDaze(TentacleSlamDamage() * tenacity / 72);
                     GainSlow(2);
                     break;
                 case (4, 3):
-                    GainBlock(LevelCalculated(18 + 4 * effect[6]));
+                    GainBlock(LevelCalculated(17 + 4 * effect[6]));
                     effect[6] += LevelCalculated(2 + CursesOnPlayer());
                     Display(LevelCalculated(2 + CursesOnPlayer()), effectSprite[6]);
                     UpdateInfo();
@@ -341,7 +341,7 @@ public class EnemyCombat : MonoBehaviour
     {
         stunned = true;
         slow -= tenacity;
-        tenacity++;
+        tenacity += 1 + effect[8];
         if (effect[2] > 0)
             TakeDamage(effect[2]);
         UpdateInfo();

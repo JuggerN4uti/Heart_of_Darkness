@@ -20,7 +20,7 @@ public class ForgeChoice : MonoBehaviour
     public Image SecondOptionImage;
     public TMPro.TextMeshProUGUI ErrorMessage;
 
-    [Header("Gear")]
+    [Header("Gear")] //20.6 power
     public bool weapon;
     public int baseDamageIncrease, nextDamageIncrease;
     public float temp, nextCharge;
@@ -71,7 +71,7 @@ public class ForgeChoice : MonoBehaviour
                     PlayerScript.StatValues[7] += nextResistance;
                     break;
             }
-            ChargeArmor(5.4f);
+            ChargeArmor(5.45f); //26,5%
         }
         Close();
     }
@@ -83,7 +83,7 @@ public class ForgeChoice : MonoBehaviour
 
         temp = PlayerScript.weaponEnergyRequirement * 0.0325f + PlayerScript.weaponStrengthBonus * 0.0033f;
         ChargeWeapon(temp);
-        ChargeArmor(0.9f);
+        ChargeArmor(0.92f);
     }
 
     void SetGearOption(int which)

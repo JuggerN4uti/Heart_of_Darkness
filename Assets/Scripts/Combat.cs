@@ -10,7 +10,9 @@ public class Combat : MonoBehaviour
     public PlayerCombat Player;
     public EnemyCombat[] Enemy;
     public Story StoryScript;
+    public Map MapScript;
     public SceneChange Fade;
+    public AdventureResults AdventureScript;
 
     [Header("Stats")]
     public bool[] enemyAlive;
@@ -21,7 +23,7 @@ public class Combat : MonoBehaviour
     [Header("UI")]
     public Button EndTurnButton;
     public TMPro.TextMeshProUGUI TurnCounter, EffectTooltip;
-    public GameObject CombatScene, Hand;
+    public GameObject CombatScene, Hand, StoryScene, ResultsScene;
     // public string/image[] playerEffects, enemyEffects; mo¿e potem zamieniæ na premade tooltipy
 
     [Header("Loot")]
@@ -128,18 +130,19 @@ public class Combat : MonoBehaviour
     {
         Fade.StartDarken();
         Player.Set();
-        Invoke("ReturnToMap", 0.25f);
+        Invoke("ReturnToMap", 0.4f);
     }
 
     public void HeroesDefeated()
     {
         Fade.StartDarken();
-        Invoke("ReturnToCamp", 0.25f);
+        Invoke("ReturnToCamp", 0.4f);
     }
 
     void ReturnToMap()
     {
         LootEvent.SetRewards(mapDanger);
+        MapScript.experience += mapDanger * 0.25f;
         CombatScene.SetActive(false);
         Hand.SetActive(false);
     }
@@ -149,8 +152,17 @@ public class Combat : MonoBehaviour
         CombatScene.SetActive(false);
         Hand.SetActive(false);
         if (StoryScript.StoryChapter == 4)
+        {
+            AdventureScript.AdventureComplete(true, mapDanger);
             StoryScript.NewDialogue();
-        else SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+            StoryScene.SetActive(true);
+            //ResultsScene.SetActive(true);
+        }
+        else
+        {
+            AdventureScript.AdventureComplete(false, mapDanger);
+            ResultsScene.SetActive(true);
+        }
     }
 
     // Display
@@ -233,6 +245,9 @@ public class Combat : MonoBehaviour
                 break;
             case 7:
                 EffectTooltip.text = "Rot:\nEvery Turn Gain " + (3 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Block, " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength & Slow";
+                break;
+            case 8:
+                EffectTooltip.text = "Enormous:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Tenacity when Stunned";
                 break;
         }
     }

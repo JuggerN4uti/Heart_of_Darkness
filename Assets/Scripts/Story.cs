@@ -14,7 +14,7 @@ public class Story : MonoBehaviour
 
     [Header("UI")]
     public GameObject StoryScene;
-    public GameObject PlayerHUD, ArmySelectScene, TutorialMapScene, MapScene;
+    public GameObject PlayerHUD, ArmySelectScene, TutorialMapScene, MapScene, ResultsScene;
     public Image LeftCharacter;
     public Image RightCharacter;
     public TMPro.TextMeshProUGUI CharacterName, CharacterDialogue;
@@ -91,6 +91,9 @@ public class Story : MonoBehaviour
                 break;
             case 5:
                 StoryScene.SetActive(false);
+                ResultsScene.SetActive(true); 
+                MapScene.SetActive(false);
+                PlayerHUD.SetActive(false);
                 break;
         }
     }

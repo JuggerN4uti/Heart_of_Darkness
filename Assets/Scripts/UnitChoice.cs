@@ -7,16 +7,19 @@ public class UnitChoice : MonoBehaviour
 {
     [Header("Scripts")]
     public ArmySelect Army;
-    public CardLibrary Library;
 
     [Header("Other Info")]
-    public int UnitLevel;
-    public string UnitClass, UnitName;
+    public string UnitClass;
+    public string UnitName;
 
-    [Header("Abilities, Perks & Flaws")]
+    [Header("Perks")]
     public int[] PerksValue;
     public int[] ID;
+    public float experience;
     int current;
+
+    [Header("Hidden Talents")]
+    public float[] talentsValue;
 
     [Header("UI")]
     public TMPro.TextMeshProUGUI UnitTitle;
@@ -35,7 +38,7 @@ public class UnitChoice : MonoBehaviour
 
     public void UpdateInfo()
     {
-        UnitTitle.text = UnitClass + " " + UnitName + " - Level " + UnitLevel.ToString("0");
+        UnitTitle.text = UnitClass + " " + UnitName;
 
         for (int i = 0; i < PerksValue.Length; i++)
         {

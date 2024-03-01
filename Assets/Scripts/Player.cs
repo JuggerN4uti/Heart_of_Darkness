@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [Header("Stats")]
     public int Health;
     public int MaxHealth, Sanity, MaxSanity, Silver, SanityLost;
+    public int[] Gems;
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
     public bool opened, map;
@@ -51,6 +52,10 @@ public class Player : MonoBehaviour
             {
                 StatValues[i] += Units[j].PerksValue[i];
             }
+        }
+        for (int i = 0; i < Gems.Length; i++)
+        {
+            Gems[i] = 0;
         }
         SanityLost = 0;
         MaxHealth += StatValues[0];
