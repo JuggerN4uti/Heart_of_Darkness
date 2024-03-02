@@ -373,6 +373,8 @@ public class EnemyCombat : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        amount *= 10 + effect[9];
+        amount /= 10;
         Display(amount, DamageSprite);
         if (block > 0)
         {
@@ -511,6 +513,13 @@ public class EnemyCombat : MonoBehaviour
     {
         Display(amount, effectSprite[3]);
         effect[3] += amount;
+        UpdateInfo();
+    }
+
+    public void GainVulnerable(int amount)
+    {
+        Display(amount, effectSprite[9]);
+        effect[9] += amount;
         UpdateInfo();
     }
 

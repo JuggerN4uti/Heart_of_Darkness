@@ -353,10 +353,10 @@ MonoBehaviour:
   CardSprite: {fileID: 21300000, guid: ec032f54a441a6f499de6ad683a94654, type: 3}
   CardName: Empower
   CardManaCost: 0100000001000000010000000100000001000000
-  SingleUse: 0
+  SingleUse: 1
   CardTooltip:
-  - Gain 2 Strength
-  - Gain 3 Strength
+  - Gain 2 Strength and 2 Energy. Destroy
+  - Gain 3 Strength and 4 Energy. Destroy
 --- !u!1 &1963042950331429763
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,8 +457,8 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Draw 2 Cards, Gain 4 Block
-  - Draw 3 Cards, Gain 6 Block
+  - Draw 2 Cards, Gain 5 Block
+  - Draw 3 Cards, Gain 7 Block
 --- !u!1 &2426100786124245634
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,8 +610,8 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 6 Block, Restore 5 Health. Destroy
-  - Gain 9 Block, Restore 7 Health. Destroy
+  - Gain 7 Block, Restore 5 Health. Destroy
+  - Gain 10 Block, Restore 7 Health. Destroy
 --- !u!1 &2954933077985121303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   SingleUse: 1
   CardTooltip:
   - Gain 2 Dexterity, Gain 4 Energy. Destroy
-  - Gain 3 Dexterity, Gain 5 Energy. Destroy
+  - Gain 3 Dexterity, Gain 6 Energy. Destroy
 --- !u!1 &6256575464566816610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,7 +1438,7 @@ MonoBehaviour:
   SingleUse: 1
   CardTooltip:
   - Gain 2 Valor, Restore 3 Health. Destroy
-  - Gain 3 Valor, Restore 4 Health. Destroy
+  - Gain 3 Valor, Restore 5 Health. Destroy
 --- !u!1 &7733901304945894842
 GameObject:
   m_ObjectHideFlags: 0

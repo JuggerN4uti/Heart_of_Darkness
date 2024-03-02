@@ -249,6 +249,9 @@ public class Combat : MonoBehaviour
             case 8:
                 EffectTooltip.text = "Enormous:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Tenacity when Stunned";
                 break;
+            case 9:
+                EffectTooltip.text = "Vulnerable:\nTake " + (10 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage";
+                break;
         }
     }
 

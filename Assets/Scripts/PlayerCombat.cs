@@ -572,7 +572,7 @@ public class PlayerCombat : MonoBehaviour
             case 6:
                 return "Gain " + FortifyBlock(level).ToString("") + " Block\nGain " + FortifyBlock(level).ToString("") + " Block Next Trun";
             case 7:
-                return "Gain " + EmpowerStrength(level).ToString("") + " Strength";
+                return "Gain " + EmpowerStrength(level).ToString("") + " Strength\n and " + EmpowerEnergy(level).ToString("") + " Energy";
             case 8:
                 return "Draw " + InspireCardDraw(level).ToString("") + " Cards\nGain " + InspireBlock(level).ToString("") + " Block";
             case 9:
@@ -740,12 +740,20 @@ public class PlayerCombat : MonoBehaviour
     void Empower(int level) // ID 7
     {
         GainStrength(EmpowerStrength(level));
+        GainEnergy(EmpowerEnergy(level));
     }
 
     int EmpowerStrength(int level)
     {
         tempi = 2;
         tempi += level;
+        return tempi;
+    }
+
+    int EmpowerEnergy(int level)
+    {
+        tempi = 2;
+        tempi += 2 * level;
         return tempi;
     }
 
@@ -764,7 +772,7 @@ public class PlayerCombat : MonoBehaviour
 
     int InspireBlock(int level)
     {
-        tempi = 4 + effect[1];
+        tempi = 5 + effect[1];
         tempi += 2 * level;
         return BlockGainedModifier(tempi);
     }
@@ -999,7 +1007,7 @@ public class PlayerCombat : MonoBehaviour
 
     int HolyLightBlock(int level)
     {
-        tempi = 6 + effect[1];
+        tempi = 7 + effect[1];
         tempi += 3 * level;
         return BlockGainedModifier(tempi);
     }
@@ -1069,7 +1077,7 @@ public class PlayerCombat : MonoBehaviour
     int LayOnHandsHeal(int level)
     {
         tempi = 3;
-        tempi += level;
+        tempi += 2 * level;
         return tempi;
     }
 
@@ -1103,7 +1111,7 @@ public class PlayerCombat : MonoBehaviour
     int SurgeOfLightEnergy(int level)
     {
         tempi = 4;
-        tempi += 1 * level;
+        tempi += 2 * level;
         return tempi;
     }
 
@@ -1126,7 +1134,7 @@ public class PlayerCombat : MonoBehaviour
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(CrushingBlowDaze(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(CrushingBlowSlow(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(CrushingBlowWeak(level));
-        //CombatScript.Enemy[CombatScript.targetedEnemy].GainVulnerable(1);
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainVulnerable(1);
     }
 
     int CrushingBlowDamage(int level)
