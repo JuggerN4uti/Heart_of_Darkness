@@ -118,7 +118,7 @@ public class EnemyCombat : MonoBehaviour
         {
             if (unitID == 2 && currentMove == 3)
                 AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
-            else if (unitID == 4 && currentMove == 2)
+            else if (unitID == 6 && currentMove == 2)
                 AttackValue.text = TentacleSlamDamage().ToString("") + movesText[currentMove];
             else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
         }
@@ -161,8 +161,18 @@ public class EnemyCombat : MonoBehaviour
         {
             GainBlock(effect[7] * 3);
             GainStrength(effect[7]);
-            GainSlow(effect[7]);
+            GainSlow(1);
         }
+        if (effect[10] > 0)
+        {
+            effect[10]--;
+            if (effect[10] == 0)
+            {
+                GainSlow(2);
+                GainVulnerable(1);
+            }
+        }
+        UpdateInfo();
         if (!stunned)
         {
             SelectMove();
@@ -171,7 +181,7 @@ public class EnemyCombat : MonoBehaviour
             {
                 if (unitID == 2 && currentMove == 3)
                     AttackValue.text = FlySwarmDamage().ToString("") + movesText[currentMove];
-                else if (unitID == 4 && currentMove == 2)
+                else if (unitID == 6 && currentMove == 2)
                     AttackValue.text = TentacleSlamDamage().ToString("") + movesText[currentMove];
                 else AttackValue.text = AttackDamage().ToString("") + movesText[currentMove];
             }
@@ -288,13 +298,53 @@ public class EnemyCombat : MonoBehaviour
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     break;
-                    // Faceless One ID
-                case (4, 0):
+                case (4, 1):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    if (effect[10] > 0)
+                    {
+                        effect[10]--;
+                        Display(-1, effectSprite[10]);
+                    }
+                    else GainSlow(3);
+                    break;
+                case (4, 2):
+                    GainBlock(LevelCalculated(26));
+                    if (effect[10] > 0)
+                    {
+                        effect[10] += LevelCalculated(1);
+                        Display(LevelCalculated(1), effectSprite[10]);
+                        UpdateInfo();
+                    }
+                    else GainStrength(LevelCalculated(4));
+                    break;
+                case (4, 3):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainFrail(LevelCalculated(1));
+                    GainShield(LevelCalculated(6 + 3 * effect[10]));
+                    break;
+                case (5, 1):
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainBleed(LevelCalculated(4 + effect[3] / 2));
+                    break;
+                case (5, 2):
+                    GainStrength(LevelCalculated(3 + effect[3] / 16));
+                    effect[11] += LevelCalculated(3 + effect[3] / 13);
+                    Display(LevelCalculated(3 + effect[3] / 13), effectSprite[11]);
+                    tenacity += LevelCalculated(1);
+                    UpdateInfo();
+                    break;
+                // Faceless One ID
+                case (6, 0):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     GainStrength(LevelCalculated(2 + CursesOnPlayer()));
                     break;
-                case (4, 1):
+                case (6, 1):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     for (int i = 0; i < LevelCalculated(3 + CursesOnPlayer()); i++)
@@ -315,13 +365,13 @@ public class EnemyCombat : MonoBehaviour
                     }
                     CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(11), LevelCalculated(16)));
                     break;
-                case (4, 2):
+                case (6, 2):
                     CombatScript.Player.TakeDamage(TentacleSlamDamage());
                     OnHit();
                     GainDaze(TentacleSlamDamage() * tenacity / 72);
                     GainSlow(2);
                     break;
-                case (4, 3):
+                case (6, 3):
                     GainBlock(LevelCalculated(17 + 4 * effect[6]));
                     effect[6] += LevelCalculated(2 + CursesOnPlayer());
                     Display(LevelCalculated(2 + CursesOnPlayer()), effectSprite[6]);
@@ -335,6 +385,11 @@ public class EnemyCombat : MonoBehaviour
     {
         if (effect[4] > 0)
             CombatScript.Player.GainBleed(effect[4]);
+        if (effect[11] > 0)
+        {
+            if (CombatScript.Player.TotalBlock() == 0)
+                CombatScript.Player.TakeMagicDamage(effect[11]);
+        }
     }
 
     void Stunned()
@@ -350,25 +405,34 @@ public class EnemyCombat : MonoBehaviour
     public int AttackDamage()
     {
         tempi = movesValue[currentMove] + effect[3];
-        if (effect[0] > 0)
-            return (tempi * 3) / 4;
-        else return tempi;
+        return DamageDealtModifier(tempi);
     }
 
     public int FlySwarmDamage()
     {
         tempi = movesValue[currentMove] + effect[3] + LevelCalculated(effect[5] * 3);
-        if (effect[0] > 0)
-            return (tempi * 3) / 4;
-        else return tempi;
+        return DamageDealtModifier(tempi);
     }
 
     public int TentacleSlamDamage()
     {
         tempi = movesValue[currentMove] + effect[3] * 4;
+        return DamageDealtModifier(tempi);
+    }
+
+    int DamageDealtModifier(int value)
+    {
         if (effect[0] > 0)
-            return (tempi * 3) / 4;
-        else return tempi;
+        {
+            value *= 3;
+            value /= 4;
+        }
+        if (effect[10] > 0)
+        {
+            value *= 33 + effect[10];
+            value /= 25;
+        }
+        return value;
     }
 
     public void TakeDamage(int amount)

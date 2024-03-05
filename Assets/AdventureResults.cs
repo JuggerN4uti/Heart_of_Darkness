@@ -8,6 +8,7 @@ public class AdventureResults : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
     public Map MapScript;
+    public Leader LeaderScript;
 
     [Header("Stats")]
     public int SkillPoints, SanityLost;
@@ -112,11 +113,6 @@ public class AdventureResults : MonoBehaviour
 
     void DisplayGems()
     {
-
-    }
-
-    public void Proceed()
-    {
         for (int i = 0; i < GemSprites.Length; i++)
         {
             if (PlayerScript.Gems[i] > 0)
@@ -127,5 +123,10 @@ public class AdventureResults : MonoBehaviour
                 current++;
             }
         }
+    }
+
+    public void Proceed()
+    {
+        LeaderScript.SkillPoints += SkillPoints;
     }
 }

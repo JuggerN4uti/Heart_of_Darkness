@@ -146,7 +146,7 @@ public class Map : MonoBehaviour
         LastImage.sprite = PlayerSprite;
         LastImage.color = new Color(0.6f, 1f, 0.6f, 1f);
 
-        CombatScript.SetEnemy(4, 0);
+        CombatScript.SetEnemy(6, 0);
         //Invoke("StartCombat", 0.4f);
     }
 
@@ -158,7 +158,7 @@ public class Map : MonoBehaviour
 
     void SetEnemies()
     {
-        danger += 0.55f + danger * 0.02f;
+        danger += 0.56f + danger * 0.02f;
         if (danger < 1.6f)
             CombatScript.SetEnemy(0, 0);
         else
@@ -170,14 +170,14 @@ public class Map : MonoBehaviour
                 temp -= 1.28f + tempi * 0.28f;
                 tempi++;
             }
-            roll = Random.Range(1, 4);
+            roll = Random.Range(1, 6);
             CombatScript.SetEnemy(roll, tempi);
         }
     }
 
     void MoveTile(int row)
     {
-        danger += 0.35f;
+        danger += 0.36f;
 
         if (currentTile == 0)
         {

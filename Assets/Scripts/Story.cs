@@ -82,7 +82,7 @@ public class Story : MonoBehaviour
                 StoryScene.SetActive(false);
                 TutorialMapScene.SetActive(false);
                 MapScript.SetTileEvents();
-                MapScript.danger += 0.25f;
+                MapScript.danger += 0.35f;
                 MapScene.SetActive(true);
                 break;
             case 4:

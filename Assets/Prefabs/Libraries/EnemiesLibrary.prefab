@@ -1,5 +1,71 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2078635955511941928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2649993927032057201}
+  - component: {fileID: 8021285254431747881}
+  m_Layer: 0
+  m_Name: Living Corpse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2649993927032057201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078635955511941928}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811370481288226646}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8021285254431747881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078635955511941928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Living Corpse
+  UnitID: 4
+  UnitHealth: 56
+  UnitShield: 80
+  UnitTenacity: 4
+  MovesCount: 4
+  UnitSprite: {fileID: 21300000, guid: 7e45077649483d74bb219d76e5b11904, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  MovesValues: 120000000b000000000000000f000000
+  MovesCooldowns: 01000000030000000300000003000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000500000000000000
+  additionalText:
+  - 
+  - x2
+  - 
+  - 
+  attackIntention: 01010001
+  normalAttack: 01000000
 --- !u!1 &2378781269131442887
 GameObject:
   m_ObjectHideFlags: 0
@@ -51,6 +117,8 @@ MonoBehaviour:
   - {fileID: 1971214115461692466}
   - {fileID: 7739140068333639569}
   - {fileID: 8297640726068725542}
+  - {fileID: 8021285254431747881}
+  - {fileID: 7680520955105147659}
   - {fileID: 6726278920593641456}
 --- !u!1 &2920537358342607625
 GameObject:
@@ -109,7 +177,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
   MovesValues: 110000001000000008000000
   MovesCooldowns: 010000000300000002000000
-  StartingEffects: 00000000000000000000000000000000010000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -161,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitName: Faceless One
-  UnitID: 4
+  UnitID: 6
   UnitHealth: 880
   UnitShield: 220
   UnitTenacity: 8
@@ -174,7 +242,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   MovesValues: 190000000b0000003c00000000000000
   MovesCooldowns: 02000000030000000600000004000000
-  StartingEffects: 00000000000000000000000000000000000000000000000004000000000000000100000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000040000000000000001000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -270,14 +338,78 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 79cce631941f5f54291040e738881608, type: 3}
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
   MovesValues: 0e0000000000000010000000
-  MovesCooldowns: 030000000300000002000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000010000000000000000000000
+  MovesCooldowns: 030000000400000002000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000
   additionalText:
   - 
   - 
   - 
   attackIntention: 010001
   normalAttack: 000000
+--- !u!1 &7035486100432542993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3659098086082753433}
+  - component: {fileID: 7680520955105147659}
+  m_Layer: 0
+  m_Name: Reanimated Soldier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3659098086082753433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035486100432542993}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811370481288226646}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7680520955105147659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7035486100432542993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Reanimated Soldier
+  UnitID: 5
+  UnitHealth: 22
+  UnitShield: 105
+  UnitTenacity: 4
+  MovesCount: 3
+  UnitSprite: {fileID: 21300000, guid: a0801a1d0f8478b4bbf49b574414f992, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  MovesValues: 110000000e00000000000000
+  MovesCooldowns: 01000000030000000300000003000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000
+  additionalText:
+  - 
+  - 0
+  - 
+  attackIntention: 010100
+  normalAttack: 010000
 --- !u!1 &7413051435358042591
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +468,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
   MovesValues: 17000000000000000700000009000000
   MovesCooldowns: 01000000020000000200000003000000
-  StartingEffects: 00000000000000000000000000000000000000000100000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -376,6 +508,8 @@ Transform:
   - {fileID: 3879073329354691042}
   - {fileID: 4853890636228325446}
   - {fileID: 999704225605050116}
+  - {fileID: 2649993927032057201}
+  - {fileID: 3659098086082753433}
   m_Father: {fileID: 5664719147339333400}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -436,7 +570,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   MovesValues: 100000000c00000000000000
   MovesCooldowns: 010000000300000002000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
