@@ -11,7 +11,8 @@ public class AdventureResults : MonoBehaviour
     public Leader LeaderScript;
 
     [Header("Stats")]
-    public int SkillPoints, SanityLost;
+    public int SkillPoints;
+    public int SanityLost;
     public int[] UnitSanityLost;
     public float SkillPointCharge;
     int tempi, roll, current;
@@ -98,11 +99,16 @@ public class AdventureResults : MonoBehaviour
             SanityLost -= Random.Range(5 + SanityLost / 8, 8 + SanityLost / 5);
         }
 
-        /*for (int i = 0; i < PlayerScript.unitUnderCommand; i++) potem dodaæ talencik ¿e mniej sanity tracone
+        for (int i = 0; i < PlayerScript.unitUnderCommand; i++)
         {
-            temp = UnitSanityLost[i] * 0.4f;
-            if ()
-        }*/
+            if (Units[i].Unit.talentsValue[1] > 0)
+            {
+                tempi = (UnitSanityLost[i] * 2) / 5;
+                if (temp > Units[i].Unit.talentsValue[1])
+                    UnitSanityLost[i] -= Units[i].Unit.talentsValue[1];
+                else UnitSanityLost[i] -= tempi;
+            }
+        }
 
         for (int i = 0; i < PlayerScript.unitUnderCommand; i++)
         {

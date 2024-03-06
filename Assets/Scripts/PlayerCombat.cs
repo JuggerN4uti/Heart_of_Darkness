@@ -104,6 +104,8 @@ public class PlayerCombat : MonoBehaviour
             GainBlock(effect[3]);
             effect[3] = 0;
         }
+        if (effect[6] > 0)
+            GainBlock(effect[6]);
         GainEnergy(8 + effect[2]);
         if (effect[7] > 0)
             GainMana(2);
@@ -173,8 +175,6 @@ public class PlayerCombat : MonoBehaviour
         if (energy > 10)
             energy = 10;
         mana = 0;
-        if (effect[6] > 0)
-            GainBlock(effect[6]);
         if (effect[7] > 0)
             effect[7]--;
         if (effect[8] > 0)
@@ -201,7 +201,7 @@ public class PlayerCombat : MonoBehaviour
         if (sanity < 1)
         {
             sanity += maxSanity;
-            maxSanity += 10;
+            maxSanity += 8 + maxSanity / 25;
             GainCurse();
         }
         UpdateInfo();

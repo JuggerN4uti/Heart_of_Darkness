@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
                 StatValues[i] += Units[j].PerksValue[i];
             }
         }
+        GainStats();
+    }
+
+    public void GainStats()
+    {
         for (int i = 0; i < Gems.Length; i++)
         {
             Gems[i] = 0;

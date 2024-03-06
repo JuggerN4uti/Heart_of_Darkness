@@ -19,7 +19,7 @@ public class UnitChoice : MonoBehaviour
     int current;
 
     [Header("Hidden Talents")]
-    public float[] talentsValue;
+    public int[] talentsValue;
 
     [Header("UI")]
     public TMPro.TextMeshProUGUI UnitTitle;
@@ -33,7 +33,7 @@ public class UnitChoice : MonoBehaviour
 
     public void Start()
     {
-        UpdateInfo();
+        //UpdateInfo();
     }
 
     public void UpdateInfo()

@@ -29,13 +29,18 @@ public class Story : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (CurrentDialogue.DialoguesCount == line)
-            {
-                Fade.StartDarken();
-                Invoke("Proceed", 0.4f);
-            }
-            else NextLine();
+            Next();
         }
+    }
+
+    public void Next()
+    {
+        if (CurrentDialogue.DialoguesCount == line)
+        {
+            Fade.StartDarken();
+            Invoke("Proceed", 0.4f);
+        }
+        else NextLine();
     }
 
     public void NewDialogue()

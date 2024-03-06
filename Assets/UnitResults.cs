@@ -50,7 +50,7 @@ public class UnitResults : MonoBehaviour
 
     public void GainExperience(float amount)
     {
-        experience += amount * (1f + Unit.talentsValue[0]);
+        experience += amount * (1f + 0.01f * Unit.talentsValue[0]);
         while (experience > 0f)
         {
             if (Random.Range(0, 5) > 1)

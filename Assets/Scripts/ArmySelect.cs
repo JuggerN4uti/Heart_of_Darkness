@@ -13,16 +13,16 @@ public class ArmySelect : MonoBehaviour
     public Story StoryScript;
 
     [Header("Stats")]
-    public int unitSlots;
-    public int selectedCount, current;
+    public int unitsCount;
+    public int unitSlots, selectedCount, current;
     public int[] unitsSelected;
     public bool[] selected, slotFilled;
 
     [Header("UI")]
     public TMPro.TextMeshProUGUI HoveredText;
     public Button ProceedButton;
+    public GameObject[] UnitObject;
     public Image[] SelectedUnits, UnitButtons;
-    public string[] cardLevelsNames;
 
     [Header("Sprites")]
     public Sprite BlockedSprite;
@@ -30,12 +30,26 @@ public class ArmySelect : MonoBehaviour
 
     public void Start()
     {
+        SetUnits();
         UpdateInfo();
+    }
+
+    void SetUnits()
+    {
+        for (int i = 0; i < UnitObject.Length; i++)
+        {
+            UnitObject[i].SetActive(false);
+        }
+        for (int i = 0; i < unitsCount; i++)
+        {
+            UnitObject[i].SetActive(true);
+            Units[i].UpdateInfo();
+        }
     }
 
     public void UpdateInfo()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < unitsCount; i++)
         {
             if (i >= unitSlots)
                 SelectedUnits[i].sprite = BlockedSprite;
