@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
     public bool opened, map;
+    public bool[] Item;
 
     [Header("Curses")]
     public int CursesCount;
@@ -177,6 +178,32 @@ public class Player : MonoBehaviour
     public void AddUncommon()
     {
         StatValues[3]--;
+        UpdateInfo();
+    }
+
+    public void CollectItem(int which)
+    {
+        Item[which] = true;
+        switch (which)
+        {
+            case 1:
+                MaxHealth += 20;
+                Health += 20;
+                break;
+            case 2:
+                StatValues[8] += 2;
+                break;
+            case 3:
+                StatValues[7] += 2;
+                break;
+            case 4:
+                StatValues[9] += 2;
+                break;
+            case 7:
+                StatValues[5] += 6;
+                // thorns
+                break;
+        }
         UpdateInfo();
     }
 

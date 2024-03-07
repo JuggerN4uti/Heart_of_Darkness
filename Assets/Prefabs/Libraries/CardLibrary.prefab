@@ -153,6 +153,57 @@ MonoBehaviour:
   CardTooltip:
   - Gain Block equal to your missing Health. Destroy
   - Gain Block equal to your missing Health. Destroy
+--- !u!1 &829852975062829353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8909040488129405170}
+  - component: {fileID: 1945518935911792605}
+  m_Layer: 0
+  m_Name: Righteous Hammer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8909040488129405170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829852975062829353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1945518935911792605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829852975062829353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 30606409dff7a574d82bfde8344cc6b4, type: 3}
+  CardName: Righteous Hammer
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 8 Damage, Apply Daze equal to Damage dealt & 1 Slow
+  - Deal 10 Damage, Apply Daze equal to Damage dealt & 2 Slow
 --- !u!1 &959071048080588986
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,8 +559,8 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 12 Damage, increased by 8 if the target intends to Attack
-  - Deal 16 Damage, increased by 12 if the target intends to Attack
+  - Deal 12 Damage, if the target intends to Attack, Apply 1 Vulnerable
+  - Deal 16 Damage, if the target intends to Attack, Apply 2 Vulnerable
 --- !u!1 &2462809486461673001
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +612,57 @@ MonoBehaviour:
   CardTooltip:
   - Deal 22 Damage, Apply 2 Daze, 1 Slow, 1 Weak & 1 Vulnerable
   - Deal 26 Damage, Apply 4 Daze, 2 Slow, 2 Weak & 1 Vulnerable
+--- !u!1 &2697824346853653083
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8865123033985889298}
+  - component: {fileID: 3731797141522562042}
+  m_Layer: 0
+  m_Name: A Light in the Darkness
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8865123033985889298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697824346853653083}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3731797141522562042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2697824346853653083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 86bff39c3d514334480bffa77efe762e, type: 3}
+  CardName: A Light in the Darkness
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 8 Sanity & 4 Block. Apply 1 Slow to all Enemies for every Curse. Destroy
+  - Gain 10 Sanity & 6 Block. Apply 2 Slow to all Enemies for every Curse. Destroy
 --- !u!1 &2853611984503561597
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +816,57 @@ MonoBehaviour:
   CardTooltip:
   - Deal 12 Damage, Gain 1 Valor. Damage Dealt increased by Valor
   - Deal 14 Damage, Gain 2 Valor. Damage Dealt increased by Valor
+--- !u!1 &3547554386167414550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6855524620088823062}
+  - component: {fileID: 794969988877965574}
+  m_Layer: 0
+  m_Name: Penance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6855524620088823062
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547554386167414550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &794969988877965574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3547554386167414550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: f3a4ebe3d2231494fb507644115826b9, type: 3}
+  CardName: Penance
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 8 Damage, Gain 7 Block
+  - Deal 11 Damage, Gain 9 Block
 --- !u!1 &3594482170667357575
 GameObject:
   m_ObjectHideFlags: 0
@@ -918,6 +1071,57 @@ MonoBehaviour:
   CardTooltip:
   - Deal 10 Damage, Apply 6 Daze & 4 Slow. Damage Dealt increased by targets Daze
   - Deal 15 Damage, Apply 8 Daze & 5 Slow. Damage Dealt increased by targets Daze
+--- !u!1 &4682696695095343883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5078951131549522804}
+  - component: {fileID: 3023031613220312298}
+  m_Layer: 0
+  m_Name: Lights Chosen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5078951131549522804
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682696695095343883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3023031613220312298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682696695095343883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d8916f0b2a969594884d601a2f096b11, type: 3}
+  CardName: Lights Chosen
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Strength, Resistance & Dexterity. Destroy
+  - Gain 2 Strength, Resistance & Dexterity. Destroy
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,6 +1181,11 @@ Transform:
   - {fileID: 3032417336123146353}
   - {fileID: 4852191621008146568}
   - {fileID: 6772556204810140766}
+  - {fileID: 8865123033985889298}
+  - {fileID: 6653326878207429751}
+  - {fileID: 8909040488129405170}
+  - {fileID: 5078951131549522804}
+  - {fileID: 6855524620088823062}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1023,6 +1232,11 @@ MonoBehaviour:
   - {fileID: 9158440768495474521}
   - {fileID: 7959653542348588834}
   - {fileID: 6082037248179912702}
+  - {fileID: 3731797141522562042}
+  - {fileID: 5975879973027171713}
+  - {fileID: 1945518935911792605}
+  - {fileID: 3023031613220312298}
+  - {fileID: 794969988877965574}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -1490,6 +1704,57 @@ MonoBehaviour:
   CardTooltip:
   - Gain 10 Block, Gain 1 Valor. Block Gained increased by Valor
   - Gain 12 Block, Gain 2 Valor. Block Gained increased by Valor
+--- !u!1 &8685924784386746287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6653326878207429751}
+  - component: {fileID: 5975879973027171713}
+  m_Layer: 0
+  m_Name: Barricade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6653326878207429751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8685924784386746287}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 31
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5975879973027171713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8685924784386746287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 568a2a6f3e4cf83458c7624e73cc4f65, type: 3}
+  CardName: Barricade
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 12 Block. Block is retained for 1 Turn
+  - Gain 17 Block. Block is retained for 1 Turn
 --- !u!1 &8747331849559699352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardSprite: {fileID: 21300000, guid: 30606409dff7a574d82bfde8344cc6b4, type: 3}
+  CardSprite: {fileID: 21300000, guid: 16a10ab29e2d7a94f90fb916bee9e965, type: 3}
   CardName: Patient Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0

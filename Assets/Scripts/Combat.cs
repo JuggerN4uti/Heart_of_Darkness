@@ -215,6 +215,9 @@ public class Combat : MonoBehaviour
             case 10:
                 EffectTooltip.text = "Frail:\nReduce Blcok Gained by 25%\nlasts " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
+            case 11:
+                EffectTooltip.text = "Barricade:\nBlock is retained for next " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
+                break;
         }
     }
 

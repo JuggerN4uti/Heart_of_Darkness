@@ -14,12 +14,13 @@ public class Map : MonoBehaviour
     public ForgeChoice ForgeScript;
     public CampChoice CampScript;
     public MerchantChoice MerchantScript;
+    public ItemPick ItemPickScript;
     public SceneChange Fade;
 
     [Header("Stats")]
     public int[] tileEvent;
     public int[] EventCooldown, EventsCooldowns;
-    public int currentTile, currentRow, tilesAmount;
+    public int currentTile, currentRow, tilesAmount, treasureTile;
     public float danger, experience;
     int roll, tempi;
     float temp;
@@ -125,6 +126,9 @@ public class Map : MonoBehaviour
             case 4:
                 MerchantScript.Open();
                 break;
+            case 5:
+                ItemPickScript.RollItems();
+                break;
         }
     }
 
@@ -222,7 +226,7 @@ public class Map : MonoBehaviour
             viable = false;
             do
             {
-                roll = Random.Range(0, TileSprites.Length);
+                roll = Random.Range(0, TileSprites.Length - 1);
                 EventCooldown[roll]--;
                 if (EventCooldown[roll] == 0)
                     viable = true;
@@ -234,6 +238,11 @@ public class Map : MonoBehaviour
 
             TileImage[i].sprite = TileSprites[roll];
             tileEvent[i] = roll;
+        }
+        for (int i = 1; i < 4; i++)
+        {
+            TileImage[treasureTile * 3 + i - 3].sprite = TileSprites[5];
+            tileEvent[treasureTile * 3 + i - 3] = 5;
         }
         UpdateInfo();
     }

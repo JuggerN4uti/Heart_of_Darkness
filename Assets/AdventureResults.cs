@@ -85,7 +85,7 @@ public class AdventureResults : MonoBehaviour
 
     void SetInsanity()
     {
-        tempi = (SanityLost * 3) / (8 * PlayerScript.unitUnderCommand);
+        tempi = (SanityLost * 3) / (7 * PlayerScript.unitUnderCommand + 1);
         for (int i = 0; i < PlayerScript.unitUnderCommand; i++)
         {
             UnitSanityLost[i] = tempi;
