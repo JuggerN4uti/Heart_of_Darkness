@@ -63,12 +63,15 @@ public class ForgeChoice : MonoBehaviour
             {
                 case 0:
                     PlayerScript.StatValues[5] += (shieldAmount + nextShield);
+                    nextShield = 0;
                     break;
                 case 1:
                     PlayerScript.StatValues[6] += (armorAmount + nextArmor);
+                    nextArmor = 0;
                     break;
                 case 2:
                     PlayerScript.StatValues[7] += nextResistance;
+                    nextResistance = 0;
                     break;
             }
             ChargeArmor(5.45f); //26,5%

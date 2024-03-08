@@ -7,6 +7,7 @@ public class EnemyCombat : MonoBehaviour
 {
     [Header("Scripts")]
     public Combat CombatScript;
+    public Player PlayerScript;
     public EnemiesLibrary Library;
 
     [Header("Stats")]
@@ -58,6 +59,8 @@ public class EnemyCombat : MonoBehaviour
     {
         unitID = ID;
         level = Level;
+        if (PlayerScript.Item[18])
+            level++;
         Reset();
         maxHealth = LevelCalculated(Library.Enemies[ID].UnitHealth);
         health = maxHealth;
@@ -74,6 +77,13 @@ public class EnemyCombat : MonoBehaviour
             movesText[i] = Library.Enemies[ID].additionalText[i];
             attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
             normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
+        }
+        if (PlayerScript.Item[14])
+            GainWeak(1);
+        if (PlayerScript.Item[14])
+        {
+            GainDaze(5);
+            GainSlow(2);
         }
         LevelValue.text = (level + 1).ToString("0");
         UpdateInfo();
@@ -556,6 +566,8 @@ public class EnemyCombat : MonoBehaviour
     {
         Display(amount, effectSprite[0]);
         effect[0] += amount;
+        if (PlayerScript.Item[13])
+            TakeDamage(6 * amount);
         UpdateInfo();
     }
 
@@ -584,6 +596,8 @@ public class EnemyCombat : MonoBehaviour
     {
         Display(amount, effectSprite[9]);
         effect[9] += amount;
+        if (PlayerScript.Item[13])
+            TakeDamage(6 * amount);
         UpdateInfo();
     }
 
@@ -599,8 +613,8 @@ public class EnemyCombat : MonoBehaviour
 
     int LevelCalculated(int value)
     {
-        value *= (18 + level);
-        value /= 18;
+        value *= (16 + level);
+        value /= 16;
         return value;
     }
 }

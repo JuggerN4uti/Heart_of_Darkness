@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour
 {
     [Header("Scripts")]
     public PlayerCombat Player;
+    public Player PlayerScript;
     public CardLibrary Library;
     public DrawPile CardDraw;
     public DiscardPile CardDiscard;
@@ -28,6 +29,9 @@ public class Hand : MonoBehaviour
     public int CardsInHand;
     public int[] CardsID, CardsLevel;
     public int skipDraw;
+
+    [Header("Item Stats")]
+    public int cardsPlayed;
 
     [Header("Sprites")]
     public Sprite CardDrawSkipSprite;
@@ -104,15 +108,26 @@ public class Hand : MonoBehaviour
         Player.UseAbility(CardsID[which], CardsLevel[which]);
         Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]]);
 
+        if (PlayerScript.Item[19])
+        {
+            cardsPlayed++;
+            if (cardsPlayed % 9 == 0)
+                Draw(1);
+        }
+
         if (!Library.Cards[CardsID[which]].SingleUse)
         {
             if (CardsID[which] == 10)
             {
                 if (Player.HealthProcentage() >= 0.5f)
                     CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
+                else if (PlayerScript.Item[21])
+                    Draw(1);
             }
             else CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
         }
+        else if (PlayerScript.Item[21])
+            Draw(1);
 
         for (int i = which; i < CardsInHand; i++)
         {

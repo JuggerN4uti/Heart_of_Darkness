@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Health;
-    public int MaxHealth, Sanity, MaxSanity, Silver, SanityLost;
+    public int MaxHealth, Sanity, MaxSanity, Silver, SanityLost, BaseMana, BaseDraw;
     public int[] Gems;
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
@@ -199,9 +199,19 @@ public class Player : MonoBehaviour
             case 4:
                 StatValues[9] += 2;
                 break;
+            case 6:
+                BaseMana++;
+                break;
             case 7:
                 StatValues[5] += 6;
                 // thorns
+                break;
+            case 18:
+                BaseMana++;
+                break;
+            case 20:
+                BaseMana++;
+                BaseDraw--;
                 break;
         }
         UpdateInfo();

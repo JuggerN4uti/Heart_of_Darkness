@@ -12,10 +12,14 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Stats")]
     public int maxHealth;
-    public int health, shield, block, energy, mana, sanity, maxSanity;
+    public int health, shield, block, energy, mana, manaGain, cardDraw, sanity, maxSanity;
     public int[] effect;
     int tempi;
     float temp;
+
+    [Header("Item Stats")]
+    public int turns;
+    public int attacks;
 
     [Header("Weapon")]
     public GameObject TheWeapon;
@@ -56,8 +60,11 @@ public class PlayerCombat : MonoBehaviour
         Cards.CardsInHand = 0;
         Cards.CardDraw.SetDeck();
 
+        manaGain = PlayerScript.BaseMana;
+        cardDraw = PlayerScript.BaseDraw;
         mana = 0;
         energy = 0;
+        attacks = 0;
 
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
@@ -90,6 +97,8 @@ public class PlayerCombat : MonoBehaviour
 
     public void Set()
     {
+        if (PlayerScript.Item[16])
+            RestoreHealth(maxHealth / 50);
         PlayerScript.Health = health;
         PlayerScript.Sanity = sanity;
         PlayerScript.MaxSanity = maxSanity;
@@ -100,7 +109,15 @@ public class PlayerCombat : MonoBehaviour
     {
         if (effect[11] > 0)
             effect[11]--;
-        else block = 0;
+        else
+        {
+            if (PlayerScript.Item[0])
+            {
+                if (block > 12)
+                    block = 12;
+            }
+            else block = 0;
+        }
         if (effect[3] > 0)
         {
             GainBlock(effect[3]);
@@ -110,9 +127,17 @@ public class PlayerCombat : MonoBehaviour
             GainBlock(effect[6]);
         GainEnergy(8 + effect[2]);
         if (effect[7] > 0)
-            GainMana(2);
-        else GainMana(3);
-        Cards.Draw(5);
+            GainMana(manaGain - 1);
+        else GainMana(manaGain);
+        if (PlayerScript.Item[5] && CombatScript.turn < 3)
+            GainMana(1);
+        if (PlayerScript.Item[8])
+        {
+            turns++;
+            if (turns % 3 == 0)
+                GainMana(1);
+        }
+        Cards.Draw(cardDraw);
         if (PlayerScript.CurseValue[2] > 0)
             CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
         UpdateInfo();
@@ -187,6 +212,10 @@ public class PlayerCombat : MonoBehaviour
             effect[10]--;
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
+        if (PlayerScript.Item[6])
+            TakeDamage(CombatScript.turn);
+        if (PlayerScript.Item[16] && effect[8] > 0)
+            effect[8]--;
         LoseSanity(TurnSanity());
         UpdateInfo();
         Cards.ShuffleHand();
@@ -279,7 +308,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    void GainEnergy(int amount)
+    public void GainEnergy(int amount)
     {
         energy += amount;
         UpdateInfo();
@@ -291,7 +320,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    void GainMana(int amount)
+    public void GainMana(int amount)
     {
         mana += amount;
         UpdateInfo();
@@ -376,10 +405,26 @@ public class PlayerCombat : MonoBehaviour
     public void UseWeapon()
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(WeaponDamage());
+        OnHit();
         SpendEnergy(energyCost);
         if (effect[5] > 0)
             Cards.Draw(effect[5]);
         UpdateInfo();
+    }
+
+    void OnHit()
+    {
+        attacks++;
+        if (PlayerScript.Item[9] && attacks % 6 == 0)
+            GainStrength(1);
+        if (PlayerScript.Item[10] && attacks % 6 == 0)
+            GainResistance(1);
+        if (PlayerScript.Item[11] && attacks % 3 == 0)
+            GainBlock(4);
+        if (PlayerScript.Item[12] && attacks % 8 == 0)
+            GainMana(1);
+        if (PlayerScript.Item[17])
+            GainEnergy(1);
     }
 
     int WeaponDamage()
@@ -656,7 +701,7 @@ public class PlayerCombat : MonoBehaviour
             case 32:
                 return "Deal " + RighteousHammerDamage(level).ToString("") + " Damage\nApply " + RighteousHammerDamage(level).ToString("") + " Daze\n& " + RighteousHammerSlow(level).ToString("") + " Slow";
             case 33:
-                return "Gain " + EmpowerStrength(level).ToString("") + " Strength, Resistance & Dexterity";
+                return "Gain " + LightsChosenBuff(level).ToString("") + " Strength, Resistance & Dexterity";
             case 34:
                 return "Deal " + PenanceDamage(level).ToString("") + " Damage\nGain " + PenanceBlock(level).ToString("") + " Block";
         }
@@ -667,6 +712,7 @@ public class PlayerCombat : MonoBehaviour
     void Strike(int level) // ID 0
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StrikeDamage(level));
+        OnHit();
     }
 
     int StrikeDamage(int level)
@@ -692,6 +738,7 @@ public class PlayerCombat : MonoBehaviour
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(SpearThrustBreak(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SpearThrustDamage(level));
+        OnHit();
     }
 
     int SpearThrustBreak(int level)
@@ -711,6 +758,7 @@ public class PlayerCombat : MonoBehaviour
     void Judgement(int level) // ID 3
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(JudgementDamage(level));
+        OnHit();
         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
             CombatScript.Enemy[CombatScript.targetedEnemy].GainVulnerable(JudgementVulnerable(level));
     }
@@ -732,6 +780,7 @@ public class PlayerCombat : MonoBehaviour
     void BolaShot(int level) // ID 4
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BolaShotDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(BolaShotSlow(level));
     }
 
@@ -752,6 +801,7 @@ public class PlayerCombat : MonoBehaviour
     void CripplingStrike(int level) // ID 5
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CripplingStrikeDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CripplingStrikeBleed(level));
     }
 
@@ -827,6 +877,7 @@ public class PlayerCombat : MonoBehaviour
         if (level > 0)
             GainBlock(ShieldBashBlock(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ShieldBashDamage(level));
+        OnHit();
     }
 
     int ShieldBashBlock(int level)
@@ -859,6 +910,7 @@ public class PlayerCombat : MonoBehaviour
     void DecisiveStrike(int level) // ID 11
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DecisiveStrikeDamage(level));
+        OnHit();
         GainValor(DecisiveStrikeValor(level));
     }
 
@@ -964,6 +1016,7 @@ public class PlayerCombat : MonoBehaviour
     void Smite(int level) // ID 16
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SmiteDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(SmiteSlow(level));
     }
 
@@ -984,6 +1037,7 @@ public class PlayerCombat : MonoBehaviour
     void BlindingLight(int level) // ID 17
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BlindingLightDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(BlindingLightDaze(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(BlindingLightWeak(level));
     }
@@ -1019,6 +1073,7 @@ public class PlayerCombat : MonoBehaviour
                 CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ConsecrationSlow(level));
             }
         }
+        OnHit();
         GainValor(ConsecrationValor(level));
     }
 
@@ -1067,6 +1122,7 @@ public class PlayerCombat : MonoBehaviour
     void Chastise(int level) // ID 20
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ChastiseDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(ChastiseDaze(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ChastiseSlow(level));
     }
@@ -1096,6 +1152,7 @@ public class PlayerCombat : MonoBehaviour
     void HolyBolt(int level) // ID 21
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyBoltDamage(level));
+        OnHit();
     }
 
     int HolyBoltDamage(int level)
@@ -1129,6 +1186,7 @@ public class PlayerCombat : MonoBehaviour
     void CounterAttack(int level) // ID 23
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CounterAttackDamage(level));
+        OnHit();
     }
 
     int CounterAttackDamage(int level)
@@ -1163,6 +1221,7 @@ public class PlayerCombat : MonoBehaviour
     void PatientStrike(int level) // ID 25
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PatientStrikeDamage(level));
+        OnHit();
     }
 
     int PatientStrikeDamage(int level)
@@ -1176,6 +1235,7 @@ public class PlayerCombat : MonoBehaviour
     void CrushingBlow(int level) // ID 26
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CrushingBlowDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(CrushingBlowDaze(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(CrushingBlowSlow(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(CrushingBlowWeak(level));
@@ -1300,6 +1360,7 @@ public class PlayerCombat : MonoBehaviour
     void RighteousHammer(int level) // ID 32
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RighteousHammerDamage(level));
+        OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(RighteousHammerDamage(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(RighteousHammerSlow(level));
     }
@@ -1335,6 +1396,7 @@ public class PlayerCombat : MonoBehaviour
     void Penance(int level) // ID 34
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PenanceDamage(level));
+        OnHit();
         GainBlock(PenanceBlock(level));
     }
 

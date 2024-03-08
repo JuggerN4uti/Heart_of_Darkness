@@ -169,9 +169,9 @@ public class Map : MonoBehaviour
         {
             tempi = 0;
             temp = danger;
-            while (temp > 3.2f)
+            while (temp > 3f)
             {
-                temp -= 1.28f + tempi * 0.28f;
+                temp -= 1.64f + tempi * 0.32f;
                 tempi++;
             }
             roll = Random.Range(1, 6);
@@ -181,7 +181,7 @@ public class Map : MonoBehaviour
 
     void MoveTile(int row)
     {
-        danger += 0.36f;
+        danger += 0.33f + 0.01f * currentTile;
 
         if (currentTile == 0)
         {

@@ -8,6 +8,7 @@ public class DrawPile : MonoBehaviour
     [Header("Scripts")]
     public Deck CardDeck;
     public DiscardPile CardDiscard;
+    public PlayerCombat Player;
 
     [Header("Stats")]
     public int[] CardID;
@@ -75,6 +76,12 @@ public class DrawPile : MonoBehaviour
         {
             CardID[i] = CardDiscard.CardID[i];
             CardLevel[i] = CardDiscard.CardLevel[i];
+        }
+
+        if (CardDeck.PlayerScript.Item[22] && CardDiscard.cardsInPile >= 15)
+        {
+            Player.GainMana(1);
+            Player.GainEnergy(3);
         }
 
         cardsInPile = CardDiscard.cardsInPile;

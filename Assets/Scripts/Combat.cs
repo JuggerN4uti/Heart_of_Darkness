@@ -114,7 +114,7 @@ public class Combat : MonoBehaviour
     {
         enemyAlive[which] = false;
         enemiesAlive--;
-        if (enemiesAlive == 0)
+        if (enemiesAlive <= 0)
             WonCombat();
         else
         {
