@@ -32,7 +32,7 @@ public class LootChoice : MonoBehaviour
 
     public void SetRewards(float dangerBonus)
     {
-        silver = Random.Range(8, 13);
+        silver = Random.Range(8, 14);
         temp = dangerBonus + gemCharge;
         if (temp >= Random.Range(0f, 100f + temp))
         {
@@ -51,22 +51,29 @@ public class LootChoice : MonoBehaviour
         while (dangerBonus > 0f)
         {
             silver++;
-            ChargeCard(0.03f);
-            ChargeQuality(0.006f);
-            roll = Random.Range(0, 3);
+            ChargeCard(0.02f);
+            ChargeQuality(0.004f);
+            roll = Random.Range(0, 5);
             switch (roll)
             {
                 case 0:
-                    silver += Random.Range(2, 4);
+                    silver += Random.Range(1, 4);
                     break;
                 case 1:
-                    ChargeCard(0.25f);
+                    ChargeCard(0.2f);
                     break;
                 case 2:
-                    ChargeQuality(0.05f);
+                    ChargeQuality(0.04f);
+                    break;
+                case 3:
+                    silver += Random.Range(1, 4);
+                    break;
+                case 4:
+                    ChargeCard(0.08f);
+                    ChargeQuality(0.024f);
                     break;
             }
-            dangerBonus -= 1f + rollsCount * 0.2f;
+            dangerBonus -= 0.9f + rollsCount * 0.15f;
             rollsCount++;
         }
         UpdateLoot();

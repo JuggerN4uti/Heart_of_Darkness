@@ -218,6 +218,9 @@ public class Combat : MonoBehaviour
             case 11:
                 EffectTooltip.text = "Barricade:\nBlock is retained for next " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
+            case 12:
+                EffectTooltip.text = "Terror:\nDraw 1 less Card at the start of Turn for " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
+                break;
         }
     }
 
@@ -256,10 +259,13 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Vulnerable:\nTake " + (10 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage";
                 break;
             case 10:
-                EffectTooltip.text = "Chemfuel:\nDeal " + (32 + 4 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage for next " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turn/s";
+                EffectTooltip.text = "Chemfuel:\nDeal " + (28 + 4 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage for next " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
             case 11:
                 EffectTooltip.text = "Dark Blade:\nAfter breaking through target Block, Deal " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Magic Damage to them";
+                break;
+            case 12:
+                EffectTooltip.text = "Hollow:\nTake 40% less Damage, but gain 1 Bleed when taking Damage";
                 break;
         }
     }

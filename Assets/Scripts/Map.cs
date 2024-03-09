@@ -16,6 +16,7 @@ public class Map : MonoBehaviour
     public MerchantChoice MerchantScript;
     public ItemPick ItemPickScript;
     public SceneChange Fade;
+    public EnemiesLibrary Library;
 
     [Header("Stats")]
     public int[] tileEvent;
@@ -127,6 +128,11 @@ public class Map : MonoBehaviour
                 MerchantScript.Open();
                 break;
             case 5:
+                Fade.StartDarken();
+                SetElite();
+                Invoke("StartCombat", 0.4f);
+                break;
+            case 6:
                 ItemPickScript.RollItems();
                 break;
         }
@@ -174,14 +180,28 @@ public class Map : MonoBehaviour
                 temp -= 1.64f + tempi * 0.32f;
                 tempi++;
             }
-            roll = Random.Range(1, 6);
+            roll = Library.BasicRoll();
             CombatScript.SetEnemy(roll, tempi);
         }
     }
 
+    void SetElite()
+    {
+        danger += 0.75f + danger * 0.025f;
+        tempi = 0;
+        temp = danger;
+        while (temp > 5f)
+        {
+            temp -= 2.5f + tempi * 0.8f;
+            tempi++;
+        }
+        roll = Library.EliteRoll();
+        CombatScript.SetEnemy(roll, tempi);
+    }
+
     void MoveTile(int row)
     {
-        danger += 0.33f + 0.01f * currentTile;
+        danger += 0.34f + 0.01f * currentTile;
 
         if (currentTile == 0)
         {
@@ -241,8 +261,8 @@ public class Map : MonoBehaviour
         }
         for (int i = 1; i < 4; i++)
         {
-            TileImage[treasureTile * 3 + i - 3].sprite = TileSprites[5];
-            tileEvent[treasureTile * 3 + i - 3] = 5;
+            TileImage[treasureTile * 3 + i - 3].sprite = TileSprites[6];
+            tileEvent[treasureTile * 3 + i - 3] = 6;
         }
         UpdateInfo();
     }

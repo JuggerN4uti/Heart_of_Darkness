@@ -137,7 +137,9 @@ public class PlayerCombat : MonoBehaviour
             if (turns % 3 == 0)
                 GainMana(1);
         }
-        Cards.Draw(cardDraw);
+        if (effect[12] > 0)
+            Cards.Draw(cardDraw - 1);
+        else Cards.Draw(cardDraw);
         if (PlayerScript.CurseValue[2] > 0)
             CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
         UpdateInfo();
@@ -210,6 +212,8 @@ public class PlayerCombat : MonoBehaviour
             effect[9]--;
         if (effect[10] > 0)
             effect[10]--;
+        if (effect[12] > 0)
+            effect[12]--;
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
         if (PlayerScript.Item[6])
@@ -385,6 +389,13 @@ public class PlayerCombat : MonoBehaviour
     {
         effect[10] += amount;
         Display(amount, effectSprite[10]);
+        UpdateInfo();
+    }
+
+    public void GainTerror(int amount)
+    {
+        effect[12] += amount;
+        Display(amount, effectSprite[12]);
         UpdateInfo();
     }
 
