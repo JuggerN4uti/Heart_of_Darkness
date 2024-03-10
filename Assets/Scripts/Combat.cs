@@ -17,6 +17,7 @@ public class Combat : MonoBehaviour
     [Header("Stats")]
     public bool[] enemyAlive;
     public int targetedEnemy, turn, enemiesAlive;
+    public bool elite;
     int whichEnemy;
     float temp;
 
@@ -126,6 +127,18 @@ public class Combat : MonoBehaviour
         }
     }
 
+    public void CardPlayed()
+    {
+        for (int i = 0; i < Enemy.Length; i++)
+        {
+            if (enemyAlive[i])
+            {
+                if (Enemy[i].effect[13] > 0)
+                    Enemy[i].GainLink();
+            }
+        }
+    }
+
     void WonCombat()
     {
         Fade.StartDarken();
@@ -141,7 +154,7 @@ public class Combat : MonoBehaviour
 
     void ReturnToMap()
     {
-        LootEvent.SetRewards(mapDanger);
+        LootEvent.SetRewards(mapDanger, elite);
         MapScript.experience += mapDanger * 0.25f;
         CombatScene.SetActive(false);
         Hand.SetActive(false);
@@ -266,6 +279,15 @@ public class Combat : MonoBehaviour
                 break;
             case 12:
                 EffectTooltip.text = "Hollow:\nTake 40% less Damage, but gain 1 Bleed when taking Damage";
+                break;
+            case 13:
+                EffectTooltip.text = "Armor:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Block at the end of every Turn";
+                break;
+            case 14:
+                EffectTooltip.text = "Chain Tether:\nWhenever Card is played gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Link, 10 Links grant 2 Strength";
+                break;
+            case 15:
+                EffectTooltip.text = "Chain Link:\nUpon gaining 9 Links, gain 2 Strength";
                 break;
         }
     }

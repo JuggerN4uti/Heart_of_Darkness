@@ -169,6 +169,7 @@ public class Map : MonoBehaviour
     void SetEnemies()
     {
         danger += 0.56f + danger * 0.02f;
+        CombatScript.elite = false;
         if (danger < 1.6f)
             CombatScript.SetEnemy(0, 0);
         else
@@ -190,12 +191,13 @@ public class Map : MonoBehaviour
         danger += 0.75f + danger * 0.025f;
         tempi = 0;
         temp = danger;
-        while (temp > 5f)
+        while (temp > 5.2f)
         {
-            temp -= 2.5f + tempi * 0.8f;
+            temp -= 2.42f + tempi * 0.78f;
             tempi++;
         }
         roll = Library.EliteRoll();
+        CombatScript.elite = true;
         CombatScript.SetEnemy(roll, tempi);
     }
 

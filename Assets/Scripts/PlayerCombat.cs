@@ -523,6 +523,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void UseAbility(int which, int level)
     {
+        CombatScript.CardPlayed();
         switch (which)
         {
             case 0:
