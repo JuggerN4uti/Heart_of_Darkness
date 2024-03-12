@@ -79,8 +79,8 @@ public class EnemyCombat : MonoBehaviour
             normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
         }
         if (PlayerScript.Item[14])
-            GainWeak(1);
-        if (PlayerScript.Item[14])
+            GainWeak(2);
+        if (PlayerScript.Item[15])
         {
             GainDaze(5);
             GainSlow(2);
@@ -173,14 +173,7 @@ public class EnemyCombat : MonoBehaviour
             GainSlow(1);
         }
         if (effect[10] > 0)
-        {
             effect[10]--;
-            if (effect[10] == 0)
-            {
-                GainSlow(2);
-                GainVulnerable(1);
-            }
-        }
         UpdateInfo();
         if (!stunned)
         {
@@ -211,7 +204,7 @@ public class EnemyCombat : MonoBehaviour
                 currentMoveValue = TentacleSlamDamage();
             else if (unitID == 7 && currentMove == 0)
                 currentMoveValue = EyeForAnEyeDamage();
-            else currentMoveValue = movesValue[currentMove] + effect[3];
+            else currentMoveValue = movesValue[currentMove];
         }
     }
 
@@ -263,11 +256,11 @@ public class EnemyCombat : MonoBehaviour
                 case (0, 1):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainBlock(LevelCalculated(10));
+                    GainBlock(LevelCalculated(9));
                     break;
                 case (0, 2):
                     GainStrength(LevelCalculated(2));
-                    GainBlock(LevelCalculated(6));
+                    GainBlock(LevelCalculated(5));
                     break;
                 case (1, 1):
                     if (AttackDamage() > CombatScript.Player.TotalBlock())
@@ -289,14 +282,14 @@ public class EnemyCombat : MonoBehaviour
                     GainSlow(1);
                     break;
                 case (2, 1):
-                    GainBlock(LevelCalculated(13 + tenacity));
-                    GainShield(LevelCalculated(5 + 2 * tenacity));
+                    GainBlock(LevelCalculated(12 + tenacity));
+                    GainShield(LevelCalculated(4 + 2 * tenacity));
                     break;
                 case (2, 2):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
                     CombatScript.Player.GainWeak(1);
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(7), LevelCalculated(11)));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(6), LevelCalculated(11)));
                     break;
                 case (2, 3):
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -308,11 +301,11 @@ public class EnemyCombat : MonoBehaviour
                 case (3, 0):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    RestoreHealth(LevelCalculated(9 + (2 * effect[3]) / 3));
+                    RestoreHealth(LevelCalculated(8 + (2 * effect[3]) / 3));
                     break;
                 case (3, 1):
                     CombatScript.Player.GainSlow(2);
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(5), LevelCalculated(9)));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(7), LevelCalculated(14)));
                     break;
                 case (3, 2):
                     if (AttackDamage() > CombatScript.Player.TotalBlock() + 1)
@@ -333,7 +326,7 @@ public class EnemyCombat : MonoBehaviour
                     else GainSlow(3);
                     break;
                 case (4, 2):
-                    GainBlock(LevelCalculated(28));
+                    GainBlock(LevelCalculated(27));
                     if (effect[10] > 0)
                     {
                         effect[10] += LevelCalculated(1);
@@ -356,8 +349,8 @@ public class EnemyCombat : MonoBehaviour
                     CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(3), LevelCalculated(6)));
                     break;
                 case (5, 2):
-                    GainStrength(LevelCalculated(3 + effect[3] / 16));
-                    effect[11] += LevelCalculated(3 + effect[3] / 12);
+                    GainStrength(LevelCalculated(3 + effect[3] / 17));
+                    effect[11] += LevelCalculated(3 + effect[3] / 13);
                     Display(LevelCalculated(3 + effect[3] / 13), effectSprite[11]);
                     tenacity += LevelCalculated(1);
                     UpdateInfo();
@@ -406,28 +399,28 @@ public class EnemyCombat : MonoBehaviour
                 case (7, 0):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    CombatScript.Player.GainBleed(LevelCalculated(2 + effect[1] / 4));
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(5), LevelCalculated(9)));
+                    CombatScript.Player.GainBleed(LevelCalculated(2 + (effect[1] * 1) / 6));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(4), LevelCalculated(7)));
                     break;
                 case (7, 1):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainBleed(LevelCalculated(4));
+                    GainBleed(LevelCalculated(3));
                     break;
                 case (7, 2):
-                    CombatScript.Player.GainFrail(LevelCalculated(2));
+                    CombatScript.Player.GainFrail(LevelCalculated(1));
                     CombatScript.Player.GainTerror(LevelCalculated(2));
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(11), LevelCalculated(19)));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(7), LevelCalculated(14)));
                     break;
                 case (7, 3):
-                    if (34 > effect[1] / 2)
-                        GainBlock(LevelCalculated(34 - effect[1] / 2));
-                    GainShield(LevelCalculated(4 + (effect[1] * 23) / 17));
+                    if (25 > effect[1] / 2)
+                        GainBlock(LevelCalculated(25 - effect[1] / 2));
+                    GainShield(LevelCalculated(3 + (effect[1] * 23) / 25));
                     break;
                 case (8, 0):
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainBlock(LevelCalculated(8 - (effect[3] * 11) / 4));
+                    GainBlock(LevelCalculated(9 + (effect[3] * 11) / 4));
                     break;
                 case (8, 1):
                     for (int i = 0; i < 3; i++)
@@ -440,7 +433,7 @@ public class EnemyCombat : MonoBehaviour
                     CombatScript.Player.GainBleed(LevelCalculated(1 + (effect[3] * 1) / 3));
                     CombatScript.Player.GainSlow(LevelCalculated(1));
                     CombatScript.Player.GainWeak(LevelCalculated(1));
-                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(4), LevelCalculated(8)));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(4), LevelCalculated(7)));
                     break;
             }
         }
@@ -474,24 +467,25 @@ public class EnemyCombat : MonoBehaviour
 
     public int FlySwarmDamage()
     {
-        tempi = movesValue[currentMove] + effect[3] + LevelCalculated(effect[5] * 3);
+        tempi = movesValue[currentMove] + LevelCalculated(effect[5] * 3);
         return tempi;
     }
 
     public int TentacleSlamDamage()
     {
-        tempi = movesValue[currentMove] + effect[3] * 4;
+        tempi = movesValue[currentMove] + effect[3] * 3;
         return tempi;
     }
 
     public int EyeForAnEyeDamage()
     {
-        tempi = movesValue[currentMove] + effect[3] + LevelCalculated((effect[1] * 14) / 19);
+        tempi = movesValue[currentMove] + LevelCalculated((effect[1] * 5) / 9);
         return tempi;
     }
 
     int DamageDealtModifier(int value)
     {
+        value += effect[3];
         if (effect[0] > 0)
         {
             value *= 3;
@@ -692,8 +686,8 @@ public class EnemyCombat : MonoBehaviour
 
     int LevelCalculated(int value)
     {
-        value *= (16 + level);
-        value /= 16;
+        value *= (14 + level);
+        value /= 14;
         return value;
     }
 }

@@ -20,7 +20,7 @@ public class ForgeChoice : MonoBehaviour
     public Image SecondOptionImage;
     public TMPro.TextMeshProUGUI ErrorMessage;
 
-    [Header("Gear")] //20.6 power
+    [Header("Gear")] //20.8 power
     public bool weapon;
     public int baseDamageIncrease, nextDamageIncrease;
     public float temp, nextCharge;
@@ -74,7 +74,7 @@ public class ForgeChoice : MonoBehaviour
                     nextResistance = 0;
                     break;
             }
-            ChargeArmor(5.45f); //26,5%
+            ChargeArmor(5.51f); //26,5%
         }
         Close();
     }
@@ -86,7 +86,7 @@ public class ForgeChoice : MonoBehaviour
 
         temp = PlayerScript.weaponEnergyRequirement * 0.0325f + PlayerScript.weaponStrengthBonus * 0.0033f;
         ChargeWeapon(temp);
-        ChargeArmor(0.92f);
+        ChargeArmor(0.93f); // 4,5%
     }
 
     void SetGearOption(int which)
@@ -108,7 +108,7 @@ public class ForgeChoice : MonoBehaviour
             viable = false;
             do
             {
-                ChargeArmor(0.3f);
+                ChargeArmor(0.31f); // 1,5%
                 roll = Random.Range(0, 3);
                 if (roll == 2 && nextResistance == 0)
                     viable = false;
@@ -143,23 +143,23 @@ public class ForgeChoice : MonoBehaviour
     void ChargeArmor(float amount)
     {
         shieldCharge += amount;
-        while (shieldCharge >= 5.8f)
+        while (shieldCharge >= 5.5f)
         {
-            shieldCharge -= 5.8f;
+            shieldCharge -= 5.5f;
             nextShield++;
         }
 
         armorCharge += amount;
-        while (armorCharge >= 14.7f)
+        while (armorCharge >= 14.1f)
         {
-            armorCharge -= 14.7f;
+            armorCharge -= 14.1f;
             nextArmor++;
         }
 
         resistanceCharge += amount;
-        while (resistanceCharge >= 25.6f)
+        while (resistanceCharge >= 26.6f)
         {
-            resistanceCharge -= 25.6f;
+            resistanceCharge -= 26.6f;
             nextResistance++;
         }
     }

@@ -7,26 +7,29 @@ public class MerchantChoice : MonoBehaviour
 {
     [Header("Scripts")]
     public CardLibrary Library;
+    public ItemLibrary ILibrary;
     public Player PlayerScript;
     public Deck CardDeck;
     public ForgeChoice ForgeScript;
 
     [Header("Stats")]
     public int[] rolledID;
-    public int[] CardRarity, CardCost, EventCost;
+    public int[] itemID;
+    public int[] CardRarity, CardCost, ItemCost, EventCost;
     int roll;
 
     [Header("UI")]
     public GameObject MerchantEventObject;
     public GameObject CardEventObject;
-    public GameObject[] CardObject;
-    public Button[] CardButton, EventButton;
-    public Image[] CardRarityImage, CardIcon;
-    public TMPro.TextMeshProUGUI[] CardManaCost, CardNameText, CardEffectText, CardSilverCost, EventSilverCost;
+    public GameObject[] CardObject, ItemObject;
+    public Button[] CardButton, ItemButton, EventButton;
+    public Image[] CardRarityImage, CardIcon, ItemIcon;
+    public TMPro.TextMeshProUGUI[] CardManaCost, CardNameText, CardEffectText, CardSilverCost, EventSilverCost, ItemName, ItemEffectText, ItemCostText;
 
     public void Open()
     {
         RollCards();
+        RollItems();
         EventCost[0] = 15;
         EventCost[1] = 20;
 
@@ -46,6 +49,13 @@ public class MerchantChoice : MonoBehaviour
 
         for (int i = 0; i < 2; i++)
         {
+            if (PlayerScript.Silver >= ItemCost[i])
+                ItemButton[i].interactable = true;
+            else ItemButton[i].interactable = false;
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
             EventSilverCost[i].text = EventCost[i].ToString("0");
             if (PlayerScript.Silver >= EventCost[i])
                 EventButton[i].interactable = true;
@@ -58,6 +68,15 @@ public class MerchantChoice : MonoBehaviour
         CardDeck.AddACard(rolledID[slot], CardRarity[slot]);
         CardObject[slot].SetActive(false);
         PlayerScript.SpendSilver(CardCost[slot]);
+
+        UpdateInfo();
+    }
+
+    public void BuyItem(int slot)
+    {
+        PlayerScript.CollectItem(itemID[slot]);
+        ItemObject[slot].SetActive(true);
+        PlayerScript.SpendSilver(ItemCost[slot]);
 
         UpdateInfo();
     }
@@ -108,6 +127,31 @@ public class MerchantChoice : MonoBehaviour
         rolledID[3] = roll;
 
         SetCards();
+    }
+
+    public void RollItems()
+    {
+        do
+        {
+            roll = Random.Range(2, ILibrary.Items.Length);
+        } while (PlayerScript.Item[roll]);
+        itemID[0] = roll;
+
+        do
+        {
+            roll = Random.Range(2, ILibrary.Items.Length);
+        } while (PlayerScript.Item[roll] || roll == rolledID[0]);
+        itemID[1] = roll;
+
+        for (int i = 0; i < 2; i++)
+        {
+            ItemObject[i].SetActive(true);
+            ItemIcon[i].sprite = ILibrary.Items[itemID[i]].ItemSprite;
+            ItemName[i].text = ILibrary.Items[itemID[i]].ItemName;
+            ItemEffectText[i].text = ILibrary.Items[itemID[i]].ItemTooltip;
+            ItemCost[i] = Random.Range(89, 101);
+            ItemCostText[i].text = ItemCost[i].ToString("0");
+        }
     }
 
     void SetCards()

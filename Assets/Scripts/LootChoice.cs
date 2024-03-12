@@ -75,7 +75,7 @@ public class LootChoice : MonoBehaviour
                     ChargeQuality(0.024f);
                     break;
             }
-            dangerBonus -= 0.9f + rollsCount * 0.15f;
+            dangerBonus -= 0.96f + rollsCount * 0.16f;
             rollsCount++;
         }
         UpdateLoot();
@@ -155,6 +155,7 @@ public class LootChoice : MonoBehaviour
                 break;
             case 4:
                 ItemPickScript.RollItems();
+                item = false;
                 break;
         }
 
@@ -164,7 +165,7 @@ public class LootChoice : MonoBehaviour
 
     void CheckForEmpty()
     {
-        if (silver == 0 && cards == 0 && uncommonCards == 0)
+        if (silver == 0 && cards == 0 && uncommonCards == 0 && !gem && !item)
             Close();
     }
 

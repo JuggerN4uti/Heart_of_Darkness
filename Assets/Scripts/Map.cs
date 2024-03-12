@@ -176,9 +176,9 @@ public class Map : MonoBehaviour
         {
             tempi = 0;
             temp = danger;
-            while (temp > 3f)
+            while (temp > 3.25f)
             {
-                temp -= 1.64f + tempi * 0.32f;
+                temp -= 1.75f + tempi * 0.34f;
                 tempi++;
             }
             roll = Library.BasicRoll();
@@ -191,9 +191,9 @@ public class Map : MonoBehaviour
         danger += 0.75f + danger * 0.025f;
         tempi = 0;
         temp = danger;
-        while (temp > 5.2f)
+        while (temp > 5.25f)
         {
-            temp -= 2.42f + tempi * 0.78f;
+            temp -= 2.7f + tempi * 0.82f;
             tempi++;
         }
         roll = Library.EliteRoll();

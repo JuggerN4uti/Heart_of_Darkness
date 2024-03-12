@@ -30,7 +30,7 @@ public class Deck : MonoBehaviour
 
     [Header("Forge")]
     public bool forge;
-    public Image[] ForgeCardIcon;
+    public Image[] ForgeCardRarity, ForgeCardIcon;
     public TMPro.TextMeshProUGUI[] ForgeCardManaCost, ForgeCardName, ForgeCardEffect;
 
     [Header("Merge")]
@@ -72,6 +72,7 @@ public class Deck : MonoBehaviour
             selectedCard = currentCard[slot];
             for (int i = 0; i < 2; i++)
             {
+                ForgeCardRarity[i].sprite = Library.CardLevel[i];
                 ForgeCardIcon[i].sprite = Library.Cards[CardID[currentCard[slot]]].CardSprite;
                 ForgeCardName[i].text = Library.Cards[CardID[currentCard[slot]]].CardName;
                 ForgeCardManaCost[i].text = Library.Cards[CardID[currentCard[slot]]].CardManaCost[i].ToString("");
@@ -105,10 +106,11 @@ public class Deck : MonoBehaviour
             {
                 for (int i = 0; i < 2; i++)
                 {
+                    ForgeCardRarity[i].sprite = Library.CardLevel[i + selectedCardLevel];
                     ForgeCardIcon[i].sprite = Library.Cards[CardID[currentCard[slot]]].CardSprite;
                     ForgeCardName[i].text = Library.Cards[CardID[currentCard[slot]]].CardName;
-                    ForgeCardManaCost[i].text = Library.Cards[CardID[currentCard[slot]]].CardManaCost[i].ToString("");
-                    ForgeCardEffect[i].text = Library.Cards[CardID[currentCard[slot]]].CardTooltip[i];
+                    ForgeCardManaCost[i].text = Library.Cards[CardID[currentCard[slot]]].CardManaCost[i + selectedCardLevel].ToString("");
+                    ForgeCardEffect[i].text = Library.Cards[CardID[currentCard[slot]]].CardTooltip[i + selectedCardLevel];
                 }
                 ForgeConfirmObject.SetActive(true);
                 ChoiceMessage.text = "Merge";
@@ -148,6 +150,27 @@ public class Deck : MonoBehaviour
         }
     }
 
+    void DisplayMergeableCards() // currently commons & uncommons
+    {
+        for (int i = 0; i < cardsInDeck; i++)
+        {
+            CardObject[i].SetActive(false);
+        }
+        tempi = 0;
+        for (int i = 0; i < cardsInDeck; i++)
+        {
+            if (CardLevel[i] <= 1)
+            {
+                currentCard[tempi] = i;
+                CardObject[tempi].SetActive(true);
+                CardRarity[tempi].sprite = Library.CardLevel[CardLevel[i]];
+                CardIcon[tempi].sprite = Library.Cards[CardID[i]].CardSprite;
+                CardManaCost[tempi].text = Library.Cards[CardID[i]].CardManaCost[CardLevel[i]].ToString("");
+                tempi++;
+            }
+        }
+    }
+
     public void ShowCardsToForge()
     {
         forge = true;
@@ -176,7 +199,7 @@ public class Deck : MonoBehaviour
     public void ShowCardsToMerge()
     {
         merge = true;
-        DisplayCommonCards();
+        DisplayMergeableCards();
         DeckObjet.SetActive(true);
         DeckButton.SetActive(false);
         SkipButton.SetActive(true);

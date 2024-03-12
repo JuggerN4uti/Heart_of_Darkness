@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: d46061b40082cce4999fa622f827a145, type: 3}
   ItemName: Whetstone
-  ItemTooltip: Every 6 attacks gain 1 Strength
+  ItemTooltip: Every 7 attacks gain 1 Strength
 --- !u!1 &536108194450981497
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 46924b89b32254b4ebbdc0011426cfa3, type: 3}
   ItemName: Tongs
-  ItemTooltip: Every 6 attacks gain 1 Resistance
+  ItemTooltip: Every 7 attacks gain 1 Resistance
 --- !u!1 &1984920429680707578
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: e21b72321a20c1b43864db10b13936e3, type: 3}
   ItemName: Horseshoe
-  ItemTooltip: Every attack gives 1 Energy
+  ItemTooltip: Every 3 attacks gives 2 Energy
 --- !u!1 &4150834564318633801
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: db9a5913d657581438f9e07bab0873ff, type: 3}
   ItemName: Sledgehammer
-  ItemTooltip: Every 3 attacks gain 4 Block
+  ItemTooltip: Every 4 attacks gain 5 Block
 --- !u!1 &8042306616313430034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 21300000, guid: daa9541a45c8b4042b47a7779162ed8e, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 55d27209fe557464990e3a6db3f675ba, type: 3}
   ItemName: Shattered Mirror
   ItemTooltip: Gain 1 max Mana, but Draw 1 less Card each Turn
 --- !u!1 &8994416201596517766
@@ -1172,4 +1172,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: fde7b9ddd69bc1944ab6d40fbf93c01b, type: 3}
   ItemName: Runic Dagger
-  ItemTooltip: Every 8 attacks gain 1 Mana
+  ItemTooltip: Every 9 attacks gain 1 Mana
