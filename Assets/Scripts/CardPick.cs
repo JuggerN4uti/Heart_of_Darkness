@@ -11,7 +11,7 @@ public class CardPick : MonoBehaviour
 
     [Header("Stats")]
     public int[] rolledID;
-    public int cardsRarity;
+    public int cardsRarity, min, max;
     public bool forge, viable;
     int roll;
 
@@ -22,18 +22,20 @@ public class CardPick : MonoBehaviour
 
     public void RollCards(int rarity = 0)
     {
-        roll = Random.Range(2, Library.Cards.Length);
+        SetRange();
+
+        roll = Random.Range(min, max);
         rolledID[0] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Cards.Length);
+            roll = Random.Range(min, max);
         } while (roll == rolledID[0]);
         rolledID[1] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Cards.Length);
+            roll = Random.Range(min, max);
         } while (roll == rolledID[0] || roll == rolledID[1]);
         rolledID[2] = roll;
 
@@ -112,5 +114,20 @@ public class CardPick : MonoBehaviour
     public void SkipChoice()
     {
         CardPickObject.SetActive(false);
+    }
+
+    void SetRange()
+    {
+        switch (CardDeck.PlayerScript.Class)
+        {
+            case 0:
+                min = 2;
+                max = 2 + Library.lightCards;
+                break;
+            case 1:
+                min = 2 + Library.lightCards;
+                max = Library.Cards.Length;
+                break;
+        }
     }
 }

@@ -76,13 +76,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144162809316781829}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 9
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3452578675112430332
 MonoBehaviour:
@@ -104,6 +104,165 @@ MonoBehaviour:
   - Deal Damage equal to your Block
   - Gain 2 Block, Deal Damage equal to your Block
   - Gain 4 Block, Deal Damage equal to your Block
+--- !u!1 &500263361667982162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 475082765180455572}
+  - component: {fileID: 961278900267647642}
+  m_Layer: 0
+  m_Name: Trident of Storms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &475082765180455572
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500263361667982162}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &961278900267647642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500263361667982162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 6a7d7726f577ed74abf999b07bd693aa, type: 3}
+  CardName: Trident of Storms
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Increase your Weapon Damage by 2. Weapon attacks give 1 Storm Charge. Destroy
+  - Increase your Weapon Damage by 4. Weapon attacks give 1 Storm Charge. Destroy
+  - Increase your Weapon Damage by 6. Weapon attacks give 1 Storm Charge. Destroy
+--- !u!1 &584838233542896139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9009283316872070725}
+  - component: {fileID: 7017349361569822789}
+  m_Layer: 0
+  m_Name: Flurry
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9009283316872070725
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584838233542896139}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7017349361569822789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 584838233542896139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: ac2d08986e310a641929762486adf9d0, type: 3}
+  CardName: Flurry
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 9 Damage, Gain 2 Energy. Increase Energy gain of all Flurry this Combat
+    by 1
+  - Deal 11 Damage, Gain 4 Energy. Increase Energy gain of all Flurry this Combat
+    by 1
+  - Deal 13 Damage, Gain 4 Energy. Increase Energy gain of all Flurry this Combat
+    by 2
+--- !u!1 &779041492404196398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8929091143987326508}
+  - component: {fileID: 4286106230618473997}
+  m_Layer: 0
+  m_Name: Eviscerate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8929091143987326508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779041492404196398}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4286106230618473997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779041492404196398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 89ac444457d1eea41956433a9f73ff35, type: 3}
+  CardName: Eviscerate
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 8 Damage. Damage increased by 4 per Combo
+  - Deal 9 Damage. Damage increased by 6 per Combo
+  - Deal 10 Damage. Damage increased by 8 per Combo
 --- !u!1 &825495344298462417
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,13 +287,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825495344298462417}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 28
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7959653542348588834
 MonoBehaviour:
@@ -180,13 +339,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 829852975062829353}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 32
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1945518935911792605
 MonoBehaviour:
@@ -232,13 +391,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959071048080588986}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 15
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5825602132176456119
 MonoBehaviour:
@@ -260,6 +419,110 @@ MonoBehaviour:
   - Gain 10 Block, Apply 1 Weak
   - Gain 11 Block, Apply 2 Weak
   - Gain 12 Block, Apply 3 Weak
+--- !u!1 &988601383364761070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5220458829696254135}
+  - component: {fileID: 3517660313785179002}
+  m_Layer: 0
+  m_Name: Dredge Line
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5220458829696254135
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988601383364761070}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3517660313785179002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 988601383364761070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 1088991a2078c91418fdbf095b9d5f27, type: 3}
+  CardName: Dredge Line
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 9 Damage, Apply 1 Slow & Gain 3 Energy
+  - Deal 10 Damage, Apply 2 Slow & Gain 4 Energy
+  - Deal 11 Damage, Apply 3 Slow & Gain 5 Energy
+--- !u!1 &999633252295893347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4043535757740254721}
+  - component: {fileID: 7661312308291391011}
+  m_Layer: 0
+  m_Name: Quick Cut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4043535757740254721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999633252295893347}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7661312308291391011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999633252295893347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 95c2af06e42dba94ab09a5248af2cd4e, type: 3}
+  CardName: Quick Cut
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 8 Damage
+  - Deal 11 Damage
+  - Deal 14 Damage
 --- !u!1 &1101227934036142529
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,13 +547,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101227934036142529}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 27
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9158440768495474521
 MonoBehaviour:
@@ -336,13 +599,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262869571070354953}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 6
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &228209533005107486
 MonoBehaviour:
@@ -364,6 +627,58 @@ MonoBehaviour:
   - Dain 7 Block & next Turn
   - Dain 9 Block & next Turn
   - Dain 11 Block & next Turn
+--- !u!1 &1374209237041367263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7984846919654387717}
+  - component: {fileID: 4985307762434394421}
+  m_Layer: 0
+  m_Name: Swift
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7984846919654387717
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374209237041367263}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4985307762434394421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1374209237041367263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: c8012a869e251a24caf98fa1780b7b69, type: 3}
+  CardName: Swift
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Dexterity. Every Card played this Combat gives 1 Block. Destroy
+  - Gain 1 Dexterity. Every Card played this Combat gives 2 Block. Destroy
+  - Gain 1 Dexterity. Every Card played this Combat gives 3 Block. Destroy
 --- !u!1 &1458681913183884305
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,13 +703,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458681913183884305}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 7
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1390077848972947028
 MonoBehaviour:
@@ -416,6 +731,111 @@ MonoBehaviour:
   - Gain 2 Strength and Energy. Destroy
   - Gain 3 Strength and Energy. Destroy
   - Gain 4 Strength and Energy. Destroy
+--- !u!1 &1487637774565216117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3116664440623484321}
+  m_Layer: 0
+  m_Name: Water
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3116664440623484321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487637774565216117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4043535757740254721}
+  - {fileID: 8500373835936432519}
+  - {fileID: 1205871746573120051}
+  - {fileID: 9006916677625638743}
+  - {fileID: 7348072401061175068}
+  - {fileID: 5404502498416744457}
+  - {fileID: 3776921784336529191}
+  - {fileID: 7984846919654387717}
+  - {fileID: 3025919985004253784}
+  - {fileID: 295236235094524163}
+  - {fileID: 9009283316872070725}
+  - {fileID: 624316010751947481}
+  - {fileID: 2137867052900925975}
+  - {fileID: 258765616391125431}
+  - {fileID: 1348613993790809799}
+  - {fileID: 8929091143987326508}
+  - {fileID: 5630149373411104002}
+  - {fileID: 3416430514784419345}
+  - {fileID: 801096234572532784}
+  - {fileID: 7588711776885834335}
+  - {fileID: 5220458829696254135}
+  - {fileID: 475082765180455572}
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1908293998173996713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7588711776885834335}
+  - component: {fileID: 4818205348235918400}
+  m_Layer: 0
+  m_Name: Staggering Blow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7588711776885834335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908293998173996713}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4818205348235918400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908293998173996713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 7abda06488ccb4349b6b2f9ce3fec540, type: 3}
+  CardName: Staggering Blow
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 1
+  CardTooltip:
+  - Deal 12 Damage, Reduce Targets Tenacity by 1 & Apply 2 Slow. Destroy
+  - Deal 18 Damage, Reduce Targets Tenacity by 1 & Apply 3 Slow. Destroy
+  - Deal 24 Damage, Reduce Targets Tenacity by 1 & Apply 4 Slow. Destroy
 --- !u!1 &1963042950331429763
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,13 +860,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963042950331429763}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 13
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4829752236099666713
 MonoBehaviour:
@@ -492,13 +912,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2312856137628458427}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 8
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1821161308941043417
 MonoBehaviour:
@@ -544,13 +964,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2426100786124245634}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 3
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8934874458906179164
 MonoBehaviour:
@@ -572,6 +992,58 @@ MonoBehaviour:
   - Deal 11 Damage, if the target intends to Attack, Apply 1 Vulnerable
   - Deal 14 Damage, if the target intends to Attack, Apply 2 Vulnerable
   - Deal 21 Damage, if the target intends to Attack, Apply 2 Vulnerable
+--- !u!1 &2450913576168355330
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 258765616391125431}
+  - component: {fileID: 4363690966056796709}
+  m_Layer: 0
+  m_Name: Deadly Swings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &258765616391125431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2450913576168355330}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4363690966056796709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2450913576168355330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 06376831e71f3f74baf43920c2caa72e, type: 3}
+  CardName: Deadly Swings
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 6 Damage Twice
+  - Deal 6 Damage Thrice
+  - Deal 6 Damage Four Times
 --- !u!1 &2462809486461673001
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,13 +1068,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2462809486461673001}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 26
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1936360071866250141
 MonoBehaviour:
@@ -648,13 +1120,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2697824346853653083}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 30
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3731797141522562042
 MonoBehaviour:
@@ -676,6 +1148,58 @@ MonoBehaviour:
   - Gain 6 Sanity & Block. Apply 1 Slow to all Enemies for every Curse. Destroy
   - Gain 8 Sanity & Block. Apply 2 Slow to all Enemies for every Curse. Destroy
   - Gain 10 Sanity & Block. Apply 3 Slow to all Enemies for every Curse. Destroy
+--- !u!1 &2759308553959675417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801096234572532784}
+  - component: {fileID: 1362416100292348963}
+  m_Layer: 0
+  m_Name: Preparation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801096234572532784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759308553959675417}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1362416100292348963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759308553959675417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 672817fa7705a0e489d7db06d8e20e70, type: 3}
+  CardName: Preparation
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 4 Block & +1 Combo
+  - Gain 7 Block & +1 Combo
+  - Gain 8 Block & +2 Combo
 --- !u!1 &2853611984503561597
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,13 +1224,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2853611984503561597}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 19
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1930583996410438651
 MonoBehaviour:
@@ -752,13 +1276,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2954933077985121303}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 10
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8460550994173190811
 MonoBehaviour:
@@ -804,13 +1328,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3065999187759993969}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 11
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7261307973022017620
 MonoBehaviour:
@@ -832,6 +1356,58 @@ MonoBehaviour:
   - Deal 10 Damage, Gain 1 Valor. Damage Dealt increased by Valor
   - Deal 11 Damage, Gain 2 Valor. Damage Dealt increased by Valor
   - Deal 12 Damage, Gain 3 Valor. Damage Dealt increased by Valor
+--- !u!1 &3098920686773599662
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624316010751947481}
+  - component: {fileID: 526071400784700652}
+  m_Layer: 0
+  m_Name: Serrated Blade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624316010751947481
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098920686773599662}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &526071400784700652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3098920686773599662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 3b082ce2aa916ac4ab02e85f65dc8d8b, type: 3}
+  CardName: Serrated Blade
+  CardManaCost: 0100000001000000000000000000000000000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Strength. Your every Attack this Combat applies 1 Bleed. Destroy
+  - Gain 1 Strength. Your every Attack this Combat applies 2 Bleed. Destroy
+  - Gain 1 Strength. Your every Attack this Combat applies 2 Bleed. Destroy
 --- !u!1 &3547554386167414550
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,13 +1432,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3547554386167414550}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 34
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &794969988877965574
 MonoBehaviour:
@@ -908,13 +1484,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3594482170667357575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 17
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5529921352988682326
 MonoBehaviour:
@@ -988,6 +1564,110 @@ MonoBehaviour:
   - Deal 9 Damage
   - Deal 12 Damage
   - Deal 15 Damage
+--- !u!1 &3713079661029994352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1348613993790809799}
+  - component: {fileID: 4044109159270492038}
+  m_Layer: 0
+  m_Name: Steel of Steal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1348613993790809799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713079661029994352}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4044109159270492038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713079661029994352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 539bdcba00efc7640a2f0b9167fc661e, type: 3}
+  CardName: Steel of Steal
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Deal 7 Damage, Gain 10 Silver. Destroy
+  - Deal 9 Damage, Gain 14 Silver. Destroy
+  - Deal 11 Damage, Gain 18 Silver. Destroy
+--- !u!1 &4180856026954887197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3025919985004253784}
+  - component: {fileID: 5866015995944953552}
+  m_Layer: 0
+  m_Name: Hop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3025919985004253784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180856026954887197}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5866015995944953552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4180856026954887197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 8e51d6b3b9ffdc4438324ca977ca65dc, type: 3}
+  CardName: Hop
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Draw 1 Card. Gain 2 Block for every Card in Hand
+  - Draw 2 Card. Gain 2 Block for every Card in Hand
+  - Draw 2 Card. Gain 3 Block for every Card in Hand
 --- !u!1 &4307091882574880402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,13 +1692,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4307091882574880402}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 16
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4070843316962930558
 MonoBehaviour:
@@ -1040,6 +1720,71 @@ MonoBehaviour:
   - Deal 6 Damage, Apply 1 Slow
   - Deal 7 Damage, Apply 2 Slow
   - Deal 8 Damage, Apply 3 Slow
+--- !u!1 &4360541367262055021
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4956683918502943850}
+  m_Layer: 0
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4956683918502943850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4360541367262055021}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3281767901145324447}
+  - {fileID: 3477447284457872409}
+  - {fileID: 6737766135467697745}
+  - {fileID: 4413637878222382191}
+  - {fileID: 1494691530670099802}
+  - {fileID: 691290750786797610}
+  - {fileID: 4007876355326379751}
+  - {fileID: 5616732568573643417}
+  - {fileID: 6158453938013932029}
+  - {fileID: 1654943501512052421}
+  - {fileID: 582614593561261420}
+  - {fileID: 8236958091369505130}
+  - {fileID: 1464930508701651211}
+  - {fileID: 2708851969640931259}
+  - {fileID: 3584648927989171935}
+  - {fileID: 1590804318581113873}
+  - {fileID: 6920652071849702484}
+  - {fileID: 8234001443462317933}
+  - {fileID: 2957872404737343018}
+  - {fileID: 4200516500690776081}
+  - {fileID: 4132226642892976037}
+  - {fileID: 8164237047073345537}
+  - {fileID: 258779942354280840}
+  - {fileID: 7269906361015474480}
+  - {fileID: 6981522310922302315}
+  - {fileID: 3032417336123146353}
+  - {fileID: 4852191621008146568}
+  - {fileID: 6772556204810140766}
+  - {fileID: 8865123033985889298}
+  - {fileID: 6653326878207429751}
+  - {fileID: 8909040488129405170}
+  - {fileID: 5078951131549522804}
+  - {fileID: 6855524620088823062}
+  - {fileID: 6983493095402627513}
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4636076682024060067
 GameObject:
   m_ObjectHideFlags: 0
@@ -1064,13 +1809,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4636076682024060067}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 20
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2474169586764787156
 MonoBehaviour:
@@ -1116,13 +1861,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4682696695095343883}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 33
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3023031613220312298
 MonoBehaviour:
@@ -1144,6 +1889,110 @@ MonoBehaviour:
   - Gain 1 Strength, Resistance & Dexterity. Destroy
   - Gain 2 Strength, Resistance & 1 Dexterity. Destroy
   - Gain 3 Strength, 2 Resistance & Dexterity. Destroy
+--- !u!1 &4842013485589020090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9006916677625638743}
+  - component: {fileID: 3622358714948787472}
+  m_Layer: 0
+  m_Name: Ensnare
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9006916677625638743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842013485589020090}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3622358714948787472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4842013485589020090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d6c796a0e120a1042a964e543ce33e8e, type: 3}
+  CardName: Ensnare
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Apply 5 Slow, but increase Targets Tenacity by 1
+  - Apply 8 Slow, but increase Targets Tenacity by 1
+  - Apply 11 Slow, but increase Targets Tenacity by 1
+--- !u!1 &5095422665530155660
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3776921784336529191}
+  - component: {fileID: 7028957335824360331}
+  m_Layer: 0
+  m_Name: Protective Bubble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3776921784336529191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5095422665530155660}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7028957335824360331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5095422665530155660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 41b5d0c0bbc5ee24aa3963aa5a4806de, type: 3}
+  CardName: Protective Bubble
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 12 Block. Block gained increased by Dexterity
+  - Gain 14 Block. Block gained increased by 2 per Dexterity
+  - Gain 16 Block. Block gained increased by 3 per Dexterity
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1175,39 +2024,8 @@ Transform:
   m_Children:
   - {fileID: 5038066122269883292}
   - {fileID: 8785944750833708101}
-  - {fileID: 3281767901145324447}
-  - {fileID: 3477447284457872409}
-  - {fileID: 6737766135467697745}
-  - {fileID: 4413637878222382191}
-  - {fileID: 1494691530670099802}
-  - {fileID: 691290750786797610}
-  - {fileID: 4007876355326379751}
-  - {fileID: 5616732568573643417}
-  - {fileID: 6158453938013932029}
-  - {fileID: 1654943501512052421}
-  - {fileID: 582614593561261420}
-  - {fileID: 8236958091369505130}
-  - {fileID: 1464930508701651211}
-  - {fileID: 2708851969640931259}
-  - {fileID: 3584648927989171935}
-  - {fileID: 1590804318581113873}
-  - {fileID: 6920652071849702484}
-  - {fileID: 8234001443462317933}
-  - {fileID: 2957872404737343018}
-  - {fileID: 4200516500690776081}
-  - {fileID: 4132226642892976037}
-  - {fileID: 8164237047073345537}
-  - {fileID: 258779942354280840}
-  - {fileID: 7269906361015474480}
-  - {fileID: 6981522310922302315}
-  - {fileID: 3032417336123146353}
-  - {fileID: 4852191621008146568}
-  - {fileID: 6772556204810140766}
-  - {fileID: 8865123033985889298}
-  - {fileID: 6653326878207429751}
-  - {fileID: 8909040488129405170}
-  - {fileID: 5078951131549522804}
-  - {fileID: 6855524620088823062}
+  - {fileID: 4956683918502943850}
+  - {fileID: 3116664440623484321}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1259,12 +2077,36 @@ MonoBehaviour:
   - {fileID: 1945518935911792605}
   - {fileID: 3023031613220312298}
   - {fileID: 794969988877965574}
+  - {fileID: 1626051629611766600}
+  - {fileID: 7661312308291391011}
+  - {fileID: 531663049885612477}
+  - {fileID: 5694697676957739292}
+  - {fileID: 3622358714948787472}
+  - {fileID: 261342940421997744}
+  - {fileID: 468183714476692150}
+  - {fileID: 7028957335824360331}
+  - {fileID: 4985307762434394421}
+  - {fileID: 5866015995944953552}
+  - {fileID: 2276348086849711408}
+  - {fileID: 7017349361569822789}
+  - {fileID: 526071400784700652}
+  - {fileID: 8446274765725846918}
+  - {fileID: 4363690966056796709}
+  - {fileID: 4044109159270492038}
+  - {fileID: 4286106230618473997}
+  - {fileID: 7164126703767774012}
+  - {fileID: 6869369356421809112}
+  - {fileID: 1362416100292348963}
+  - {fileID: 4818205348235918400}
+  - {fileID: 3517660313785179002}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
   - {fileID: 21300000, guid: 7023fd98320485449bcc49a8a68983a7, type: 3}
   - {fileID: 21300000, guid: 93ae9aec85b7d054ba708d5059803bf1, type: 3}
   - {fileID: 21300000, guid: 24522fd3b4e1dcf40b43125e90a25f82, type: 3}
+  neutralCards: 2
+  lightCards: 34
 --- !u!1 &5368283676432036145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1289,13 +2131,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5368283676432036145}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 21
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4454362421288117879
 MonoBehaviour:
@@ -1341,13 +2183,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5631511503270810478}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 4
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7767099750498359014
 MonoBehaviour:
@@ -1369,6 +2211,61 @@ MonoBehaviour:
   - Deal 8 Damage, Apply 2 Slow
   - Deal 10 Damage, Apply 3 Slow
   - Deal 12 Damage, Apply 4 Slow
+--- !u!1 &5634097945806098322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6983493095402627513}
+  - component: {fileID: 1626051629611766600}
+  m_Layer: 0
+  m_Name: Guardian Angel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6983493095402627513
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634097945806098322}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1626051629611766600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634097945806098322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 0ab7bb2a4fa20094ea490b4b5d8117a0, type: 3}
+  CardName: Guardian Angel
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 2 Resistance & 4 Armor. Block gained from Armor is increased by Resistance.
+    Destroy
+  - Gain 2 Resistance & 7 Armor. Block gained from Armor is increased by Resistance.
+    Destroy
+  - Gain 3 Resistance & 8 Armor. Block gained from Armor is increased by Resistance.
+    Destroy
 --- !u!1 &5638787253458269351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,13 +2290,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5638787253458269351}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 24
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4824971751167110795
 MonoBehaviour:
@@ -1421,6 +2318,58 @@ MonoBehaviour:
   - Gain 2 Dexterity, Gain 3 Energy. Destroy
   - Gain 3 Dexterity, Gain 5 Energy. Destroy
   - Gain 4 Dexterity, Gain 7 Energy. Destroy
+--- !u!1 &6173071058473636468
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2137867052900925975}
+  - component: {fileID: 8446274765725846918}
+  m_Layer: 0
+  m_Name: Shells Up!
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2137867052900925975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173071058473636468}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8446274765725846918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173071058473636468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 7915e295703efbc4da110b8001c2c42e, type: 3}
+  CardName: Shells Up!
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 15 Block
+  - Gain 19 Block
+  - Gain 23 Block
 --- !u!1 &6256575464566816610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,13 +2394,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6256575464566816610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 23
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6119956022077198467
 MonoBehaviour:
@@ -1497,13 +2446,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6533309539730056994}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 29
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6082037248179912702
 MonoBehaviour:
@@ -1525,6 +2474,58 @@ MonoBehaviour:
   - Increase your Weapon Damage by 2. Weapon hits Draw 1 Card
   - Increase your Weapon Damage by 4. Weapon hits Draw 1 Card
   - Increase your Weapon Damage by 6. Weapon hits Draw 1 Card
+--- !u!1 &6622724283889857847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3416430514784419345}
+  - component: {fileID: 6869369356421809112}
+  m_Layer: 0
+  m_Name: Flow like Water
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3416430514784419345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622724283889857847}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6869369356421809112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622724283889857847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 8324e8eca6515a04aaabc15b4b028a4e, type: 3}
+  CardName: Flow like Water
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Combo 4: Gain 1 Mana, Draw 1 Card & Gain 1 Energy'
+  - 'Combo 4: Gain 1 Mana, Draw 2 Cards & Gain 2 Energy'
+  - 'Combo 4: Gain 2 Mana, Draw 2 Cards & Gain 3 Energy'
 --- !u!1 &6703391293828820304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,13 +2550,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6703391293828820304}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 18
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7102632448696560
 MonoBehaviour:
@@ -1604,13 +2605,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6724833001348074672}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 5
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5480192729508369405
 MonoBehaviour:
@@ -1632,6 +2633,110 @@ MonoBehaviour:
   - Deal 7 Damage, Apply 3 Bleed
   - Deal 8 Damage, Apply 5 Bleed
   - Deal 9 Damage, Apply 7 Bleed
+--- !u!1 &6965736690019580984
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295236235094524163}
+  - component: {fileID: 2276348086849711408}
+  m_Layer: 0
+  m_Name: Impale
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295236235094524163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965736690019580984}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2276348086849711408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6965736690019580984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 89e96c8f4e2166b4689dd5afda696029, type: 3}
+  CardName: Impale
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 15 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
+  - Deal 20 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
+  - Deal 22 Damage. Gain 1 Energy & Apply 1 Slow for every 5 Damage
+--- !u!1 &7455830186716806652
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1205871746573120051}
+  - component: {fileID: 5694697676957739292}
+  m_Layer: 0
+  m_Name: Cut Down
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1205871746573120051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455830186716806652}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5694697676957739292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7455830186716806652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 4b54bf05c03005944846d8ce0eae21e4, type: 3}
+  CardName: Cut Down
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 2 Damage & Apply 2 Bleed. Bleed applied increased by targets Tenacity
+  - Deal 3 Damage & Apply 4 Bleed. Bleed applied increased by targets Tenacity
+  - Deal 4 Damage & Apply 6 Bleed. Bleed applied increased by targets Tenacity
 --- !u!1 &7467217022583733082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1656,13 +2761,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7467217022583733082}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 22
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2114625015283449957
 MonoBehaviour:
@@ -1708,13 +2813,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7733901304945894842}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 12
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1982374580417461970
 MonoBehaviour:
@@ -1760,13 +2865,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8685924784386746287}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 31
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5975879973027171713
 MonoBehaviour:
@@ -1788,6 +2893,58 @@ MonoBehaviour:
   - Gain 11 Block. Block is retained for 1 Turn
   - Gain 15 Block. Block is retained for 1 Turn
   - Gain 17 Block. Block is retained for 2 Turns
+--- !u!1 &8711478812574042061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5404502498416744457}
+  - component: {fileID: 468183714476692150}
+  m_Layer: 0
+  m_Name: Rupture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5404502498416744457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711478812574042061}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &468183714476692150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8711478812574042061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 161efaef64d97c64094b9085c4cddeae, type: 3}
+  CardName: Rupture
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 1 Damage. Damage increased by Targets Bleed
+  - Deal 5 Damage. Damage increased by Targets Bleed
+  - Deal 9 Damage. Damage increased by Targets Bleed
 --- !u!1 &8747331849559699352
 GameObject:
   m_ObjectHideFlags: 0
@@ -1812,13 +2969,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8747331849559699352}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 25
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &651450876920323592
 MonoBehaviour:
@@ -1840,6 +2997,110 @@ MonoBehaviour:
   - Deal 6 Damage. Damage Dealt increased by 2 every Turn
   - Deal 7 Damage. Damage Dealt increased by 3 every Turn
   - Deal 8 Damage. Damage Dealt increased by 3 every Turn
+--- !u!1 &8869626160299543852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7348072401061175068}
+  - component: {fileID: 261342940421997744}
+  m_Layer: 0
+  m_Name: Vicious Slash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7348072401061175068
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869626160299543852}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &261342940421997744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869626160299543852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: c006b50bfe9f71d4f9e9e17a1214d634, type: 3}
+  CardName: Vicious Slash
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 6 Damage & Apply 2 Bleed. Bleed applied increased by Strength
+  - Deal 7 Damage & Apply 4 Bleed. Bleed applied increased by Strength
+  - Deal 8 Damage & Apply 6 Bleed. Bleed applied increased by Strength
+--- !u!1 &8907908074762038144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8500373835936432519}
+  - component: {fileID: 531663049885612477}
+  m_Layer: 0
+  m_Name: Harpoon Throw
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8500373835936432519
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8907908074762038144}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &531663049885612477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8907908074762038144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 27414415d775d584d8e82933665392ba, type: 3}
+  CardName: Harpoon Throw
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 11 Damage, Draw 1 Card
+  - Deal 12 Damage, Draw 2 Cards
+  - Deal 16 Damage, Draw 2 Cards
 --- !u!1 &8959023271854829270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,13 +3125,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8959023271854829270}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 14
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7315125114941563440
 MonoBehaviour:
@@ -1892,6 +3153,58 @@ MonoBehaviour:
   - Gain 8 Block, Gain 1 Resistance
   - Gain 12 Block, Gain 1 Resistance
   - Gain 13 Block, Gain 2 Resistance
+--- !u!1 &9100902807311367969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5630149373411104002}
+  - component: {fileID: 7164126703767774012}
+  m_Layer: 0
+  m_Name: Double Jump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5630149373411104002
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100902807311367969}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7164126703767774012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9100902807311367969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 7e4c735d663d04c4ebfaf9291c3fb7aa, type: 3}
+  CardName: Double Jump
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Gain 10 Block. Combo 3: Gain it again.'
+  - 'Gain 13 Block. Combo 3: Gain it again.'
+  - 'Gain 16 Block. Combo 3: Gain it again.'
 --- !u!1 &9138291028712447086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1916,13 +3229,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9138291028712447086}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8680492994918149383}
-  m_RootOrder: 2
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5508831103208460671
 MonoBehaviour:

@@ -8,14 +8,18 @@ public class PlayerCombat : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
     public Combat CombatScript;
+    public CardLibrary Library;
     public Hand Cards;
 
     [Header("Stats")]
     public int maxHealth;
     public int health, shield, block, energy, mana, manaGain, cardDraw, sanity, maxSanity;
     public int[] effect;
-    int tempi;
+    int tempi, tempi2;
     float temp;
+
+    [Header("Ability Stats")]
+    int combo, flurry;
 
     [Header("Item Stats")]
     public int turns;
@@ -64,6 +68,8 @@ public class PlayerCombat : MonoBehaviour
         cardDraw = PlayerScript.BaseDraw;
         mana = 0;
         energy = 0;
+        combo = 0;
+        flurry = 0;
         attacks = 0;
 
         health = PlayerScript.Health;
@@ -107,6 +113,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void StartTurn()
     {
+        combo = 0;
         if (effect[11] > 0)
             effect[11]--;
         else
@@ -124,7 +131,7 @@ public class PlayerCombat : MonoBehaviour
             effect[3] = 0;
         }
         if (effect[6] > 0)
-            GainBlock(effect[6]);
+            GainBlock(effect[6] + effect[1] * effect[13]);
         GainEnergy(8 + effect[2]);
         if (effect[7] > 0)
             GainMana(manaGain - 1);
@@ -172,7 +179,7 @@ public class PlayerCombat : MonoBehaviour
 
         // status effects
         statusCount = 0;
-        for (int i = 0; i < effect.Length; i++)
+        for (int i = 0; i < StatusObjects.Length; i++)
         {
             StatusObjects[i].SetActive(false);
         }
@@ -364,6 +371,13 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
+    void GainArmor(int amount)
+    {
+        effect[6] += amount;
+        Display(amount, effectSprite[6]);
+        UpdateInfo();
+    }
+
     public void GainSlow(int amount)
     {
         effect[7] += amount;
@@ -426,6 +440,8 @@ public class PlayerCombat : MonoBehaviour
     void OnHit()
     {
         attacks++;
+        if (effect[15] > 0)
+            CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(effect[15]);
         if (PlayerScript.Item[9] && attacks % 7 == 0)
             GainStrength(1);
         if (PlayerScript.Item[10] && attacks % 7 == 0)
@@ -524,207 +540,378 @@ public class PlayerCombat : MonoBehaviour
     public void UseAbility(int which, int level)
     {
         CombatScript.CardPlayed();
+        if (effect[14] > 0)
+            GainBlock(effect[14]);
+        if (which < Library.neutralCards)
+            UseNeutralAbility(which, level);
+        else
+        {
+            which -= Library.neutralCards;
+            if (which < Library.lightCards)
+                UseLightAbility(which, level);
+            else
+            {
+                which -= Library.lightCards;
+                UseWaterAbility(which, level);
+            }
+            // potem dalej etc.
+        }
+        combo++;
+    }
+
+    public void UseNeutralAbility(int which, int level)
+    {
+        if (which == 0)
+            Strike(level);
+        else Defend(level);
+    }
+
+    public void UseLightAbility(int which, int level)
+    {
         switch (which)
         {
             case 0:
-                Strike(level);
-                break;
-            case 1:
-                Defend(level);
-                break;
-            case 2:
                 SpearThrust(level);
                 break;
-            case 3:
+            case 1:
                 Judgement(level);
                 break;
-            case 4:
+            case 2:
                 BolaShot(level);
                 break;
-            case 5:
+            case 3:
                 CripplingStrike(level);
                 break;
-            case 6:
+            case 4:
                 Fortify(level);
                 break;
-            case 7:
+            case 5:
                 Empower(level);
                 break;
-            case 8:
+            case 6:
                 Inspire(level);
                 break;
-            case 9:
+            case 7:
                 ShieldBash(level);
                 break;
-            case 10:
+            case 8:
                 DesperateStand(level);
                 break;
-            case 11:
+            case 9:
                 DecisiveStrike(level);
                 break;
-            case 12:
+            case 10:
                 BulwarkOfLight(level);
                 break;
-            case 13:
+            case 11:
                 GoldenAegis(level);
                 break;
-            case 14:
+            case 12:
                 ShieldWall(level);
                 break;
-            case 15:
+            case 13:
                 ShieldGlare(level);
                 break;
-            case 16:
+            case 14:
                 Smite(level);
                 break;
-            case 17:
+            case 15:
                 BlindingLight(level);
                 break;
-            case 18:
+            case 16:
                 Consecration(level);
                 break;
-            case 19:
+            case 17:
                 HolyLight(level);
                 break;
-            case 20:
+            case 18:
                 Chastise(level);
                 break;
-            case 21:
+            case 19:
                 HolyBolt(level);
                 break;
-            case 22:
+            case 20:
                 LayOnHands(level);
                 break;
-            case 23:
+            case 21:
                 CounterAttack(level);
                 break;
-            case 24:
+            case 22:
                 SurgeOfLight(level);
                 break;
-            case 25:
+            case 23:
                 PatientStrike(level);
                 break;
-            case 26:
+            case 24:
                 CrushingBlow(level);
                 break;
-            case 27:
+            case 25:
                 HeavyArmor(level);
                 break;
-            case 28:
+            case 26:
                 ShieldOfHope(level);
                 break;
-            case 29:
+            case 27:
                 HammerOfWrath(level);
                 break;
-            case 30:
+            case 28:
                 ALightInTheDarkness(level);
                 break;
-            case 31:
+            case 29:
                 Barricade(level);
                 break;
-            case 32:
+            case 30:
                 RighteousHammer(level);
                 break;
-            case 33:
+            case 31:
                 LightsChosen(level);
                 break;
-            case 34:
+            case 32:
                 Penance(level);
+                break;
+            case 33:
+                GuardianAngel(level);
+                break;
+        }
+    }
+
+    public void UseWaterAbility(int which, int level)
+    {
+        switch (which)
+        {
+            case 0:
+                QuickCut(level);
+                break;
+            case 1:
+                HarpoonThrow(level);
+                break;
+            case 2:
+                CutDown(level);
+                break;
+            case 3:
+                Ensnare(level);
+                break;
+            case 4:
+                ViciousSlash(level);
+                break;
+            case 5:
+                Rupture(level);
+                break;
+            case 6:
+                ProtectiveBubble(level);
+                break;
+            case 7:
+                Swift(level);
+                break;
+            case 8:
+                Hop(level);
+                break;
+            case 9:
+                Impale(level);
+                break;
+            case 10:
+                Flurry(level);
+                break;
+            case 11:
+                SerratedBlade(level);
+                break;
+            case 12:
+                ShellsUp(level);
+                break;
+            case 13:
+                DeadlySwings(level);
+                break;
+            case 14:
+                SteelOfSteal(level);
+                break;
+            case 15:
+                Eviscerate(level);
+                break;
+            case 16:
+                DoubleJump(level);
+                break;
+            case 17:
+                FlowLikeWater(level);
+                break;
+            case 18:
+                Preparation(level);
+                break;
+            case 19:
+                StaggeringBlow(level);
+                break;
+            case 20:
+                DredgeLine(level);
                 break;
         }
     }
 
     public string AbilityInfo(int which, int level)
     {
-        switch (which)
+        if (which < Library.neutralCards)
         {
-            case 0:
-                return "Deal " + StrikeDamage(level).ToString("") + " Damage";
-            case 1:
-                return "Gain " + DefendBlock(level).ToString("") + " Block";
-            case 2:
-                return "Break up to " + SpearThrustBreak(level).ToString("") + " Shield\nDeal " + SpearThrustDamage(level).ToString("") + " Damage";
-            case 3:
-                if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
-                    return "Deal " + JudgementDamage(level).ToString("") + " Damage, Apply " + JudgementVulnerable(level).ToString("") + " Vulnerable";
-                else return "Deal " + JudgementDamage(level).ToString("") + " Damage";
-            case 4:
-                return "Deal " + BolaShotDamage(level).ToString("") + " Damage\nApply " + BolaShotSlow(level).ToString("") + " Slow";
-            case 5:
-                return "Deal " + CripplingStrikeDamage(level).ToString("") + " Damage\nApply " + CripplingStrikeBleed(level).ToString("") + " Bleed";
-            case 6:
-                return "Gain " + FortifyBlock(level).ToString("") + " Block\nGain " + FortifyBlock(level).ToString("") + " Block Next Trun";
-            case 7:
-                return "Gain " + EmpowerBuff(level).ToString("") + " Strength & Energy";
-            case 8:
-                return "Draw " + InspireCardDraw(level).ToString("") + " Cards\nGain " + InspireBlock(level).ToString("") + " Block";
-            case 9:
-                if (level > 0)
-                    return "Gain " + ShieldBashBlock(level).ToString("") + " Block\nDeal " + (ShieldBashBlock(level) + ShieldBashDamage(level)).ToString("") + " Damage";
-                else return "Deal " + ShieldBashDamage(level).ToString("") + " Damage";
-            case 10:
-                if (HealthProcentage() < 0.5f)
-                    return "Gain " + DesperateStandBlock(level).ToString("") + " Block\nDestroy";
-                else return "Gain " + DesperateStandBlock(level).ToString("") + " Block";
-            case 11:
-                return "Deal " + DecisiveStrikeDamage(level).ToString("") + " Damage\nGain " + DecisiveStrikeValor(level).ToString("") + " Valor";
-            case 12:
-                return "Gain " + BulwarkOfLightBlock(level).ToString("") + " Block\nGain " + BulwarkOfLightValor(level).ToString("") + " Valor";
-            case 13:
-                return "Gain " + GoldenAegisBlock(level).ToString("") + " Block\nApply " + GoldenAegisSlow(level).ToString("") + " Slow\nto All Enemies";
-            case 14:
-                return "Gain " + ShieldWallBlock(level).ToString("") + " Block\nGain " + ShieldWallResistance(level).ToString("") + " Resistance";
-            case 15:
-                return "Gain " + ShieldGlareBlock(level).ToString("") + " Block\nApply " + ShieldGlareWeak(level).ToString("") + " Weak";
-            case 16:
-                return "Deal " + SmiteDamage(level).ToString("") + " Damage\nApply " + SmiteSlow(level).ToString("") + " Slow";
-            case 17:
-                return "Deal " + BlindingLightDamage(level).ToString("") + " Damage\nApply " + BlindingLightDaze(level).ToString("") + " Daze & " + BlindingLightWeak(level).ToString("") + " Weak";
-            case 18:
-                return "Deal " + ConsecrationDamage(level).ToString("") + " Damage\nApply " + ConsecrationSlow(level).ToString("") + " Slow\nto All Enemies\n Gain " + ConsecrationValor(level).ToString("") + " Valor";
-            case 19:
-                return "Gain " + HolyLightBlock(level).ToString("") + " Block\nRestore " + HolyLightHeal(level).ToString("") + " Health\nDestroy";
-            case 20:
-                return "Deal " + ChastiseDamage(level).ToString("") + " Damage\nApply " + ChastiseDaze(level).ToString("") + " Daze & " + ChastiseSlow(level).ToString("") + " Slow";
-            case 21:
-                return "Deal " + HolyBoltDamage(level).ToString("") + " Damage";
-            case 22:
-                return "Gain " + LayOnHandsValor(level).ToString("") + " Valor\nRestore " + LayOnHandsHeal(level).ToString("") + " Health\nDestroy";
-            case 23:
-                return "Deal " + CounterAttackDamage(level).ToString("") + " Damage";
-            case 24:
-                return "Gain " + SurgeOfLightDexterity(level).ToString("") + " Dexterity\n& " + SurgeOfLightEnergy(level).ToString("") + " Energy\nDestroy";
-            case 25:
-                return "Deal " + PatientStrikeDamage(level).ToString("") + " Damage";
-            case 26:
-                return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowDaze(level).ToString("") + " Daze\n" + CrushingBlowSlow(level).ToString("") 
-                    + " Slow\n" + CrushingBlowWeak(level).ToString("") + " Weak\n& " + CrushingBlowVulnerable(level).ToString("") + " Vulnerable";
-            case 27:
-                return "Gain " + HeavyArmorBlock(level).ToString("") + " Block";
-            case 28:
-                return "Gain " + ShieldOfHopeBlock(level).ToString("") + " Block\nDestroy";
-            case 29:
-                return "Increase your Weapon Damage by " + HammerOfWrathDamage(level).ToString("") + "\nEvery Weapon Attack Draws 1 Card\nDestroy";
-            case 30:
-                if (PlayerScript.CursesCount > 0)
-                    return "Gain " + ALightInTheDarknessSanityBlock(level).ToString("") + " Sanity & Block\nApply " + ALightInTheDarknessSlow(level).ToString("") + " Slow to all Enemies\nDestroy";
-                else return "Gain " + ALightInTheDarknessSanityBlock(level).ToString("") + " Sanity & Block\nDestroy";
-            case 31:
-                if (level > 1)
-                    return "Gain " + BarricadeBlock(level).ToString("") + " Block\nBlock is retained for " + BarricadeRetain(level) + " Turns";
-                else return "Gain " + BarricadeBlock(level).ToString("") + " Block\nBlock is retained for 1 Turn";
-            case 32:
-                return "Deal " + RighteousHammerDamage(level).ToString("") + " Damage\nApply " + RighteousHammerDamage(level).ToString("") + " Daze\n& " + RighteousHammerSlow(level).ToString("") + " Slow";
-            case 33:
-                return "Gain " + LightsChosenStrength(level).ToString("") + " Strength\n" + LightsChosenResistance(level).ToString("") + " Resistance\n& " + LightsChosenDexterity(level).ToString("") + " Dexterity\nDestroy";
-            case 34:
-                return "Deal " + PenanceDamage(level).ToString("") + " Damage\nGain " + PenanceBlock(level).ToString("") + " Block";
+            switch (which)
+            {
+                case 0:
+                    return "Deal " + StrikeDamage(level).ToString("") + " Damage";
+                case 1:
+                    return "Gain " + DefendBlock(level).ToString("") + " Block";
+            }
         }
+        else
+        {
+            which -= Library.neutralCards;
+            if (which < Library.lightCards)
+            {
+                switch (which)
+                {
+                    case 0:
+                        return "Break up to " + SpearThrustBreak(level).ToString("") + " Shield\nDeal " + SpearThrustDamage(level).ToString("") + " Damage";
+                    case 1:
+                        if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
+                            return "Deal " + JudgementDamage(level).ToString("") + " Damage, Apply " + JudgementVulnerable(level).ToString("") + " Vulnerable";
+                        else return "Deal " + JudgementDamage(level).ToString("") + " Damage";
+                    case 2:
+                        return "Deal " + BolaShotDamage(level).ToString("") + " Damage\nApply " + BolaShotSlow(level).ToString("") + " Slow";
+                    case 3:
+                        return "Deal " + CripplingStrikeDamage(level).ToString("") + " Damage\nApply " + CripplingStrikeBleed(level).ToString("") + " Bleed";
+                    case 4:
+                        return "Gain " + FortifyBlock(level).ToString("") + " Block\nGain " + FortifyBlock(level).ToString("") + " Block Next Trun";
+                    case 5:
+                        return "Gain " + EmpowerBuff(level).ToString("") + " Strength & Energy";
+                    case 6:
+                        return "Draw " + InspireCardDraw(level).ToString("") + " Cards\nGain " + InspireBlock(level).ToString("") + " Block";
+                    case 7:
+                        if (level > 0)
+                            return "Gain " + ShieldBashBlock(level).ToString("") + " Block\nDeal " + (ShieldBashBlock(level) + ShieldBashDamage(level)).ToString("") + " Damage";
+                        else return "Deal " + ShieldBashDamage(level).ToString("") + " Damage";
+                    case 8:
+                        if (HealthProcentage() < 0.5f)
+                            return "Gain " + DesperateStandBlock(level).ToString("") + " Block\nDestroy";
+                        else return "Gain " + DesperateStandBlock(level).ToString("") + " Block";
+                    case 9:
+                        return "Deal " + DecisiveStrikeDamage(level).ToString("") + " Damage\nGain " + DecisiveStrikeValor(level).ToString("") + " Valor";
+                    case 10:
+                        return "Gain " + BulwarkOfLightBlock(level).ToString("") + " Block\nGain " + BulwarkOfLightValor(level).ToString("") + " Valor";
+                    case 11:
+                        return "Gain " + GoldenAegisBlock(level).ToString("") + " Block\nApply " + GoldenAegisSlow(level).ToString("") + " Slow\nto All Enemies";
+                    case 12:
+                        return "Gain " + ShieldWallBlock(level).ToString("") + " Block\nGain " + ShieldWallResistance(level).ToString("") + " Resistance";
+                    case 13:
+                        return "Gain " + ShieldGlareBlock(level).ToString("") + " Block\nApply " + ShieldGlareWeak(level).ToString("") + " Weak";
+                    case 14:
+                        return "Deal " + SmiteDamage(level).ToString("") + " Damage\nApply " + SmiteSlow(level).ToString("") + " Slow";
+                    case 15:
+                        return "Deal " + BlindingLightDamage(level).ToString("") + " Damage\nApply " + BlindingLightDaze(level).ToString("") + " Daze & " + BlindingLightWeak(level).ToString("") + " Weak";
+                    case 16:
+                        return "Deal " + ConsecrationDamage(level).ToString("") + " Damage\nApply " + ConsecrationSlow(level).ToString("") + " Slow\nto All Enemies\n Gain " + ConsecrationValor(level).ToString("") + " Valor";
+                    case 17:
+                        return "Gain " + HolyLightBlock(level).ToString("") + " Block\nRestore " + HolyLightHeal(level).ToString("") + " Health\nDestroy";
+                    case 18:
+                        return "Deal " + ChastiseDamage(level).ToString("") + " Damage\nApply " + ChastiseDaze(level).ToString("") + " Daze & " + ChastiseSlow(level).ToString("") + " Slow";
+                    case 19:
+                        return "Deal " + HolyBoltDamage(level).ToString("") + " Damage";
+                    case 20:
+                        return "Gain " + LayOnHandsValor(level).ToString("") + " Valor\nRestore " + LayOnHandsHeal(level).ToString("") + " Health\nDestroy";
+                    case 21:
+                        return "Deal " + CounterAttackDamage(level).ToString("") + " Damage";
+                    case 22:
+                        return "Gain " + SurgeOfLightDexterity(level).ToString("") + " Dexterity\n& " + SurgeOfLightEnergy(level).ToString("") + " Energy\nDestroy";
+                    case 23:
+                        return "Deal " + PatientStrikeDamage(level).ToString("") + " Damage";
+                    case 24:
+                        return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowDaze(level).ToString("") + " Daze\n" + CrushingBlowSlow(level).ToString("")
+                            + " Slow\n" + CrushingBlowWeak(level).ToString("") + " Weak\n& " + CrushingBlowVulnerable(level).ToString("") + " Vulnerable";
+                    case 25:
+                        return "Gain " + HeavyArmorBlock(level).ToString("") + " Block";
+                    case 26:
+                        return "Gain " + ShieldOfHopeBlock(level).ToString("") + " Block\nDestroy";
+                    case 27:
+                        return "Increase your Weapon Damage by " + HammerOfWrathDamage(level).ToString("") + "\nEvery Weapon Attack Draws 1 Card\nDestroy";
+                    case 28:
+                        if (PlayerScript.CursesCount > 0)
+                            return "Gain " + ALightInTheDarknessSanityBlock(level).ToString("") + " Sanity & Block\nApply " + ALightInTheDarknessSlow(level).ToString("") + " Slow to all Enemies\nDestroy";
+                        else return "Gain " + ALightInTheDarknessSanityBlock(level).ToString("") + " Sanity & Block\nDestroy";
+                    case 29:
+                        if (level > 1)
+                            return "Gain " + BarricadeBlock(level).ToString("") + " Block\nBlock is retained for " + BarricadeRetain(level) + " Turns";
+                        else return "Gain " + BarricadeBlock(level).ToString("") + " Block\nBlock is retained for 1 Turn";
+                    case 30:
+                        return "Deal " + RighteousHammerDamage(level).ToString("") + " Damage\nApply " + RighteousHammerDamage(level).ToString("") + " Daze\n& " + RighteousHammerSlow(level).ToString("") + " Slow";
+                    case 31:
+                        return "Gain " + LightsChosenStrength(level).ToString("") + " Strength\n" + LightsChosenResistance(level).ToString("") + " Resistance\n& " + LightsChosenDexterity(level).ToString("") + " Dexterity\nDestroy";
+                    case 32:
+                        return "Deal " + PenanceDamage(level).ToString("") + " Damage\nGain " + PenanceBlock(level).ToString("") + " Block";
+                    case 33:
+                        return "Gain " + GuardianAngelResistance(level).ToString("") + " Resistance\n" + GuardianAngelArmor(level).ToString("") + " Armor\nBlock gained from Armor is affected by Resistance\nDestroy";
+                }
+            }
+            else
+            {
+                which -= Library.lightCards;
+                switch (which)
+                {
+                    case 0:
+                        return "Deal " + QuickCutDamage(level).ToString("") + " Damage";
+                    case 1:
+                        if (level == 0)
+                            return "Deal " + HarpoonThrowDamage(level).ToString("") + " Damage\nDraw a Card";
+                        else return "Deal " + HarpoonThrowDamage(level).ToString("") + " Damage\nDraw " + HarpoonThrowDraw(level).ToString("") + " Cards";
+                    case 2:
+                        return "Deal " + CutDownDamage(level).ToString("") + " Damage\nApply " + CutDownBleed(level).ToString("") + " Bleed";
+                    case 3:
+                        return "Apply " + EnsnareSlow(level).ToString("") + " Slowm\nbut increase Targets\nTenacity by 1";
+                    case 4:
+                        return "Deal " + ViciousSlashDamage(level).ToString("") + " Damage\nApply " + ViciousSlashBleed(level).ToString("") + " Bleed";
+                    case 5:
+                        return "Deal " + RuptureDamage(level).ToString("") + " Damage";
+                    case 6:
+                        return "Gain " + ProtectiveBubbleBlock(level).ToString("") + " Block";
+                    case 7:
+                        return "Gain 1 Dexterity\nEvery Card playd gives " + SwiftBlock(level).ToString("") + " Block\nDestroy";
+                    case 8:
+                        if (level == 0)
+                            return "Draw a Card\nGain 2 Block for every Card in Hand";
+                        else if (level == 1) return "Draw " + HopDraw(level).ToString("") + " Cards\nGain 2 Block for every Card in Hand";
+                        else return "Draw " + HopDraw(level).ToString("") + " Cards\nGain 3 Block for every Card in Hand";
+                    case 9:
+                        return "Deal " + ImpaleDamage(level).ToString("") + " Damage\nApply " + ImpaleSlow(level).ToString("") + " Slow\n& gain that much Energy";
+                    case 10:
+                        return "Deal " + FlurryDamage(level).ToString("") + " Damage\nGain " + FlurryEnergy(level).ToString("") + " Energy\nIncrease future Flurry Energy gain by " + FlurryGain(level).ToString("");
+                    case 11:
+                        return "Gain 1 Strength\nEvery Attack applies " + SerratedBladeBleed(level).ToString("") + " Bleed\nDestroy";
+                    case 12:
+                        return "Gain " + ShellsUpBlock(level).ToString("") + " Block";
+                    case 13:
+                        return "Deal " + DeadlySwingsDamage(level).ToString("") + " Damage\n" + DeadlySwingsAmount(level).ToString("") + " Times";
+                    case 14:
+                        return "Deal " + SteelOfStealDamage(level).ToString("") + " Damage\nGain " + SteelOfStealSilver(level).ToString("") + " Silver\nDestroy";
+                    case 15:
+                        return "Deal " + EviscerateDamage(level).ToString("") + " Damage";
+                    case 16:
+                        if (combo < 3)
+                            return "Gain " + DoubleJumpBlock(level).ToString("") + " Block\n(" + combo.ToString("") + "/3 Combo)";
+                        else return "Gain " + DoubleJumpBlock(level).ToString("") + " Block Twice";
+                    case 17:
+                        if (combo < 4)
+                            return combo.ToString("") + "/4 Combo)";
+                        else if (level == 0) return "Draw a Card\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                        else return "Draw " + FlowLikeWaterDraw(level).ToString("") + " Cards\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                    case 18:
+                        return "Gain " + PreparationBlock(level).ToString("") + " Block\n& +" + PreparationCombo(level).ToString("") + " Combo";
+                    case 19:
+                        return "Deal " + StaggeringBlowDamage(level).ToString("") + " Damage\nreduce Targets\nTenacity by 1\n& Apply " + StaggeringBlowSlow(level).ToString("") + " Slow";
+                    case 20:
+                        return "Deal " + DredgeLineDamage(level).ToString("") + " Damage\nApply " + DredgeLineSlow(level).ToString("") + " Slow\nGain " + DredgeLineEnergy(level).ToString("") + " Energy";
+                }
+            }
+        }
+
         return "";
     }
 
-    // Abilities ---
-    void Strike(int level) // ID 0
+    // ABILITIES
+    // NEUTRAL
+    void Strike(int level) // ID N 0
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StrikeDamage(level));
         OnHit();
@@ -737,7 +924,7 @@ public class PlayerCombat : MonoBehaviour
         return DamageDealtModifier(tempi);
     }
 
-    void Defend(int level) // ID 1
+    void Defend(int level) // ID N 1
     {
         GainBlock(DefendBlock(level));
     }
@@ -749,7 +936,8 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void SpearThrust(int level) // ID 2
+    // LIGHT
+    void SpearThrust(int level) // ID L 0
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(SpearThrustBreak(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SpearThrustDamage(level));
@@ -770,7 +958,7 @@ public class PlayerCombat : MonoBehaviour
         return DamageDealtModifier(tempi);
     }
 
-    void Judgement(int level) // ID 3
+    void Judgement(int level) // ID L 1
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(JudgementDamage(level));
         OnHit();
@@ -795,7 +983,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void BolaShot(int level) // ID 4
+    void BolaShot(int level) // ID L 2
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BolaShotDamage(level));
         OnHit();
@@ -816,7 +1004,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void CripplingStrike(int level) // ID 5
+    void CripplingStrike(int level) // ID L 3
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CripplingStrikeDamage(level));
         OnHit();
@@ -837,7 +1025,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Fortify(int level) // ID 6
+    void Fortify(int level) // ID L 4
     {
         effect[3] += FortifyBlock(level);
         GainBlock(FortifyBlock(level));
@@ -850,7 +1038,7 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void Empower(int level) // ID 7
+    void Empower(int level) // ID L 5
     {
         GainStrength(EmpowerBuff(level));
         GainEnergy(EmpowerBuff(level));
@@ -863,7 +1051,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Inspire(int level) // ID 8
+    void Inspire(int level) // ID L 6
     {
         Cards.Draw(InspireCardDraw(level));
         GainBlock(InspireBlock(level));
@@ -886,7 +1074,7 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void ShieldBash(int level) // ID 9
+    void ShieldBash(int level) // ID L 7
     {
         if (level > 0)
             GainBlock(ShieldBashBlock(level));
@@ -907,7 +1095,7 @@ public class PlayerCombat : MonoBehaviour
         return DamageDealtModifier(tempi);
     }
 
-    void DesperateStand(int level) // ID 10
+    void DesperateStand(int level) // ID L 8
     {
         GainBlock(DesperateStandBlock(level));
     }
@@ -921,7 +1109,7 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void DecisiveStrike(int level) // ID 11
+    void DecisiveStrike(int level) // ID L 9
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DecisiveStrikeDamage(level));
         OnHit();
@@ -943,7 +1131,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void BulwarkOfLight(int level) // ID 12
+    void BulwarkOfLight(int level) // ID L 10
     {
         GainBlock(BulwarkOfLightBlock(level));
         GainValor(BulwarkOfLightValor(level));
@@ -964,7 +1152,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void GoldenAegis(int level) // ID 13
+    void GoldenAegis(int level) // ID L 11
     {
         GainBlock(GoldenAegisBlock(level));
         for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
@@ -988,7 +1176,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void ShieldWall(int level) // ID 14
+    void ShieldWall(int level) // ID L 12
     {
         GainBlock(ShieldWallBlock(level));
         GainResistance(ShieldWallResistance(level));
@@ -1010,7 +1198,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void ShieldGlare(int level) // ID 15
+    void ShieldGlare(int level) // ID L 13
     {
         GainBlock(ShieldGlareBlock(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(ShieldGlareWeak(level));
@@ -1030,7 +1218,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Smite(int level) // ID 16
+    void Smite(int level) // ID L 14
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SmiteDamage(level));
         OnHit();
@@ -1051,7 +1239,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void BlindingLight(int level) // ID 17
+    void BlindingLight(int level) // ID L 15
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BlindingLightDamage(level));
         OnHit();
@@ -1080,7 +1268,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Consecration(int level) // ID 18
+    void Consecration(int level) // ID L 16
     {
         for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
         {
@@ -1116,7 +1304,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void HolyLight(int level) // ID 19
+    void HolyLight(int level) // ID L 17
     {
         GainBlock(HolyLightBlock(level));
         RestoreHealth(HolyLightHeal(level));
@@ -1136,7 +1324,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Chastise(int level) // ID 20
+    void Chastise(int level) // ID L 18
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ChastiseDamage(level));
         OnHit();
@@ -1166,7 +1354,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void HolyBolt(int level) // ID 21
+    void HolyBolt(int level) // ID L 19
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyBoltDamage(level));
         OnHit();
@@ -1180,7 +1368,7 @@ public class PlayerCombat : MonoBehaviour
         return DamageDealtModifier(tempi);
     }
 
-    void LayOnHands(int level) // ID 22
+    void LayOnHands(int level) // ID L 20
     {
         GainValor(LayOnHandsValor(level));
         RestoreHealth(LayOnHandsHeal(level));
@@ -1200,7 +1388,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void CounterAttack(int level) // ID 23
+    void CounterAttack(int level) // ID L 21
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CounterAttackDamage(level));
         OnHit();
@@ -1215,7 +1403,7 @@ public class PlayerCombat : MonoBehaviour
         return DamageDealtModifier(tempi);
     }
 
-    void SurgeOfLight(int level) // ID 24
+    void SurgeOfLight(int level) // ID L 22
     {
         GainDexterity(SurgeOfLightDexterity(level));
         GainEnergy(SurgeOfLightEnergy(level));
@@ -1235,7 +1423,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void PatientStrike(int level) // ID 25
+    void PatientStrike(int level) // ID L 23
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PatientStrikeDamage(level));
         OnHit();
@@ -1249,7 +1437,7 @@ public class PlayerCombat : MonoBehaviour
         return DamageDealtModifier(tempi);
     }
 
-    void CrushingBlow(int level) // ID 26
+    void CrushingBlow(int level) // ID L 24
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CrushingBlowDamage(level));
         OnHit();
@@ -1296,7 +1484,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void HeavyArmor(int level) // ID 27
+    void HeavyArmor(int level) // ID L 25
     {
         GainBlock(HeavyArmorBlock(level));
     }
@@ -1308,7 +1496,7 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void ShieldOfHope(int level) // ID 28
+    void ShieldOfHope(int level) // ID L 26
     {
         GainBlock(ShieldOfHopeBlock(level));
     }
@@ -1319,7 +1507,7 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void HammerOfWrath(int level) // ID 29
+    void HammerOfWrath(int level) // ID L 27
     {
         baseDamage += HammerOfWrathDamage(level);
         effect[5]++;
@@ -1333,7 +1521,7 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    void ALightInTheDarkness(int level) // ID 30
+    void ALightInTheDarkness(int level) // ID L 28
     {
         GainSanity(ALightInTheDarknessSanityBlock(level));
         GainBlock(ALightInTheDarknessSanityBlock(level));
@@ -1362,7 +1550,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Barricade(int level) // ID 31
+    void Barricade(int level) // ID L 29
     {
         GainBlock(BarricadeBlock(level));
         effect[11] += BarricadeRetain(level);
@@ -1385,7 +1573,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void RighteousHammer(int level) // ID 32
+    void RighteousHammer(int level) // ID L 30
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RighteousHammerDamage(level));
         OnHit();
@@ -1407,7 +1595,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void LightsChosen(int level) // ID 33
+    void LightsChosen(int level) // ID L 31
     {
         GainStrength(LightsChosenStrength(level));
         GainResistance(LightsChosenResistance(level));
@@ -1436,7 +1624,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Penance(int level) // ID 34
+    void Penance(int level) // ID L 32
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PenanceDamage(level));
         OnHit();
@@ -1455,6 +1643,437 @@ public class PlayerCombat : MonoBehaviour
         tempi = 6 + effect[1];
         tempi += 2 * level;
         return BlockGainedModifier(tempi);
+    }
+
+    void GuardianAngel(int level) // ID L 33
+    {
+        GainResistance(GuardianAngelResistance(level));
+        GainArmor(GuardianAngelArmor(level));
+        effect[13] += 1;
+        Display(1, effectSprite[13]);
+    }
+
+    int GuardianAngelResistance(int level)
+    {
+        tempi = 2;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    int GuardianAngelArmor(int level)
+    {
+        tempi = 4;
+        tempi += 3 * level;
+        if (level > 1)
+            tempi -= 2;
+        return tempi;
+    }
+
+    // LIGHT
+    void QuickCut(int level) // ID W 0
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(QuickCutDamage(level));
+        OnHit();
+    }
+
+    int QuickCutDamage(int level)
+    {
+        tempi = 8 + effect[0];
+        tempi += 3 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    void HarpoonThrow(int level) // ID W 1
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HarpoonThrowDamage(level));
+        OnHit();
+        Cards.Draw(HarpoonThrowDraw(level));
+    }
+
+    int HarpoonThrowDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 1 * level;
+        if (level > 1)
+            tempi += 3;
+        return DamageDealtModifier(tempi);
+    }
+
+    int HarpoonThrowDraw(int level)
+    {
+        tempi = 1;
+        tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    void CutDown(int level) // ID W 2
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CutDownDamage(level));
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CutDownBleed(level));
+    }
+
+    int CutDownDamage(int level)
+    {
+        tempi = 2 + effect[0];
+        tempi += 1 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int CutDownBleed(int level)
+    {
+        tempi = 2;
+        tempi += 2 * level;
+        tempi += CombatScript.Enemy[CombatScript.targetedEnemy].tenacity;
+        return tempi;
+    }
+
+    void Ensnare(int level) // ID W 3
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].tenacity++;
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(EnsnareSlow(level));
+    }
+
+    int EnsnareSlow(int level)
+    {
+        tempi = 5;
+        tempi += 3 * level;
+        return tempi;
+    }
+
+    void ViciousSlash(int level) // ID W 4
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ViciousSlashDamage(level));
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(ViciousSlashBleed(level));
+    }
+
+    int ViciousSlashDamage(int level)
+    {
+        tempi = 6 + effect[0];
+        tempi += 1 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int ViciousSlashBleed(int level)
+    {
+        tempi = 2 + effect[0];
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    void Rupture(int level) // ID W 5
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RuptureDamage(level));
+        OnHit();
+    }
+
+    int RuptureDamage(int level)
+    {
+        tempi = 1 + effect[0];
+        tempi += 4 * level;
+        tempi += CombatScript.Enemy[CombatScript.targetedEnemy].effect[1];
+        return DamageDealtModifier(tempi);
+    }
+
+    void ProtectiveBubble(int level) // ID W 6
+    {
+        GainBlock(ProtectiveBubbleBlock(level));
+    }
+
+    int ProtectiveBubbleBlock(int level)
+    {
+        tempi = 12 + effect[1] + effect[2];
+        tempi += (2 + effect[1]) * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    void Swift(int level) // ID W 7
+    {
+        GainDexterity(1);
+        effect[14] += SwiftBlock(level);
+        Display(SwiftBlock(level), effectSprite[14]);
+    }
+
+    int SwiftBlock(int level)
+    {
+        tempi = 1 + level;
+        return tempi;
+    }
+
+    void Hop(int level) // ID W 8
+    {
+        Cards.Draw(HopDraw(level));
+        GainBlock(HopBlock(level));
+    }
+
+    int HopDraw(int level)
+    {
+        tempi = 1;
+        tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    int HopBlock(int level)
+    {
+        tempi = 2;
+        tempi += level / 2;
+        tempi *= (Cards.CardsInHand - 1);
+        return BlockGainedModifier(tempi);
+    }
+
+    void Impale(int level) // ID W 9
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ImpaleDamage(level));
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ImpaleSlow(level));
+        GainEnergy(ImpaleSlow(level));
+    }
+
+    int ImpaleDamage(int level)
+    {
+        tempi = 15 + effect[0];
+        tempi += 5 * level;
+        if (level > 1)
+            tempi -= 3;
+        return DamageDealtModifier(tempi);
+    }
+
+    int ImpaleSlow(int level)
+    {
+        tempi = 6;
+        tempi -= level / 2;
+        tempi2 = 1 + (ImpaleDamage(level) / tempi);
+        return tempi2;
+    }
+
+    void Flurry(int level) // ID W 10
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(FlurryDamage(level));
+        OnHit();
+        GainEnergy(FlurryEnergy(level));
+        flurry += FlurryGain(level);
+    }
+
+    int FlurryDamage(int level)
+    {
+        tempi = 9 + effect[0];
+        tempi += 2 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int FlurryEnergy(int level)
+    {
+        tempi = 2;
+        tempi += 2 * ((level + 1) / 2);
+        tempi += flurry;
+        return tempi;
+    }
+
+    int FlurryGain(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    void SerratedBlade(int level) // ID W 11
+    {
+        GainStrength(1);
+        effect[15] += SerratedBladeBleed(level);
+        Display(SerratedBladeBleed(level), effectSprite[15]);
+    }
+
+    int SerratedBladeBleed(int level)
+    {
+        tempi = 1;
+        tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    void ShellsUp(int level) // ID W 12
+    {
+        GainBlock(ShellsUpBlock(level));
+    }
+
+    int ShellsUpBlock(int level)
+    {
+        tempi = 15 + effect[1];
+        tempi += 4 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    void DeadlySwings(int level) // ID W 13
+    {
+        for (int i = 0; i < DeadlySwingsAmount(level); i++)
+        {
+            CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DeadlySwingsDamage(level));
+            OnHit();
+        }
+    }
+
+    int DeadlySwingsDamage(int level)
+    {
+        tempi = 6 + effect[0];
+        return DamageDealtModifier(tempi);
+    }
+
+    int DeadlySwingsAmount(int level)
+    {
+        tempi = 2 + level;
+        return tempi;
+    }
+
+    void SteelOfSteal(int level) // ID W 14
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SteelOfStealDamage(level));
+        OnHit();
+        PlayerScript.GainSilver(SteelOfStealSilver(level));
+    }
+
+    int SteelOfStealDamage(int level)
+    {
+        tempi = 7 + effect[0];
+        tempi += 2 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int SteelOfStealSilver(int level)
+    {
+        tempi = 10 + 4 * level;
+        return tempi;
+    }
+
+    void Eviscerate(int level) // ID W 15
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(EviscerateDamage(level));
+        OnHit();
+    }
+
+    int EviscerateDamage(int level)
+    {
+        tempi = 8 + effect[0];
+        tempi += 1 * level;
+        tempi += combo * (4 + 2 * level);
+        return DamageDealtModifier(tempi);
+    }
+
+    void DoubleJump(int level) // ID W 16
+    {
+        GainBlock(DoubleJumpBlock(level));
+        if (combo >= 3)
+            GainBlock(DoubleJumpBlock(level));
+    }
+
+    int DoubleJumpBlock(int level)
+    {
+        tempi = 10 + effect[1];
+        tempi += 3 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    void FlowLikeWater(int level) // ID W 17
+    {
+        if (combo >= 4)
+        {
+            GainMana(FlowLikeWaterMana(level));
+            Cards.Draw(FlowLikeWaterDraw(level));
+            GainEnergy(FlowLikeWaterMana(level));
+        }
+    }
+
+    int FlowLikeWaterMana(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    int FlowLikeWaterDraw(int level)
+    {
+        tempi = 1;
+        tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    int FlowLikeWaterEnergy(int level)
+    {
+        tempi = 1;
+        tempi += level;
+        return tempi;
+    }
+
+    void Preparation(int level) // ID W 18
+    {
+        GainBlock(PreparationBlock(level));
+        combo += PreparationCombo(level);
+    }
+
+    int PreparationBlock(int level)
+    {
+        tempi = 4 + effect[1];
+        tempi += 3 * level;
+        if (level > 1)
+            tempi -= 2;
+        return BlockGainedModifier(tempi);
+    }
+
+    int PreparationCombo(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    void StaggeringBlow(int level) // ID W 19
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StaggeringBlowDamage(level));
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].tenacity--;
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(StaggeringBlowSlow(level));
+    }
+
+    int StaggeringBlowDamage(int level)
+    {
+        tempi = 12 + effect[0];
+        tempi += 6 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int StaggeringBlowSlow(int level)
+    {
+        tempi = 2;
+        tempi += level;
+        return tempi;
+    }
+
+    void DredgeLine(int level) // ID W 20
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DredgeLineDamage(level));
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(DredgeLineSlow(level));
+        GainEnergy(DredgeLineEnergy(level));
+    }
+
+    int DredgeLineDamage(int level)
+    {
+        tempi = 9 + effect[0];
+        tempi += 1 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int DredgeLineSlow(int level)
+    {
+        tempi = 1;
+        tempi += level;
+        return tempi;
+    }
+
+    int DredgeLineEnergy(int level)
+    {
+        tempi = 3;
+        tempi += level;
+        return tempi;
     }
 
     // checks

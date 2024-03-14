@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     public UnitChoice[] Units;
 
     [Header("Stats")]
-    public int Health;
-    public int MaxHealth, Sanity, MaxSanity, Silver, SanityLost, BaseMana, BaseDraw;
+    public int Class;
+    public int Health, MaxHealth, Sanity, MaxSanity, Silver, SanityLost, BaseMana, BaseDraw;
     public int[] Gems;
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;

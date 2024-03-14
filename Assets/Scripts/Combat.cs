@@ -234,6 +234,15 @@ public class Combat : MonoBehaviour
             case 12:
                 EffectTooltip.text = "Terror:\nDraw 1 less Card at the start of Turn for " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
+            case 13:
+                EffectTooltip.text = "Guardian Angel:\nBlock gained from Armor is increased by " + Player.effect[Player.effectsActive[effect]].ToString("0") + " per Resistance";
+                break;
+            case 14:
+                EffectTooltip.text = "Swift:\nEvery Card played gives " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block";
+                break;
+            case 15:
+                EffectTooltip.text = "Serrated Blade:\nEvery Attack applies " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Bleed to target";
+                break;
         }
     }
 
