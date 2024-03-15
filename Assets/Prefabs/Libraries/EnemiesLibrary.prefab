@@ -50,6 +50,7 @@ MonoBehaviour:
   UnitShield: 85
   UnitTenacity: 4
   MovesCount: 4
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 7e45077649483d74bb219d76e5b11904, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
@@ -58,7 +59,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
   MovesValues: 100000000a000000000000000c000000
   MovesCooldowns: 01000000030000000300000003000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000000000000000000000000000050000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000500000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - x2
@@ -97,6 +98,7 @@ Transform:
   m_Children:
   - {fileID: 811370481288226646}
   - {fileID: 5335328618324209800}
+  - {fileID: 4952700484388308684}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,8 +124,78 @@ MonoBehaviour:
   - {fileID: 6726278920593641456}
   - {fileID: 6370198582918190431}
   - {fileID: 5033555221710959912}
+  - {fileID: 3851312416306049930}
+  - {fileID: 2791987948757742085}
   basicID: 010000000200000003000000040000000500000008000000
-  eliteID: 07000000
+  eliteID: 070000000a000000
+  bossID: 09000000
+--- !u!1 &2565835531236201299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2881484802714328508}
+  - component: {fileID: 3851312416306049930}
+  m_Layer: 0
+  m_Name: Ratking
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2881484802714328508
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565835531236201299}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4952700484388308684}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3851312416306049930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565835531236201299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Ratking
+  UnitID: 9
+  UnitHealth: 700
+  UnitShield: 0
+  UnitTenacity: 6
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: 8c85f80ce38ba354f83bf8619d4c2ff6, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  MovesValues: 08000000170000000c00000000000000
+  MovesCooldowns: 05000000020000000300000007000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000100000001000000
+  additionalText:
+  - 
+  - 
+  - x2
+  - 
+  attackIntention: 01010100
+  normalAttack: 00000000
 --- !u!1 &2842114228050795199
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +246,7 @@ MonoBehaviour:
   UnitShield: 98
   UnitTenacity: 4
   MovesCount: 3
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 5e6dd842184ad1d4f8359812cfe2c525, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
@@ -181,7 +254,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 79cce631941f5f54291040e738881608, type: 3}
   MovesValues: 0b0000000500000000000000
   MovesCooldowns: 020000000300000003000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000100000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000400000001000000000000000000000000000000
   additionalText:
   - 
   - x3
@@ -238,6 +311,7 @@ MonoBehaviour:
   UnitShield: 0
   UnitTenacity: 4
   MovesCount: 3
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 0b82d3a5ffef1eb43aebb706f1bf7733, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
@@ -245,7 +319,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
   MovesValues: 100000000f00000008000000
   MovesCooldowns: 010000000300000002000000
-  StartingEffects: 00000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -282,7 +356,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5335328618324209800}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6726278920593641456
 MonoBehaviour:
@@ -302,6 +376,7 @@ MonoBehaviour:
   UnitShield: 220
   UnitTenacity: 8
   MovesCount: 4
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: c2fe469302cdb66458318b68b48901ad, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
@@ -310,7 +385,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   MovesValues: 190000000d0000003c00000000000000
   MovesCooldowns: 02000000030000000600000004000000
-  StartingEffects: 00000000000000000000000000000000000000000000000004000000000000000100000000000000000000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000040000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -368,6 +443,7 @@ MonoBehaviour:
   UnitShield: 44
   UnitTenacity: 6
   MovesCount: 4
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 601d7112c960b9247807022185554a98, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
@@ -376,7 +452,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   MovesValues: 0b000000180000000000000000000000
   MovesCooldowns: 02000000030000000300000005000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000001000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -413,6 +489,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3333156679541406621}
+  - {fileID: 7899885144291648638}
   - {fileID: 6172148069008563964}
   m_Father: {fileID: 5664719147339333400}
   m_RootOrder: 1
@@ -467,6 +544,7 @@ MonoBehaviour:
   UnitShield: 0
   UnitTenacity: 5
   MovesCount: 3
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 157428db6a52e3c45a0f97e8ef33583f, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
@@ -474,7 +552,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
   MovesValues: 0e000000000000000f000000
   MovesCooldowns: 030000000400000002000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -531,6 +609,7 @@ MonoBehaviour:
   UnitShield: 100
   UnitTenacity: 4
   MovesCount: 3
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: a0801a1d0f8478b4bbf49b574414f992, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
@@ -538,7 +617,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   MovesValues: 100000000c00000000000000
   MovesCooldowns: 010000000200000004000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000300000000000000020000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003000000000000000200000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -595,6 +674,7 @@ MonoBehaviour:
   UnitShield: 0
   UnitTenacity: 5
   MovesCount: 4
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 07ef83d7275f3f548ad2c11fc512f841, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
@@ -603,7 +683,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
   MovesValues: 16000000000000000700000008000000
   MovesCooldowns: 01000000020000000200000003000000
-  StartingEffects: 00000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 
@@ -611,6 +691,105 @@ MonoBehaviour:
   - 
   attackIntention: 01000101
   normalAttack: 00000000
+--- !u!1 &7612233682418164606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7899885144291648638}
+  - component: {fileID: 2791987948757742085}
+  m_Layer: 0
+  m_Name: Revenant Legionary
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7899885144291648638
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7612233682418164606}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5335328618324209800}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2791987948757742085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7612233682418164606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Shambler
+  UnitID: 10
+  UnitHealth: 100
+  UnitShield: 280
+  UnitTenacity: 5
+  MovesCount: 4
+  boss: 0
+  UnitSprite: {fileID: 21300000, guid: 725f667a1729ea7489a3425827f65e2a, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: 79cce631941f5f54291040e738881608, type: 3}
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  MovesValues: 24000000000000001200000000000000
+  MovesCooldowns: 04000000030000000200000004000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000800000000000000000000000000000000000000
+  additionalText:
+  - 
+  - 
+  - 
+  - 
+  attackIntention: 01000100
+  normalAttack: 00000100
+--- !u!1 &7897779658069159271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4952700484388308684}
+  m_Layer: 0
+  m_Name: BOSS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4952700484388308684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897779658069159271}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2881484802714328508}
+  m_Father: {fileID: 5664719147339333400}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8313040951267365545
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,6 +878,7 @@ MonoBehaviour:
   UnitShield: 40
   UnitTenacity: 4
   MovesCount: 3
+  boss: 0
   UnitSprite: {fileID: 21300000, guid: 209d0e16be0deff47ab7817c9874cda5, type: 3}
   MovesSprite:
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
@@ -706,7 +886,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   MovesValues: 0f0000000c00000000000000
   MovesCooldowns: 010000000300000002000000
-  StartingEffects: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
   - 
   - 

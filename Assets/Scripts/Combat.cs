@@ -20,6 +20,7 @@ public class Combat : MonoBehaviour
     public bool elite;
     int whichEnemy;
     float temp;
+    int tempi;
 
     [Header("UI")]
     public Button EndTurnButton;
@@ -133,7 +134,7 @@ public class Combat : MonoBehaviour
         {
             if (enemyAlive[i])
             {
-                if (Enemy[i].effect[13] > 0)
+                if (Enemy[i].effect[14] > 0)
                     Enemy[i].GainLink();
             }
         }
@@ -141,6 +142,7 @@ public class Combat : MonoBehaviour
 
     void WonCombat()
     {
+        Player.ItemsScript.ResetText();
         Fade.StartDarken();
         Player.Set();
         Invoke("ReturnToMap", 0.4f);
@@ -211,7 +213,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Valor:\nEmpower effects of certain Cards by " + Player.effect[Player.effectsActive[effect]].ToString("0");
                 break;
             case 5:
-                EffectTooltip.text = "Hammer of Wrath:\nEvery Weapon Attack Draws " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s";
+                EffectTooltip.text = "Hammer of Wrath:\nWeapon Attack Draws " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s";
                 break;
             case 6:
                 EffectTooltip.text = "Armor:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block at the end of every Turn";
@@ -242,6 +244,15 @@ public class Combat : MonoBehaviour
                 break;
             case 15:
                 EffectTooltip.text = "Serrated Blade:\nEvery Attack applies " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Bleed to target";
+                break;
+            case 16:
+                EffectTooltip.text = "Vulnerable:\nTake " + (10 * Player.effect[Player.effectsActive[effect]]).ToString("0") + "% more Damage";
+                break;
+            case 17:
+                EffectTooltip.text = "Trident of Storms:\nWeapon Attack Give " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Storm Charge/s";
+                break;
+            case 18:
+                EffectTooltip.text = "Storm Charge:\nUpon reaching 7 Charges summon Lighting at random Enemy";
                 break;
         }
     }
@@ -293,10 +304,16 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Armor:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Block at the end of every Turn";
                 break;
             case 14:
-                EffectTooltip.text = "Chain Tether:\nWhenever Card is played gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Link, 10 Links grant 2 Strength";
+                EffectTooltip.text = "Chain Tether:\nWhenever Card is played gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Link, 9 Links grant 2 Strength";
                 break;
             case 15:
                 EffectTooltip.text = "Chain Link:\nUpon gaining 9 Links, gain 2 Strength";
+                break;
+            case 16:
+                EffectTooltip.text = "Unstoppable:\nCan't be Stunned, take 5% Max Health as Damage instead";
+                break;
+            case 17:
+                EffectTooltip.text = "More Flesh!:\nGain Max Health equal to unblocked Damage Dealt";
                 break;
         }
     }
@@ -312,7 +329,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Madness:\nAt the end of each Turn take " + (4 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Damage for every Card left in your hand";
                 break;
             case 2:
-                EffectTooltip.text = "Pride:\nEnemies gain " + (2 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Strength. Each Turn enemies gain " + Player.PlayerScript.CurseValue[curse].ToString("0") + " Strength";
+                EffectTooltip.text = "Pride:\nEnemies gain " + (3 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Strength. Every 2 Turns enemies gain " + Player.PlayerScript.CurseValue[curse].ToString("0") + " Strength";
                 break;
             case 3:
                 EffectTooltip.text = "Fear:\nGain " + (20 * Player.PlayerScript.CurseValue[curse]).ToString("0") + "% Card draw skip. Taking unblocked Damage also reduces Sanity";
@@ -337,5 +354,14 @@ public class Combat : MonoBehaviour
                 Enemy[i].GainStrength(value);
             }
         }
+    }
+
+    public int RandomEnemy()
+    {
+        do
+        {
+            tempi = Random.Range(0, enemyAlive.Length);
+        } while (!enemyAlive[tempi]);
+        return tempi;
     }
 }

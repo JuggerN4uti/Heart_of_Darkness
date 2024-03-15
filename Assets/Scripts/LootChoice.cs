@@ -12,10 +12,10 @@ public class LootChoice : MonoBehaviour
 
     [Header("Stats")]
     public int silver;
-    public int cards, uncommonCards, roll, rollsCount, gemID;
+    public int cards, uncommonCards, merges, roll, rollsCount, gemID;
     public bool item, gem;
-    public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card, 3 - gem
-    public float gemCharge, bonusCardCharge, qualityUpgradeCharge;
+    public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card, 3 - gem, 4 - item, 5 - merge
+    public float gemCharge, bonusCardCharge, qualityUpgradeCharge, mergeCharge;
     int current;
     float temp;
 
@@ -28,7 +28,7 @@ public class LootChoice : MonoBehaviour
 
     [Header("Sprites")]
     public Sprite SilverSprite;
-    public Sprite ItemSprite, CommonSprite, UncommonSprite;
+    public Sprite ItemSprite, CommonSprite, UncommonSprite, MergeSprite;
     public Sprite[] GemSprites;
 
     public void SetRewards(float dangerBonus, bool elite)
@@ -54,6 +54,7 @@ public class LootChoice : MonoBehaviour
         {
             silver++;
             ChargeCard(0.02f);
+            ChargeMerge(0.01f);
             ChargeQuality(0.004f);
             roll = Random.Range(0, 5);
             switch (roll)
@@ -62,20 +63,27 @@ public class LootChoice : MonoBehaviour
                     silver += Random.Range(1, 4);
                     break;
                 case 1:
-                    ChargeCard(0.2f);
-                    break;
-                case 2:
-                    ChargeQuality(0.04f);
-                    break;
-                case 3:
                     silver += Random.Range(1, 4);
                     break;
+                case 2:
+                    ChargeCard(0.2f);
+                    break;
+                case 3:
+                    ChargeQuality(0.04f);
+                    break;
                 case 4:
+                    ChargeMerge(0.1f);
+                    break;
+                case 5:
                     ChargeCard(0.08f);
                     ChargeQuality(0.024f);
                     break;
+                case 6:
+                    ChargeMerge(0.06f);
+                    ChargeQuality(0.016f);
+                    break;
             }
-            dangerBonus -= 0.96f + rollsCount * 0.16f;
+            dangerBonus -= 1.08f + rollsCount * 0.18f;
             rollsCount++;
         }
         UpdateLoot();
@@ -129,6 +137,14 @@ public class LootChoice : MonoBehaviour
             lootID[current] = 2;
             current++;
         }
+        for (int i = 0; i < merges; i++)
+        {
+            PicksObject[current].SetActive(true);
+            PicksImages[current].sprite = MergeSprite;
+            PicksValue[current].text = "Merge";
+            lootID[current] = 5;
+            current++;
+        }
     }
 
     public void CollectLoot(int which)
@@ -157,6 +173,10 @@ public class LootChoice : MonoBehaviour
                 ItemPickScript.RollItems();
                 item = false;
                 break;
+            case 5:
+                PlayerScript.DeckScript.ShowCardsToMerge();
+                merges--;
+                break;
         }
 
         UpdateLoot();
@@ -165,7 +185,7 @@ public class LootChoice : MonoBehaviour
 
     void CheckForEmpty()
     {
-        if (silver == 0 && cards == 0 && uncommonCards == 0 && !gem && !item)
+        if (silver == 0 && cards == 0 && uncommonCards == 0 && merges == 0 && !gem && !item)
             Close();
     }
 
@@ -179,9 +199,10 @@ public class LootChoice : MonoBehaviour
         bonusCardCharge += amount;
         while (bonusCardCharge >= 1f)
         {
-            bonusCardCharge -= 1f;
+            bonusCardCharge -= 1.06f;
             cards++;
             ChargeQuality(0.01f);
+            ChargeMerge(0.06f);
         }
     }
 
@@ -193,6 +214,16 @@ public class LootChoice : MonoBehaviour
             qualityUpgradeCharge -= 1f;
             uncommonCards++;
             cards--;
+        }
+    }
+
+    void ChargeMerge(float amount)
+    {
+        mergeCharge += amount;
+        while (mergeCharge >= 1f)
+        {
+            mergeCharge -= 1f;
+            merges++;
         }
     }
 }

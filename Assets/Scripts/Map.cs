@@ -143,7 +143,14 @@ public class Map : MonoBehaviour
         if (StoryScript.StoryChapter == 3)
         {
             Fade.StartDarken();
+            CombatScript.SetEnemy(6, 0);
             Invoke("ContinueStory", 0.4f);
+        }
+        else
+        {
+            Fade.StartDarken();
+            SetBoss();
+            Invoke("StartCombat", 0.4f);
         }
 
         for (int i = 0; i < 3; i++)
@@ -156,7 +163,7 @@ public class Map : MonoBehaviour
         LastImage.sprite = PlayerSprite;
         LastImage.color = new Color(0.6f, 1f, 0.6f, 1f);
 
-        CombatScript.SetEnemy(6, 0);
+       
         //Invoke("StartCombat", 0.4f);
     }
 
@@ -178,7 +185,7 @@ public class Map : MonoBehaviour
             temp = danger;
             while (temp > 3.25f)
             {
-                temp -= 1.75f + tempi * 0.34f;
+                temp -= 1.72f + tempi * 0.34f;
                 tempi++;
             }
             roll = Library.BasicRoll();
@@ -193,12 +200,19 @@ public class Map : MonoBehaviour
         temp = danger;
         while (temp > 5.25f)
         {
-            temp -= 2.7f + tempi * 0.82f;
+            temp -= 2.72f + tempi * 0.82f;
             tempi++;
         }
         roll = Library.EliteRoll();
         CombatScript.elite = true;
         CombatScript.SetEnemy(roll, tempi);
+    }
+
+    void SetBoss()
+    {
+        roll = Library.BossRoll();
+        //CombatScript.elite = true;
+        CombatScript.SetEnemy(roll, 0);
     }
 
     void MoveTile(int row)

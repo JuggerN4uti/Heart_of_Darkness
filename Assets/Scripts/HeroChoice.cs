@@ -7,6 +7,7 @@ public class HeroChoice : MonoBehaviour
 {
     [Header("Scripts")]
     public Player PlayerScript;
+    public Deck DeckScript;
 
     [Header("UI")]
     public GameObject HeroChoiceScene;
@@ -29,12 +30,16 @@ public class HeroChoice : MonoBehaviour
                 {
                     PlayerScript.StatValues[i] += LightStats[i];
                 }
+                DeckScript.CardID[4] = 16;
+                DeckScript.CardID[9] = 13;
                 break;
             case 1:
                 for (int i = 0; i < LightStats.Length; i++)
                 {
                     PlayerScript.StatValues[i] += WaterStats[i];
                 }
+                DeckScript.CardID[4] = 45;
+                DeckScript.CardID[9] = 42;
                 break;
         }
         PlayerScript.Class = which;

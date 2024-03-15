@@ -16,6 +16,7 @@ public class MerchantChoice : MonoBehaviour
     public int[] rolledID;
     public int[] itemID;
     public int[] CardRarity, CardCost, ItemCost, EventCost;
+    public int min, max;
     int roll;
 
     [Header("UI")]
@@ -28,6 +29,7 @@ public class MerchantChoice : MonoBehaviour
 
     public void Open()
     {
+        SetRange();
         RollCards();
         RollItems();
         EventCost[0] = 15;
@@ -75,7 +77,7 @@ public class MerchantChoice : MonoBehaviour
     public void BuyItem(int slot)
     {
         PlayerScript.CollectItem(itemID[slot]);
-        ItemObject[slot].SetActive(true);
+        ItemObject[slot].SetActive(false);
         PlayerScript.SpendSilver(ItemCost[slot]);
 
         UpdateInfo();
@@ -105,24 +107,24 @@ public class MerchantChoice : MonoBehaviour
 
     void RollCards()
     {
-        roll = Random.Range(2, Library.Cards.Length);
+        roll = Random.Range(min, max);
         rolledID[0] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Cards.Length);
+            roll = Random.Range(min, max);
         } while (roll == rolledID[0]);
         rolledID[1] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Cards.Length);
+            roll = Random.Range(min, max);
         } while (roll == rolledID[0] || roll == rolledID[1]);
         rolledID[2] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Cards.Length);
+            roll = Random.Range(min, max);
         } while (roll == rolledID[0] || roll == rolledID[1] || roll == rolledID[2]);
         rolledID[3] = roll;
 
@@ -140,7 +142,7 @@ public class MerchantChoice : MonoBehaviour
         do
         {
             roll = Random.Range(2, ILibrary.Items.Length);
-        } while (PlayerScript.Item[roll] || roll == rolledID[0]);
+        } while (PlayerScript.Item[roll] || roll == itemID[0]);
         itemID[1] = roll;
 
         for (int i = 0; i < 2; i++)
@@ -172,6 +174,21 @@ public class MerchantChoice : MonoBehaviour
 
             CardCost[i] = Random.Range(15 + 22 * CardRarity[i], 21 + 25 * CardRarity[i]);
             CardSilverCost[i].text = CardCost[i].ToString("0");
+        }
+    }
+
+    void SetRange()
+    {
+        switch (CardDeck.PlayerScript.Class)
+        {
+            case 0:
+                min = 2;
+                max = 2 + Library.lightCards;
+                break;
+            case 1:
+                min = 2 + Library.lightCards;
+                max = Library.Cards.Length;
+                break;
         }
     }
 }

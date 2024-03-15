@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemiesLibrary : MonoBehaviour
 {
     public Enemy[] Enemies;
-    public int[] basicID, eliteID;
+    public int[] basicID, eliteID, bossID;
     int roll;
 
     public int BasicRoll()
@@ -18,5 +18,11 @@ public class EnemiesLibrary : MonoBehaviour
     {
         roll = Random.Range(0, eliteID.Length);
         return eliteID[roll];
+    }
+
+    public int BossRoll()
+    {
+        roll = Random.Range(0, bossID.Length);
+        return bossID[roll];
     }
 }

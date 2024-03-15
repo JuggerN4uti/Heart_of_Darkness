@@ -134,7 +134,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3116664440623484321}
-  m_RootOrder: 21
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &961278900267647642
 MonoBehaviour:
@@ -627,6 +627,58 @@ MonoBehaviour:
   - Dain 7 Block & next Turn
   - Dain 9 Block & next Turn
   - Dain 11 Block & next Turn
+--- !u!1 &1348583664235774408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4632221084549940226}
+  - component: {fileID: 161454711030968058}
+  m_Layer: 0
+  m_Name: Conduit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4632221084549940226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348583664235774408}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &161454711030968058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348583664235774408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: fc2367a6b8a770b46b6b53be6bfdc2aa, type: 3}
+  CardName: Conduit
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 11 Block & 2 Storm Charges
+  - Gain 15 Block & 2 Storm Charges
+  - Gain 17 Block & 3 Storm Charges
 --- !u!1 &1374209237041367263
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,7 +832,10 @@ Transform:
   - {fileID: 801096234572532784}
   - {fileID: 7588711776885834335}
   - {fileID: 5220458829696254135}
+  - {fileID: 3928969523931834327}
+  - {fileID: 3499863086249759102}
   - {fileID: 475082765180455572}
+  - {fileID: 4632221084549940226}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -888,6 +943,58 @@ MonoBehaviour:
   - Gain 11 Block, Apply 1 Slow to all Enemies
   - Gain 13 Block, Apply 2 Slow to all Enemies
   - Gain 15 Block, Apply 3 Slow to all Enemies
+--- !u!1 &2117553267167418212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3928969523931834327}
+  - component: {fileID: 2510515566811776978}
+  m_Layer: 0
+  m_Name: Shred
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3928969523931834327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117553267167418212}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2510515566811776978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117553267167418212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: c3328e342f1c0b746b340b345c558786, type: 3}
+  CardName: Shred
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 1 Damage, Break up to 8 Shield, Gain that much Block
+  - Deal 2 Damage, Break up to 11 Shield, Gain that much Block
+  - Deal 3 Damage, Break up to 14 Shield, Gain that much Block
 --- !u!1 &2312856137628458427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,6 +1255,56 @@ MonoBehaviour:
   - Gain 6 Sanity & Block. Apply 1 Slow to all Enemies for every Curse. Destroy
   - Gain 8 Sanity & Block. Apply 2 Slow to all Enemies for every Curse. Destroy
   - Gain 10 Sanity & Block. Apply 3 Slow to all Enemies for every Curse. Destroy
+--- !u!1 &2747833667349942888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3499863086249759102}
+  - component: {fileID: 2764185522181462375}
+  m_Layer: 0
+  m_Name: Strength of the Depths
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3499863086249759102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747833667349942888}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2764185522181462375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747833667349942888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 0919a077be51c2e4f8066598d4825391, type: 3}
+  CardName: Strength of the Depths
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Strength & 12 Block. Destroy
 --- !u!1 &2759308553959675417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1402,12 +1559,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardSprite: {fileID: 21300000, guid: 3b082ce2aa916ac4ab02e85f65dc8d8b, type: 3}
   CardName: Serrated Blade
-  CardManaCost: 0100000001000000000000000000000000000000
+  CardManaCost: 0200000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Strength. Your every Attack this Combat applies 1 Bleed. Destroy
-  - Gain 1 Strength. Your every Attack this Combat applies 2 Bleed. Destroy
-  - Gain 1 Strength. Your every Attack this Combat applies 2 Bleed. Destroy
+  - Gain 2 Strength. Your every Attack this Combat applies 1 Bleed. Destroy
+  - Gain 2 Strength. Your every Attack this Combat applies 1 Bleed. Destroy
+  - Gain 2 Strength. Your every Attack this Combat applies 2 Bleed. Destroy
 --- !u!1 &3547554386167414550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1613,9 +1770,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Deal 7 Damage, Gain 10 Silver. Destroy
-  - Deal 9 Damage, Gain 14 Silver. Destroy
-  - Deal 11 Damage, Gain 18 Silver. Destroy
+  - Deal 8 Damage, Gain 10 Silver. Destroy
+  - Deal 10 Damage, Gain 14 Silver. Destroy
+  - Deal 12 Damage, Gain 18 Silver. Destroy
 --- !u!1 &4180856026954887197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2099,6 +2256,10 @@ MonoBehaviour:
   - {fileID: 1362416100292348963}
   - {fileID: 4818205348235918400}
   - {fileID: 3517660313785179002}
+  - {fileID: 2510515566811776978}
+  - {fileID: 2764185522181462375}
+  - {fileID: 961278900267647642}
+  - {fileID: 161454711030968058}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -2682,9 +2843,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 15 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
-  - Deal 20 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
-  - Deal 22 Damage. Gain 1 Energy & Apply 1 Slow for every 5 Damage
+  - Deal 16 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
+  - Deal 21 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
+  - Deal 23 Damage. Gain 1 Energy & Apply 1 Slow for every 5 Damage
 --- !u!1 &7455830186716806652
 GameObject:
   m_ObjectHideFlags: 0

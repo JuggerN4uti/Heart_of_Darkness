@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public string UnitName;
     public int UnitID, UnitHealth, UnitShield, UnitTenacity, MovesCount;
+    public bool boss;
     public Sprite UnitSprite;
     public Sprite[] MovesSprite;
     public int[] MovesValues, MovesCooldowns, StartingEffects;

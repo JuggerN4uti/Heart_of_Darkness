@@ -111,6 +111,7 @@ public class Hand : MonoBehaviour
         if (PlayerScript.Item[19])
         {
             cardsPlayed++;
+            Player.ItemsScript.SetText();
             if (cardsPlayed % 9 == 0)
                 Draw(1);
         }

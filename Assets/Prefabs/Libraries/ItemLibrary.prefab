@@ -47,6 +47,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: d46061b40082cce4999fa622f827a145, type: 3}
   ItemName: Whetstone
   ItemTooltip: Every 7 attacks gain 1 Strength
+  text: 1
 --- !u!1 &536108194450981497
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +95,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: c8a3a5210b385b04c9b5bc8532013898, type: 3}
   ItemName: Amethyst Shard
   ItemTooltip: Gain 1 extra Mana on first 2 Turns
+  text: 0
 --- !u!1 &1760754285062071949
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +143,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 46924b89b32254b4ebbdc0011426cfa3, type: 3}
   ItemName: Tongs
   ItemTooltip: Every 7 attacks gain 1 Resistance
+  text: 1
 --- !u!1 &1984920429680707578
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,6 +191,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: f1c6cce645592404fa50ad0d5920f34d, type: 3}
   ItemName: Black Dahlia
   ItemTooltip: Draw a Card whenever you Destroy one
+  text: 0
 --- !u!1 &2440812099288369952
 GameObject:
   m_ObjectHideFlags: 0
@@ -235,6 +239,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 566ed37048826e345b1cd992c4684c31, type: 3}
   ItemName: Time Bomb
   ItemTooltip: Gain 1 Max Mana, but each Turn take increasingly more Damage
+  text: 0
 --- !u!1 &2794719596523347537
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +287,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 72c4cc34eafb01f4d956666c5199e914, type: 3}
   ItemName: Spiked Shield
   ItemTooltip: Gain 6 Shield & 2 Thorns
+  text: 0
 --- !u!1 &3618855757112264405
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,6 +335,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: bb5d612c629ae234b8fd8f09d3a29811, type: 3}
   ItemName: Bell
   ItemTooltip: Enemies start with 1 Weak
+  text: 0
 --- !u!1 &3627225682483906447
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +383,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 4e79bc0c0d8527f4c9660da502dd3a50, type: 3}
   ItemName: Anchor
   ItemTooltip: Up to 12 Block is retained
+  text: 0
 --- !u!1 &3672624895320583515
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,9 +428,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 21300000, guid: e21b72321a20c1b43864db10b13936e3, type: 3}
+  ItemSprite: {fileID: 21300000, guid: 15b38ecf63b9a5e4fbf9bacdf8dd966b, type: 3}
   ItemName: Horseshoe
   ItemTooltip: Every 3 attacks gives 2 Energy
+  text: 1
 --- !u!1 &4150834564318633801
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +478,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 4e0b69a18b2185c48bbcf7af69d4a370, type: 3}
   ItemName: Sapphire Shard
-  ItemTooltip: Gain 2 Dexterity
+  ItemTooltip: Gain 3 Dexterity
+  text: 0
 --- !u!1 &4577658771466106992
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,6 +527,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 8a3d20c28722e604bb7245be723967a4, type: 3}
   ItemName: Emerald Shard
   ItemTooltip: Gain 20 Max Health
+  text: 0
 --- !u!1 &4684938253370874053
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,6 +575,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 22d23c48cbef92846b31e8ee8b449141, type: 3}
   ItemName: Mead
   ItemTooltip: Enemies start with 5 Daze & 2 Slow
+  text: 0
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -703,6 +715,7 @@ MonoBehaviour:
   ItemName: Hourglass
   ItemTooltip: After shuffling at least 15 Cards into Draw Pile, gain 1 Mana & 3
     Energy
+  text: 0
 --- !u!1 &5316911593553640053
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +763,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 03a58de95605aeb488945f0b98b271fd, type: 3}
   ItemName: Ruby Shard
   ItemTooltip: Gain 2 Strength
+  text: 0
 --- !u!1 &6299909728797860564
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +810,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: b78f37b4fbb617046b4eb2f306b4e430, type: 3}
   ItemName: Bandages
-  ItemTooltip: Reduce Bleed by 1 each Turn. Restore 2% missing Health after Combat
+  ItemTooltip: Reduce Bleed by 1 each Turn. Restore 5% missing Health after Combat
+  text: 0
 --- !u!1 &6531875655818891139
 GameObject:
   m_ObjectHideFlags: 0
@@ -844,6 +859,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 86847eb706767c24abba2cbc64aea81b, type: 3}
   ItemName: Arcane Dust
   ItemTooltip: Every 3 Turns gain 1 extra Mana
+  text: 1
 --- !u!1 &6962654779521220800
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,6 +907,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 6221a7d6d4a16624c9137a47e11a0619, type: 3}
   ItemName: Unbreakable Soul
   ItemTooltip: Gain 1 max Mana, but all non-Boss Enemies are 1 level tougher
+  text: 0
 --- !u!1 &7595522785966974393
 GameObject:
   m_ObjectHideFlags: 0
@@ -938,6 +955,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: db9a5913d657581438f9e07bab0873ff, type: 3}
   ItemName: Sledgehammer
   ItemTooltip: Every 4 attacks gain 5 Block
+  text: 1
 --- !u!1 &8042306616313430034
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,6 +1003,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 81aaa7f4a3243f94bb236f2bbc9a6e7c, type: 3}
   ItemName: Topaz Shard
   ItemTooltip: Gain 2 Resistance
+  text: 0
 --- !u!1 &8308167264721718574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1051,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: e3d34b8f09f9d0149bbfa03b02984f47, type: 3}
   ItemName: Cursed Blade
   ItemTooltip: Applying Debuff to enemy also deals 6 Damage
+  text: 0
 --- !u!1 &8507136596404406398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1099,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 55d27209fe557464990e3a6db3f675ba, type: 3}
   ItemName: Shattered Mirror
   ItemTooltip: Gain 1 max Mana, but Draw 1 less Card each Turn
+  text: 0
 --- !u!1 &8994416201596517766
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1147,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: daa9541a45c8b4042b47a7779162ed8e, type: 3}
   ItemName: Broken Record
   ItemTooltip: Every 9 Cards played, Draw 1 Card
+  text: 1
 --- !u!1 &9073401519775684056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1173,3 +1195,4 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: fde7b9ddd69bc1944ab6d40fbf93c01b, type: 3}
   ItemName: Runic Dagger
   ItemTooltip: Every 9 attacks gain 1 Mana
+  text: 1

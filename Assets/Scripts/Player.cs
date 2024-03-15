@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Scripts")]
     public Deck DeckScript;
+    public ItemsCollected ItemsScript;
     public UnitChoice[] Units;
 
     [Header("Stats")]
@@ -183,6 +184,7 @@ public class Player : MonoBehaviour
 
     public void CollectItem(int which)
     {
+        ItemsScript.CollectItem(which);
         Item[which] = true;
         switch (which)
         {
@@ -197,7 +199,7 @@ public class Player : MonoBehaviour
                 StatValues[7] += 2;
                 break;
             case 4:
-                StatValues[9] += 2;
+                StatValues[9] += 3;
                 break;
             case 6:
                 BaseMana++;
@@ -263,7 +265,7 @@ public class Player : MonoBehaviour
                     HoveredText.text = "Madness:\nAt the end of each Turn take " + (4 * CurseValue[CurseID[order]]).ToString("0") + " Damage for every Card left in your hand";
                     break;
                 case 2:
-                    HoveredText.text = "Pride:\nEnemies gain " + (2 * CurseValue[CurseID[order]]).ToString("0") + " Strength. Each Turn enemies gain " + CurseValue[CurseID[order]].ToString("0") + " Strength";
+                    HoveredText.text = "Pride:\nEnemies gain " + (3 * CurseValue[CurseID[order]]).ToString("0") + " Strength. Every 2 Turns enemies gain " + CurseValue[CurseID[order]].ToString("0") + " Strength";
                     break;
                 case 3:
                     HoveredText.text = "Fear:\nGain " + (20 * CurseValue[CurseID[order]]).ToString("0") + "% Card draw skip. Taking unblocked Damage also reduces Sanity";
