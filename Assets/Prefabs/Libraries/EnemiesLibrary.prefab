@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Living Corpse
   UnitID: 4
-  UnitHealth: 60
-  UnitShield: 85
+  UnitHealth: 65
+  UnitShield: 88
   UnitTenacity: 4
   MovesCount: 4
   boss: 0
@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Ratking
   UnitID: 9
-  UnitHealth: 700
+  UnitHealth: 720
   UnitShield: 0
   UnitTenacity: 6
   MovesCount: 4
@@ -242,8 +242,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Reanimated Jailer
   UnitID: 8
-  UnitHealth: 22
-  UnitShield: 98
+  UnitHealth: 31
+  UnitShield: 96
   UnitTenacity: 4
   MovesCount: 3
   boss: 0
@@ -307,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Ghoul
   UnitID: 1
-  UnitHealth: 116
+  UnitHealth: 123
   UnitShield: 0
   UnitTenacity: 4
   MovesCount: 3
@@ -372,8 +372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Faceless One
   UnitID: 6
-  UnitHealth: 880
-  UnitShield: 220
+  UnitHealth: 913
+  UnitShield: 224
   UnitTenacity: 8
   MovesCount: 4
   boss: 0
@@ -439,8 +439,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Shambler
   UnitID: 7
-  UnitHealth: 273
-  UnitShield: 44
+  UnitHealth: 293
+  UnitShield: 41
   UnitTenacity: 6
   MovesCount: 4
   boss: 0
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Rotfiend
   UnitID: 3
-  UnitHealth: 146
+  UnitHealth: 155
   UnitShield: 0
   UnitTenacity: 5
   MovesCount: 3
@@ -605,8 +605,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Reanimated Soldier
   UnitID: 5
-  UnitHealth: 24
-  UnitShield: 100
+  UnitHealth: 34
+  UnitShield: 97
   UnitTenacity: 4
   MovesCount: 3
   boss: 0
@@ -670,7 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Husk
   UnitID: 2
-  UnitHealth: 128
+  UnitHealth: 135
   UnitShield: 0
   UnitTenacity: 5
   MovesCount: 4
@@ -737,7 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Shambler
   UnitID: 10
-  UnitHealth: 100
+  UnitHealth: 112
   UnitShield: 280
   UnitTenacity: 5
   MovesCount: 4
@@ -874,8 +874,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Risen
   UnitID: 0
-  UnitHealth: 80
-  UnitShield: 40
+  UnitHealth: 84
+  UnitShield: 48
   UnitTenacity: 4
   MovesCount: 3
   boss: 0

@@ -135,13 +135,13 @@ public class MerchantChoice : MonoBehaviour
     {
         do
         {
-            roll = Random.Range(2, ILibrary.Items.Length);
+            roll = Random.Range(0, ILibrary.Items.Length);
         } while (PlayerScript.Item[roll]);
         itemID[0] = roll;
 
         do
         {
-            roll = Random.Range(2, ILibrary.Items.Length);
+            roll = Random.Range(0, ILibrary.Items.Length);
         } while (PlayerScript.Item[roll] || roll == itemID[0]);
         itemID[1] = roll;
 

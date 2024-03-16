@@ -22,7 +22,7 @@ public class Map : MonoBehaviour
     public int[] tileEvent;
     public int[] EventCooldown, EventsCooldowns;
     public int currentTile, currentRow, tilesAmount, treasureTile;
-    public float danger, experience;
+    public float danger, eliteDanger, experience;
     int roll, tempi;
     float temp;
     bool viable;
@@ -177,6 +177,7 @@ public class Map : MonoBehaviour
     {
         danger += 0.56f + danger * 0.02f;
         CombatScript.elite = false;
+        CombatScript.boss = false;
         if (danger < 1.6f)
             CombatScript.SetEnemy(0, 0);
         else
@@ -195,9 +196,10 @@ public class Map : MonoBehaviour
 
     void SetElite()
     {
-        danger += 0.75f + danger * 0.025f;
+        danger += 0.6f + danger * 0.02f;
+        eliteDanger += 0.25f + eliteDanger * 0.01f;
         tempi = 0;
-        temp = danger;
+        temp = danger + eliteDanger;
         while (temp > 5.25f)
         {
             temp -= 2.72f + tempi * 0.82f;
@@ -205,13 +207,15 @@ public class Map : MonoBehaviour
         }
         roll = Library.EliteRoll();
         CombatScript.elite = true;
+        CombatScript.boss = false;
         CombatScript.SetEnemy(roll, tempi);
     }
 
     void SetBoss()
     {
         roll = Library.BossRoll();
-        //CombatScript.elite = true;
+        CombatScript.elite = false;
+        CombatScript.boss = true;
         CombatScript.SetEnemy(roll, 0);
     }
 

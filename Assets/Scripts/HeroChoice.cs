@@ -30,7 +30,7 @@ public class HeroChoice : MonoBehaviour
                 {
                     PlayerScript.StatValues[i] += LightStats[i];
                 }
-                DeckScript.CardID[4] = 16;
+                DeckScript.CardID[4] = 26;
                 DeckScript.CardID[9] = 13;
                 break;
             case 1:

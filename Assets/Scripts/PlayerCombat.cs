@@ -134,6 +134,8 @@ public class PlayerCombat : MonoBehaviour
         }
         if (effect[6] > 0)
             GainBlock(effect[6] + effect[1] * effect[13]);
+        if (PlayerScript.Item[27] && shield > 0)
+            GainBlock(5);
         GainEnergy(8 + effect[2]);
         if (effect[7] > 0)
             GainMana(manaGain - 1);
@@ -228,7 +230,7 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
         if (PlayerScript.Item[6])
-            TakeDamage(CombatScript.turn);
+            TakeDamage(CombatScript.turn * 2);
         if (PlayerScript.Item[16] && effect[8] > 0)
             effect[8]--;
         LoseSanity(TurnSanity());
@@ -298,7 +300,7 @@ public class PlayerCombat : MonoBehaviour
 
     int TurnSanity()
     {
-        temp = Random.Range(CombatScript.turn * 0.4f - 0.2f, CombatScript.turn * 0.7f - 0.2f);
+        temp = Random.Range(CombatScript.turn * 0.3f - 0.4f, CombatScript.turn * 0.55f - 0.35f);
         tempi = 0;
         for (float i = 1f; i < temp; i += 1f)
         {
@@ -462,7 +464,10 @@ public class PlayerCombat : MonoBehaviour
         OnHit();
         SpendEnergy(energyCost);
         if (effect[5] > 0)
-            Cards.Draw(effect[5]);
+        {
+            CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(effect[5]);
+            CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(effect[5]);
+        }
         if (effect[17] > 0)
             GainStormCharge(effect[17]);
         UpdateInfo();
@@ -501,8 +506,16 @@ public class PlayerCombat : MonoBehaviour
     {
         if (effect[9] > 0)
         {
-            value *= 3;
-            value /= 4 + PlayerScript.CurseValue[0];
+            if (PlayerScript.Item[28])
+            {
+                value *= 4;
+                value /= 5 + PlayerScript.CurseValue[0];
+            }
+            else
+            {
+                value *= 3;
+                value /= 4 + PlayerScript.CurseValue[0];
+            }
         }
         return value;
     }
@@ -511,8 +524,16 @@ public class PlayerCombat : MonoBehaviour
     {
         if (effect[10] > 0)
         {
-            value *= 3;
-            value /= 4 + PlayerScript.CurseValue[4];
+            if (PlayerScript.Item[29])
+            {
+                value *= 4;
+                value /= 5 + PlayerScript.CurseValue[4];
+            }
+            else
+            {
+                value *= 3;
+                value /= 4 + PlayerScript.CurseValue[4];
+            }
         }
         return value;
     }
@@ -785,6 +806,15 @@ public class PlayerCombat : MonoBehaviour
             case 24:
                 Conduit(level);
                 break;
+            case 25:
+                Anchored(level);
+                break;
+            case 26:
+                Nimble(level);
+                break;
+            case 27:
+                Sink(level);
+                break;
         }
     }
 
@@ -953,6 +983,37 @@ public class PlayerCombat : MonoBehaviour
                         return "Increase your Weapon Damage by " + TridentOfStormsDamage(level).ToString("") + "\nEvery Weapon Attack Gives 1 Storm Charge\nDestroy";
                     case 24:
                         return "Gain " + ConduitBlock(level).ToString("") + " Block\n& " + ConduitCharges(level).ToString("") + " Storm Charges";
+                    case 25:
+                        if (energy >= 12)
+                            return "Gain " + AnchoredBlock(level, true).ToString("") + " Block\n" + AnchoredResistance(level).ToString("") + " Resistance\nSpend 12 Energy";
+                        else return "Gain " + AnchoredBlock(level, false).ToString("") + " Block\n(" + energy.ToString("") + "/12 Energy)";
+                    case 26:
+                        return "Gain " + NimbleEnergy(level).ToString("") + " Energy\n& " + (NimbleEnergy(level) + NimbleBlock(level)).ToString("") + " Block";
+                                                if (combo < 4)
+                            return combo.ToString("") + "/4 Combo)";
+                        else if (level == 0) return "Draw a Card\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                        else return "Draw " + FlowLikeWaterDraw(level).ToString("") + " Cards\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                    case 27:
+                        if (level == 0)
+                        {
+                            if (combo < 2)
+                                return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/2 Combo)";
+                            else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength";
+                        }
+                        else if (level == 1)
+                        {
+                            if (combo < 1)
+                                return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/1 Combo)";
+                            else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength";
+                        }
+                        else
+                        {
+                            if (combo < 1)
+                                return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/1 Combo)\n(" + combo.ToString("") + "/3 Combo)";
+                            else if (combo < 3)
+                                return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength\n(" + combo.ToString("") + "/3 Combo)";
+                            else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 2 Strength";
+                        }
                 }
             }
         }
@@ -2145,7 +2206,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 1 + effect[0];
         tempi += level;
-        return tempi;
+        return DamageDealtModifier(tempi);
     }
 
     int ShredBreak(int level)
@@ -2208,6 +2269,86 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 2;
         tempi += level / 2;
+        return tempi;
+    }
+
+    void Anchored(int level) // ID W 25
+    {
+        if (energy >= 12)
+        {
+            GainBlock(AnchoredBlock(level, true));
+            GainResistance(AnchoredResistance(level));
+            SpendEnergy(12);
+        }
+        else GainBlock(AnchoredBlock(level, false));
+    }
+
+    int AnchoredBlock(int level, bool empowered)
+    {
+        tempi = 11 + effect[1];
+        tempi += 2 * level;
+        tempi += level / 2;
+        if (empowered)
+        {
+            tempi += 8;
+            tempi += 2 * level;
+            tempi += (level / 2) * 3;
+        }
+        return BlockGainedModifier(tempi);
+    }
+
+    int AnchoredResistance(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    void Nimble(int level) // ID W 27
+    {
+        GainEnergy(NimbleEnergy(level));
+        GainBlock(NimbleBlock(level));
+    }
+
+    int NimbleEnergy(int level)
+    {
+        tempi = 2;
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    int NimbleBlock(int level)
+    {
+        tempi = energy + effect[1];
+        return BlockGainedModifier(tempi);
+    }
+
+    void Sink(int level)
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SinkDamage(level));
+        OnHit();
+        if (level == 0 && combo >= 2)
+            GainStrength(SinkStrength(level, false));
+        else if (level > 0 && combo >= 1)
+        {
+            if (level > 1 && combo >= 3)
+                GainStrength(SinkStrength(level, true));
+            else GainStrength(SinkStrength(level, false));
+        }
+    }
+
+    int SinkDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 3 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int SinkStrength(int level, bool empowered)
+    {
+        tempi = 1;
+        if (empowered)
+            tempi++;
         return tempi;
     }
 

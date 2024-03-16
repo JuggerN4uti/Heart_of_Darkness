@@ -205,7 +205,7 @@ public class Player : MonoBehaviour
                 BaseMana++;
                 break;
             case 7:
-                StatValues[5] += 6;
+                StatValues[5] += 7;
                 // thorns
                 break;
             case 18:
@@ -214,6 +214,21 @@ public class Player : MonoBehaviour
             case 20:
                 BaseMana++;
                 BaseDraw--;
+                break;
+            case 23:
+                BaseDraw++;
+                break;
+            case 25:
+                StatValues[8] += 1;
+                break;
+            case 27:
+                StatValues[5] += 5;
+                break;
+            case 28:
+                StatValues[8] += 1;
+                break;
+            case 29:
+                StatValues[7] += 1;
                 break;
         }
         UpdateInfo();

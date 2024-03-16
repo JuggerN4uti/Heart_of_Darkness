@@ -836,6 +836,9 @@ Transform:
   - {fileID: 3499863086249759102}
   - {fileID: 475082765180455572}
   - {fileID: 4632221084549940226}
+  - {fileID: 242382465121952871}
+  - {fileID: 6083299659225902709}
+  - {fileID: 2360750403967202533}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1305,6 +1308,8 @@ MonoBehaviour:
   SingleUse: 1
   CardTooltip:
   - Gain 1 Strength & 12 Block. Destroy
+  - Gain 2 Strength & 15 Block. Destroy
+  - Gain 3 Strength & 18 Block. Destroy
 --- !u!1 &2759308553959675417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,6 +1726,58 @@ MonoBehaviour:
   - Deal 9 Damage
   - Deal 12 Damage
   - Deal 15 Damage
+--- !u!1 &3642990972023354848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6083299659225902709}
+  - component: {fileID: 8405337193483353573}
+  m_Layer: 0
+  m_Name: Nimble
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6083299659225902709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3642990972023354848}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8405337193483353573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3642990972023354848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 7fc2b1a02f5833e4880db8b716c0d174, type: 3}
+  CardName: Nimble
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 2 Energy. Gain Block equal to your Energy
+  - Gain 4 Energy. Gain Block equal to your Energy
+  - Gain 6 Energy. Gain Block equal to your Energy
 --- !u!1 &3713079661029994352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2317,9 @@ MonoBehaviour:
   - {fileID: 2764185522181462375}
   - {fileID: 961278900267647642}
   - {fileID: 161454711030968058}
+  - {fileID: 6553777790163610954}
+  - {fileID: 8405337193483353573}
+  - {fileID: 4313181082391029440}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -2632,9 +2692,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Increase your Weapon Damage by 2. Weapon hits Draw 1 Card
-  - Increase your Weapon Damage by 4. Weapon hits Draw 1 Card
-  - Increase your Weapon Damage by 6. Weapon hits Draw 1 Card
+  - Increase your Weapon Damage by 2. Weapon hits Apply 1 Daze & Slow
+  - Increase your Weapon Damage by 4. Weapon hits Apply 1 Daze & Slow
+  - Increase your Weapon Damage by 6. Weapon hits Apply 1 Daze & Slow
 --- !u!1 &6622724283889857847
 GameObject:
   m_ObjectHideFlags: 0
@@ -3002,6 +3062,58 @@ MonoBehaviour:
   - Gain 9 Block, Gain 1 Valor. Block Gained increased by Valor
   - Gain 10 Block, Gain 2 Valor. Block Gained increased by Valor
   - Gain 11 Block, Gain 3 Valor. Block Gained increased by Valor
+--- !u!1 &8655902471418726768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 242382465121952871}
+  - component: {fileID: 6553777790163610954}
+  m_Layer: 0
+  m_Name: Anchored
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &242382465121952871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8655902471418726768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6553777790163610954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8655902471418726768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: de94f0eb9073a9d4bbc8e77902dafda0, type: 3}
+  CardName: Anchored
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 11 Block. Spend 12 Energy to increase Block gained by 8 & Gain 1 Resistance
+  - Gain 13 Block. Spend 12 Energy to increase Block gained by 10 & Gain 2 Resistance
+  - Gain 16 Block. Spend 12 Energy to increase Block gained by 15 & Gain 2 Resistance
 --- !u!1 &8685924784386746287
 GameObject:
   m_ObjectHideFlags: 0
@@ -3314,6 +3426,58 @@ MonoBehaviour:
   - Gain 8 Block, Gain 1 Resistance
   - Gain 12 Block, Gain 1 Resistance
   - Gain 13 Block, Gain 2 Resistance
+--- !u!1 &8973711149042071427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2360750403967202533}
+  - component: {fileID: 4313181082391029440}
+  m_Layer: 0
+  m_Name: Sink!
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2360750403967202533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973711149042071427}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4313181082391029440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8973711149042071427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 18463141606f5f841a78ddc9506d4ca6, type: 3}
+  CardName: Sink!
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Deal 11 Damage, Combo 2: Gain 1 Strength'
+  - 'Deal 14 Damage, Combo 1: Gain 1 Strength'
+  - 'Deal 17 Damage, Combo 1: Gain 1 Strength. Combo 3: Gain 2 Strength instead'
 --- !u!1 &9100902807311367969
 GameObject:
   m_ObjectHideFlags: 0

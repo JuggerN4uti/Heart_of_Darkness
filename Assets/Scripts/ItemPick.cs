@@ -22,19 +22,19 @@ public class ItemPick : MonoBehaviour
     {
         do
         {
-            roll = Random.Range(2, Library.Items.Length);
+            roll = Random.Range(0, Library.Items.Length);
         } while (PlayerScript.Item[roll]);
         rolledID[0] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Items.Length);
+            roll = Random.Range(0, Library.Items.Length);
         } while (PlayerScript.Item[roll] || roll == rolledID[0]);
         rolledID[1] = roll;
 
         do
         {
-            roll = Random.Range(2, Library.Items.Length);
+            roll = Random.Range(0, Library.Items.Length);
         } while (PlayerScript.Item[roll] || roll == rolledID[0] || roll == rolledID[1]);
         rolledID[2] = roll;
 

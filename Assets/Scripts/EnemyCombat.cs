@@ -89,6 +89,8 @@ public class EnemyCombat : MonoBehaviour
             GainDaze(5);
             GainSlow(2);
         }
+        if (PlayerScript.Item[24])
+            GainBleed(3);
         LevelValue.text = (level + 1).ToString("0");
         UpdateInfo();
         StartTurn();
@@ -466,8 +468,8 @@ public class EnemyCombat : MonoBehaviour
                         CombatScript.Player.TakeDamage(AttackDamage());
                         OnHit();
                     }
-                    GainHealth(LevelCalculated(3 + (effect[3] * 6) / 10));
-                    tempi = (maxHealth - 700) / 20 - 1;
+                    GainHealth(LevelCalculated(3 + (effect[3] * 7) / 11));
+                    tempi = (maxHealth - 720) / 20 - 1;
                     if (tempi > 0)
                         GainStrength(LevelCalculated(tempi));
                     break;
@@ -538,6 +540,8 @@ public class EnemyCombat : MonoBehaviour
             tenacity += 1 + effect[8];
             if (effect[2] > 0)
                 TakeDamage(effect[2]);
+            if (PlayerScript.Item[26])
+                GainDaze(tenacity);
             if (effect[16] > 0)
                 TakeDamage(maxHealth / 20);
             else stunned = true;
@@ -731,6 +735,8 @@ public class EnemyCombat : MonoBehaviour
 
     public void GainBleed(int amount)
     {
+        if (PlayerScript.Item[25] && amount >= 4)
+            amount++;
         Display(amount, effectSprite[1]);
         effect[1] += amount;
         UpdateInfo();

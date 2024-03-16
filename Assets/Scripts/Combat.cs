@@ -17,7 +17,7 @@ public class Combat : MonoBehaviour
     [Header("Stats")]
     public bool[] enemyAlive;
     public int targetedEnemy, turn, enemiesAlive;
-    public bool elite;
+    public bool elite, boss;
     int whichEnemy;
     float temp;
     int tempi;
@@ -145,7 +145,9 @@ public class Combat : MonoBehaviour
         Player.ItemsScript.ResetText();
         Fade.StartDarken();
         Player.Set();
-        Invoke("ReturnToMap", 0.4f);
+        if (boss)
+            Invoke("ReturnToCamp", 0.4f);
+        else Invoke("ReturnToMap", 0.4f);
     }
 
     public void HeroesDefeated()
@@ -213,7 +215,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Valor:\nEmpower effects of certain Cards by " + Player.effect[Player.effectsActive[effect]].ToString("0");
                 break;
             case 5:
-                EffectTooltip.text = "Hammer of Wrath:\nWeapon Attack Draws " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s";
+                EffectTooltip.text = "Hammer of Wrath:\nWeapon Attack Apply " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Daze & Slow";
                 break;
             case 6:
                 EffectTooltip.text = "Armor:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block at the end of every Turn";

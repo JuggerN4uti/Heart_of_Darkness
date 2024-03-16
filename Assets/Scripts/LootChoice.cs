@@ -49,6 +49,7 @@ public class LootChoice : MonoBehaviour
         }
         cards = 1;
         uncommonCards = 0;
+        merges = 0;
         rollsCount = 0;
         while (dangerBonus > 0f)
         {
