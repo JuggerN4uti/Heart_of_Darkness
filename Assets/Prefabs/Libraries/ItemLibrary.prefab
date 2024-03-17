@@ -334,7 +334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: f1c6cce645592404fa50ad0d5920f34d, type: 3}
   ItemName: Black Dahlia
-  ItemTooltip: Draw a Card whenever you Destroy one
+  ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 3 Block
   text: 0
 --- !u!1 &2440812099288369952
 GameObject:
@@ -574,7 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: bb5d612c629ae234b8fd8f09d3a29811, type: 3}
   ItemName: Bell
-  ItemTooltip: Enemies start with 1 Weak
+  ItemTooltip: Enemies deal 5% less Damage, Weak reduces by additional 15%
   text: 0
 --- !u!1 &3627225682483906447
 GameObject:

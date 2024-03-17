@@ -284,6 +284,11 @@ public class Map : MonoBehaviour
             TileImage[treasureTile * 3 + i - 3].sprite = TileSprites[6];
             tileEvent[treasureTile * 3 + i - 3] = 6;
         }
+        for (int i = 1; i < 4; i++)
+        {
+            TileImage[tilesAmount * 3 + i - 3].sprite = TileSprites[3];
+            tileEvent[tilesAmount * 3 + i - 3] = 3;
+        }
         UpdateInfo();
     }
 }

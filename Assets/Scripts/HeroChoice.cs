@@ -38,8 +38,8 @@ public class HeroChoice : MonoBehaviour
                 {
                     PlayerScript.StatValues[i] += WaterStats[i];
                 }
-                DeckScript.CardID[4] = 45;
-                DeckScript.CardID[9] = 42;
+                DeckScript.CardID[4] = 46;
+                DeckScript.CardID[9] = 63;
                 break;
         }
         PlayerScript.Class = which;

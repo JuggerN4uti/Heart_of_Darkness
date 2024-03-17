@@ -41,7 +41,7 @@ public class Hand : MonoBehaviour
         //Draw(5);
     }
 
-    void UpdateInfo()
+    public void UpdateInfo()
     {
         for (int i = 0; i < 10; i++)
         {
@@ -123,12 +123,18 @@ public class Hand : MonoBehaviour
                 if (Player.HealthProcentage() >= 0.5f)
                     CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
                 else if (PlayerScript.Item[21])
+                {
+                    Player.GainBlock(3);
                     Draw(1);
+                }
             }
             else CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
         }
         else if (PlayerScript.Item[21])
+        {
+            Player.GainBlock(3);
             Draw(1);
+        }
 
         for (int i = which; i < CardsInHand; i++)
         {

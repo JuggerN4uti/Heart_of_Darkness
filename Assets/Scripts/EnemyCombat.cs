@@ -82,8 +82,6 @@ public class EnemyCombat : MonoBehaviour
             attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
             normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
         }
-        if (PlayerScript.Item[14])
-            GainWeak(2);
         if (PlayerScript.Item[15])
         {
             GainDaze(5);
@@ -468,7 +466,7 @@ public class EnemyCombat : MonoBehaviour
                         CombatScript.Player.TakeDamage(AttackDamage());
                         OnHit();
                     }
-                    GainHealth(LevelCalculated(3 + (effect[3] * 7) / 11));
+                    GainHealth(LevelCalculated(3 + (effect[3] * 5) / 9));
                     tempi = (maxHealth - 720) / 20 - 1;
                     if (tempi > 0)
                         GainStrength(LevelCalculated(tempi));
@@ -478,7 +476,7 @@ public class EnemyCombat : MonoBehaviour
                     if (tempi > 0)
                     {
                         RestoreHealth(tempi);
-                        tempi2 = tempi / 9 - 5;
+                        tempi2 = tempi / 9 - 6;
                         if (tempi2 > 0)
                             GainBleed(tempi2);
                         tempi2 = tempi / 72 - 1;
@@ -542,6 +540,8 @@ public class EnemyCombat : MonoBehaviour
                 TakeDamage(effect[2]);
             if (PlayerScript.Item[26])
                 GainDaze(tenacity);
+            if (PlayerScript.Item[13])
+                TakeDamage(6);
             if (effect[16] > 0)
                 TakeDamage(maxHealth / 20);
             else stunned = true;
@@ -589,6 +589,19 @@ public class EnemyCombat : MonoBehaviour
         {
             value *= 10 + CombatScript.Player.effect[16];
             value /= 10;
+        }
+        if (PlayerScript.Item[14])
+        {
+            if (effect[0] > 0)
+            {
+                value *= 3;
+                value /= 5;
+            }
+            else
+            {
+                value *= 19;
+                value /= 20;
+            }
         }
         return value;
     }
@@ -778,7 +791,9 @@ public class EnemyCombat : MonoBehaviour
 
     public bool IntentToAttack()
     {
-        return attackIntentions[currentMove];
+        if (stunned)
+            return false;
+        else return attackIntentions[currentMove];
     }
 
     int CursesOnPlayer()

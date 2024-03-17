@@ -107,9 +107,10 @@ public class PlayerCombat : MonoBehaviour
     {
         if (PlayerScript.Item[16])
             RestoreHealth((maxHealth - health) / 20);
+        PlayerScript.MaxHealth = maxHealth;
         PlayerScript.Health = health;
-        PlayerScript.Sanity = sanity;
         PlayerScript.MaxSanity = maxSanity;
+        PlayerScript.Sanity = sanity;
         PlayerScript.UpdateInfo();
     }
 
@@ -309,10 +310,25 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void GainBlock(int amount)
+    void GainHealth(int amount)
+    {
+        maxHealth += amount;
+        health += amount;
+        Display(amount, HealthSprite);
+        UpdateInfo();
+    }
+
+    public void GainBlock(int amount)
     {
         block += amount;
         Display(amount, BlockSprite);
+        UpdateInfo();
+    }
+
+    void GainShield(int amount)
+    {
+        shield += amount;
+        Display(amount, ShieldSprite);
         UpdateInfo();
     }
 
@@ -341,6 +357,7 @@ public class PlayerCombat : MonoBehaviour
     {
         mana += amount;
         UpdateInfo();
+        Cards.UpdateInfo();
     }
 
     public void SpendMana(int amount)
@@ -724,6 +741,9 @@ public class PlayerCombat : MonoBehaviour
             case 33:
                 GuardianAngel(level);
                 break;
+            case 34:
+                Vengeance(level);
+                break;
         }
     }
 
@@ -815,6 +835,12 @@ public class PlayerCombat : MonoBehaviour
             case 27:
                 Sink(level);
                 break;
+            case 28:
+                Rend(level);
+                break;
+            case 29:
+                ThickSkin(level);
+                break;
         }
     }
 
@@ -892,7 +918,7 @@ public class PlayerCombat : MonoBehaviour
                     case 23:
                         return "Deal " + PatientStrikeDamage(level).ToString("") + " Damage";
                     case 24:
-                        return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowDaze(level).ToString("") + " Daze\n" + CrushingBlowSlow(level).ToString("")
+                        return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowSlow(level).ToString("")
                             + " Slow\n" + CrushingBlowWeak(level).ToString("") + " Weak\n& " + CrushingBlowVulnerable(level).ToString("") + " Vulnerable";
                     case 25:
                         return "Gain " + HeavyArmorBlock(level).ToString("") + " Block";
@@ -916,6 +942,10 @@ public class PlayerCombat : MonoBehaviour
                         return "Deal " + PenanceDamage(level).ToString("") + " Damage\nGain " + PenanceBlock(level).ToString("") + " Block";
                     case 33:
                         return "Gain " + GuardianAngelResistance(level).ToString("") + " Resistance\n" + GuardianAngelArmor(level).ToString("") + " Armor\nBlock gained from Armor is affected by Resistance\nDestroy";
+                    case 34:
+                        if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
+                            return "Deal " + VengeancekDamage(level).ToString("") + " Damage, Gain " + VengeanceStrength(level).ToString("") + " Strength\n& " + VengeanceEnergy(level).ToString("") + " Energy";
+                        else return "Deal " + VengeancekDamage(level).ToString("") + " Damage";
                 }
             }
             else
@@ -938,14 +968,11 @@ public class PlayerCombat : MonoBehaviour
                     case 5:
                         return "Deal " + RuptureDamage(level).ToString("") + " Damage";
                     case 6:
-                        return "Gain " + ProtectiveBubbleBlock(level).ToString("") + " Block";
+                        return "Gain " + ProtectiveBubbleBlock(level).ToString("") + " Block\n& " + ProtectiveBubbleShield(level).ToString("") + " Shield";
                     case 7:
                         return "Gain 1 Dexterity\nEvery Card playd gives " + SwiftBlock(level).ToString("") + " Block\nDestroy";
                     case 8:
-                        if (level == 0)
-                            return "Draw a Card\nGain 2 Block for every Card in Hand";
-                        else if (level == 1) return "Draw " + HopDraw(level).ToString("") + " Cards\nGain 2 Block for every Card in Hand";
-                        else return "Draw " + HopDraw(level).ToString("") + " Cards\nGain 3 Block for every Card in Hand";
+                        return "Draw " + HopDraw(level).ToString("") + " Card\nGain " + HopBlock(level).ToString("") + " Block";
                     case 9:
                         return "Deal " + ImpaleDamage(level).ToString("") + " Damage\nApply " + ImpaleSlow(level).ToString("") + " Slow\n& gain that much Energy";
                     case 10:
@@ -988,11 +1015,7 @@ public class PlayerCombat : MonoBehaviour
                             return "Gain " + AnchoredBlock(level, true).ToString("") + " Block\n" + AnchoredResistance(level).ToString("") + " Resistance\nSpend 12 Energy";
                         else return "Gain " + AnchoredBlock(level, false).ToString("") + " Block\n(" + energy.ToString("") + "/12 Energy)";
                     case 26:
-                        return "Gain " + NimbleEnergy(level).ToString("") + " Energy\n& " + (NimbleEnergy(level) + NimbleBlock(level)).ToString("") + " Block";
-                                                if (combo < 4)
-                            return combo.ToString("") + "/4 Combo)";
-                        else if (level == 0) return "Draw a Card\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
-                        else return "Draw " + FlowLikeWaterDraw(level).ToString("") + " Cards\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                        return "Gain " + NimbleEnergy(level).ToString("") + " Energy\n& " + NimbleBlock(level, NimbleEnergy(level)).ToString("") + " Block";
                     case 27:
                         if (level == 0)
                         {
@@ -1014,6 +1037,10 @@ public class PlayerCombat : MonoBehaviour
                                 return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength\n(" + combo.ToString("") + "/3 Combo)";
                             else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 2 Strength";
                         }
+                    case 28:
+                        return "Deal " + RendDamage(level).ToString("") + " Damage\nGain " + RendBlock(level).ToString("") + " Block\n" + RendAmount(level).ToString("") + " Times";
+                    case 29:
+                        return "Gain " + ThickSkinBlock(level).ToString("") + " Block\nIncrease Max Health by " + ThickSkinHealth(level).ToString("") + " permamently\nDestroy";
                 }
             }
         }
@@ -1179,10 +1206,10 @@ public class PlayerCombat : MonoBehaviour
 
     int InspireBlock(int level)
     {
-        tempi = 5 + effect[1];
+        tempi = 6 + effect[1];
         tempi += 2 * level;
         if (level > 1)
-            tempi += 3;
+            tempi += 4;
         return BlockGainedModifier(tempi);
     }
 
@@ -1553,7 +1580,6 @@ public class PlayerCombat : MonoBehaviour
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CrushingBlowDamage(level));
         OnHit();
-        CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(CrushingBlowDaze(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(CrushingBlowSlow(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(CrushingBlowWeak(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainVulnerable(CrushingBlowVulnerable(level));
@@ -1561,17 +1587,9 @@ public class PlayerCombat : MonoBehaviour
 
     int CrushingBlowDamage(int level)
     {
-        tempi = 19 + effect[0];
-        tempi += 3 * level;
+        tempi = 20 + effect[0];
+        tempi += 5 * level;
         return DamageDealtModifier(tempi);
-    }
-
-
-    int CrushingBlowDaze(int level)
-    {
-        tempi = 2;
-        tempi += 2 * level;
-        return tempi;
     }
 
     int CrushingBlowSlow(int level)
@@ -1781,7 +1799,39 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    // LIGHT
+    void Vengeance(int level) // ID L 34
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(VengeancekDamage(level));
+        OnHit();
+        if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
+        {
+            GainStrength(VengeanceStrength(level));
+            GainEnergy(VengeanceEnergy(level));
+        }
+    }
+
+    int VengeancekDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 2 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int VengeanceStrength(int level)
+    {
+        tempi = 1;
+        tempi += level;
+        return tempi;
+    }
+
+    int VengeanceEnergy(int level)
+    {
+        tempi = 4;
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    // WATER
     void QuickCut(int level) // ID W 0
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(QuickCutDamage(level));
@@ -1848,7 +1898,7 @@ public class PlayerCombat : MonoBehaviour
 
     int EnsnareSlow(int level)
     {
-        tempi = 5;
+        tempi = 6;
         tempi += 3 * level;
         return tempi;
     }
@@ -1891,13 +1941,21 @@ public class PlayerCombat : MonoBehaviour
     void ProtectiveBubble(int level) // ID W 6
     {
         GainBlock(ProtectiveBubbleBlock(level));
+        GainShield(ProtectiveBubbleShield(level));
     }
 
     int ProtectiveBubbleBlock(int level)
     {
-        tempi = 12 + effect[1] + effect[2];
-        tempi += (2 + effect[1]) * level;
+        tempi = 13 + effect[1];
+        tempi += 2 * level;
         return BlockGainedModifier(tempi);
+    }
+
+    int ProtectiveBubbleShield(int level)
+    {
+        tempi = 5;
+        tempi += 3 * level;
+        return tempi;
     }
 
     void Swift(int level) // ID W 7
@@ -1922,16 +1980,16 @@ public class PlayerCombat : MonoBehaviour
     int HopDraw(int level)
     {
         tempi = 1;
-        tempi += (1 + level) / 2;
         return tempi;
     }
 
     int HopBlock(int level)
     {
-        tempi = 2;
-        tempi += level / 2;
+        tempi = 3;
+        tempi += 3 * level;
+        /*tempi += level / 2;
         tempi *= (Cards.CardsInHand - 1);
-        tempi += effect[1];
+        tempi += effect[1];*/
         return BlockGainedModifier(tempi);
     }
 
@@ -1978,7 +2036,7 @@ public class PlayerCombat : MonoBehaviour
     int FlurryEnergy(int level)
     {
         tempi = 2;
-        tempi += 2 * ((level + 1) / 2);
+        tempi += level;
         tempi += flurry;
         return tempi;
     }
@@ -1986,7 +2044,7 @@ public class PlayerCombat : MonoBehaviour
     int FlurryGain(int level)
     {
         tempi = 1;
-        tempi += level / 2;
+        tempi += level;
         return tempi;
     }
 
@@ -2027,7 +2085,7 @@ public class PlayerCombat : MonoBehaviour
 
     int DeadlySwingsDamage(int level)
     {
-        tempi = 6 + effect[0];
+        tempi = 7 + effect[0];
         return DamageDealtModifier(tempi);
     }
 
@@ -2046,7 +2104,7 @@ public class PlayerCombat : MonoBehaviour
 
     int SteelOfStealDamage(int level)
     {
-        tempi = 8 + effect[0];
+        tempi = 9 + effect[0];
         tempi += 2 * level;
         return DamageDealtModifier(tempi);
     }
@@ -2080,7 +2138,7 @@ public class PlayerCombat : MonoBehaviour
 
     int DoubleJumpBlock(int level)
     {
-        tempi = 10 + effect[1];
+        tempi = 11 + effect[1];
         tempi += 3 * level;
         return BlockGainedModifier(tempi);
     }
@@ -2184,7 +2242,7 @@ public class PlayerCombat : MonoBehaviour
 
     int DredgeLineEnergy(int level)
     {
-        tempi = 3;
+        tempi = 4;
         tempi += level;
         return tempi;
     }
@@ -2216,7 +2274,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void StrengthOfTheDepths(int level)
+    void StrengthOfTheDepths(int level) // ID W 22
     {
         GainStrength(StrengthOfTheDepthsStrength(level));
         GainBlock(StrengthOfTheDepthsBlock(level));
@@ -2300,30 +2358,30 @@ public class PlayerCombat : MonoBehaviour
     int AnchoredResistance(int level)
     {
         tempi = 1;
-        tempi += level / 2;
+        tempi += (level + 1) / 2;
         return tempi;
     }
 
-    void Nimble(int level) // ID W 27
+    void Nimble(int level) // ID W 26
     {
         GainEnergy(NimbleEnergy(level));
-        GainBlock(NimbleBlock(level));
+        GainBlock(NimbleBlock(level, 0));
     }
 
     int NimbleEnergy(int level)
     {
-        tempi = 2;
+        tempi = 3;
         tempi += 2 * level;
         return tempi;
     }
 
-    int NimbleBlock(int level)
+    int NimbleBlock(int level, int bonus)
     {
-        tempi = energy + effect[1];
+        tempi = energy + bonus + effect[1];
         return BlockGainedModifier(tempi);
     }
 
-    void Sink(int level)
+    void Sink(int level) // ID W 27
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SinkDamage(level));
         OnHit();
@@ -2339,7 +2397,7 @@ public class PlayerCombat : MonoBehaviour
 
     int SinkDamage(int level)
     {
-        tempi = 11 + effect[0];
+        tempi = 12 + effect[0];
         tempi += 3 * level;
         return DamageDealtModifier(tempi);
     }
@@ -2349,6 +2407,55 @@ public class PlayerCombat : MonoBehaviour
         tempi = 1;
         if (empowered)
             tempi++;
+        return tempi;
+    }
+
+    void Rend(int level) // ID W 28
+    {
+        for (int i = 0; i < RendAmount(level); i++)
+        {
+            CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RendDamage(level));
+            OnHit();
+            GainBlock(RendBlock(level));
+        }
+    }
+
+    int RendDamage(int level)
+    {
+        tempi = 6 + effect[0] + effect[2];
+        tempi += level / 2;
+        return DamageDealtModifier(tempi);
+    }
+
+    int RendBlock(int level)
+    {
+        tempi = 4 + effect[1] + effect[2];
+        tempi += (level + 1) / 2;
+        return BlockGainedModifier(tempi);
+    }
+
+    int RendAmount(int level)
+    {
+        tempi = 3 + level;
+        return tempi;
+    }
+
+    void ThickSkin(int level) // ID W 29
+    {
+        GainBlock(ThickSkinBlock(level));
+        GainHealth(ThickSkinHealth(level));
+    }
+
+    int ThickSkinBlock(int level)
+    {
+        tempi2 = 10 - level;
+        tempi = (maxHealth / tempi2) + effect[1];
+        return BlockGainedModifier(tempi);
+    }
+
+    int ThickSkinHealth(int level)
+    {
+        tempi = 2 + 2 * level;
         return tempi;
     }
 
