@@ -82,6 +82,8 @@ public class EnemyCombat : MonoBehaviour
             attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
             normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
         }
+        if (unitID == 11)
+            slow = LevelCalculated(36);
         if (PlayerScript.Item[15])
         {
             GainDaze(5);
@@ -229,12 +231,16 @@ public class EnemyCombat : MonoBehaviour
 
     public void Move()
     {
+        if (effect[0] > 0 && stunned)
+            effect[0]++;
         if (effect[5] > 0)
             CombatScript.Player.TakeMagicDamage(effect[5]);
         if (effect[6] > 0)
             CombatScript.Player.LoseSanity(effect[6]);
         if (effect[13] > 0)
             GainBlock(effect[13]);
+        if (effect[18] > 0)
+            LoseSlow(effect[18]);
         if (stunned)
         {
             stunned = false;
@@ -476,12 +482,16 @@ public class EnemyCombat : MonoBehaviour
                     if (tempi > 0)
                     {
                         RestoreHealth(tempi);
-                        tempi2 = tempi / 9 - 6;
+                        tempi2 = tempi / 11 - 8;
                         if (tempi2 > 0)
                             GainBleed(tempi2);
-                        tempi2 = tempi / 72 - 1;
+                        tempi2 = tempi / 76 - 2;
                         if (tempi2 > 0)
                             GainVulnerable(tempi2);
+                        tempi2 = (tempi + 30) / 300;
+                        tenacity -= tempi2;
+                        if (tenacity < 1)
+                            tenacity = 1;
                     }
                     break;
                 case (10, 0): // Obliterate
@@ -514,6 +524,46 @@ public class EnemyCombat : MonoBehaviour
                 case (10, 3): // Indestructible
                     GainShield(LevelCalculated(70));
                     movesCooldowns[3]++;
+                    break;
+                case (11, 0): // Strange Potion
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    tempi = Random.Range(1, 3);
+                    CombatScript.Player.GainSlow(LevelCalculated(tempi));
+                    tempi = Random.Range(1, 3);
+                    CombatScript.Player.GainWeak(LevelCalculated(tempi));
+                    break;
+                case (11, 1): // Experimental Concoction
+                    tempi = Random.Range(0, 3);
+                    if (tempi > 0)
+                        GainStrength(LevelCalculated(tempi));
+                    tempi = Random.Range(2, 9);
+                    GainHealth(LevelCalculated(tempi));
+                    effect[18] += 1;
+                    Display(1, effectSprite[18]);
+                    break;
+                case (11, 2): // Succumb
+                    GainBlock(LevelCalculated(42));
+                    tempi = Random.Range(1, 4 + effect[18] / 5);
+                    LoseSlow(LevelCalculated(tempi));
+                    break;
+                case (12, 0): // Smash
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainFrail(LevelCalculated(1 + effect[3] / 5));
+                    break;
+                case (12, 1): // Feral Howl
+                    CombatScript.Player.GainWeak(LevelCalculated(2));
+                    CombatScript.Player.GainTerror(LevelCalculated(2));
+                    CombatScript.Player.LoseSanity(Random.Range(LevelCalculated(8), LevelCalculated(21)));
+                    break;
+                case (12, 2): // Onslaught
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainStrength(LevelCalculated(5));
+                    tenacity += LevelCalculated(1);
+                    //effect[4] += LevelCalculated(2);
+                    //Display(LevelCalculated(2), effectSprite[4]);
                     break;
             }
         }
@@ -616,6 +666,8 @@ public class EnemyCombat : MonoBehaviour
             amount /= 5;
             GainBleed(1);
         }
+        if (PlayerScript.Item[31] && amount >= 32 && !CombatScript.Player.resistanceRing)
+            CombatScript.Player.RingOfResistance();
         Display(amount, DamageSprite);
         if (block > 0)
         {
@@ -737,6 +789,14 @@ public class EnemyCombat : MonoBehaviour
         UpdateInfo();
     }
 
+    void LoseSlow(int amount)
+    {
+        slow -= amount;
+        if (slow <= 0 && unitID == 11)
+            UnleashMonster();
+        UpdateInfo();
+    }
+
     public void GainWeak(int amount)
     {
         Display(amount, effectSprite[0]);
@@ -806,6 +866,33 @@ public class EnemyCombat : MonoBehaviour
         value *= (14 + level);
         value /= 14;
         return value;
+    }
+
+    void UnleashMonster()
+    {
+        health += maxHealth;
+        maxHealth *= 2;
+        health += LevelCalculated(29);
+        maxHealth += LevelCalculated(29);
+        slow = 0;
+        tenacity /= 4;
+        if (!stunned)
+            stunned = true;
+        effect[3] *= 2;
+        effect[3] += LevelCalculated(4);
+        effect[4] = LevelCalculated(2);
+        effect[8] = LevelCalculated(1);
+        effect[18] = 0;
+        unitID++;
+        UnitSprite.sprite = Library.Enemies[unitID].UnitSprite;
+        for (int i = 0; i < movesCount; i++)
+        {
+            MovesSprites[i] = Library.Enemies[unitID].MovesSprite[i];
+            movesValue[i] = LevelCalculated(Library.Enemies[unitID].MovesValues[i]);
+            movesText[i] = Library.Enemies[unitID].additionalText[i];
+            attackIntentions[i] = Library.Enemies[unitID].attackIntention[i];
+            normalAttacks[i] = Library.Enemies[unitID].normalAttack[i];
+        }
     }
 
     // checks

@@ -55,7 +55,7 @@ public class LootChoice : MonoBehaviour
         {
             silver++;
             ChargeCard(0.02f);
-            ChargeMerge(0.01f);
+            ChargeMerge(0.011f);
             ChargeQuality(0.004f);
             roll = Random.Range(0, 5);
             switch (roll)
@@ -73,14 +73,14 @@ public class LootChoice : MonoBehaviour
                     ChargeQuality(0.04f);
                     break;
                 case 4:
-                    ChargeMerge(0.1f);
+                    ChargeMerge(0.11f);
                     break;
                 case 5:
                     ChargeCard(0.08f);
                     ChargeQuality(0.024f);
                     break;
                 case 6:
-                    ChargeMerge(0.06f);
+                    ChargeMerge(0.066f);
                     ChargeQuality(0.016f);
                     break;
             }
@@ -203,7 +203,7 @@ public class LootChoice : MonoBehaviour
             bonusCardCharge -= 1.06f;
             cards++;
             ChargeQuality(0.01f);
-            ChargeMerge(0.06f);
+            ChargeMerge(0.066f);
         }
     }
 

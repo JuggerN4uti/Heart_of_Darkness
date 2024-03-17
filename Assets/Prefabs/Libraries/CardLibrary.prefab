@@ -104,6 +104,58 @@ MonoBehaviour:
   - Deal Damage equal to your Block
   - Gain 2 Block, Deal Damage equal to your Block
   - Gain 4 Block, Deal Damage equal to your Block
+--- !u!1 &369342426370396040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1060487086601782908}
+  - component: {fileID: 8158927983350768101}
+  m_Layer: 0
+  m_Name: Frozen Touch
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1060487086601782908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369342426370396040}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8158927983350768101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369342426370396040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 427f9e3924acdc74096588f8444d293a, type: 3}
+  CardName: Frozen Touch
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Apply 4 Bleed & 2 Slow
+  - Apply 5 Bleed & 3 Slow
+  - Apply 6 Bleed & 4 Slow
 --- !u!1 &500263361667982162
 GameObject:
   m_ObjectHideFlags: 0
@@ -893,6 +945,8 @@ Transform:
   - {fileID: 2360750403967202533}
   - {fileID: 5504039358866332030}
   - {fileID: 5176394377892208619}
+  - {fileID: 1060487086601782908}
+  - {fileID: 3688911315500849278}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2259,9 +2313,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 6 Damage, Gain 4 Block Thrice. Damage & Block increased by Dexterity
-  - Deal 6 Damage, Gain 5 Block 4 Times. Damage & Block increased by Dexterity
-  - Deal 7 Damage, Gain 5 Block 5 Times. Damage & Block increased by Dexterity
+  - Deal 7 Damage, Gain 5 Block Thrice. Additional Time per 4 Dexterity
+  - Deal 8 Damage, Gain 5 Block 4 Times. Additional Time per 4 Dexterity
+  - Deal 8 Damage, Gain 6 Block 5 Times. Additional Time per 4 Dexterity
 --- !u!1 &5095422665530155660
 GameObject:
   m_ObjectHideFlags: 0
@@ -2429,6 +2483,9 @@ MonoBehaviour:
   - {fileID: 8405337193483353573}
   - {fileID: 4313181082391029440}
   - {fileID: 847963286171541985}
+  - {fileID: 2346600974581395116}
+  - {fileID: 8158927983350768101}
+  - {fileID: 2032213507828971239}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -3431,6 +3488,58 @@ MonoBehaviour:
   - Deal 6 Damage. Damage Dealt increased by 2 every Turn
   - Deal 7 Damage. Damage Dealt increased by 3 every Turn
   - Deal 8 Damage. Damage Dealt increased by 3 every Turn
+--- !u!1 &8823641876743629179
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3688911315500849278}
+  - component: {fileID: 2032213507828971239}
+  m_Layer: 0
+  m_Name: Eye of the Storm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3688911315500849278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8823641876743629179}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 31
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2032213507828971239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8823641876743629179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: ce104c0dfa60a524cbd314e3a1c7c6cb, type: 3}
+  CardName: Eye of the Storm
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Deal 3 Damage, Gain 1 Storm Charge per Combo. Combo 4: Gain 2 more Storm Charges'
+  - 'Deal 4 Damage, Gain 1 Storm Charge per Combo. Combo 3: Gain 2 more Storm Charges'
+  - 'Deal 5 Damage, Gain 1 Storm Charge per Combo. Combo 3: Gain 3 more Storm Charges'
 --- !u!1 &8869626160299543852
 GameObject:
   m_ObjectHideFlags: 0

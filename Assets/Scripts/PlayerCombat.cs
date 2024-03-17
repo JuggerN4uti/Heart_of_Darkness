@@ -20,11 +20,12 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int combo, flurry, lightingDamage;
+    int combo, flurry, lightningDamage;
 
     [Header("Item Stats")]
     public int turns;
     public int attacks;
+    public bool resistanceRing;
 
     [Header("Weapon")]
     public GameObject TheWeapon;
@@ -72,7 +73,7 @@ public class PlayerCombat : MonoBehaviour
         combo = 0;
         flurry = 0;
         attacks = 0;
-        lightingDamage = 30;
+        lightningDamage = 30;
 
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
@@ -117,6 +118,7 @@ public class PlayerCombat : MonoBehaviour
     public void StartTurn()
     {
         combo = 0;
+        resistanceRing = true;
         if (effect[11] > 0)
             effect[11]--;
         else
@@ -217,7 +219,6 @@ public class PlayerCombat : MonoBehaviour
     {
         if (energy > 10)
             energy = 10;
-        mana = 0;
         if (effect[7] > 0)
             effect[7]--;
         if (effect[8] > 0)
@@ -234,6 +235,19 @@ public class PlayerCombat : MonoBehaviour
             TakeDamage(CombatScript.turn * 2);
         if (PlayerScript.Item[16] && effect[8] > 0)
             effect[8]--;
+        if (PlayerScript.Item[30] && block >= 40)
+        {
+            if (PlayerScript.Item[33])
+                GainStrength(2);
+            else GainStrength(1);
+        }
+        if (PlayerScript.Item[32] && mana > 0)
+        {
+            if (PlayerScript.Item[33])
+                GainDexterity(4);
+            else GainDexterity(2);
+        }
+        mana = 0;
         LoseSanity(TurnSanity());
         UpdateInfo();
         Cards.ShuffleHand();
@@ -249,8 +263,8 @@ public class PlayerCombat : MonoBehaviour
         PlayerScript.LoseSanity(amount, true);
         if (sanity < 1)
         {
+            maxSanity += 8 + maxSanity / 24;
             sanity += maxSanity;
-            maxSanity += 8 + maxSanity / 25;
             GainCurse();
         }
         UpdateInfo();
@@ -452,9 +466,9 @@ public class PlayerCombat : MonoBehaviour
             if (CombatScript.enemiesAlive > 0)
             {
                 tempi = CombatScript.RandomEnemy();
-                CombatScript.Enemy[tempi].TakeDamage(lightingDamage);
-                CombatScript.Enemy[tempi].GainSlow(3);
-                lightingDamage += 5;
+                CombatScript.Enemy[tempi].TakeDamage(lightningDamage);
+                CombatScript.Enemy[tempi].GainSlow(2 + lightningDamage / 25);
+                lightningDamage += 5;
             }
         }
         //Display(amount, effectSprite[18]);
@@ -841,6 +855,12 @@ public class PlayerCombat : MonoBehaviour
             case 29:
                 ThickSkin(level);
                 break;
+            case 30:
+                FrozenTouch(level);
+                break;
+            case 31:
+                EyeOfTheStorm(level);
+                break;
         }
     }
 
@@ -1041,6 +1061,16 @@ public class PlayerCombat : MonoBehaviour
                         return "Deal " + RendDamage(level).ToString("") + " Damage\nGain " + RendBlock(level).ToString("") + " Block\n" + RendAmount(level).ToString("") + " Times";
                     case 29:
                         return "Gain " + ThickSkinBlock(level).ToString("") + " Block\nIncrease Max Health by " + ThickSkinHealth(level).ToString("") + " permamently\nDestroy";
+                    case 30:
+                        return "Apply " + FrozenTouchBleed(level).ToString("") + " Bleed\n& " + FrozenTouchSlow(level).ToString("") + " Slow";
+                    case 31:
+                        if (combo == 0)
+                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\n(0/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                        else if (combo == 1)
+                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain 1 Storm Charge\n(1/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                        else if (combo < EyeOfTheStormCombo(level))
+                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + combo.ToString("") + " Storm Charges\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                        else return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges";
                 }
             }
         }
@@ -2422,14 +2452,14 @@ public class PlayerCombat : MonoBehaviour
 
     int RendDamage(int level)
     {
-        tempi = 6 + effect[0] + effect[2];
+        tempi = 7 + effect[0];
         tempi += level / 2;
         return DamageDealtModifier(tempi);
     }
 
     int RendBlock(int level)
     {
-        tempi = 4 + effect[1] + effect[2];
+        tempi = 5 + effect[1];
         tempi += (level + 1) / 2;
         return BlockGainedModifier(tempi);
     }
@@ -2437,6 +2467,7 @@ public class PlayerCombat : MonoBehaviour
     int RendAmount(int level)
     {
         tempi = 3 + level;
+        tempi += effect[2] / 4;
         return tempi;
     }
 
@@ -2459,10 +2490,70 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
+    void FrozenTouch(int level) // ID W 30
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(FrozenTouchBleed(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(FrozenTouchSlow(level));
+    }
+
+    int FrozenTouchBleed(int level)
+    {
+        tempi = 4;
+        tempi += level;
+        return tempi;
+    }
+
+    int FrozenTouchSlow(int level)
+    {
+        tempi = 2;
+        tempi += level;
+        return tempi;
+    }
+
+    void EyeOfTheStorm(int level) // ID W 31
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(EyeOfTheStormDamage(level));
+        OnHit();
+        GainStormCharge(EyeOfTheStormCharges(level));
+    }
+
+    int EyeOfTheStormDamage(int level)
+    {
+        tempi = 3 + effect[0];
+        tempi += level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int EyeOfTheStormCharges(int level)
+    {
+        tempi2 = combo;
+        if (combo >= EyeOfTheStormCombo(level))
+        {
+            tempi2 += 2;
+            tempi2 += level / 2;
+        }
+        return tempi2;
+    }
+
+    int EyeOfTheStormCombo(int level)
+    {
+        tempi = 4;
+        tempi -= (1 + level) / 2;
+        return tempi;
+    }
+
     // checks
     public int TotalBlock()
     {
         tempi = shield + block;
         return tempi;
+    }
+
+    public void RingOfResistance()
+    {
+        if (PlayerScript.Item[33])
+            GainResistance(2);
+        else GainResistance(1);
+        resistanceRing = false;
     }
 }

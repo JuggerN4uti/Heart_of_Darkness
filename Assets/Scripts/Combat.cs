@@ -317,6 +317,9 @@ public class Combat : MonoBehaviour
             case 17:
                 EffectTooltip.text = "More Flesh!:\nGain Max Health equal to unblocked Damage Dealt";
                 break;
+            case 18:
+                EffectTooltip.text = "Monster Within:\nLose " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Slow, upon reaching 0, transform into Monstrosity";
+                break;
         }
     }
 

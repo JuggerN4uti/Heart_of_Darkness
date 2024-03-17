@@ -96,6 +96,54 @@ MonoBehaviour:
   ItemName: Amethyst Shard
   ItemTooltip: Gain 1 extra Mana on first 2 Turns
   text: 0
+--- !u!1 &660370001351184554
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5809750155703776121}
+  - component: {fileID: 7049748917027481625}
+  m_Layer: 0
+  m_Name: Ring of Strength
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5809750155703776121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660370001351184554}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7049748917027481625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660370001351184554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 94fe9c71e69f0d14184eaf2d0ba23836, type: 3}
+  ItemName: Ring of Strength
+  ItemTooltip: Gain 1 Strength, ending Turn with 40 or more Block gives 1 Strength
+  text: 0
 --- !u!1 &746340115692774379
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +923,10 @@ Transform:
   - {fileID: 9101360001670114289}
   - {fileID: 8514290141652124318}
   - {fileID: 5565819163681371708}
+  - {fileID: 5809750155703776121}
+  - {fileID: 2484618458074942376}
+  - {fileID: 477598972043523376}
+  - {fileID: 4104171539859828381}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -921,6 +973,10 @@ MonoBehaviour:
   - {fileID: 9172870098216199915}
   - {fileID: 5154635082351319570}
   - {fileID: 1848198496476855282}
+  - {fileID: 7049748917027481625}
+  - {fileID: 50685512437022805}
+  - {fileID: 5106891782541665676}
+  - {fileID: 6501166474729408699}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,6 +1122,55 @@ MonoBehaviour:
   ItemName: Bandages
   ItemTooltip: Reduce Bleed by 1 each Turn. Restore 5% missing Health after Combat
   text: 0
+--- !u!1 &6352612750397758032
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4104171539859828381}
+  - component: {fileID: 6501166474729408699}
+  m_Layer: 0
+  m_Name: Ring of Power
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4104171539859828381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6352612750397758032}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6501166474729408699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6352612750397758032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 396f12f019ca21f41bf9c5e9550587a9, type: 3}
+  ItemName: Ring of Power
+  ItemTooltip: Double the power of other Rings, if you have all three, increase Max
+    Mana by 1
+  text: 0
 --- !u!1 &6531875655818891139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1314,103 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: 351dca794dbfd084080a7c829bd2401e, type: 3}
   ItemName: Broken Shield
   ItemTooltip: Gain 1 Resistance, Frail is less effective on you
+  text: 0
+--- !u!1 &7162581655545443049
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 477598972043523376}
+  - component: {fileID: 5106891782541665676}
+  m_Layer: 0
+  m_Name: Ring of Dexterity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &477598972043523376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7162581655545443049}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5106891782541665676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7162581655545443049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: dc2aaffd388350844bc0eba5ca033649, type: 3}
+  ItemName: Ring of Dexterity
+  ItemTooltip: Gain 2 Dexterity, ending Turn with unspent Mana gives 2 Dexterity
+  text: 0
+--- !u!1 &7590636758870944764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2484618458074942376}
+  - component: {fileID: 50685512437022805}
+  m_Layer: 0
+  m_Name: Ring of Resistance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2484618458074942376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7590636758870944764}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 31
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &50685512437022805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7590636758870944764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 7170a5fdbd2250d4e8cfbb3184c9f508, type: 3}
+  ItemName: Ring of Resistance
+  ItemTooltip: Gain 1 Resistance, dealing over 32 Damage at once gives 1 Resistance
+    (once per Turn)
   text: 0
 --- !u!1 &7595522785966974393
 GameObject:

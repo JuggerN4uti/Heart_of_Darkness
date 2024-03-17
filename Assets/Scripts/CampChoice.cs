@@ -17,8 +17,8 @@ public class CampChoice : MonoBehaviour
 
     public void Open()
     {
-        healthRestoration = PlayerScript.MaxHealth / 4;
-        sanityRestoration = 10 + PlayerScript.MaxSanity / 5;
+        healthRestoration = (PlayerScript.MaxHealth * 26) / 100;
+        sanityRestoration = 10 + (PlayerScript.MaxSanity * 21 + 5) / 100;
         HealthRestoredValue.text = "Restore\n" + healthRestoration.ToString("") + " Health";
         SanityRestoredValue.text = "Restore\n" + sanityRestoration.ToString("") + " Sanity";
         CampEventObject.SetActive(true);

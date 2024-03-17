@@ -230,6 +230,33 @@ public class Player : MonoBehaviour
             case 29:
                 StatValues[7] += 1;
                 break;
+            case 30:
+                if (Item[33])
+                    StatValues[8] += 2;
+                else StatValues[8] += 1;
+                CheckForRings();
+                break;
+            case 31:
+                if (Item[33])
+                    StatValues[7] += 2;
+                else StatValues[7] += 1;
+                CheckForRings();
+                break;
+            case 32:
+                if (Item[33])
+                    StatValues[9] += 4;
+                else StatValues[9] += 2;
+                CheckForRings();
+                break;
+            case 33:
+                if (Item[30])
+                    StatValues[8] += 1;
+                if (Item[31])
+                    StatValues[7] += 1;
+                if (Item[32])
+                    StatValues[9] += 2;
+                CheckForRings();
+                break;
         }
         UpdateInfo();
     }
@@ -316,5 +343,11 @@ public class Player : MonoBehaviour
     public void Unhovered()
     {
         HoveredText.text = "";
+    }
+
+    void CheckForRings()
+    {
+        if (Item[30] && Item[31] && Item[32] && Item[33])
+            BaseMana++;
     }
 }
