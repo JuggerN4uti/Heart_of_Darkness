@@ -24,20 +24,28 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Item Stats")]
     public int turns;
-    public int attacks;
+    public int attacks, drink;
     public bool resistanceRing;
 
     [Header("Weapon")]
     public GameObject TheWeapon;
     public int baseDamage, strengthScaling, energyCost;
-    public TMPro.TextMeshProUGUI TheWeaponCost, TheWeaponEffect;
+    public Image TheWeaponIcon;
+    public TMPro.TextMeshProUGUI TheWeaponName, TheWeaponCost, TheWeaponEffect;
+
+    [Header("Equipment")]
+    public int eqID;
+    public EquipmentLibrary ELibrary;
+    public int eqEnergyCost, uses, cooldown, maxCooldown;
+    public Image EquipmentIcon, EquipmentFill;
+    public TMPro.TextMeshProUGUI equipmentCost, equipmentUses, equipmentCooldown;
 
     [Header("UI")]
     public GameObject ShieldDisplay;
     public GameObject BlockDisplay;
     public Image HealthBarFill, SanityBarFill, EnergyBarFill;
-    public Button WeaponUseButton;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ManaValue;
+    public Button WeaponUseButton, EquipmentUseButton;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, WeaponCost, ManaValue;
     public TMPro.TextMeshProUGUI[] CurseText;
     public GameObject[] UnitObject, CurseObject;
     public Image[] UnitSprite;
@@ -73,7 +81,8 @@ public class PlayerCombat : MonoBehaviour
         combo = 0;
         flurry = 0;
         attacks = 0;
-        lightningDamage = 30;
+        drink = 0;
+        lightningDamage = 32;
 
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
@@ -100,12 +109,22 @@ public class PlayerCombat : MonoBehaviour
                 GainCurseEffect(i, PlayerScript.CurseValue[i]);
         }
 
+        eqID = PlayerScript.equipment;
+        if (PlayerScript.Item[38])
+            eqEnergyCost = 0;
+        else eqEnergyCost = ELibrary.Equipments[eqID].Cost;
+        uses = ELibrary.Equipments[eqID].Uses;
+        maxCooldown = ELibrary.Equipments[eqID].Cooldown;
+        cooldown = 0;
+        EquipmentIcon.sprite = ELibrary.Equipments[eqID].EquipmentSprite;
+
         ItemsScript.SetText();
         StartTurn();
     }
 
     public void Set()
     {
+        ItemsScript.ResetText();
         if (PlayerScript.Item[16])
             RestoreHealth((maxHealth - health) / 20);
         PlayerScript.MaxHealth = maxHealth;
@@ -140,9 +159,12 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[27] && shield > 0)
             GainBlock(5);
         GainEnergy(8 + effect[2]);
+        mana = 0;
         if (effect[7] > 0)
             GainMana(manaGain - 1);
         else GainMana(manaGain);
+        if (CombatScript.Enemy[0].effect[21] > 0)
+            GainMana(CombatScript.Enemy[0].effect[21]);
         if (PlayerScript.Item[5] && CombatScript.turn < 3)
             GainMana(1);
         if (PlayerScript.Item[8])
@@ -154,9 +176,13 @@ public class PlayerCombat : MonoBehaviour
         if (effect[12] > 0)
             Cards.Draw(cardDraw - 1);
         else Cards.Draw(cardDraw);
+        if (PlayerScript.Item[23] && CombatScript.turn % 2 == 1)
+            Cards.Draw(1);
         if (PlayerScript.CurseValue[2] > 0 && CombatScript.turn % 2 == 0)
             CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
-        UpdateInfo();
+        EquipmentCooldown(1);
+        if (PlayerScript.Item[23] && CombatScript.turn % 2 == 0)
+            EquipmentCooldown(1);
     }
 
     void UpdateInfo()
@@ -164,10 +190,16 @@ public class PlayerCombat : MonoBehaviour
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
         SanityBarFill.fillAmount = (sanity * 1f) / (maxSanity * 1f);
         EnergyBarFill.fillAmount = (energy * 1f) / (energyCost * 1f);
+        if (eqEnergyCost != 0)
+            EquipmentFill.fillAmount = (energy * 1f) / (eqEnergyCost * 1f);
         HealthValue.text = health.ToString("") + "/" + maxHealth.ToString("");
         SanityValue.text = sanity.ToString("") + "/" + maxSanity.ToString("");
-        EnergyValue.text = energy.ToString("") + "/" + energyCost.ToString("");
+        WeaponCost.text = energy.ToString("") + "/" + energyCost.ToString("");
+        equipmentCost.text = energy.ToString("") + "/" + eqEnergyCost.ToString("");
+        equipmentUses.text = uses.ToString("");
+        equipmentCooldown.text = cooldown.ToString("") + "/" + maxCooldown.ToString("");
         ManaValue.text = mana.ToString("");
+        EnergyValue.text = energy.ToString("");
         if (shield > 0)
         {
             ShieldDisplay.SetActive(true);
@@ -183,6 +215,9 @@ public class PlayerCombat : MonoBehaviour
         if (energy >= energyCost)
             WeaponUseButton.interactable = true;
         else WeaponUseButton.interactable = false;
+        if (energy >= eqEnergyCost && uses > 0)
+            EquipmentUseButton.interactable = true;
+        else EquipmentUseButton.interactable = false;
 
         // status effects
         statusCount = 0;
@@ -229,25 +264,15 @@ public class PlayerCombat : MonoBehaviour
             effect[10]--;
         if (effect[12] > 0)
             effect[12]--;
+        if (CombatScript.Enemy[0].effect[20] > 0 && mana > 0)
+            TakeDamage(mana * 5);
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
         if (PlayerScript.Item[6])
             TakeDamage(CombatScript.turn * 2);
         if (PlayerScript.Item[16] && effect[8] > 0)
             effect[8]--;
-        if (PlayerScript.Item[30] && block >= 40)
-        {
-            if (PlayerScript.Item[33])
-                GainStrength(2);
-            else GainStrength(1);
-        }
-        if (PlayerScript.Item[32] && mana > 0)
-        {
-            if (PlayerScript.Item[33])
-                GainDexterity(4);
-            else GainDexterity(2);
-        }
-        mana = 0;
+        //mana = 0;
         LoseSanity(TurnSanity());
         UpdateInfo();
         Cards.ShuffleHand();
@@ -315,13 +340,24 @@ public class PlayerCombat : MonoBehaviour
 
     int TurnSanity()
     {
-        temp = Random.Range(CombatScript.turn * 0.3f - 0.4f, CombatScript.turn * 0.55f - 0.35f);
+        temp = Random.Range(CombatScript.turn * 0.261f - 0.457f, CombatScript.turn * 0.512f - 0.405f);
         tempi = 0;
         for (float i = 1f; i < temp; i += 1f)
         {
             tempi++;
         }
         return tempi;
+    }
+
+    public void EquipmentCooldown(int amount)
+    {
+        cooldown += amount;
+        while (cooldown >= maxCooldown)
+        {
+            cooldown -= maxCooldown;
+            uses++;
+        }
+        UpdateInfo();
     }
 
     void GainHealth(int amount)
@@ -334,6 +370,12 @@ public class PlayerCombat : MonoBehaviour
 
     public void GainBlock(int amount)
     {
+        if (PlayerScript.Item[31] && amount >= 15)
+        {
+            if (PlayerScript.Item[33])
+                amount += 6;
+            else amount += 3;
+        }
         block += amount;
         Display(amount, BlockSprite);
         UpdateInfo();
@@ -357,7 +399,22 @@ public class PlayerCombat : MonoBehaviour
 
     public void GainEnergy(int amount)
     {
+        if (PlayerScript.Item[32] && amount >= 4)
+        {
+            if (PlayerScript.Item[33])
+                amount += 2;
+            else amount += 1;
+        }
         energy += amount;
+        if (PlayerScript.Item[34])
+        {
+            drink += amount;
+            while (drink >= 25)
+            {
+                drink -= 25;
+                EquipmentCooldown(1);
+            }
+        }
         UpdateInfo();
     }
 
@@ -467,21 +524,49 @@ public class PlayerCombat : MonoBehaviour
             {
                 tempi = CombatScript.RandomEnemy();
                 CombatScript.Enemy[tempi].TakeDamage(lightningDamage);
-                CombatScript.Enemy[tempi].GainSlow(2 + lightningDamage / 25);
-                lightningDamage += 5;
+                CombatScript.Enemy[tempi].GainSlow(2 + lightningDamage / 24);
+                lightningDamage += 4;
             }
         }
         //Display(amount, effectSprite[18]);
         UpdateInfo();
     }
 
-    public void WeaponHovered()
+    public void WeaponHovered(bool equipment)
     {
-        TheWeapon.SetActive(true);
-        //TheWeapon.sprite = Library.Cards[CardsID[which]].CardSprite;
-        //TheCardName.text = Library.Cards[CardsID[which]].CardName;
-        TheWeaponCost.text = energyCost.ToString("");
-        TheWeaponEffect.text = "Deal " + WeaponDamage().ToString("") + " Damage";
+        if (!equipment)
+        {
+            TheWeapon.SetActive(true);
+            TheWeaponIcon.sprite = PlayerScript.WeaponSprite;
+            TheWeaponCost.text = energyCost.ToString("");
+            TheWeaponName.text = PlayerScript.weaponName;
+            TheWeaponEffect.text = "Deal " + WeaponDamage().ToString("") + " Damage";
+        }
+        else
+        {
+            TheWeapon.SetActive(true);
+            TheWeaponIcon.sprite = ELibrary.Equipments[eqID].EquipmentSprite;
+            TheWeaponCost.text = eqEnergyCost.ToString("");
+            TheWeaponName.text = ELibrary.Equipments[eqID].EquipmentName;
+            switch (eqID)
+            {
+                case 0:
+                    TheWeaponEffect.text = "Gain " + BucklerBlock().ToString("0") + " Block";
+                    break;
+                case 1:
+                    TheWeaponEffect.text = "Deal " + DaggerDamage().ToString("0") + " Damage\nApply 1 Bleed";
+                    break;
+                case 2:
+                    TheWeaponEffect.text = "Draw 1 Card";
+                    break;
+                case 3:
+                    TheWeaponEffect.text = "Gain 1 Mana";
+                    break;
+                case 4:
+                    TheWeaponEffect.text = "Deal " + MaceDamage().ToString("0") + " Damage\nApply 1 Slow";
+                    break;
+            }
+        }
     }
 
     public void Unhovered()
@@ -501,6 +586,31 @@ public class PlayerCombat : MonoBehaviour
         }
         if (effect[17] > 0)
             GainStormCharge(effect[17]);
+        UpdateInfo();
+    }
+
+    public void UseEquipment()
+    {
+        SpendEnergy(eqEnergyCost);
+        uses--;
+        switch (eqID)
+        {
+            case 0:
+                Buckler();
+                break;
+            case 1:
+                Dagger();
+                break;
+            case 2:
+                Backpack();
+                break;
+            case 3:
+                Shovel();
+                break;
+            case 4:
+                Mace();
+                break;
+        }
         UpdateInfo();
     }
 
@@ -571,6 +681,8 @@ public class PlayerCombat : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (PlayerScript.Item[36])
+            amount--;
         Display(amount, DamageSprite);
         if (block > 0)
         {
@@ -625,6 +737,8 @@ public class PlayerCombat : MonoBehaviour
         CombatScript.CardPlayed();
         if (effect[14] > 0)
             GainBlock(effect[14]);
+        if (PlayerScript.Item[37] && level >= 2)
+            GainBlock(8);
         if (which < Library.neutralCards)
             UseNeutralAbility(which, level);
         else
@@ -896,7 +1010,7 @@ public class PlayerCombat : MonoBehaviour
                     case 4:
                         return "Gain " + FortifyBlock(level).ToString("") + " Block\nGain " + FortifyBlock(level).ToString("") + " Block Next Trun";
                     case 5:
-                        return "Gain " + EmpowerBuff(level).ToString("") + " Strength & Energy";
+                        return "Gain " + EmpowerStrength(level).ToString("") + " Strength\n&" + EmpowerEnergy(level).ToString("") + " Energy";
                     case 6:
                         return "Draw " + InspireCardDraw(level).ToString("") + " Cards\nGain " + InspireBlock(level).ToString("") + " Block";
                     case 7:
@@ -955,7 +1069,7 @@ public class PlayerCombat : MonoBehaviour
                             return "Gain " + BarricadeBlock(level).ToString("") + " Block\nBlock is retained for " + BarricadeRetain(level) + " Turns";
                         else return "Gain " + BarricadeBlock(level).ToString("") + " Block\nBlock is retained for 1 Turn";
                     case 30:
-                        return "Deal " + RighteousHammerDamage(level).ToString("") + " Damage\nApply " + RighteousHammerDamage(level).ToString("") + " Daze\n& " + RighteousHammerSlow(level).ToString("") + " Slow";
+                        return "Deal " + RighteousHammerDamage(level).ToString("") + " Damage\nApply " + RighteousHammerDaze(level).ToString("") + " Daze\n& " + RighteousHammerSlow(level).ToString("") + " Slow";
                     case 31:
                         return "Gain " + LightsChosenStrength(level).ToString("") + " Strength\n" + LightsChosenResistance(level).ToString("") + " Resistance\n& " + LightsChosenDexterity(level).ToString("") + " Dexterity\nDestroy";
                     case 32:
@@ -1078,6 +1192,54 @@ public class PlayerCombat : MonoBehaviour
         return "";
     }
 
+    // EQUIPMENT
+    void Buckler() // 0
+    {
+        GainBlock(BucklerBlock());
+    }
+
+    int BucklerBlock()
+    {
+        tempi = 6 + effect[1];
+        return BlockGainedModifier(tempi);
+    }
+
+    void Dagger() // 1
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DaggerDamage());
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(1);
+    }
+
+    int DaggerDamage()
+    {
+        tempi = 2 + effect[0];
+        return DamageDealtModifier(tempi);
+    }
+
+    void Backpack() // 2
+    {
+        Cards.Draw(1);
+    }
+
+    void Shovel() // 3
+    {
+        GainMana(1);
+    }
+
+    void Mace() // 4
+    {
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(MaceDamage());
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(1);
+    }
+
+    int MaceDamage()
+    {
+        tempi = 6 + effect[0];
+        return DamageDealtModifier(tempi);
+    }
+
     // ABILITIES
     // NEUTRAL
     void Strike(int level) // ID N 0
@@ -1115,15 +1277,15 @@ public class PlayerCombat : MonoBehaviour
 
     int SpearThrustBreak(int level)
     {
-        tempi = 7;
-        tempi += 3 * level;
+        tempi = 8;
+        tempi += 5 * level;
         return tempi;
     }
 
     int SpearThrustDamage(int level)
     {
         tempi = 10 + effect[0];
-        tempi += 3 * level;
+        tempi += 2 * level;
         return DamageDealtModifier(tempi);
     }
 
@@ -1209,14 +1371,21 @@ public class PlayerCombat : MonoBehaviour
 
     void Empower(int level) // ID L 5
     {
-        GainStrength(EmpowerBuff(level));
-        GainEnergy(EmpowerBuff(level));
+        GainStrength(EmpowerStrength(level));
+        GainEnergy(EmpowerEnergy(level));
     }
 
-    int EmpowerBuff(int level)
+    int EmpowerStrength(int level)
     {
         tempi = 2;
         tempi += level;
+        return tempi;
+    }
+
+    int EmpowerEnergy(int level)
+    {
+        tempi = 2;
+        tempi += 2 * level;
         return tempi;
     }
 
@@ -1503,7 +1672,7 @@ public class PlayerCombat : MonoBehaviour
 
     int ChastiseDamage(int level)
     {
-        tempi = 9 + effect[0];
+        tempi = 11 + effect[0];
         tempi += 4 * level;
         tempi += CombatScript.Enemy[CombatScript.targetedEnemy].effect[2];
         return DamageDealtModifier(tempi);
@@ -1518,7 +1687,7 @@ public class PlayerCombat : MonoBehaviour
 
     int ChastiseDaze(int level)
     {
-        tempi = 6;
+        tempi = 4;
         tempi += 2 * level;
         return tempi;
     }
@@ -1580,15 +1749,15 @@ public class PlayerCombat : MonoBehaviour
 
     int SurgeOfLightDexterity(int level)
     {
-        tempi = 2;
+        tempi = 3;
         tempi += 1 * level;
         return tempi;
     }
 
     int SurgeOfLightEnergy(int level)
     {
-        tempi = 3;
-        tempi += 2 * level;
+        tempi = 1;
+        tempi += 3 * level;
         return tempi;
     }
 
@@ -1737,15 +1906,22 @@ public class PlayerCombat : MonoBehaviour
     {
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RighteousHammerDamage(level));
         OnHit();
-        CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(RighteousHammerDamage(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(RighteousHammerDaze(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(RighteousHammerSlow(level));
     }
 
     int RighteousHammerDamage(int level)
     {
-        tempi = 6 + effect[0];
+        tempi = 7 + effect[0];
         tempi += 1 * level;
+        tempi += level / 2;
         return DamageDealtModifier(tempi);
+    }
+
+    int RighteousHammerDaze(int level)
+    {
+        tempi = RighteousHammerDamage(level) / 2;
+        return tempi;
     }
 
     int RighteousHammerSlow(int level)
@@ -2519,17 +2695,17 @@ public class PlayerCombat : MonoBehaviour
 
     int EyeOfTheStormDamage(int level)
     {
-        tempi = 3 + effect[0];
+        tempi = 4 + effect[0];
         tempi += level;
         return DamageDealtModifier(tempi);
     }
 
     int EyeOfTheStormCharges(int level)
     {
-        tempi2 = combo;
+        tempi2 = combo / 2;
         if (combo >= EyeOfTheStormCombo(level))
         {
-            tempi2 += 2;
+            tempi2 += 3;
             tempi2 += level / 2;
         }
         return tempi2;

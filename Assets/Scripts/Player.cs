@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
     public bool opened, map;
-    public bool[] Item;
+    public bool[] Item; //Equipment; idk czy daæ mo¿liwe kilka 
+    public int equipment;
 
     [Header("Curses")]
     public int CursesCount;
@@ -27,6 +28,8 @@ public class Player : MonoBehaviour
     [Header("Weapon")]
     public int weaponLevel;
     public int weaponDamage, weaponStrengthBonus, weaponEnergyRequirement;
+    public string weaponName;
+    public Sprite WeaponSprite;
 
     [Header("Info")]
     public TMPro.TextMeshProUGUI[] WeaponInfoText;
@@ -189,8 +192,7 @@ public class Player : MonoBehaviour
         switch (which)
         {
             case 1:
-                MaxHealth += 20;
-                Health += 20;
+                GainHP(20);
                 break;
             case 2:
                 StatValues[8] += 2;
@@ -214,9 +216,6 @@ public class Player : MonoBehaviour
             case 20:
                 BaseMana++;
                 BaseDraw--;
-                break;
-            case 23:
-                BaseDraw++;
                 break;
             case 25:
                 StatValues[8] += 1;
@@ -257,7 +256,23 @@ public class Player : MonoBehaviour
                     StatValues[9] += 2;
                 CheckForRings();
                 break;
+            case 34:
+                StatValues[9] += 1;
+                break;
+            case 35:
+                GainHP(4);
+                break;
+            case 37:
+                GainHP(8);
+                break;
         }
+        UpdateInfo();
+    }
+
+    public void GainHP(int amount)
+    {
+        MaxHealth += amount;
+        Health += amount;
         UpdateInfo();
     }
 

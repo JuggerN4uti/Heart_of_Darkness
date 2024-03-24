@@ -39,6 +39,10 @@ public class Deck : MonoBehaviour
     public int selectedCardID, selectedCardLevel, foundCard;// foundCardID, foundCardLevel;
     public TMPro.TextMeshProUGUI ErrorMessage;
 
+    [Header("Events")]
+    public bool flame;
+    public bool remove, duplicate;
+
     public void AddACard(int which, int level)
     {
         CardID[cardsInDeck] = which;
@@ -116,6 +120,39 @@ public class Deck : MonoBehaviour
                 ChoiceMessage.text = "Merge";
             }
         }
+        else if (remove)
+        {
+            selectedCard = slot;
+
+            if (flame)
+            {
+                if (CardID[selectedCard] > 1)
+                    tempi = CardLevel[selectedCard] + 1;
+                else if (CardLevel[selectedCard] > 0)
+                    tempi = CardLevel[selectedCard];
+                else tempi = 0;
+                tempi = 5 * (tempi * (tempi + 1)) / 2;
+                PlayerScript.GainSilver(tempi);
+            }
+
+            for (int i = selectedCard; i < cardsInDeck; i++)
+            {
+                CardID[i] = CardID[i + 1];
+                CardLevel[i] = CardLevel[i + 1];
+            }
+            cardsInDeck--;
+            CardObject[cardsInDeck].SetActive(false);
+            CardsInDeckText.text = cardsInDeck.ToString("0");
+            PlayerScript.UpdateInfo();
+            SkipForge();
+        }
+        else if (duplicate)
+        {
+            selectedCard = slot;
+
+            AddACard(CardID[selectedCard], 0);
+            SkipForge();
+        }
     }
 
     void DisplayDeckContents()
@@ -181,10 +218,34 @@ public class Deck : MonoBehaviour
         PlayerInfoButton.SetActive(false);
     }
 
+    public void RemoveCard(bool cursedFlame)
+    {
+        flame = cursedFlame;
+        remove = true;
+        DisplayDeckContents();
+        DeckObjet.SetActive(true);
+        DeckButton.SetActive(false);
+        SkipButton.SetActive(true);
+        PlayerInfoButton.SetActive(false);
+    }
+
+    public void DuplicateCard()
+    {
+        duplicate = true;
+        DisplayDeckContents();
+        DeckObjet.SetActive(true);
+        DeckButton.SetActive(false);
+        SkipButton.SetActive(true);
+        PlayerInfoButton.SetActive(false);
+    }
+
     public void SkipForge()
     {
         forge = false;
         merge = false;
+        remove = false;
+        flame = false;
+        duplicate = false;
         DeckObjet.SetActive(false);
         DeckButton.SetActive(true);
         SkipButton.SetActive(false);
@@ -219,22 +280,6 @@ public class Deck : MonoBehaviour
                 CardID[i] = CardID[i + 1];
                 CardLevel[i] = CardLevel[i + 1];
             }
-            /*if (selectedCard < foundCard)
-            {
-                for (int i = selectedCard + 1; i < cardsInDeck; i++)
-                {
-                    CardID[i] = CardID[i + 1];
-                    CardLevel[i] = CardLevel[i + 1];
-                }
-            }
-            else
-            {
-                for (int i = foundCard + 1; i < cardsInDeck; i++)
-                {
-                    CardID[i] = CardID[i + 1];
-                    CardLevel[i] = CardLevel[i + 1];
-                }
-            }*/
             cardsInDeck--;
             CardObject[cardsInDeck].SetActive(false);
             CardsInDeckText.text = cardsInDeck.ToString("0");

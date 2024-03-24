@@ -23,6 +23,7 @@ public class CardPick : MonoBehaviour
     public void RollCards(int rarity = 0)
     {
         SetRange();
+        forge = false;
 
         roll = Random.Range(min, max);
         rolledID[0] = roll;
@@ -45,6 +46,7 @@ public class CardPick : MonoBehaviour
 
     public void RollForge()
     {
+        forge = true;
         viable = false;
         do
         {

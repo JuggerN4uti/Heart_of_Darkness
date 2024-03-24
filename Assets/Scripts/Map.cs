@@ -12,6 +12,7 @@ public class Map : MonoBehaviour
     public Player PlayerScript;
     public Combat CombatScript;
     public ForgeChoice ForgeScript;
+    public Events EventsScript;
     public CampChoice CampScript;
     public MerchantChoice MerchantScript;
     public ItemPick ItemPickScript;
@@ -111,10 +112,12 @@ public class Map : MonoBehaviour
         switch (tileEvent[currentTile * 3 + currentRow - 2])
         {
             case 0:
-                CardEventObject.SetActive(true);
+                EventsScript.EnterEvent();
+                //CardEventObject.SetActive(true);
                 break;
             case 1:
-                ForgeScript.Open();
+                EventsScript.EnterEvent();
+                //ForgeScript.Open();
                 break;
             case 2:
                 Fade.StartDarken();
@@ -175,7 +178,7 @@ public class Map : MonoBehaviour
 
     void SetEnemies()
     {
-        danger += 0.56f + danger * 0.02f;
+        danger += 0.55f + danger * 0.02f;
         CombatScript.elite = false;
         CombatScript.boss = false;
         if (danger < 1.6f)
@@ -196,7 +199,7 @@ public class Map : MonoBehaviour
 
     void SetElite()
     {
-        danger += 0.6f + danger * 0.02f;
+        danger += 0.65f + danger * 0.02f;
         eliteDanger += 0.25f + eliteDanger * 0.01f;
         tempi = 0;
         temp = danger + eliteDanger;

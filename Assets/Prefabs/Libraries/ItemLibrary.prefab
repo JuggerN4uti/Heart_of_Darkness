@@ -142,7 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 94fe9c71e69f0d14184eaf2d0ba23836, type: 3}
   ItemName: Ring of Strength
-  ItemTooltip: Gain 1 Strength, ending Turn with 40 or more Block gives 1 Strength
+  ItemTooltip: Gain 1 Strength, whenever you deal 23 Damage or more, increase it
+    by 5
   text: 0
 --- !u!1 &746340115692774379
 GameObject:
@@ -155,7 +156,7 @@ GameObject:
   - component: {fileID: 2953471329184966569}
   - component: {fileID: 4652338825196518593}
   m_Layer: 0
-  m_Name: Backpack
+  m_Name: Duality Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,9 +189,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemSprite: {fileID: 21300000, guid: e4102fef81234794ca04f04344d79c4d, type: 3}
-  ItemName: Backpack
-  ItemTooltip: Draw additional Card each Turn
+  ItemSprite: {fileID: 21300000, guid: 6e82f5effb41e2d418d1246013cad4f8, type: 3}
+  ItemName: Duality Stone
+  ItemTooltip: Draw additional Card every odd Turn & +1 Cooldown on Equipment on
+    every even Turn
+  text: 0
+--- !u!1 &812429089564479260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6655590596561376287}
+  - component: {fileID: 5159025006535899560}
+  m_Layer: 0
+  m_Name: Obsidian Shield
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6655590596561376287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812429089564479260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 36
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5159025006535899560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812429089564479260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: f7367f3c759778445b264d995935fc5f, type: 3}
+  ItemName: Obsidian Shield
+  ItemTooltip: Take 1 less Damage from all sources
   text: 0
 --- !u!1 &1292755261754611570
 GameObject:
@@ -336,6 +386,55 @@ MonoBehaviour:
   ItemName: Tongs
   ItemTooltip: Every 7 attacks gain 1 Resistance
   text: 1
+--- !u!1 &1931912062124653995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1612456115443030920}
+  - component: {fileID: 6806182152654394075}
+  m_Layer: 0
+  m_Name: Quiver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612456115443030920
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931912062124653995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 38
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6806182152654394075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931912062124653995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: d2dff8128b183ab46b55ddada154bea4, type: 3}
+  ItemName: Quiver
+  ItemTooltip: Remove Equipment Energy Cost, whenever you play a Card, that costs
+    2 or more Mana, gain +3 Equipment Cooldown
+  text: 0
 --- !u!1 &1984920429680707578
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +482,102 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: f1c6cce645592404fa50ad0d5920f34d, type: 3}
   ItemName: Black Dahlia
   ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 3 Block
+  text: 0
+--- !u!1 &2363789638655339383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4249949935941334637}
+  - component: {fileID: 6487697169175228758}
+  m_Layer: 0
+  m_Name: Energy Drink
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4249949935941334637
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2363789638655339383}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6487697169175228758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2363789638655339383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 214ba93f122142c47ada037e3a72d16e, type: 3}
+  ItemName: Energy Drink
+  ItemTooltip: Gain 1 Dexterity, every 25 Energy gained gives +1 Cooldown on Equipment
+  text: 1
+--- !u!1 &2429483237260965031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7063671280307622441}
+  - component: {fileID: 6620474353932054542}
+  m_Layer: 0
+  m_Name: Top Hat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7063671280307622441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429483237260965031}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 37
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6620474353932054542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2429483237260965031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: c26457b99a721eb489feeb1bed6db54a, type: 3}
+  ItemName: Top Hat
+  ItemTooltip: Gain 8 Max Health, whenever you play Rare Card, gain 8 Block
   text: 0
 --- !u!1 &2440812099288369952
 GameObject:
@@ -864,6 +1059,55 @@ MonoBehaviour:
   ItemName: Mead
   ItemTooltip: Enemies start with 5 Daze & 2 Slow
   text: 0
+--- !u!1 &4890951267986123716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1918853757908059547}
+  - component: {fileID: 5339150296041794411}
+  m_Layer: 0
+  m_Name: Marshmallows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1918853757908059547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4890951267986123716}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5339150296041794411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4890951267986123716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 9813ae641dd1aa74b96867941b3dc7b4, type: 3}
+  ItemName: Marshmallows
+  ItemTooltip: Gain 4 Max Health, when visiting Camp, Restore 2 Health & 1 Sanity
+    for every 5 Cards in Deck
+  text: 0
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,6 +1171,11 @@ Transform:
   - {fileID: 2484618458074942376}
   - {fileID: 477598972043523376}
   - {fileID: 4104171539859828381}
+  - {fileID: 4249949935941334637}
+  - {fileID: 1918853757908059547}
+  - {fileID: 6655590596561376287}
+  - {fileID: 7063671280307622441}
+  - {fileID: 1612456115443030920}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -977,6 +1226,11 @@ MonoBehaviour:
   - {fileID: 50685512437022805}
   - {fileID: 5106891782541665676}
   - {fileID: 6501166474729408699}
+  - {fileID: 6487697169175228758}
+  - {fileID: 5339150296041794411}
+  - {fileID: 5159025006535899560}
+  - {fileID: 6620474353932054542}
+  - {fileID: 6806182152654394075}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,7 +1615,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: dc2aaffd388350844bc0eba5ca033649, type: 3}
   ItemName: Ring of Dexterity
-  ItemTooltip: Gain 2 Dexterity, ending Turn with unspent Mana gives 2 Dexterity
+  ItemTooltip: Gain 2 Dexterity, whenever you gain 4 or more Energy, increase it
+    by 1
   text: 0
 --- !u!1 &7590636758870944764
 GameObject:
@@ -1409,8 +1664,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 7170a5fdbd2250d4e8cfbb3184c9f508, type: 3}
   ItemName: Ring of Resistance
-  ItemTooltip: Gain 1 Resistance, dealing over 32 Damage at once gives 1 Resistance
-    (once per Turn)
+  ItemTooltip: Gain 1 Resistance, whenever you gain 15 or more Block, increase it
+    by 3
   text: 0
 --- !u!1 &7595522785966974393
 GameObject:

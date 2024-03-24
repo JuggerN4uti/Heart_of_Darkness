@@ -416,9 +416,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 6 Damage, Apply Daze equal to Damage dealt & 1 Slow
-  - Deal 7 Damage, Apply Daze equal to Damage dealt & 2 Slow
-  - Deal 8 Damage, Apply Daze equal to Damage dealt & 3 Slow
+  - Deal 7 Damage, Apply 1 Daze per 2 Damage dealt & 1 Slow
+  - Deal 8 Damage, Apply 1 Daze per 2 Damage dealt & 2 Slow
+  - Deal 10 Damage, Apply 1 Daze per 2 Damage dealt & 3 Slow
 --- !u!1 &959071048080588986
 GameObject:
   m_ObjectHideFlags: 0
@@ -884,9 +884,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 2 Strength and Energy. Destroy
-  - Gain 3 Strength and Energy. Destroy
-  - Gain 4 Strength and Energy. Destroy
+  - Gain 2 Strength and 2 Energy. Destroy
+  - Gain 3 Strength and 4 Energy. Destroy
+  - Gain 4 Strength and 6 Energy. Destroy
 --- !u!1 &1487637774565216117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,9 +2157,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 9 Damage, Apply 6 Daze & 3 Slow. Damage Dealt increased by targets Daze
-  - Deal 13 Damage, Apply 8 Daze & 4 Slow. Damage Dealt increased by targets Daze
-  - Deal 17 Damage, Apply 10 Daze & 5 Slow. Damage Dealt increased by targets Daze
+  - Deal 11 Damage, Apply 4 Daze & 3 Slow. Damage Dealt increased by targets Daze
+  - Deal 15 Damage, Apply 6 Daze & 4 Slow. Damage Dealt increased by targets Daze
+  - Deal 19 Damage, Apply 8 Daze & 5 Slow. Damage Dealt increased by targets Daze
 --- !u!1 &4682696695095343883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,7 +2275,7 @@ GameObject:
   - component: {fileID: 5504039358866332030}
   - component: {fileID: 847963286171541985}
   m_Layer: 0
-  m_Name: Rend
+  m_Name: Fend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2309,7 +2309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardSprite: {fileID: 21300000, guid: 97050552dc7bfca4184da9068f185821, type: 3}
-  CardName: Rend
+  CardName: Fend
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
@@ -2702,9 +2702,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 2 Dexterity, Gain 3 Energy. Destroy
-  - Gain 3 Dexterity, Gain 5 Energy. Destroy
-  - Gain 4 Dexterity, Gain 7 Energy. Destroy
+  - Gain 3 Dexterity, Gain 1 Energy. Destroy
+  - Gain 4 Dexterity, Gain 4 Energy. Destroy
+  - Gain 5 Dexterity, Gain 7 Energy. Destroy
 --- !u!1 &5928905428446462531
 GameObject:
   m_ObjectHideFlags: 0
@@ -3537,9 +3537,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
   CardTooltip:
-  - 'Deal 3 Damage, Gain 1 Storm Charge per Combo. Combo 4: Gain 2 more Storm Charges'
-  - 'Deal 4 Damage, Gain 1 Storm Charge per Combo. Combo 3: Gain 2 more Storm Charges'
-  - 'Deal 5 Damage, Gain 1 Storm Charge per Combo. Combo 3: Gain 3 more Storm Charges'
+  - 'Deal 4 Damage, Gain 1 Storm Charge per 2 Combo. Combo 4: Gain 3 more Storm Charges'
+  - 'Deal 5 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 3 more Storm Charges'
+  - 'Deal 6 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 4 more Storm Charges'
 --- !u!1 &8869626160299543852
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,6 +3849,6 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Break up to 7 Shield, Deal 10 Damage
-  - Break up to 10 Shield, Deal 13 Damage
-  - Break up to 13 Shield, Deal 16 Damage
+  - Break up to 8 Shield, Deal 10 Damage
+  - Break up to 13 Shield, Deal 12 Damage
+  - Break up to 18 Shield, Deal 14 Damage

@@ -6,10 +6,11 @@ using UnityEngine.EventSystems;
 public class WeaponHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public PlayerCombat Player;
+    public bool equipment;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Player.WeaponHovered();
+        Player.WeaponHovered(equipment);
     }
 
     public void OnPointerExit(PointerEventData eventData)

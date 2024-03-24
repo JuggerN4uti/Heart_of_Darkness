@@ -56,6 +56,9 @@ public class ItemsCollected : MonoBehaviour
                 case 19:
                     ItemText[i].text = (Player.Cards.cardsPlayed % 9).ToString("");
                     break;
+                case 34:
+                    ItemText[i].text = (Player.drink).ToString("");
+                    break;
             }
         }
     }

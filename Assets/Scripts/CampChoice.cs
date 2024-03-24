@@ -19,6 +19,11 @@ public class CampChoice : MonoBehaviour
     {
         healthRestoration = (PlayerScript.MaxHealth * 26) / 100;
         sanityRestoration = 10 + (PlayerScript.MaxSanity * 21 + 5) / 100;
+        if (PlayerScript.Item[35])
+        {
+            PlayerScript.RestoreHealth(2 * (PlayerScript.DeckScript.cardsInDeck / 5));
+            PlayerScript.RestoreSanity((PlayerScript.DeckScript.cardsInDeck / 5));
+        }
         HealthRestoredValue.text = "Restore\n" + healthRestoration.ToString("") + " Health";
         SanityRestoredValue.text = "Restore\n" + sanityRestoration.ToString("") + " Sanity";
         CampEventObject.SetActive(true);

@@ -306,10 +306,10 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Armor:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Block at the end of every Turn";
                 break;
             case 14:
-                EffectTooltip.text = "Chain Tether:\nWhenever Card is played gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Link, 9 Links grant 2 Strength";
+                EffectTooltip.text = "Chain Tether:\nWhenever Card is played gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Link, 10 Links grant 2 Strength";
                 break;
             case 15:
-                EffectTooltip.text = "Chain Link:\nUpon gaining 9 Links, gain 2 Strength";
+                EffectTooltip.text = "Chain Link:\nUpon gaining 10 Links, gain 2 Strength";
                 break;
             case 16:
                 EffectTooltip.text = "Unstoppable:\nCan't be Stunned, take 5% Max Health as Damage instead";
@@ -319,6 +319,15 @@ public class Combat : MonoBehaviour
                 break;
             case 18:
                 EffectTooltip.text = "Monster Within:\nLose " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Slow, upon reaching 0, transform into Monstrosity";
+                break;
+            case 19:
+                EffectTooltip.text = "Soul Harvest:\nWhen you end Turn with 0 Mana, gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength\n & " + (3 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Shield";
+                break;
+            case 20:
+                EffectTooltip.text = "Reaper of Souls:\nWhen you end Turn with unspent Mana, gain 1 Strength & Deal 5 Damage per Mana left";
+                break;
+            case 21:
+                EffectTooltip.text = "Unstable Power:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Mana each Turn";
                 break;
         }
     }
