@@ -8,9 +8,11 @@ public class Map : MonoBehaviour
     [Header("Scipts")]
     public MapTile[] TopTiles;
     public MapTile[] MidTiles, BotTiles;
+    public Maps MapsScript;
     public Story StoryScript;
     public Player PlayerScript;
     public Combat CombatScript;
+    public CardPick AddCard;
     public ForgeChoice ForgeScript;
     public Events EventsScript;
     public CampChoice CampScript;
@@ -112,8 +114,9 @@ public class Map : MonoBehaviour
         switch (tileEvent[currentTile * 3 + currentRow - 2])
         {
             case 0:
-                EventsScript.EnterEvent();
-                //CardEventObject.SetActive(true);
+                //EventsScript.EnterEvent();
+                AddCard.RollCards();
+                CardEventObject.SetActive(true);
                 break;
             case 1:
                 EventsScript.EnterEvent();
@@ -151,9 +154,20 @@ public class Map : MonoBehaviour
         }
         else
         {
-            Fade.StartDarken();
-            SetBoss();
-            Invoke("StartCombat", 0.4f);
+            if (MapsScript.currentMap == 0)
+            {
+                Fade.StartDarken();
+                SetElite();
+                CombatScript.elite = false;
+                CombatScript.boss = true;
+                Invoke("StartCombat", 0.4f);
+            }
+            else
+            {
+                Fade.StartDarken();
+                SetBoss();
+                Invoke("StartCombat", 0.4f);
+            }
         }
 
         for (int i = 0; i < 3; i++)
@@ -263,7 +277,6 @@ public class Map : MonoBehaviour
 
     public void SetTileEvents()
     {
-        experience = 0f;
         for (int i = 1; i < TileImage.Length; i++)
         {
             viable = false;
@@ -293,5 +306,27 @@ public class Map : MonoBehaviour
             tileEvent[tilesAmount * 3 + i - 3] = 3;
         }
         UpdateInfo();
+    }
+
+    public void ResetMap()
+    {
+        currentTile = 0;
+        for (int i = 0; i < TopTiles.Length; i++)
+        {
+            TopTiles[i].Lock();
+            TopTiles[i].SetPaths();
+            MidTiles[i].Lock();
+            MidTiles[i].SetPaths();
+            BotTiles[i].Lock();
+            BotTiles[i].SetPaths();
+        }
+        TileImage[0].color = new Color(0.6f, 1f, 0.6f, 1f);
+        TileImage[0].sprite = PlayerSprite;
+        LastImage.sprite = TileSprites[5];
+        for (int i = 1; i < 4; i++)
+        {
+            TileImage[i].color = new Color(1f, 1f, 0.6f, 1f);
+        }
+        SetTileEvents();
     }
 }

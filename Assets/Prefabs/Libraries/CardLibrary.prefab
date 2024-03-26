@@ -1429,7 +1429,7 @@ GameObject:
   - component: {fileID: 801096234572532784}
   - component: {fileID: 1362416100292348963}
   m_Layer: 0
-  m_Name: Preparation
+  m_Name: Prepared
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1463,13 +1463,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardSprite: {fileID: 21300000, guid: 672817fa7705a0e489d7db06d8e20e70, type: 3}
-  CardName: Preparation
-  CardManaCost: 0000000000000000000000000000000000000000
-  SingleUse: 0
+  CardName: Prepared
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
   CardTooltip:
-  - Gain 4 Block & +1 Combo
-  - Gain 7 Block & +1 Combo
-  - Gain 8 Block & +2 Combo
+  - Gain 4 Block & 1 permanent Combo. Every 5x Combo reached gives 6 Block
+  - Gain 6 Block & 1 permanent Combo. Every 5x Combo reached gives 8 Block
+  - Gain 8 Block & 1 permanent Combo. Every 5x Combo reached gives 10 Block
 --- !u!1 &2853611984503561597
 GameObject:
   m_ObjectHideFlags: 0

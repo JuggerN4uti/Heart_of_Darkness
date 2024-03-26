@@ -43,6 +43,11 @@ public class Events : MonoBehaviour
                 EventTexts[2].text = "Restore\n" + greenShroomRestore.ToString("0") + " Health";
                 EventTexts[3].text = "Restore\n" + pinkShroomRestore.ToString("0") + " Sanity";
                 break;
+            case 6:
+                if (PlayerScript.CursesCount > 0 && PlayerScript.Silver >= 50)
+                    EventButtons[2].interactable = true;
+                else EventButtons[2].interactable = false;
+                break;
         }
         EventObject[roll].SetActive(true);
     }
@@ -94,5 +99,11 @@ public class Events : MonoBehaviour
                 PlayerScript.RestoreSanity(pinkShroomRestore);
                 break;
         }    
+    }
+
+    public void CleanseCurse()
+    {
+        PlayerScript.SpendSilver(50);
+        PlayerScript.RemoveCurse();
     }
 }

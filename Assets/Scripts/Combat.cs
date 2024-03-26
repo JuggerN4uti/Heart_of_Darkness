@@ -10,6 +10,7 @@ public class Combat : MonoBehaviour
     public PlayerCombat Player;
     public EnemyCombat[] Enemy;
     public Story StoryScript;
+    public Maps MapsScript;
     public Map MapScript;
     public SceneChange Fade;
     public AdventureResults AdventureScript;
@@ -146,7 +147,7 @@ public class Combat : MonoBehaviour
         Fade.StartDarken();
         Player.Set();
         if (boss)
-            Invoke("ReturnToCamp", 0.4f);
+            Invoke("LevelCompleted", 0.4f);
         else Invoke("ReturnToMap", 0.4f);
     }
 
@@ -160,6 +161,15 @@ public class Combat : MonoBehaviour
     {
         LootEvent.SetRewards(mapDanger, elite);
         MapScript.experience += mapDanger * 0.25f;
+        CombatScene.SetActive(false);
+        Hand.SetActive(false);
+    }
+
+    void LevelCompleted()
+    {
+        LootEvent.SetRewards(mapDanger, elite);
+        MapScript.experience += mapDanger * 0.25f;
+        MapsScript.MapCompleted();
         CombatScene.SetActive(false);
         Hand.SetActive(false);
     }
@@ -255,6 +265,9 @@ public class Combat : MonoBehaviour
                 break;
             case 18:
                 EffectTooltip.text = "Storm Charge:\nUpon reaching 7 Charges summon Lighting at random Enemy";
+                break;
+            case 19:
+                EffectTooltip.text = "Prepared:\nUpon reaching 5x Combo Gain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block";
                 break;
         }
     }

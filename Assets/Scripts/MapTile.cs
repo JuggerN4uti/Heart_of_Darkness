@@ -16,7 +16,7 @@ public class MapTile : MonoBehaviour
         SetPaths();
     }
 
-    void SetPaths()
+    public void SetPaths()
     {
         if (middle)
         {
@@ -37,5 +37,17 @@ public class MapTile : MonoBehaviour
     {
         path[which] = true;
         Line[which].SetActive(true);
+    }
+
+    public void Lock()
+    {
+        for (int i = 0; i < path.Length; i++)
+        {
+            path[i] = false;
+        }
+        for (int i = 0; i < Line.Length; i++)
+        {
+            Line[i].SetActive(false);
+        }
     }
 }

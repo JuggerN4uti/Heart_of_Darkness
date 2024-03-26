@@ -8,6 +8,7 @@ public class EquipmentChoice : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
     public EquipmentLibrary Library;
+    public Maps MapsScript;
 
     [Header("Stats")]
     public int[] rolledID;
@@ -60,5 +61,6 @@ public class EquipmentChoice : MonoBehaviour
     {
         PlayerScript.equipment = rolledID[slot];
         EquipmentChoiceScene.SetActive(false);
+        MapsScript.NextMap();
     }
 }

@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int combo, flurry, lightningDamage;
+    int combo, permanentCombo, flurry, lightningDamage;
 
     [Header("Item Stats")]
     public int turns;
@@ -45,7 +45,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject BlockDisplay;
     public Image HealthBarFill, SanityBarFill, EnergyBarFill;
     public Button WeaponUseButton, EquipmentUseButton;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, WeaponCost, ManaValue;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ComboValue, WeaponCost, ManaValue;
     public TMPro.TextMeshProUGUI[] CurseText;
     public GameObject[] UnitObject, CurseObject;
     public Image[] UnitSprite;
@@ -79,6 +79,7 @@ public class PlayerCombat : MonoBehaviour
         mana = 0;
         energy = 0;
         combo = 0;
+        permanentCombo = 0;
         flurry = 0;
         attacks = 0;
         drink = 0;
@@ -113,6 +114,8 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[38])
             eqEnergyCost = 0;
         else eqEnergyCost = ELibrary.Equipments[eqID].Cost;
+        if (PlayerScript.Item[39])
+            effect[0] += (PlayerScript.MaxHealth - PlayerScript.BaseHealth) / 20;
         uses = ELibrary.Equipments[eqID].Uses;
         maxCooldown = ELibrary.Equipments[eqID].Cooldown;
         cooldown = 0;
@@ -136,7 +139,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void StartTurn()
     {
-        combo = 0;
+        combo = permanentCombo;
         resistanceRing = true;
         if (effect[11] > 0)
             effect[11]--;
@@ -144,8 +147,8 @@ public class PlayerCombat : MonoBehaviour
         {
             if (PlayerScript.Item[0])
             {
-                if (block > 12)
-                    block = 12;
+                if (block > 13)
+                    block = 13;
             }
             else block = 0;
         }
@@ -200,6 +203,7 @@ public class PlayerCombat : MonoBehaviour
         equipmentCooldown.text = cooldown.ToString("") + "/" + maxCooldown.ToString("");
         ManaValue.text = mana.ToString("");
         EnergyValue.text = energy.ToString("");
+        ComboValue.text = combo.ToString("");
         if (shield > 0)
         {
             ShieldDisplay.SetActive(true);
@@ -272,6 +276,11 @@ public class PlayerCombat : MonoBehaviour
             TakeDamage(CombatScript.turn * 2);
         if (PlayerScript.Item[16] && effect[8] > 0)
             effect[8]--;
+        if (PlayerScript.Item[40] && mana > 0)
+        {
+            GainStrength(1);
+            GainBlock(5);
+        }
         //mana = 0;
         LoseSanity(TurnSanity());
         UpdateInfo();
@@ -360,7 +369,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    void GainHealth(int amount)
+    public void GainHealth(int amount)
     {
         maxHealth += amount;
         health += amount;
@@ -738,7 +747,7 @@ public class PlayerCombat : MonoBehaviour
         if (effect[14] > 0)
             GainBlock(effect[14]);
         if (PlayerScript.Item[37] && level >= 2)
-            GainBlock(8);
+            GainBlock(10);
         if (which < Library.neutralCards)
             UseNeutralAbility(which, level);
         else
@@ -753,7 +762,18 @@ public class PlayerCombat : MonoBehaviour
             }
             // potem dalej etc.
         }
+        GainCombo();
+    }
+
+    void GainCombo()
+    {
         combo++;
+        if (combo % 5 == 0)
+        {
+            if (effect[19] > 0)
+                GainBlock(effect[19]);
+        }
+        UpdateInfo();
     }
 
     public void UseNeutralAbility(int which, int level)
@@ -1131,7 +1151,7 @@ public class PlayerCombat : MonoBehaviour
                         else if (level == 0) return "Draw a Card\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
                         else return "Draw " + FlowLikeWaterDraw(level).ToString("") + " Cards\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
                     case 18:
-                        return "Gain " + PreparationBlock(level).ToString("") + " Block\n& +" + PreparationCombo(level).ToString("") + " Combo";
+                        return "Gain " + PreparationBlock(level).ToString("") + " Block\n& 1 permanent Combo,\nEvery 5x Combo reached, gain " + PreparationStacks(level).ToString("") + " Block\nDestroy";
                     case 19:
                         return "Deal " + StaggeringBlowDamage(level).ToString("") + " Damage\nreduce Targets\nTenacity by 1\n& Apply " + StaggeringBlowSlow(level).ToString("") + " Slow\nDestroy";
                     case 20:
@@ -1178,17 +1198,14 @@ public class PlayerCombat : MonoBehaviour
                     case 30:
                         return "Apply " + FrozenTouchBleed(level).ToString("") + " Bleed\n& " + FrozenTouchSlow(level).ToString("") + " Slow";
                     case 31:
-                        if (combo == 0)
-                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\n(0/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
-                        else if (combo == 1)
-                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain 1 Storm Charge\n(1/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                        if (combo <= 1)
+                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
                         else if (combo < EyeOfTheStormCombo(level))
-                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + combo.ToString("") + " Storm Charges\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
                         else return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges";
                 }
             }
         }
-
         return "";
     }
 
@@ -2383,22 +2400,22 @@ public class PlayerCombat : MonoBehaviour
     void Preparation(int level) // ID W 18
     {
         GainBlock(PreparationBlock(level));
-        combo += PreparationCombo(level);
+        permanentCombo++;
+        effect[19] += PreparationStacks(level);
+        Display(PreparationStacks(level), effectSprite[19]);
     }
 
     int PreparationBlock(int level)
     {
-        tempi = 4 + effect[1];
-        tempi += 3 * level;
-        if (level > 1)
-            tempi -= 2;
+        tempi = 3 + effect[1];
+        tempi += 2 * level;
         return BlockGainedModifier(tempi);
     }
 
-    int PreparationCombo(int level)
+    int PreparationStacks(int level)
     {
-        tempi = 1;
-        tempi += level / 2;
+        tempi = 6;
+        tempi += 2 * level;
         return tempi;
     }
 

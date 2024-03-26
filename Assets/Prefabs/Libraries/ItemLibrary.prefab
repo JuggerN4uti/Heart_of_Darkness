@@ -142,8 +142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 94fe9c71e69f0d14184eaf2d0ba23836, type: 3}
   ItemName: Ring of Strength
-  ItemTooltip: Gain 1 Strength, whenever you deal 23 Damage or more, increase it
-    by 5
+  ItemTooltip: Gain 1 Strength, whenever you deal 22 Damage or more, increase it
+    by 4
   text: 0
 --- !u!1 &746340115692774379
 GameObject:
@@ -483,6 +483,55 @@ MonoBehaviour:
   ItemName: Black Dahlia
   ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 3 Block
   text: 0
+--- !u!1 &2230659321674342481
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2962335600176430970}
+  - component: {fileID: 4281218603595402295}
+  m_Layer: 0
+  m_Name: Ratkings Cleaver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2962335600176430970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230659321674342481}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 39
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4281218603595402295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230659321674342481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 6a2e1d1c6d18c534ba97a24dafbdf763, type: 3}
+  ItemName: Ratkings Cleaver
+  ItemTooltip: Start Combat with 1 Strength for every 20 Bonus Health. Every Enemy
+    slain gives 1 Max Health
+  text: 0
 --- !u!1 &2363789638655339383
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,7 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: c26457b99a721eb489feeb1bed6db54a, type: 3}
   ItemName: Top Hat
-  ItemTooltip: Gain 8 Max Health, whenever you play Rare Card, gain 8 Block
+  ItemTooltip: Gain 8 Max Health, whenever you play Rare Card, gain 10 Block
   text: 0
 --- !u!1 &2440812099288369952
 GameObject:
@@ -865,7 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 4e79bc0c0d8527f4c9660da502dd3a50, type: 3}
   ItemName: Anchor
-  ItemTooltip: Up to 12 Block is retained
+  ItemTooltip: Up to 13 Block is retained
   text: 0
 --- !u!1 &3672624895320583515
 GameObject:
@@ -1176,6 +1225,8 @@ Transform:
   - {fileID: 6655590596561376287}
   - {fileID: 7063671280307622441}
   - {fileID: 1612456115443030920}
+  - {fileID: 2962335600176430970}
+  - {fileID: 2779057119862437833}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1231,6 +1282,8 @@ MonoBehaviour:
   - {fileID: 5159025006535899560}
   - {fileID: 6620474353932054542}
   - {fileID: 6806182152654394075}
+  - {fileID: 4281218603595402295}
+  - {fileID: 1958634808445760387}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1279,6 +1332,54 @@ MonoBehaviour:
   ItemName: Hourglass
   ItemTooltip: After shuffling at least 15 Cards into Draw Pile, gain 1 Mana & 3
     Energy
+  text: 0
+--- !u!1 &5266035866176851714
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2779057119862437833}
+  - component: {fileID: 1958634808445760387}
+  m_Layer: 0
+  m_Name: Reaper Scythe
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2779057119862437833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266035866176851714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 40
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1958634808445760387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266035866176851714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: c1b9c3f956a9a9f4d8b99c57708c629c, type: 3}
+  ItemName: Reaper Scythe
+  ItemTooltip: Ending Turn with unspent Mana gives 1 Strength & 5 Block
   text: 0
 --- !u!1 &5316911593553640053
 GameObject:

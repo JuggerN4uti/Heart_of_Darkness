@@ -33,7 +33,7 @@ public class MerchantChoice : MonoBehaviour
         RollCards();
         RollItems();
         EventCost[0] = 15;
-        EventCost[1] = 20;
+        EventCost[1] = 15;
 
         UpdateInfo();
 
@@ -88,12 +88,14 @@ public class MerchantChoice : MonoBehaviour
         PlayerScript.SpendSilver(EventCost[slot]);
         if (slot == 0)
         {
-            CardEventObject.SetActive(true);
-            EventCost[slot] += 3;
+            CardDeck.ShowCardsToMerge();
+            EventCost[slot] += 5;
         }
         else 
         {
-            ForgeScript.Open();
+            RollCards();
+            RollItems();
+            UpdateInfo();
             EventCost[slot] += 5;
         }
 

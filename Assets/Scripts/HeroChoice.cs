@@ -12,7 +12,7 @@ public class HeroChoice : MonoBehaviour
     [Header("UI")]
     public GameObject HeroChoiceScene;
     public GameObject EquipmentChoiceScene;
-    public GameObject MapScene, PlayerHUD;
+    public GameObject MapScene, PlayerHUD, ComboDisplay;
     public Image HeroImage;
 
     [Header("Stats")]
@@ -42,6 +42,7 @@ public class HeroChoice : MonoBehaviour
                 {
                     PlayerScript.StatValues[i] += WaterStats[i];
                 }
+                ComboDisplay.SetActive(true);
                 DeckScript.CardID[4] = 46;
                 DeckScript.CardID[9] = 63;
                 break;
@@ -56,7 +57,7 @@ public class HeroChoice : MonoBehaviour
         PlayerScript.GainStats();
         HeroChoiceScene.SetActive(false);
         EquipmentChoiceScene.SetActive(true);
-        MapScene.SetActive(true);
+        //MapScene.SetActive(true);
         PlayerHUD.SetActive(true);
     }
 }

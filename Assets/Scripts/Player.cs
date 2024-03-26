@@ -12,13 +12,14 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Class;
-    public int Health, MaxHealth, Sanity, MaxSanity, Silver, SanityLost, BaseMana, BaseDraw;
+    public int Health, MaxHealth, BaseHealth, Sanity, MaxSanity, Silver, SanityLost, BaseMana, BaseDraw;
     public int[] Gems;
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
     public bool opened, map;
     public bool[] Item; //Equipment; idk czy daæ mo¿liwe kilka 
     public int equipment;
+    int roll;
 
     [Header("Curses")]
     public int CursesCount;
@@ -69,6 +70,7 @@ public class Player : MonoBehaviour
         }
         SanityLost = 0;
         MaxHealth += StatValues[0];
+        BaseHealth = MaxHealth;
         MaxSanity += StatValues[1];
         Silver += StatValues[4];
         Health = MaxHealth;
@@ -147,11 +149,25 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void GainHP(int amount)
+    {
+        MaxHealth += amount;
+        Health += amount;
+        UpdateInfo();
+    }
+
     public void RestoreHealth(int amount)
     {
         Health += amount;
         if (Health > MaxHealth)
             Health = MaxHealth;
+        UpdateInfo();
+    }
+
+    public void GainMaxSanity(int amount)
+    {
+        MaxSanity += amount;
+        Sanity += amount;
         UpdateInfo();
     }
 
@@ -183,6 +199,19 @@ public class Player : MonoBehaviour
     {
         StatValues[3]--;
         UpdateInfo();
+    }
+
+    public void RemoveCurse()
+    {
+        if (CursesCount > 0)
+        {
+            do
+            {
+                roll = Random.Range(0, CurseValue.Length);
+            } while (CurseValue[roll] == 0);
+            CurseValue[roll]--;
+            CursesCount--;
+        }
     }
 
     public void CollectItem(int which)
@@ -266,13 +295,6 @@ public class Player : MonoBehaviour
                 GainHP(8);
                 break;
         }
-        UpdateInfo();
-    }
-
-    public void GainHP(int amount)
-    {
-        MaxHealth += amount;
-        Health += amount;
         UpdateInfo();
     }
 

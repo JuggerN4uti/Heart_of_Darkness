@@ -13,6 +13,7 @@ public class LootChoice : MonoBehaviour
     [Header("Stats")]
     public int silver;
     public int cards, uncommonCards, merges, roll, rollsCount, gemID;
+    public int bonusCardGotten;
     public bool item, gem;
     public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card, 3 - gem, 4 - item, 5 - merge
     public float gemCharge, bonusCardCharge, qualityUpgradeCharge, mergeCharge;
@@ -84,7 +85,7 @@ public class LootChoice : MonoBehaviour
                     ChargeQuality(0.016f);
                     break;
             }
-            dangerBonus -= 1.08f + rollsCount * 0.18f;
+            dangerBonus -= 1.075f + rollsCount * 0.175f;
             rollsCount++;
         }
         UpdateLoot();
@@ -200,10 +201,11 @@ public class LootChoice : MonoBehaviour
         bonusCardCharge += amount;
         while (bonusCardCharge >= 1f)
         {
-            bonusCardCharge -= 1.06f;
+            bonusCardGotten++;
+            bonusCardCharge -= 1.04f + 0.01f * bonusCardGotten;
             cards++;
             ChargeQuality(0.01f);
-            ChargeMerge(0.066f);
+            ChargeMerge(0.044f + 0.011f * bonusCardGotten);
         }
     }
 

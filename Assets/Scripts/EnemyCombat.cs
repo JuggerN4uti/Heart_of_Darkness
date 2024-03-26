@@ -14,7 +14,7 @@ public class EnemyCombat : MonoBehaviour
     public int unitID;
     public int order, level, maxHealth, health, shield, block, slow, tenacity;
     public int[] effect;
-    bool stunned;
+    bool stunned, slain;
     int tempi, tempi2;
 
     [Header("Additional Stats")]
@@ -115,6 +115,7 @@ public class EnemyCombat : MonoBehaviour
             effect[12] = 1;
         }
         stunned = false;
+        slain = false;
     }
 
     void UpdateInfo()
@@ -200,7 +201,7 @@ public class EnemyCombat : MonoBehaviour
         {
             currentMove = Random.Range(0, movesCount);
             moveCooldown[currentMove]--;
-            if (moveCooldown[currentMove] == 0)
+            if (moveCooldown[currentMove] <= 0)
                 viable = true;
         } while (!viable);
 
@@ -272,7 +273,7 @@ public class EnemyCombat : MonoBehaviour
             if (CombatScript.Player.mana > 0)
             {
                 GainStrength(CombatScript.Player.mana);
-                unstableCharge += 0.02f * CombatScript.Player.mana;
+                unstableCharge -= 0.02f * CombatScript.Player.mana * CombatScript.Player.mana;
             }
         }
     }
@@ -633,7 +634,7 @@ public class EnemyCombat : MonoBehaviour
                     OnHit();
                     CombatScript.Player.GainTerror(LevelCalculated(2));
                     CombatScript.Player.LoseSanity(Random.Range(6 + CursesOnPlayer(), 13 + CursesOnPlayer()));
-                    Unstable(0.1f);
+                    Unstable(0.14f);
                     break;
                 case (14, 1): // Reap
                     if (AttackDamage() > CombatScript.Player.TotalBlock())
@@ -647,14 +648,14 @@ public class EnemyCombat : MonoBehaviour
                     tempi2 = LevelCalculated(12);
                     tempi2 += (AttackDamage() * 2 + tempi * 3) / 5;
                     GainBlock(tempi2);
-                    Unstable(0.14f + 0.012f * effect[3]);
+                    Unstable(0.18f + 0.016f * effect[3]);
                     break;
                 case (14, 2): // More!
                     GainStrength(LevelCalculated(4 + effect[3] / 5));
                     effect[11] += LevelCalculated(2 + (effect[3] * 1) / 3);
                     Display(LevelCalculated(2 + effect[3] / 3), effectSprite[11]);
                     GainBlock(LevelCalculated(21));
-                    Unstable(1.1f + 0.079f * effect[21]);
+                    Unstable(1.24f + 0.091f * effect[21]);
                     break;
                 case (14, 3): // Damnation
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -663,7 +664,7 @@ public class EnemyCombat : MonoBehaviour
                     tempi /= 11;
                     if (tempi > 0)
                         CombatScript.Player.GainVulnerable(tempi);
-                    Unstable(0.19f + 0.019f * totalUnspentMana);
+                    Unstable(0.24f + 0.024f * totalUnspentMana);
                     break;
             }
         }
@@ -730,7 +731,7 @@ public class EnemyCombat : MonoBehaviour
 
     public int DamnationDamage()
     {
-        tempi = movesValue[currentMove] + LevelCalculated((totalUnspentMana * 4) / 9);
+        tempi = movesValue[currentMove] + LevelCalculated((totalUnspentMana * 22) / 45);
         return tempi;
     }
 
@@ -778,11 +779,11 @@ public class EnemyCombat : MonoBehaviour
             amount /= 5;
             GainBleed(1);
         }
-        if (PlayerScript.Item[31] && amount >= 23)
+        if (PlayerScript.Item[31] && amount >= 22)
         {
             if (PlayerScript.Item[33])
-                amount += 10;
-            else amount += 5;
+                amount += 8;
+            else amount += 4;
         }
         /*if (PlayerScript.Item[31] && amount >= 32 && CombatScript.Player.resistanceRing)
             CombatScript.Player.RingOfResistance();*/
@@ -814,13 +815,16 @@ public class EnemyCombat : MonoBehaviour
             }
         }
         health -= amount;
-        if (health <= 0)
+        if (health <= 0 && !slain)
             Perish();
         UpdateInfo();
     }
 
     void Perish()
     {
+        slain = true;
+        if (PlayerScript.Item[39])
+            CombatScript.Player.GainHealth(1);
         Unit.SetActive(false);
         CombatScript.EnemyDefeated(order);
     }
@@ -971,7 +975,7 @@ public class EnemyCombat : MonoBehaviour
     {
         unstableCharge += amount;
         tempi = 0;
-        while (unstableCharge >= 1f)
+        while (unstableCharge >= 1f + effect[21] * 0.25f)
         {
             tempi++;
             unstableCharge -= 1f;
