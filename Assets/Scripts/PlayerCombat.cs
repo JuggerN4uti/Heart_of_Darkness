@@ -58,7 +58,7 @@ public class PlayerCombat : MonoBehaviour
     public Rigidbody2D Body;
     public Transform Origin;
     public Display Displayed;
-    public Sprite DamageSprite, MagicDamageSprite, HealthSprite, ShieldSprite, BlockSprite, InsanitySprite, SanitySprite;
+    public Sprite DamageSprite, MagicDamageSprite, HealthSprite, RestoreSprite, ShieldSprite, BlockSprite, InsanitySprite, SanitySprite;
     public Sprite[] effectSprite;
     public int[] effectsActive;
     int statusCount;
@@ -76,6 +76,7 @@ public class PlayerCombat : MonoBehaviour
 
         manaGain = PlayerScript.BaseMana;
         cardDraw = PlayerScript.BaseDraw;
+        block = 0;
         mana = 0;
         energy = 0;
         combo = 0;
@@ -83,7 +84,7 @@ public class PlayerCombat : MonoBehaviour
         flurry = 0;
         attacks = 0;
         drink = 0;
-        lightningDamage = 32;
+        lightningDamage = 40;
 
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
@@ -179,6 +180,14 @@ public class PlayerCombat : MonoBehaviour
         if (effect[12] > 0)
             Cards.Draw(cardDraw - 1);
         else Cards.Draw(cardDraw);
+        if (effect[21] > 0)
+        {
+            for (int i = 0; i < effect[21]; i++)
+            {
+                Riptide(0, false);
+            }
+            effect[21] = 0;
+        }
         if (PlayerScript.Item[23] && CombatScript.turn % 2 == 1)
             Cards.Draw(1);
         if (PlayerScript.CurseValue[2] > 0 && CombatScript.turn % 2 == 0)
@@ -254,6 +263,12 @@ public class PlayerCombat : MonoBehaviour
         display_body.AddForce(Origin.up * Random.Range(1.75f, 2.5f), ForceMode2D.Impulse);
     }
 
+    public void Effect(GameObject effect, float rotation)
+    {
+        Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + rotation);
+        GameObject display = Instantiate(effect, Origin.position, Origin.rotation);
+    }
+
     public void EndTurn()
     {
         if (energy > 10)
@@ -268,6 +283,8 @@ public class PlayerCombat : MonoBehaviour
             effect[10]--;
         if (effect[12] > 0)
             effect[12]--;
+        if (effect[20] > 0)
+            TakeMagicDamage(effect[20]);
         if (CombatScript.Enemy[0].effect[20] > 0 && mana > 0)
             TakeDamage(mana * 5);
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
@@ -400,7 +417,7 @@ public class PlayerCombat : MonoBehaviour
     void RestoreHealth(int amount)
     {
         health += amount;
-        Display(amount, HealthSprite);
+        Display(amount, RestoreSprite);
         if (health > maxHealth)
             health = maxHealth;
         UpdateInfo();
@@ -526,18 +543,26 @@ public class PlayerCombat : MonoBehaviour
     public void GainStormCharge(int amount)
     {
         effect[18] += amount;
-        while (effect[18] >= 7)
+        while (effect[18] >= 10)
         {
-            effect[18] -= 7;
+            effect[18] -= 10;
             if (CombatScript.enemiesAlive > 0)
             {
                 tempi = CombatScript.RandomEnemy();
+                CombatScript.Effect(false, 11, true, tempi);
                 CombatScript.Enemy[tempi].TakeDamage(lightningDamage);
-                CombatScript.Enemy[tempi].GainSlow(2 + lightningDamage / 24);
-                lightningDamage += 4;
+                CombatScript.Enemy[tempi].GainSlow((10 + lightningDamage) / 20);
+                lightningDamage += 5;
             }
         }
         //Display(amount, effectSprite[18]);
+        UpdateInfo();
+    }
+
+    public void GainPoison(int amount)
+    {
+        effect[20] += amount;
+        Display(amount, effectSprite[20]);
         UpdateInfo();
     }
 
@@ -585,6 +610,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void UseWeapon()
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(WeaponDamage());
         OnHit();
         SpendEnergy(energyCost);
@@ -995,6 +1021,15 @@ public class PlayerCombat : MonoBehaviour
             case 31:
                 EyeOfTheStorm(level);
                 break;
+            case 32:
+                Acclimation(level);
+                break;
+            case 33:
+                Torrent(level);
+                break;
+            case 34:
+                Riptide(level, true);
+                break;
         }
     }
 
@@ -1161,7 +1196,7 @@ public class PlayerCombat : MonoBehaviour
                     case 22:
                         return "Gain " + StrengthOfTheDepthsStrength(level).ToString("") + " Strength\n& " + StrengthOfTheDepthsBlock(level).ToString("") + " Block";
                     case 23:
-                        return "Increase your Weapon Damage by " + TridentOfStormsDamage(level).ToString("") + "\nEvery Weapon Attack Gives 1 Storm Charge\nDestroy";
+                        return "Every Weapon Attack Gives " + TridentOfStormsStacks(level).ToString("") + " Storm Charges\nDestroy";
                     case 24:
                         return "Gain " + ConduitBlock(level).ToString("") + " Block\n& " + ConduitCharges(level).ToString("") + " Storm Charges";
                     case 25:
@@ -1203,6 +1238,12 @@ public class PlayerCombat : MonoBehaviour
                         else if (combo < EyeOfTheStormCombo(level))
                             return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
                         else return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges";
+                    case 32:
+                        return "Gain " + AcclimationBlock(level).ToString("") + " Block\nApply " + AcclimationSlow(level).ToString("") + " Slow";
+                    case 33:
+                        return "Deal " + TorrentDamage(level).ToString("") + " Damage\nGain " + TorrentCharges(level).ToString("") + " Storm Charges";
+                    case 34:
+                        return "Deal " + RiptideDamage().ToString("") + " Damage\n& Apply 2 Slow\nto all Enemies\nRepeat " + RiptideRecasts(level).ToString("") + " Time/s next Turn";
                 }
             }
         }
@@ -1223,6 +1264,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Dagger() // 1
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DaggerDamage());
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(1);
@@ -1246,6 +1288,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Mace() // 4
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(MaceDamage());
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(1);
@@ -1261,6 +1304,7 @@ public class PlayerCombat : MonoBehaviour
     // NEUTRAL
     void Strike(int level) // ID N 0
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StrikeDamage(level));
         OnHit();
     }
@@ -1287,6 +1331,7 @@ public class PlayerCombat : MonoBehaviour
     // LIGHT
     void SpearThrust(int level) // ID L 0
     {
+        CombatScript.Effect(false, 2, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(SpearThrustBreak(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SpearThrustDamage(level));
         OnHit();
@@ -1308,6 +1353,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Judgement(int level) // ID L 1
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(JudgementDamage(level));
         OnHit();
         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
@@ -1333,6 +1379,7 @@ public class PlayerCombat : MonoBehaviour
 
     void BolaShot(int level) // ID L 2
     {
+        CombatScript.Effect(false, 3, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BolaShotDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(BolaShotSlow(level));
@@ -1354,6 +1401,7 @@ public class PlayerCombat : MonoBehaviour
 
     void CripplingStrike(int level) // ID L 3
     {
+        CombatScript.Effect(false, 2, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CripplingStrikeDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CripplingStrikeBleed(level));
@@ -1431,6 +1479,7 @@ public class PlayerCombat : MonoBehaviour
 
     void ShieldBash(int level) // ID L 7
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         if (level > 0)
             GainBlock(ShieldBashBlock(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ShieldBashDamage(level));
@@ -1466,6 +1515,7 @@ public class PlayerCombat : MonoBehaviour
 
     void DecisiveStrike(int level) // ID L 9
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DecisiveStrikeDamage(level));
         OnHit();
         GainValor(DecisiveStrikeValor(level));
@@ -1513,7 +1563,10 @@ public class PlayerCombat : MonoBehaviour
         for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
         {
             if (CombatScript.enemyAlive[i])
-                CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(GoldenAegisSlow(level));
+            {
+                CombatScript.Effect(false, 4, true, i);
+                CombatScript.Enemy[i].GainSlow(GoldenAegisSlow(level));
+            }
         }
     }
 
@@ -1556,6 +1609,7 @@ public class PlayerCombat : MonoBehaviour
     void ShieldGlare(int level) // ID L 13
     {
         GainBlock(ShieldGlareBlock(level));
+        CombatScript.Effect(false, 5, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].GainWeak(ShieldGlareWeak(level));
     }
 
@@ -1575,6 +1629,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Smite(int level) // ID L 14
     {
+        CombatScript.Effect(false, 6, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SmiteDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(SmiteSlow(level));
@@ -1596,6 +1651,7 @@ public class PlayerCombat : MonoBehaviour
 
     void BlindingLight(int level) // ID L 15
     {
+        CombatScript.Effect(false, 5, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(BlindingLightDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(BlindingLightDaze(level));
@@ -1629,8 +1685,9 @@ public class PlayerCombat : MonoBehaviour
         {
             if (CombatScript.enemyAlive[i])
             {
-                CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ConsecrationDamage(level));
-                CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ConsecrationSlow(level));
+                CombatScript.Effect(false, 4, true, CombatScript.targetedEnemy);
+                CombatScript.Enemy[i].TakeDamage(ConsecrationDamage(level));
+                CombatScript.Enemy[i].GainSlow(ConsecrationSlow(level));
             }
         }
         OnHit();
@@ -1681,6 +1738,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Chastise(int level) // ID L 18
     {
+        CombatScript.Effect(false, 4, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ChastiseDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(ChastiseDaze(level));
@@ -1711,6 +1769,7 @@ public class PlayerCombat : MonoBehaviour
 
     void HolyBolt(int level) // ID L 19
     {
+        CombatScript.Effect(false, 7, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyBoltDamage(level));
         OnHit();
     }
@@ -1745,6 +1804,7 @@ public class PlayerCombat : MonoBehaviour
 
     void CounterAttack(int level) // ID L 21
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CounterAttackDamage(level));
         OnHit();
     }
@@ -1780,6 +1840,7 @@ public class PlayerCombat : MonoBehaviour
 
     void PatientStrike(int level) // ID L 23
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PatientStrikeDamage(level));
         OnHit();
     }
@@ -1794,6 +1855,7 @@ public class PlayerCombat : MonoBehaviour
 
     void CrushingBlow(int level) // ID L 24
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CrushingBlowDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(CrushingBlowSlow(level));
@@ -1876,7 +1938,10 @@ public class PlayerCombat : MonoBehaviour
             for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
             {
                 if (CombatScript.enemyAlive[i])
-                    CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ALightInTheDarknessSlow(level));
+                {
+                    CombatScript.Effect(false, 4, true, i);
+                    CombatScript.Enemy[i].GainSlow(ALightInTheDarknessSlow(level));
+                }
             }
         }
     }
@@ -1921,6 +1986,7 @@ public class PlayerCombat : MonoBehaviour
 
     void RighteousHammer(int level) // ID L 30
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RighteousHammerDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(RighteousHammerDaze(level));
@@ -1979,6 +2045,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Penance(int level) // ID L 32
     {
+        CombatScript.Effect(false, 6, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PenanceDamage(level));
         OnHit();
         GainBlock(PenanceBlock(level));
@@ -2024,6 +2091,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Vengeance(int level) // ID L 34
     {
+        CombatScript.Effect(false, 2, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(VengeancekDamage(level));
         OnHit();
         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
@@ -2057,6 +2125,7 @@ public class PlayerCombat : MonoBehaviour
     // WATER
     void QuickCut(int level) // ID W 0
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(QuickCutDamage(level));
         OnHit();
     }
@@ -2070,6 +2139,7 @@ public class PlayerCombat : MonoBehaviour
 
     void HarpoonThrow(int level) // ID W 1
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HarpoonThrowDamage(level));
         OnHit();
         Cards.Draw(HarpoonThrowDraw(level));
@@ -2093,6 +2163,7 @@ public class PlayerCombat : MonoBehaviour
 
     void CutDown(int level) // ID W 2
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CutDownDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(CutDownBleed(level));
@@ -2115,6 +2186,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Ensnare(int level) // ID W 3
     {
+        CombatScript.Effect(false, 8, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].tenacity++;
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(EnsnareSlow(level));
     }
@@ -2128,6 +2200,7 @@ public class PlayerCombat : MonoBehaviour
 
     void ViciousSlash(int level) // ID W 4
     {
+        CombatScript.Effect(false, 2, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ViciousSlashDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(ViciousSlashBleed(level));
@@ -2149,6 +2222,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Rupture(int level) // ID W 5
     {
+        CombatScript.Effect(false, 2, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RuptureDamage(level));
         OnHit();
     }
@@ -2208,7 +2282,7 @@ public class PlayerCombat : MonoBehaviour
 
     int HopBlock(int level)
     {
-        tempi = 3;
+        tempi = 3 + effect[1];
         tempi += 3 * level;
         /*tempi += level / 2;
         tempi *= (Cards.CardsInHand - 1);
@@ -2218,6 +2292,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Impale(int level) // ID W 9
     {
+        CombatScript.Effect(false, 2, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ImpaleDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ImpaleSlow(level));
@@ -2243,6 +2318,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Flurry(int level) // ID W 10
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(FlurryDamage(level));
         OnHit();
         GainEnergy(FlurryEnergy(level));
@@ -2301,6 +2377,7 @@ public class PlayerCombat : MonoBehaviour
     {
         for (int i = 0; i < DeadlySwingsAmount(level); i++)
         {
+            CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
             CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DeadlySwingsDamage(level));
             OnHit();
         }
@@ -2320,6 +2397,7 @@ public class PlayerCombat : MonoBehaviour
 
     void SteelOfSteal(int level) // ID W 14
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SteelOfStealDamage(level));
         OnHit();
         PlayerScript.GainSilver(SteelOfStealSilver(level));
@@ -2340,6 +2418,8 @@ public class PlayerCombat : MonoBehaviour
 
     void Eviscerate(int level) // ID W 15
     {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(EviscerateDamage(level));
         OnHit();
     }
@@ -2421,6 +2501,8 @@ public class PlayerCombat : MonoBehaviour
 
     void StaggeringBlow(int level) // ID W 19
     {
+        CombatScript.Effect(false, 2, false, CombatScript.targetedEnemy);
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(StaggeringBlowDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].tenacity--;
@@ -2443,6 +2525,7 @@ public class PlayerCombat : MonoBehaviour
 
     void DredgeLine(int level) // ID W 20
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DredgeLineDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(DredgeLineSlow(level));
@@ -2478,6 +2561,7 @@ public class PlayerCombat : MonoBehaviour
                 GainBlock(ShredBreak(level));
             else GainBlock(CombatScript.Enemy[CombatScript.targetedEnemy].TotalBlock());
         }
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].BreakShield(ShredBreak(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ShredDamage(level));
         OnHit();
@@ -2519,16 +2603,15 @@ public class PlayerCombat : MonoBehaviour
 
     void TridentOfStorms(int level) // ID W 23
     {
-        baseDamage += TridentOfStormsDamage(level);
-        effect[17]++;
-        Display(1, effectSprite[17]);
+        effect[17] += TridentOfStormsStacks(level);
+        Display(TridentOfStormsStacks(level), effectSprite[17]);
     }
 
-    int TridentOfStormsDamage(int level)
+    int TridentOfStormsStacks(int level)
     {
         tempi = 2;
-        tempi += 2 * level;
-        return BlockGainedModifier(tempi);
+        tempi += level;
+        return tempi;
     }
 
     void Conduit(int level) // ID W 24
@@ -2539,17 +2622,15 @@ public class PlayerCombat : MonoBehaviour
 
     int ConduitBlock(int level)
     {
-        tempi = 11 + effect[1];
-        tempi += 4 * level;
-        if (level > 1)
-            tempi -= 2;
+        tempi = 12 + effect[1];
+        tempi += 2 * level;
         return BlockGainedModifier(tempi);
     }
 
     int ConduitCharges(int level)
     {
         tempi = 2;
-        tempi += level / 2;
+        tempi += level;
         return tempi;
     }
 
@@ -2606,6 +2687,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Sink(int level) // ID W 27
     {
+        CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SinkDamage(level));
         OnHit();
         if (level == 0 && combo >= 2)
@@ -2637,6 +2719,7 @@ public class PlayerCombat : MonoBehaviour
     {
         for (int i = 0; i < RendAmount(level); i++)
         {
+            CombatScript.Effect(false, 2, true, CombatScript.targetedEnemy);
             CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RendDamage(level));
             OnHit();
             GainBlock(RendBlock(level));
@@ -2685,6 +2768,7 @@ public class PlayerCombat : MonoBehaviour
 
     void FrozenTouch(int level) // ID W 30
     {
+        CombatScript.Effect(false, 9, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(FrozenTouchBleed(level));
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(FrozenTouchSlow(level));
     }
@@ -2705,6 +2789,7 @@ public class PlayerCombat : MonoBehaviour
 
     void EyeOfTheStorm(int level) // ID W 31
     {
+        CombatScript.Effect(false, 10, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(EyeOfTheStormDamage(level));
         OnHit();
         GainStormCharge(EyeOfTheStormCharges(level));
@@ -2713,7 +2798,7 @@ public class PlayerCombat : MonoBehaviour
     int EyeOfTheStormDamage(int level)
     {
         tempi = 4 + effect[0];
-        tempi += level;
+        tempi += 2 * level;
         return DamageDealtModifier(tempi);
     }
 
@@ -2732,6 +2817,79 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 4;
         tempi -= (1 + level) / 2;
+        return tempi;
+    }
+
+    void Acclimation(int level) // ID W 32
+    {
+        GainBlock(AcclimationBlock(level));
+        CombatScript.Effect(false, 9, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(AcclimationSlow(level));
+    }
+
+    int AcclimationBlock(int level)
+    {
+        tempi = 2;
+        tempi += 4 * level;
+        tempi -= (level / 2) * 3;
+        tempi += 2 * CombatScript.Enemy[CombatScript.targetedEnemy].tenacity;
+        return BlockGainedModifier(tempi);
+    }
+
+    int AcclimationSlow(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    void Torrent(int level) // ID W 33
+    {
+        CombatScript.Effect(false, 10, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(TorrentDamage(level));
+        OnHit();
+        GainStormCharge(TorrentCharges(level));
+    }
+
+    int TorrentDamage(int level)
+    {
+        tempi = 10 + effect[0];
+        tempi += 3 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int TorrentCharges(int level)
+    {
+        tempi = 3;
+        tempi += level;
+        return tempi;
+    }
+
+    void Riptide(int level, bool initial)
+    {
+        for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
+        {
+            if (CombatScript.enemyAlive[i])
+            {
+                CombatScript.Effect(false, 12, true, i);
+                CombatScript.Enemy[i].TakeDamage(RiptideDamage());
+                CombatScript.Enemy[i].GainSlow(2);
+            }
+        }
+        OnHit();
+        if (initial)
+            effect[21] += RiptideRecasts(level);
+    }
+
+    int RiptideDamage()
+    {
+        tempi = 12 + effect[0];
+        return DamageDealtModifier(tempi);
+    }
+
+    int RiptideRecasts(int level)
+    {
+        tempi = 1 + level;
         return tempi;
     }
 

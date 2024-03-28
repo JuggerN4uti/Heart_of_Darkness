@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
     public int[] EventCooldown, EventsCooldowns;
     public int currentTile, currentRow, tilesAmount, treasureTile;
     public float danger, eliteDanger, experience;
-    int roll, tempi;
+    int roll, roll2, roll3, tempi;
     float temp;
     bool viable;
 
@@ -140,6 +140,7 @@ public class Map : MonoBehaviour
                 break;
             case 6:
                 ItemPickScript.RollItems();
+                danger += 0.77f + danger * 0.04f;
                 break;
         }
     }
@@ -157,7 +158,8 @@ public class Map : MonoBehaviour
             if (MapsScript.currentMap == 0)
             {
                 Fade.StartDarken();
-                SetElite();
+                roll = Library.EliteRoll();
+                CombatScript.SetEnemy(roll, 0);
                 CombatScript.elite = false;
                 CombatScript.boss = true;
                 Invoke("StartCombat", 0.4f);
@@ -199,15 +201,45 @@ public class Map : MonoBehaviour
             CombatScript.SetEnemy(0, 0);
         else
         {
-            tempi = 0;
-            temp = danger;
-            while (temp > 3.25f)
+            if (danger >= 52f && danger > Random.Range(0f, danger + 117f))
             {
-                temp -= 1.72f + tempi * 0.34f;
-                tempi++;
+                tempi = 0;
+                temp = danger -= 17.5f;
+                while (temp > 0f)
+                {
+                    temp -= 5.7f + tempi * 1.1f;
+                    tempi++;
+                }
+                roll = Library.BasicRoll();
+                roll2 = Library.BasicRoll();
+                roll3 = Library.BasicRoll();
+                CombatScript.Set3Enemies(roll, roll2, roll3, tempi);
             }
-            roll = Library.BasicRoll();
-            CombatScript.SetEnemy(roll, tempi);
+            else if (danger >= 12f && danger > Random.Range(0f, danger + 18f))
+            {
+                tempi = 0;
+                temp = danger -= 7.5f;
+                while (temp > 0f)
+                {
+                    temp -= 3.3f + tempi * 0.63f;
+                    tempi++;
+                }
+                roll = Library.BasicRoll();
+                roll2 = Library.BasicRoll();
+                CombatScript.Set2Enemies(roll, roll2, tempi);
+            }
+            else
+            {
+                tempi = 0;
+                temp = danger -3.25f;
+                while (temp > 0f)
+                {
+                    temp -= 1.72f + tempi * 0.34f;
+                    tempi++;
+                }
+                roll = Library.BasicRoll();
+                CombatScript.SetEnemy(roll, tempi);
+            }
         }
     }
 

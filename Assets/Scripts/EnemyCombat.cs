@@ -16,6 +16,7 @@ public class EnemyCombat : MonoBehaviour
     public int[] effect;
     bool stunned, slain;
     int tempi, tempi2;
+    float temp;
 
     [Header("Additional Stats")]
     public float soulShards;
@@ -46,9 +47,9 @@ public class EnemyCombat : MonoBehaviour
     public Image[] StatusImages;
     public TMPro.TextMeshProUGUI[] StatusValues;
     public Rigidbody2D Body;
-    public Transform Origin;
+    public Transform Origin, Origin2;
     public Display Displayed;
-    public Sprite DamageSprite, HealthSprite, ShieldSprite, BreakSprite, BlockSprite, SlowSprite;
+    public Sprite DamageSprite, HealthSprite, RestoreSprite, ShieldSprite, BreakSprite, BlockSprite, SlowSprite, LevelSprite;
     public Sprite[] effectSprite;
     public int[] effectsActive;
     int statusCount;
@@ -84,8 +85,11 @@ public class EnemyCombat : MonoBehaviour
             attackIntentions[i] = Library.Enemies[ID].attackIntention[i];
             normalAttacks[i] = Library.Enemies[ID].normalAttack[i];
         }
-        if (unitID == 11)
-            slow = LevelCalculated(35);
+        if (effect[18] > 5)
+        {
+            tenacity += effect[18] - 5;
+            effect[18] = 5;
+        }
         if (PlayerScript.Item[15])
         {
             GainDaze(5);
@@ -109,7 +113,7 @@ public class EnemyCombat : MonoBehaviour
         {
             effect[i] = LevelCalculated(Library.Enemies[unitID].StartingEffects[i]);
         }
-        if (effect[12] > 0)
+        if (effect[12] > 1)
         {
             effect[4] += effect[12] - 1;
             effect[12] = 1;
@@ -174,6 +178,12 @@ public class EnemyCombat : MonoBehaviour
         display_body.AddForce(Origin.up * Random.Range(1.75f, 2.5f), ForceMode2D.Impulse);
     }
 
+    public void Effect(GameObject effect, float rotation)
+    {
+        Origin.rotation = Quaternion.Euler(Origin.rotation.x, Origin.rotation.y, Body.rotation + rotation);
+        GameObject display = Instantiate(effect, Origin2.position, Origin.rotation);
+    }
+
     public void StartTurn()
     {
         if (effect[0] > 0)
@@ -186,6 +196,12 @@ public class EnemyCombat : MonoBehaviour
         }
         if (effect[10] > 0)
             effect[10]--;
+        if (effect[18] > 0)
+        {
+            effect[18]--;
+            if (effect[18] == 0)
+                UnleashMonster();
+        }
         UpdateInfo();
         if (!stunned)
         {
@@ -220,6 +236,8 @@ public class EnemyCombat : MonoBehaviour
                 currentMoveValue = PiercingPainDamage();
             else if (unitID == 14 && currentMove == 3)
                 currentMoveValue = DamnationDamage();
+            else if (unitID == 15 && currentMove == 0)
+                currentMoveValue = GorgeDamage();
             else currentMoveValue = movesValue[currentMove];
         }
     }
@@ -234,7 +252,10 @@ public class EnemyCombat : MonoBehaviour
     public void EndTurn()
     {
         if (effect[1] > 0)
+        {
+            CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
             TakeDamage(effect[1]);
+        }
         if (block > 0)
             block = 0;
     }
@@ -249,8 +270,6 @@ public class EnemyCombat : MonoBehaviour
             CombatScript.Player.LoseSanity(effect[6]);
         if (effect[13] > 0)
             GainBlock(effect[13]);
-        if (effect[18] > 0)
-            LoseSlow(effect[18]);
         if (stunned)
         {
             stunned = false;
@@ -556,6 +575,7 @@ public class EnemyCombat : MonoBehaviour
                     GainShield(LevelCalculated(68));
                     GainDaze(LevelCalculated(2 * movesCooldowns[3] - 3));
                     movesCooldowns[3]++;
+                    moveCooldown[3]++;
                     break;
                 case (11, 0): // Strange Potion
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -569,17 +589,21 @@ public class EnemyCombat : MonoBehaviour
                     tempi = Random.Range(0, 3);
                     if (tempi > 0)
                         GainStrength(LevelCalculated(tempi));
-                    tempi = Random.Range(3, 9);
+                    tempi = Random.Range(4, 10);
                     GainHealth(LevelCalculated(tempi));
-                    tempi = Random.Range(0, 3);
-                    tempi += effect[18] / 4;
-                    LoseSlow(LevelCalculated(tempi));
                     break;
                 case (11, 2): // Succumb
-                    GainBlock(LevelCalculated(20));
-                    effect[18] += LevelCalculated(1);
-                    Display(LevelCalculated(1), effectSprite[18]);
-                    LoseSlow(LevelCalculated(1));
+                    tempi = 16;
+                    tempi2 = LevelCalculated(2);
+                    if (slow >= tempi2)
+                        slow -= tempi2;
+                    else
+                    {
+                        tempi2 -= slow;
+                        tempi += 6 * tempi2;
+                        slow = 0;
+                    }
+                    GainBlock(LevelCalculated(tempi));
                     break;
                 case (12, 0): // Smash
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -666,6 +690,52 @@ public class EnemyCombat : MonoBehaviour
                         CombatScript.Player.GainVulnerable(tempi);
                     Unstable(0.24f + 0.024f * totalUnspentMana);
                     break;
+                case (15, 0): // Gorge
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    GainHealth(AttackDamage() / 4);
+                    temp = 1.02f + level * 0.14f;
+                    tempi = 0;
+                    while (temp >= 1f)
+                    {
+                        temp -= 1f;
+                        tempi++;
+                    }
+                    GainLevel(tempi);
+                    while (temp > 0.3f)
+                    {
+                        tempi = Random.Range(0, 3);
+                        switch (tempi)
+                        {
+                            case 0:
+                                GainStrength(2);
+                                break;
+                            case 1:
+                                effect[4] += 1;
+                                Display(1, effectSprite[4]);
+                                break;
+                            case 2:
+                                tenacity++;
+                                UpdateInfo();
+                                break;
+                        }
+                        temp -= 0.3f;
+                    }
+                    movesCooldowns[0] += 4;
+                    moveCooldown[0] += 4;
+                    break;
+                case (15, 1): // Hook
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainBleed(LevelCalculated(3));
+                    moveCooldown[0] -= LevelCalculated(2);
+                    break;
+                case (15, 3): // Vile Gas
+                    CombatScript.Player.GainPoison(LevelCalculated(3) / 2);
+                    CombatScript.Player.GainWeak(LevelCalculated(1));
+                    CombatScript.Player.LoseSanity(Random.Range(5, 10));
+                    moveCooldown[0] -= LevelCalculated(1);
+                    break;
             }
         }
     }
@@ -695,6 +765,8 @@ public class EnemyCombat : MonoBehaviour
                 TakeDamage(6);
             if (effect[16] > 0)
                 TakeDamage(maxHealth / 20);
+            else if (effect[18] > 0)
+                effect[18]++;
             else stunned = true;
         }
         UpdateInfo();
@@ -735,6 +807,12 @@ public class EnemyCombat : MonoBehaviour
         return tempi;
     }
 
+    public int GorgeDamage()
+    {
+        tempi = movesValue[currentMove] + LevelCalculated(CombatScript.Player.health / 8);
+        return tempi;
+    }
+
     int DamageDealtModifier(int value)
     {
         value += effect[3];
@@ -745,8 +823,8 @@ public class EnemyCombat : MonoBehaviour
         }
         if (effect[10] > 0)
         {
-            value *= 32 + effect[10];
-            value /= 25;
+            value *= 60 + effect[10];
+            value /= 50;
         }
         if (CombatScript.Player.effect[16] > 0)
         {
@@ -779,7 +857,7 @@ public class EnemyCombat : MonoBehaviour
             amount /= 5;
             GainBleed(1);
         }
-        if (PlayerScript.Item[31] && amount >= 22)
+        if (PlayerScript.Item[30] && amount >= 22)
         {
             if (PlayerScript.Item[33])
                 amount += 8;
@@ -872,7 +950,7 @@ public class EnemyCombat : MonoBehaviour
     void RestoreHealth(int amount)
     {
         health += amount;
-        Display(amount, HealthSprite);
+        Display(amount, RestoreSprite);
         if (health > maxHealth)
             health = maxHealth;
         UpdateInfo();
@@ -908,14 +986,6 @@ public class EnemyCombat : MonoBehaviour
         {
             Stunned();
         }
-        UpdateInfo();
-    }
-
-    void LoseSlow(int amount)
-    {
-        slow -= amount;
-        if (slow <= 0 && unitID == 11)
-            UnleashMonster();
         UpdateInfo();
     }
 
@@ -1020,7 +1090,7 @@ public class EnemyCombat : MonoBehaviour
         health += LevelCalculated(30);
         maxHealth += LevelCalculated(30);
         slow = 0;
-        tenacity /= 6;
+        tenacity = LevelCalculated(4);
         if (!stunned)
             stunned = true;
         effect[3] += effect[3] / 2;
@@ -1038,6 +1108,27 @@ public class EnemyCombat : MonoBehaviour
             attackIntentions[i] = Library.Enemies[unitID].attackIntention[i];
             normalAttacks[i] = Library.Enemies[unitID].normalAttack[i];
         }
+    }
+
+    void GainLevel(int levels)
+    {
+        int oldHealth = LevelCalculatedDef(Library.Enemies[unitID].UnitHealth);
+        int oldTenacity = LevelCalculated(Library.Enemies[unitID].UnitTenacity);
+        int oldEnormous = LevelCalculated(Library.Enemies[unitID].StartingEffects[8]);
+
+        level += levels;
+        Display(levels, LevelSprite);
+
+        tempi2 = LevelCalculatedDef(Library.Enemies[unitID].UnitHealth) - oldHealth;
+        maxHealth += tempi2;
+        health += tempi2;
+        tempi2 = LevelCalculated(Library.Enemies[unitID].UnitTenacity) - oldTenacity;
+        tenacity += tempi2;
+        tempi2 = LevelCalculated(Library.Enemies[unitID].StartingEffects[8]) - oldEnormous;
+        effect[8] += tempi2;
+
+        LevelValue.text = (level + 1).ToString("0");
+        UpdateInfo();
     }
 
     // checks

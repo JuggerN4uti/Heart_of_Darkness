@@ -27,7 +27,11 @@ public class Combat : MonoBehaviour
     public Button EndTurnButton;
     public TMPro.TextMeshProUGUI TurnCounter, EffectTooltip;
     public GameObject CombatScene, Hand, StoryScene, ResultsScene;
+    public GameObject[] TargetedObject;
     // public string/image[] playerEffects, enemyEffects; mo¿e potem zamieniæ na premade tooltipy
+
+    [Header("Effects")]
+    public EffectsLibrary ELibrary;
 
     [Header("Loot")]
     public LootChoice LootEvent;
@@ -45,6 +49,40 @@ public class Combat : MonoBehaviour
         enemyAlive[0] = true;
         targetedEnemy = 0;
         enemiesAlive = 1;
+        Enemy[1].Unit.SetActive(false);
+        Enemy[2].Unit.SetActive(false);
+
+        ResetCombat();
+    }
+
+    public void Set2Enemies(int enemyID, int enemyID2, int enemyLevel)
+    {
+        Enemy[0].Unit.SetActive(true);
+        Enemy[0].SetUnit(enemyID, enemyLevel);
+        enemyAlive[0] = true;
+        Enemy[1].Unit.SetActive(true);
+        Enemy[1].SetUnit(enemyID2, enemyLevel);
+        enemyAlive[1] = true;
+        targetedEnemy = 0;
+        enemiesAlive = 2;
+        Enemy[2].Unit.SetActive(false);
+
+        ResetCombat();
+    }
+
+    public void Set3Enemies(int enemyID, int enemyID2, int enemyID3, int enemyLevel)
+    {
+        Enemy[0].Unit.SetActive(true);
+        Enemy[0].SetUnit(enemyID, enemyLevel);
+        enemyAlive[0] = true;
+        Enemy[1].Unit.SetActive(true);
+        Enemy[1].SetUnit(enemyID2, enemyLevel);
+        enemyAlive[1] = true;
+        Enemy[2].Unit.SetActive(true);
+        Enemy[2].SetUnit(enemyID3, enemyLevel);
+        enemyAlive[2] = true;
+        targetedEnemy = 0;
+        enemiesAlive = 3;
 
         ResetCombat();
     }
@@ -55,6 +93,13 @@ public class Combat : MonoBehaviour
         Player.Reset();
         TurnCounter.text = turn.ToString("");
         EndTurnButton.interactable = true;
+    }
+
+    public void ChooseTarget(int target)
+    {
+        TargetedObject[targetedEnemy].SetActive(false);
+        targetedEnemy = target;
+        TargetedObject[targetedEnemy].SetActive(true);
     }
 
     public void EndTurn()
@@ -121,11 +166,12 @@ public class Combat : MonoBehaviour
             WonCombat();
         else
         {
-            targetedEnemy = 0;
-            while (!enemyAlive[targetedEnemy])
+            tempi = 0;
+            while (!enemyAlive[tempi])
             {
-                targetedEnemy++;
+                tempi++;
             }
+            ChooseTarget(tempi);
         }
     }
 
@@ -264,10 +310,16 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Trident of Storms:\nWeapon Attack Give " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Storm Charge/s";
                 break;
             case 18:
-                EffectTooltip.text = "Storm Charge:\nUpon reaching 7 Charges summon Lighting at random Enemy";
+                EffectTooltip.text = "Storm Charge:\nUpon reaching 10 Charges summon Lighting at random Enemy";
                 break;
             case 19:
                 EffectTooltip.text = "Prepared:\nUpon reaching 5x Combo Gain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block";
+                break;
+            case 20:
+                EffectTooltip.text = "Poison:\nTake " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Magic Damage at the end of every Turn";
+                break;
+            case 21:
+                EffectTooltip.text = "Riptides:\nNext Turn, Cast Riptide " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Time/s";
                 break;
         }
     }
@@ -307,7 +359,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Vulnerable:\nTake " + (10 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage";
                 break;
             case 10:
-                EffectTooltip.text = "Chemfuel:\nDeal " + (28 + 4 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage for next " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turn/s";
+                EffectTooltip.text = "Chemfuel:\nDeal " + (20 + 2 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + "% more Damage for next " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turn/s";
                 break;
             case 11:
                 EffectTooltip.text = "Dark Blade:\nAfter breaking through target Block, Deal " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Magic Damage to them";
@@ -331,7 +383,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "More Flesh!:\nGain Max Health equal to unblocked Damage Dealt";
                 break;
             case 18:
-                EffectTooltip.text = "Monster Within:\nLose " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Slow, upon reaching 0, transform into Monstrosity";
+                EffectTooltip.text = "Monster Within:\nTransform into Monstrosity after " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Turn/s, Stun delays by 1 Turn instead";
                 break;
             case 19:
                 EffectTooltip.text = "Soul Harvest:\nWhen you end Turn with 0 Mana, gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength\n & " + (3 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Shield";
@@ -365,6 +417,17 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Frailty:\nGain " + (2 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Frail. Frail is more effective";
                 break;
         }
+    }
+
+    public void Effect(bool player, int effect, bool vertical, int enemy = 0)
+    {
+        if (vertical)
+            temp = Random.Range(-24f, 24f);
+        else temp = Random.Range(0f, 360f);
+        if (player)
+            Player.Effect(ELibrary.EffectPrefab[effect], temp);
+        else
+            Enemy[enemy].Effect(ELibrary.EffectPrefab[effect], temp);
     }
 
     public void Unhovered()

@@ -205,9 +205,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Increase your Weapon Damage by 2. Weapon attacks give 1 Storm Charge. Destroy
-  - Increase your Weapon Damage by 4. Weapon attacks give 1 Storm Charge. Destroy
-  - Increase your Weapon Damage by 6. Weapon attacks give 1 Storm Charge. Destroy
+  - Weapon attacks give 2 Storm Charges. Destroy
+  - Weapon attacks give 3 Storm Charges. Destroy
+  - Weapon attacks give 4 Storm Charges. Destroy
 --- !u!1 &584838233542896139
 GameObject:
   m_ObjectHideFlags: 0
@@ -780,9 +780,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 11 Block & 2 Storm Charges
-  - Gain 15 Block & 2 Storm Charges
-  - Gain 17 Block & 3 Storm Charges
+  - Gain 12 Block & 2 Storm Charges
+  - Gain 14 Block & 3 Storm Charges
+  - Gain 16 Block & 4 Storm Charges
 --- !u!1 &1374209237041367263
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +947,9 @@ Transform:
   - {fileID: 5176394377892208619}
   - {fileID: 1060487086601782908}
   - {fileID: 3688911315500849278}
+  - {fileID: 1910200459208623216}
+  - {fileID: 5763850089514506600}
+  - {fileID: 3055654864553012361}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2212,6 +2215,58 @@ MonoBehaviour:
   - Gain 1 Strength, Resistance & Dexterity. Destroy
   - Gain 2 Strength, Resistance & 1 Dexterity. Destroy
   - Gain 3 Strength, 2 Resistance & Dexterity. Destroy
+--- !u!1 &4688838065884363077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5763850089514506600}
+  - component: {fileID: 1555238934440777140}
+  m_Layer: 0
+  m_Name: Torrent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5763850089514506600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688838065884363077}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1555238934440777140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4688838065884363077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: a9ffec87b4772684e80a07f65e587218, type: 3}
+  CardName: Torrent
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 10 Damage & 3 Storm Charges
+  - Gain 13 Block & 4 Storm Charges
+  - Gain 16 Block & 5 Storm Charges
 --- !u!1 &4842013485589020090
 GameObject:
   m_ObjectHideFlags: 0
@@ -2486,6 +2541,9 @@ MonoBehaviour:
   - {fileID: 2346600974581395116}
   - {fileID: 8158927983350768101}
   - {fileID: 2032213507828971239}
+  - {fileID: 4784634740919980181}
+  - {fileID: 1555238934440777140}
+  - {fileID: 4552255908263330842}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -3124,6 +3182,110 @@ MonoBehaviour:
   - Deal 16 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
   - Deal 21 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
   - Deal 23 Damage. Gain 1 Energy & Apply 1 Slow for every 5 Damage
+--- !u!1 &7100370504168578127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1910200459208623216}
+  - component: {fileID: 4784634740919980181}
+  m_Layer: 0
+  m_Name: Acclimation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1910200459208623216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7100370504168578127}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 32
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4784634740919980181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7100370504168578127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: b88d29925932e1848864c01ffdcf7f20, type: 3}
+  CardName: Acclimation
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 2 Block. Block gained increased by 2 per targets Tenacity. Apply 1 Slow
+  - Gain 6 Block. Block gained increased by 2 per targets Tenacity. Apply 1 Slow
+  - Gain 7 Block. Block gained increased by 2 per targets Tenacity. Apply 2 Slow
+--- !u!1 &7225966427374117781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3055654864553012361}
+  - component: {fileID: 4552255908263330842}
+  m_Layer: 0
+  m_Name: Riptide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3055654864553012361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225966427374117781}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3116664440623484321}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4552255908263330842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225966427374117781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 656118ca4d61b4448ae7d2f179e2cc10, type: 3}
+  CardName: Riptide
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 12 Damage & Apply 2 Slow to all Enemies. Repeat this next Turn
+  - Deal 12 Damage & Apply 2 Slow to all Enemies. Repeat this Twice next Turn
+  - Deal 12 Damage & Apply 2 Slow to all Enemies. Repeat this Thrice next Turn
 --- !u!1 &7455830186716806652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,8 +3700,8 @@ MonoBehaviour:
   SingleUse: 0
   CardTooltip:
   - 'Deal 4 Damage, Gain 1 Storm Charge per 2 Combo. Combo 4: Gain 3 more Storm Charges'
-  - 'Deal 5 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 3 more Storm Charges'
-  - 'Deal 6 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 4 more Storm Charges'
+  - 'Deal 6 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 3 more Storm Charges'
+  - 'Deal 8 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 4 more Storm Charges'
 --- !u!1 &8869626160299543852
 GameObject:
   m_ObjectHideFlags: 0
