@@ -12,7 +12,7 @@ public class Events : MonoBehaviour
 
     [Header("Stats")]
     public int roll;
-    public int slimeMergeCost, forgeUpgradeCost, greenShroomRestore, pinkShroomRestore;
+    public int slimeMergeCost, greenShroomRestore, pinkShroomRestore;
 
     [Header("UI")]
     public GameObject[] EventObject;
@@ -31,11 +31,12 @@ public class Events : MonoBehaviour
                 EventButtons[0].interactable = true;
                 break;
             case 3:
-                forgeUpgradeCost = 4;
-                EventTexts[1].text = forgeUpgradeCost.ToString("0") + " Silver";
-                if (PlayerScript.Silver >= forgeUpgradeCost && DeckScript.CommonCardsInDeck() > 2)
+                if (PlayerScript.Silver >= 5 && DeckScript.CommonCardsInDeck() > 2)
                     EventButtons[1].interactable = true;
                 else EventButtons[1].interactable = false;
+                if (PlayerScript.Silver >= 25 && DeckScript.UncommonCardsInDeck() > 2)
+                    EventButtons[3].interactable = true;
+                else EventButtons[3].interactable = false;
                 break;
             case 5:
                 greenShroomRestore = (PlayerScript.MaxHealth * 12) / 100;
@@ -73,16 +74,20 @@ public class Events : MonoBehaviour
         DeckScript.DuplicateCard();
     }
 
-    public void ForgeUpgrade()
+    public void ForgeUpgrade(bool common)
     {
-        PlayerScript.SpendSilver(forgeUpgradeCost);
-        CardPickScript.RollForge();
-        CardEventObject.SetActive(true);
-        forgeUpgradeCost += 12;
-        EventTexts[1].text = forgeUpgradeCost.ToString("0") + " Silver";
-        if (PlayerScript.Silver >= forgeUpgradeCost && DeckScript.CommonCardsInDeck() > 2)
-            EventButtons[1].interactable = true;
-        else EventButtons[1].interactable = false;
+        if (common)
+        {
+            PlayerScript.SpendSilver(5);
+            CardPickScript.RollForge();
+            CardEventObject.SetActive(true);
+        }
+        else
+        {
+            PlayerScript.SpendSilver(25);
+            CardPickScript.RollForge(true);
+            CardEventObject.SetActive(true);
+        }
     }
 
     public void EatShroom(int which)

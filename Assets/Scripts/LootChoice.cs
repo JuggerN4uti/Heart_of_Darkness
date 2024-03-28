@@ -12,10 +12,10 @@ public class LootChoice : MonoBehaviour
 
     [Header("Stats")]
     public int silver;
-    public int cards, uncommonCards, merges, roll, rollsCount, gemID;
+    public int iron, cards, uncommonCards, merges, roll, rollsCount, gemID;
     public int bonusCardGotten;
     public bool item, gem;
-    public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card, 3 - gem, 4 - item, 5 - merge
+    public int[] lootID; // 0 - silver, 1 - common card, 2 - uncommon card, 3 - gem, 4 - item, 5 - merge, 6 - iron
     public float gemCharge, bonusCardCharge, qualityUpgradeCharge, mergeCharge;
     int current;
     float temp;
@@ -29,12 +29,13 @@ public class LootChoice : MonoBehaviour
 
     [Header("Sprites")]
     public Sprite SilverSprite;
-    public Sprite ItemSprite, CommonSprite, UncommonSprite, MergeSprite;
+    public Sprite IronSprite, ItemSprite, CommonSprite, UncommonSprite, MergeSprite;
     public Sprite[] GemSprites;
 
     public void SetRewards(float dangerBonus, bool elite)
     {
-        silver = Random.Range(8, 14);
+        silver = Random.Range(4, 6);
+        iron = Random.Range(2, 5);
         item = elite;
         temp = dangerBonus + gemCharge;
         if (temp >= Random.Range(0f, 100f + temp))
@@ -58,7 +59,7 @@ public class LootChoice : MonoBehaviour
             ChargeCard(0.02f);
             ChargeMerge(0.011f);
             ChargeQuality(0.004f);
-            roll = Random.Range(0, 5);
+            roll = Random.Range(0, 8);
             switch (roll)
             {
                 case 0:
@@ -84,6 +85,9 @@ public class LootChoice : MonoBehaviour
                     ChargeMerge(0.066f);
                     ChargeQuality(0.016f);
                     break;
+                case 7:
+                    iron++;
+                    break;
             }
             dangerBonus -= 1.075f + rollsCount * 0.175f;
             rollsCount++;
@@ -105,6 +109,14 @@ public class LootChoice : MonoBehaviour
             PicksImages[current].sprite = SilverSprite;
             PicksValue[current].text = silver.ToString("0");
             lootID[current] = 0;
+            current++;
+        }
+        if (iron > 0)
+        {
+            PicksObject[current].SetActive(true);
+            PicksImages[current].sprite = IronSprite;
+            PicksValue[current].text = iron.ToString("0");
+            lootID[current] = 6;
             current++;
         }
         if (item)
@@ -179,6 +191,10 @@ public class LootChoice : MonoBehaviour
                 PlayerScript.DeckScript.ShowCardsToMerge();
                 merges--;
                 break;
+            case 6:
+                PlayerScript.GainIron(iron);
+                iron = 0;
+                break;
         }
 
         UpdateLoot();
@@ -187,7 +203,7 @@ public class LootChoice : MonoBehaviour
 
     void CheckForEmpty()
     {
-        if (silver == 0 && cards == 0 && uncommonCards == 0 && merges == 0 && !gem && !item)
+        if (silver == 0 && iron == 0 && cards == 0 && uncommonCards == 0 && merges == 0 && !gem && !item)
             Close();
     }
 
@@ -202,10 +218,10 @@ public class LootChoice : MonoBehaviour
         while (bonusCardCharge >= 1f)
         {
             bonusCardGotten++;
-            bonusCardCharge -= 1.04f + 0.01f * bonusCardGotten;
+            bonusCardCharge -= 1.04f + 0.02f * bonusCardGotten;
             cards++;
-            ChargeQuality(0.01f);
-            ChargeMerge(0.044f + 0.011f * bonusCardGotten);
+            ChargeQuality(0.01f + 0.002f * bonusCardGotten);
+            ChargeMerge(0.044f + 0.022f * bonusCardGotten);
         }
     }
 

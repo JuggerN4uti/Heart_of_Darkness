@@ -11,7 +11,7 @@ public class CardPick : MonoBehaviour
 
     [Header("Stats")]
     public int[] rolledID;
-    public int cardsRarity, min, max;
+    public int cardsRarity, min, max, rarity;
     public bool forge, viable;
     int roll;
 
@@ -44,14 +44,17 @@ public class CardPick : MonoBehaviour
         SetCards();
     }
 
-    public void RollForge()
+    public void RollForge(bool uncommon = false)
     {
+        if (uncommon)
+            rarity = 1;
+        else rarity = 0;
         forge = true;
         viable = false;
         do
         {
             roll = Random.Range(0, CardDeck.cardsInDeck);
-            if (CardDeck.CardLevel[roll] == 0)
+            if (CardDeck.CardLevel[roll] == rarity)
                 viable = true;
         } while (!viable);
         rolledID[0] = roll;
@@ -60,7 +63,7 @@ public class CardPick : MonoBehaviour
         do
         {
             roll = Random.Range(0, CardDeck.cardsInDeck);
-            if (CardDeck.CardLevel[roll] == 0 && roll != rolledID[0])
+            if (CardDeck.CardLevel[roll] == rarity && roll != rolledID[0])
                 viable = true;
         } while (!viable);
         rolledID[1] = roll;
@@ -69,12 +72,11 @@ public class CardPick : MonoBehaviour
         do
         {
             roll = Random.Range(0, CardDeck.cardsInDeck);
-            if (CardDeck.CardLevel[roll] == 0 && roll != rolledID[0] && roll != rolledID[1])
+            if (CardDeck.CardLevel[roll] == rarity && roll != rolledID[0] && roll != rolledID[1])
                 viable = true;
         } while (!viable);
         rolledID[2] = roll;
 
-        cardsRarity = 0;
         SetForgeCards();
     }
 
@@ -95,10 +97,10 @@ public class CardPick : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             CardIcon[i].sprite = Library.Cards[CardDeck.CardID[rolledID[i]]].CardSprite;
-            CardRarityImage[i].sprite = Library.CardLevel[0];
-            CardManaCost[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardManaCost[0].ToString("0");
+            CardRarityImage[i].sprite = Library.CardLevel[rarity];
+            CardManaCost[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardManaCost[rarity].ToString("0");
             CardNameText[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardName;
-            CardEffectText[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardTooltip[0];
+            CardEffectText[i].text = Library.Cards[CardDeck.CardID[rolledID[i]]].CardTooltip[rarity];
         }
     }
 

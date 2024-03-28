@@ -301,6 +301,30 @@ public class Deck : MonoBehaviour
         return tempi;
     }
 
+    public int UncommonCardsInDeck()
+    {
+        tempi = 0;
+        for (int i = 0; i < cardsInDeck; i++)
+        {
+            if (CardLevel[i] == 1)
+                tempi++;
+        }
+
+        return tempi;
+    }
+
+    public int RareCardsInDeck()
+    {
+        tempi = 0;
+        for (int i = 0; i < cardsInDeck; i++)
+        {
+            if (CardLevel[i] == 2)
+                tempi++;
+        }
+
+        return tempi;
+    }
+
     void ErrorEnd()
     {
         ErrorMessage.text = "";

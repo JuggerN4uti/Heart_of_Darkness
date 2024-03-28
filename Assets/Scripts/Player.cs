@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     [Header("Stats")]
     public int Class;
-    public int Health, MaxHealth, BaseHealth, Sanity, MaxSanity, Silver, SanityLost, BaseMana, BaseDraw;
+    public int Health, MaxHealth, BaseHealth, Sanity, MaxSanity, Silver, Iron, SanityLost, BaseMana, BaseDraw;
     public int[] Gems;
     public int[] StatValues, EffectID, CurseID;
     public int unitUnderCommand;
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
     public GameObject InfoObject;
     public GameObject DeckOpenButton, MapInfo, AddCommonButton, AddUncommonButton;
     public Image HealthFill, SanityFill;
-    public TMPro.TextMeshProUGUI HealthText, SanityText, SilverText, CommonsText, UncommonsText, CommonAddText, UncommonAddText;
+    public TMPro.TextMeshProUGUI HealthText, SanityText, SilverText, IronText, CommonsText, UncommonsText, RaresText, CommonAddText, UncommonAddText;
 
     [Header("Sprites")]
     public Sprite[] EffectSprite;
@@ -100,8 +100,10 @@ public class Player : MonoBehaviour
         SanityText.text = Sanity.ToString("") + "/" + MaxSanity.ToString("");
 
         SilverText.text = Silver.ToString("");
+        IronText.text = Iron.ToString("");
         CommonsText.text = DeckScript.CommonCardsInDeck().ToString("0");
-        UncommonsText.text = (DeckScript.cardsInDeck - DeckScript.CommonCardsInDeck()).ToString("0");
+        UncommonsText.text = DeckScript.UncommonCardsInDeck().ToString("0");
+        RaresText.text = DeckScript.RareCardsInDeck().ToString("0");
 
         if (StatValues[2] > 0)
         {
@@ -186,6 +188,18 @@ public class Player : MonoBehaviour
     public void SpendSilver(int amount)
     {
         Silver -= amount;
+        UpdateInfo();
+    }
+
+    public void GainIron(int amount)
+    {
+        Iron += amount;
+        UpdateInfo();
+    }
+
+    public void SpendIron(int amount)
+    {
+        Iron -= amount;
         UpdateInfo();
     }
 

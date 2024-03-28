@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2145415637229032091, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: fade
-      value: 1.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 2145415637229032091, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: duration
-      value: 0.55
+      value: 0.67
       objectReference: {fileID: 0}
     - target: {fileID: 4498744045465943338, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: m_RootOrder
@@ -65,15 +65,15 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: bd5a36b6edaeea140855e677b15f205a, type: 3}
     - target: {fileID: 7143470502474428186, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: m_Name
-      value: lightning
+      value: Lightning
       objectReference: {fileID: 0}
     - target: {fileID: 8097873174558528783, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 95
       objectReference: {fileID: 0}
     - target: {fileID: 8097873174558528783, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 95
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5875edfddccc98d4c82685856935667a, type: 3}

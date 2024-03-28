@@ -2418,8 +2418,10 @@ public class PlayerCombat : MonoBehaviour
 
     void Eviscerate(int level) // ID W 15
     {
-        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
-        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        for (int i = 0; i < combo * 2; i += 2 + i / 3)
+        {
+            CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        }
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(EviscerateDamage(level));
         OnHit();
     }

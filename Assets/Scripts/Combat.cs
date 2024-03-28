@@ -89,10 +89,20 @@ public class Combat : MonoBehaviour
 
     void ResetCombat()
     {
+        RemoveTargets();
         turn = 1;
         Player.Reset();
         TurnCounter.text = turn.ToString("");
         EndTurnButton.interactable = true;
+        TargetedObject[targetedEnemy].SetActive(true);
+    }
+
+    void RemoveTargets()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            TargetedObject[i].SetActive(false);
+        }
     }
 
     public void ChooseTarget(int target)
@@ -166,12 +176,13 @@ public class Combat : MonoBehaviour
             WonCombat();
         else
         {
-            tempi = 0;
-            while (!enemyAlive[tempi])
+            RemoveTargets();
+            targetedEnemy = 0;
+            while (!enemyAlive[targetedEnemy])
             {
-                tempi++;
+                targetedEnemy++;
             }
-            ChooseTarget(tempi);
+            TargetedObject[targetedEnemy].SetActive(true);
         }
     }
 

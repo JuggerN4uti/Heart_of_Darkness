@@ -9,11 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2145415637229032091, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: fade
-      value: 1.4
+      value: 1.68
       objectReference: {fileID: 0}
     - target: {fileID: 2145415637229032091, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: duration
-      value: 0.52
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 4498744045465943338, guid: 5875edfddccc98d4c82685856935667a, type: 3}
       propertyPath: m_RootOrder

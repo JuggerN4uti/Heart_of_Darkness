@@ -1071,20 +1071,24 @@ public class EnemyCombat : MonoBehaviour
 
     int LevelCalculated(int value)
     {
-        value *= (14 + level);
-        value /= 14;
+        value *= (13 + level);
+        value /= 13;
         return value;
     }
 
     int LevelCalculatedDef(int value)
     {
-        value *= (12 + level);
-        value /= 12;
+        value *= (11 + level);
+        value /= 11;
         return value;
     }
 
     void UnleashMonster()
     {
+        tempi = health * 10;
+        tempi /= maxHealth;
+        if (10 - tempi > 0)
+            GainBleed(10 - tempi);
         health += maxHealth;
         maxHealth *= 2;
         health += LevelCalculated(30);
