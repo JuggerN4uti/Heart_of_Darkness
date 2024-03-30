@@ -25,7 +25,7 @@ public class Deck : MonoBehaviour
 
     [Header("Forge/Merge")]
     public GameObject ForgeConfirmObject;
-    public int selectedCard;
+    public int selectedCard, forgeLevels;
     public TMPro.TextMeshProUGUI ChoiceMessage;
 
     [Header("Forge")]
@@ -76,11 +76,11 @@ public class Deck : MonoBehaviour
             selectedCard = currentCard[slot];
             for (int i = 0; i < 2; i++)
             {
-                ForgeCardRarity[i].sprite = Library.CardLevel[i];
+                ForgeCardRarity[i].sprite = Library.CardLevel[i * forgeLevels];
                 ForgeCardIcon[i].sprite = Library.Cards[CardID[currentCard[slot]]].CardSprite;
                 ForgeCardName[i].text = Library.Cards[CardID[currentCard[slot]]].CardName;
-                ForgeCardManaCost[i].text = Library.Cards[CardID[currentCard[slot]]].CardManaCost[i].ToString("");
-                ForgeCardEffect[i].text = Library.Cards[CardID[currentCard[slot]]].CardTooltip[i];
+                ForgeCardManaCost[i].text = Library.Cards[CardID[currentCard[slot]]].CardManaCost[i * forgeLevels].ToString("");
+                ForgeCardEffect[i].text = Library.Cards[CardID[currentCard[slot]]].CardTooltip[i * forgeLevels];
             }
             ForgeConfirmObject.SetActive(true);
             ChoiceMessage.text = "Upgrade";
@@ -208,9 +208,10 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public void ShowCardsToForge()
+    public void ShowCardsToForge(int by = 1)
     {
         forge = true;
+        forgeLevels = by;
         DisplayCommonCards();
         DeckObjet.SetActive(true);
         DeckButton.SetActive(false);
@@ -271,7 +272,7 @@ public class Deck : MonoBehaviour
     {
         ForgeConfirmObject.SetActive(false);
         if (forge)
-            CardLevel[selectedCard]++;
+            CardLevel[selectedCard] += forgeLevels;
         else if (merge)
         {
             CardLevel[selectedCard]++;

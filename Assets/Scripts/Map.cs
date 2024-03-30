@@ -204,10 +204,10 @@ public class Map : MonoBehaviour
             if (danger >= 48f && danger > Random.Range(0f, danger + 110f))
             {
                 tempi = 0;
-                temp = danger - 17.5f;
+                temp = danger - 28.6f;
                 while (temp > 0f)
                 {
-                    temp -= 6.68f + tempi * 1.47f;
+                    temp -= 7.13f + tempi * 1.68f;
                     tempi++;
                 }
                 roll = Library.BasicRoll();
@@ -218,10 +218,10 @@ public class Map : MonoBehaviour
             else if (danger >= 12f && danger > Random.Range(0f, danger + 18f))
             {
                 tempi = 0;
-                temp = danger - 7.5f;
+                temp = danger - 11f;
                 while (temp > 0f)
                 {
-                    temp -= 3.7f + tempi * 0.77f;
+                    temp -= 3.94f + tempi * 0.88f;
                     tempi++;
                 }
                 roll = Library.BasicRoll();
@@ -234,10 +234,10 @@ public class Map : MonoBehaviour
                 temp = danger - 3.25f;
                 while (temp > 0f)
                 {
-                    temp -= 1.77f + tempi * 0.35f;
+                    temp -= 1.88f + tempi * 0.4f;
                     tempi++;
                 }
-                if (danger < Random.Range(0f, danger + 4f) && tempi > 1)
+                if (danger < Random.Range(0f, danger + 4.2f) && tempi > 1)
                 {
                     tempi -= 2;
                     CombatScript.Set2Enemies(0, 0, tempi);
@@ -259,7 +259,7 @@ public class Map : MonoBehaviour
         temp = danger + eliteDanger;
         while (temp > 5.25f)
         {
-            temp -= 2.82f + tempi * 0.85f;
+            temp -= 3.04f + tempi * 0.97f;
             tempi++;
         }
         roll = Library.EliteRoll();

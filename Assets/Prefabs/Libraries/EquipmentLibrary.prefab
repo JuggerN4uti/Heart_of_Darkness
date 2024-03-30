@@ -105,6 +105,7 @@ MonoBehaviour:
   Cost: 5
   Uses: 1
   Cooldown: 6
+  Gain: 1
 --- !u!1 &2484894091215267187
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,6 +156,7 @@ MonoBehaviour:
   Cost: 4
   Uses: 3
   Cooldown: 4
+  Gain: 1
 --- !u!1 &3283300288418509940
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +207,7 @@ MonoBehaviour:
   Cost: 5
   Uses: 1
   Cooldown: 5
+  Gain: 1
 --- !u!1 &4322571984280903323
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,7 +257,8 @@ MonoBehaviour:
   EquipmentTooltip: Deal 2 Damage, Apply 1 Bleed
   Cost: 2
   Uses: 2
-  Cooldown: 3
+  Cooldown: 5
+  Gain: 2
 --- !u!1 &5993413118988951642
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,3 +309,4 @@ MonoBehaviour:
   Cost: 1
   Uses: 1
   Cooldown: 3
+  Gain: 1

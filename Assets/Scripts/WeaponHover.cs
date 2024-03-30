@@ -7,10 +7,11 @@ public class WeaponHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 {
     public PlayerCombat Player;
     public bool equipment;
+    public int order;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Player.WeaponHovered(equipment);
+        Player.WeaponHovered(equipment, order);
     }
 
     public void OnPointerExit(PointerEventData eventData)

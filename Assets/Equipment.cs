@@ -6,5 +6,5 @@ public class Equipment : MonoBehaviour
 {
     public Sprite EquipmentSprite;
     public string EquipmentName, EquipmentTooltip;
-    public int Cost, Uses, Cooldown;
+    public int Cost, Uses, Cooldown, Gain;
 }

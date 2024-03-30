@@ -749,6 +749,8 @@ public class EnemyCombat : MonoBehaviour
             if (CombatScript.Player.TotalBlock() == 0)
                 CombatScript.Player.TakeMagicDamage(effect[11]);
         }
+        if (CombatScript.Player.effect[4] > 0)
+            TakeDamage(CombatScript.Player.effect[4]);
     }
 
     void Stunned()
@@ -1071,15 +1073,15 @@ public class EnemyCombat : MonoBehaviour
 
     int LevelCalculated(int value)
     {
-        value *= (13 + level);
-        value /= 13;
+        value *= (12 + level);
+        value /= 12;
         return value;
     }
 
     int LevelCalculatedDef(int value)
     {
-        value *= (11 + level);
-        value /= 11;
+        value *= (10 + level);
+        value /= 10;
         return value;
     }
 

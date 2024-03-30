@@ -13,6 +13,7 @@ public class EquipmentChoice : MonoBehaviour
     [Header("Stats")]
     public int[] rolledID;
     public int roll;
+    public bool taken;
 
     [Header("UI")]
     public GameObject EquipmentChoiceScene;
@@ -24,7 +25,7 @@ public class EquipmentChoice : MonoBehaviour
         RollChoices();
     }
 
-    void RollChoices()
+    public void RollChoices()
     {
         roll = Random.Range(0, Library.Equipments.Length);
         rolledID[0] = roll;
@@ -52,15 +53,18 @@ public class EquipmentChoice : MonoBehaviour
             EqName[i].text = Library.Equipments[rolledID[i]].EquipmentName;
             EqCost[i].text = Library.Equipments[rolledID[i]].Cost.ToString("");
             EqUses[i].text = Library.Equipments[rolledID[i]].Uses.ToString("");
-            EqCooldown[i].text = Library.Equipments[rolledID[i]].Cooldown.ToString("");
+            EqCooldown[i].text = Library.Equipments[rolledID[i]].Gain.ToString("") + "/" + Library.Equipments[rolledID[i]].Cooldown.ToString("");
             EqEffect[i].text = Library.Equipments[rolledID[i]].EquipmentTooltip;
         }
     }
 
     public void ChooseEquipment(int slot)
     {
-        PlayerScript.equipment = rolledID[slot];
+        if (taken)
+            PlayerScript.equipment[1] = rolledID[slot];
+        else PlayerScript.equipment[0] = rolledID[slot];
         EquipmentChoiceScene.SetActive(false);
         MapsScript.NextMap();
+        taken = true;
     }
 }

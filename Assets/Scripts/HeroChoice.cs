@@ -12,8 +12,8 @@ public class HeroChoice : MonoBehaviour
     [Header("UI")]
     public GameObject HeroChoiceScene;
     public GameObject EquipmentChoiceScene;
-    public GameObject MapScene, PlayerHUD, ComboDisplay;
-    public Image HeroImage;
+    public GameObject MapScene, PlayerHUD, ValorDisplay, ComboDisplay;
+    public Image HeroImage, WeaponImage, WeaponImage2;
 
     [Header("Stats")]
     public int[] LightStats;
@@ -34,6 +34,7 @@ public class HeroChoice : MonoBehaviour
                 {
                     PlayerScript.StatValues[i] += LightStats[i];
                 }
+                ValorDisplay.SetActive(true);
                 DeckScript.CardID[4] = 26;
                 DeckScript.CardID[9] = 13;
                 break;
@@ -50,6 +51,8 @@ public class HeroChoice : MonoBehaviour
         PlayerScript.Class = which;
         HeroImage.sprite = HeroSprites[which];
         PlayerScript.WeaponSprite = WeaponSprite[which];
+        WeaponImage.sprite = WeaponSprite[which];
+        WeaponImage2.sprite = WeaponSprite[which];
         PlayerScript.weaponDamage = weaponDamage[which];
         PlayerScript.weaponStrengthBonus = weaponStrengthBonus[which];
         PlayerScript.weaponEnergyRequirement = weaponEnergyRequirement[which];

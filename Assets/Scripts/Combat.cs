@@ -9,6 +9,7 @@ public class Combat : MonoBehaviour
     [Header("Scripts")]
     public PlayerCombat Player;
     public EnemyCombat[] Enemy;
+    public BossLoot BossLootScript;
     public Story StoryScript;
     public Maps MapsScript;
     public Map MapScript;
@@ -17,7 +18,7 @@ public class Combat : MonoBehaviour
 
     [Header("Stats")]
     public bool[] enemyAlive;
-    public int targetedEnemy, turn, enemiesAlive;
+    public int targetedEnemy, turn, enemiesAlive, bossDefeated;
     public bool elite, boss;
     int whichEnemy;
     float temp;
@@ -225,6 +226,8 @@ public class Combat : MonoBehaviour
     void LevelCompleted()
     {
         LootEvent.SetRewards(mapDanger, elite);
+        BossLootScript.Open(2 + bossDefeated);
+        bossDefeated++;
         MapScript.experience += mapDanger * 0.25f;
         MapsScript.MapCompleted();
         CombatScene.SetActive(false);
@@ -279,7 +282,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Stored Block:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") +" Block at the start of next Turn";
                 break;
             case 4:
-                EffectTooltip.text = "Valor:\nEmpower effects of certain Cards by " + Player.effect[Player.effectsActive[effect]].ToString("0");
+                EffectTooltip.text = "Thorns:\nDeal " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Damage to Enemies that attack you";
                 break;
             case 5:
                 EffectTooltip.text = "Hammer of Wrath:\nWeapon Attack Apply " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Daze & Slow";

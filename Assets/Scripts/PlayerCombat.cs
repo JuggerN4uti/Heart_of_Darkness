@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int combo, permanentCombo, flurry, lightningDamage;
+    int valor, combo, permanentCombo, flurry, lightningDamage;
 
     [Header("Item Stats")]
     public int turns;
@@ -34,18 +34,20 @@ public class PlayerCombat : MonoBehaviour
     public TMPro.TextMeshProUGUI TheWeaponName, TheWeaponCost, TheWeaponEffect;
 
     [Header("Equipment")]
-    public int eqID;
+    public int equipmentAmount;
+    public int[] eqID;
     public EquipmentLibrary ELibrary;
-    public int eqEnergyCost, uses, cooldown, maxCooldown;
-    public Image EquipmentIcon, EquipmentFill;
-    public TMPro.TextMeshProUGUI equipmentCost, equipmentUses, equipmentCooldown;
+    public int[] eqEnergyCost, uses, cooldown, gain, maxCooldown;
+    public Image[] EquipmentIcon, EquipmentFill;
+    public Button[] EquipmentUseButton;
+    public TMPro.TextMeshProUGUI[] equipmentCost, equipmentUses, equipmentCooldown;
 
     [Header("UI")]
     public GameObject ShieldDisplay;
     public GameObject BlockDisplay;
     public Image HealthBarFill, SanityBarFill, EnergyBarFill;
-    public Button WeaponUseButton, EquipmentUseButton;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ComboValue, WeaponCost, ManaValue;
+    public Button WeaponUseButton;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ValorValue, ComboValue, WeaponCost, ManaValue;
     public TMPro.TextMeshProUGUI[] CurseText;
     public GameObject[] UnitObject, CurseObject;
     public Image[] UnitSprite;
@@ -58,7 +60,7 @@ public class PlayerCombat : MonoBehaviour
     public Rigidbody2D Body;
     public Transform Origin;
     public Display Displayed;
-    public Sprite DamageSprite, MagicDamageSprite, HealthSprite, RestoreSprite, ShieldSprite, BlockSprite, InsanitySprite, SanitySprite;
+    public Sprite DamageSprite, MagicDamageSprite, HealthSprite, RestoreSprite, ShieldSprite, BlockSprite, InsanitySprite, SanitySprite, ValorSprite;
     public Sprite[] effectSprite;
     public int[] effectsActive;
     int statusCount;
@@ -105,22 +107,36 @@ public class PlayerCombat : MonoBehaviour
         effect[1] = PlayerScript.StatValues[7];
         effect[2] = PlayerScript.StatValues[9];
 
+        for (int i = 0; i < CurseObject.Length; i++)
+        {
+            CurseObject[i].SetActive(false);
+        }
         for (int i = 0; i < PlayerScript.CurseValue.Length; i++)
         {
             if (PlayerScript.CurseValue[i] > 0)
                 GainCurseEffect(i, PlayerScript.CurseValue[i]);
         }
 
-        eqID = PlayerScript.equipment;
-        if (PlayerScript.Item[38])
-            eqEnergyCost = 0;
-        else eqEnergyCost = ELibrary.Equipments[eqID].Cost;
+        if (PlayerScript.Item[7])
+            effect[4] += 2;
         if (PlayerScript.Item[39])
             effect[0] += (PlayerScript.MaxHealth - PlayerScript.BaseHealth) / 20;
-        uses = ELibrary.Equipments[eqID].Uses;
-        maxCooldown = ELibrary.Equipments[eqID].Cooldown;
-        cooldown = 0;
-        EquipmentIcon.sprite = ELibrary.Equipments[eqID].EquipmentSprite;
+
+        if (PlayerScript.secondEquipment)
+            equipmentAmount = 2;
+        else equipmentAmount = 1;
+        for (int i = 0; i < equipmentAmount; i++)
+        {
+            eqID[i] = PlayerScript.equipment[i];
+            if (PlayerScript.Item[38])
+                eqEnergyCost[i] = 0;
+            else eqEnergyCost[i] = ELibrary.Equipments[eqID[i]].Cost;
+            uses[i] = ELibrary.Equipments[eqID[i]].Uses;
+            maxCooldown[i] = ELibrary.Equipments[eqID[i]].Cooldown;
+            gain[i] = ELibrary.Equipments[eqID[i]].Gain;
+            cooldown[i] = 0;
+            EquipmentIcon[i].sprite = ELibrary.Equipments[eqID[i]].EquipmentSprite;
+        }
 
         ItemsScript.SetText();
         StartTurn();
@@ -202,16 +218,20 @@ public class PlayerCombat : MonoBehaviour
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
         SanityBarFill.fillAmount = (sanity * 1f) / (maxSanity * 1f);
         EnergyBarFill.fillAmount = (energy * 1f) / (energyCost * 1f);
-        if (eqEnergyCost != 0)
-            EquipmentFill.fillAmount = (energy * 1f) / (eqEnergyCost * 1f);
         HealthValue.text = health.ToString("") + "/" + maxHealth.ToString("");
         SanityValue.text = sanity.ToString("") + "/" + maxSanity.ToString("");
         WeaponCost.text = energy.ToString("") + "/" + energyCost.ToString("");
-        equipmentCost.text = energy.ToString("") + "/" + eqEnergyCost.ToString("");
-        equipmentUses.text = uses.ToString("");
-        equipmentCooldown.text = cooldown.ToString("") + "/" + maxCooldown.ToString("");
+        for (int i = 0; i < equipmentAmount; i++)
+        {
+            if (eqEnergyCost[i] != 0)
+                EquipmentFill[i].fillAmount = (energy * 1f) / (eqEnergyCost[i] * 1f);
+            equipmentCost[i].text = energy.ToString("") + "/" + eqEnergyCost[i].ToString("");
+            equipmentUses[i].text = uses[i].ToString("");
+            equipmentCooldown[i].text = cooldown[i].ToString("") + "/" + maxCooldown[i].ToString("");
+        }
         ManaValue.text = mana.ToString("");
         EnergyValue.text = energy.ToString("");
+        ValorValue.text = valor.ToString("");
         ComboValue.text = combo.ToString("");
         if (shield > 0)
         {
@@ -228,9 +248,12 @@ public class PlayerCombat : MonoBehaviour
         if (energy >= energyCost)
             WeaponUseButton.interactable = true;
         else WeaponUseButton.interactable = false;
-        if (energy >= eqEnergyCost && uses > 0)
-            EquipmentUseButton.interactable = true;
-        else EquipmentUseButton.interactable = false;
+        for (int i = 0; i < equipmentAmount; i++)
+        {
+            if (energy >= eqEnergyCost[i] && uses[i] > 0)
+                EquipmentUseButton[i].interactable = true;
+            else EquipmentUseButton[i].interactable = false;
+        }
 
         // status effects
         statusCount = 0;
@@ -377,11 +400,14 @@ public class PlayerCombat : MonoBehaviour
 
     public void EquipmentCooldown(int amount)
     {
-        cooldown += amount;
-        while (cooldown >= maxCooldown)
+        for (int i = 0; i < equipmentAmount; i++)
         {
-            cooldown -= maxCooldown;
-            uses++;
+            cooldown[i] += amount;
+            while (cooldown[i] >= maxCooldown[i])
+            {
+                cooldown[i] -= maxCooldown[i];
+                uses[i] += gain[i];
+            }
         }
         UpdateInfo();
     }
@@ -486,8 +512,8 @@ public class PlayerCombat : MonoBehaviour
 
     void GainValor(int amount)
     {
-        effect[4] += amount;
-        Display(amount, effectSprite[4]);
+        valor += amount;
+        Display(amount, ValorSprite);
         UpdateInfo();
     }
 
@@ -566,7 +592,7 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    public void WeaponHovered(bool equipment)
+    public void WeaponHovered(bool equipment, int equipmentOrder)
     {
         if (!equipment)
         {
@@ -579,10 +605,10 @@ public class PlayerCombat : MonoBehaviour
         else
         {
             TheWeapon.SetActive(true);
-            TheWeaponIcon.sprite = ELibrary.Equipments[eqID].EquipmentSprite;
-            TheWeaponCost.text = eqEnergyCost.ToString("");
-            TheWeaponName.text = ELibrary.Equipments[eqID].EquipmentName;
-            switch (eqID)
+            TheWeaponIcon.sprite = ELibrary.Equipments[eqID[equipmentOrder]].EquipmentSprite;
+            TheWeaponCost.text = eqEnergyCost[equipmentOrder].ToString("");
+            TheWeaponName.text = ELibrary.Equipments[eqID[equipmentOrder]].EquipmentName;
+            switch (eqID[equipmentOrder])
             {
                 case 0:
                     TheWeaponEffect.text = "Gain " + BucklerBlock().ToString("0") + " Block";
@@ -624,11 +650,11 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    public void UseEquipment()
+    public void UseEquipment(int order)
     {
-        SpendEnergy(eqEnergyCost);
-        uses--;
-        switch (eqID)
+        SpendEnergy(eqEnergyCost[order]);
+        uses[order]--;
+        switch (eqID[order])
         {
             case 0:
                 Buckler();
@@ -1525,7 +1551,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 10 + effect[0];
         tempi += 1 * level;
-        tempi += effect[4];
+        tempi += valor;
         return DamageDealtModifier(tempi);
     }
 
@@ -1546,7 +1572,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 9 + effect[1];
         tempi += 1 * level;
-        tempi += effect[4];
+        tempi += valor;
         return BlockGainedModifier(tempi);
     }
 
@@ -1698,7 +1724,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 16 + effect[0];
         tempi += 5 * level;
-        tempi += effect[4];
+        tempi += valor;
         return DamageDealtModifier(tempi);
     }
 
@@ -1778,7 +1804,7 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 7 + effect[0];
         tempi += 2 * level;
-        tempi += (2 + level) * effect[4];
+        tempi += (2 + level) * valor;
         return DamageDealtModifier(tempi);
     }
 

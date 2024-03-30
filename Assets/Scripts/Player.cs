@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     public int unitUnderCommand;
     public bool opened, map;
     public bool[] Item; //Equipment; idk czy daæ mo¿liwe kilka 
-    public int equipment;
+    public int[] equipment;
+    public int equipmentLevel;
+    public bool secondEquipment;
     int roll;
 
     [Header("Curses")]
