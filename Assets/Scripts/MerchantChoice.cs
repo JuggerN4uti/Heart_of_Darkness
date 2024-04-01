@@ -138,13 +138,13 @@ public class MerchantChoice : MonoBehaviour
         do
         {
             roll = Random.Range(0, ILibrary.Items.Length);
-        } while (PlayerScript.Item[roll]);
+        } while ((PlayerScript.Item[roll]) || (ILibrary.Items[roll].nonNeutral && ILibrary.Items[roll].Class != PlayerScript.Class));
         itemID[0] = roll;
 
         do
         {
             roll = Random.Range(0, ILibrary.Items.Length);
-        } while (PlayerScript.Item[roll] || roll == itemID[0]);
+        } while ((PlayerScript.Item[roll] || roll == itemID[0]) || (ILibrary.Items[roll].nonNeutral && ILibrary.Items[roll].Class != PlayerScript.Class));
         itemID[1] = roll;
 
         for (int i = 0; i < 2; i++)
@@ -153,7 +153,7 @@ public class MerchantChoice : MonoBehaviour
             ItemIcon[i].sprite = ILibrary.Items[itemID[i]].ItemSprite;
             ItemName[i].text = ILibrary.Items[itemID[i]].ItemName;
             ItemEffectText[i].text = ILibrary.Items[itemID[i]].ItemTooltip;
-            ItemCost[i] = Random.Range(89, 101);
+            ItemCost[i] = Random.Range(88, 97);
             ItemCostText[i].text = ItemCost[i].ToString("0");
         }
     }
@@ -174,7 +174,7 @@ public class MerchantChoice : MonoBehaviour
             CardEffectText[i].text = Library.Cards[rolledID[i]].CardTooltip[CardRarity[i]];
             CardManaCost[i].text = Library.Cards[rolledID[i]].CardManaCost[CardRarity[i]].ToString("0");
 
-            CardCost[i] = Random.Range(15 + 22 * CardRarity[i], 21 + 25 * CardRarity[i]);
+            CardCost[i] = Random.Range(14 + 21 * CardRarity[i], 20 + 24 * CardRarity[i]);
             CardSilverCost[i].text = CardCost[i].ToString("0");
         }
     }
@@ -189,6 +189,10 @@ public class MerchantChoice : MonoBehaviour
                 break;
             case 1:
                 min = 2 + Library.lightCards;
+                max = Library.waterCards;
+                break;
+            case 2:
+                min = 2 + Library.lightCards + Library.waterCards;
                 max = Library.Cards.Length;
                 break;
         }

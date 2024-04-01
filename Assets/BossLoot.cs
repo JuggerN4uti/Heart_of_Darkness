@@ -99,6 +99,7 @@ public class BossLoot : MonoBehaviour
                 EquipmentChoiceScene.SetActive(true);
                 PlayerScript.secondEquipment = true;
                 SecondEquipmentObject.SetActive(true);
+                secondEquipment = true;
                 break;
             case 6:
                 DeckScript.ShowCardsToForge(2);

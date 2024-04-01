@@ -19,9 +19,11 @@ public class CardPick : MonoBehaviour
     public GameObject CardPickObject;
     public Image[] CardRarityImage, CardIcon;
     public TMPro.TextMeshProUGUI[] CardManaCost, CardNameText, CardEffectText;
+    public TMPro.TextMeshProUGUI Title;
 
     public void RollCards(int rarity = 0)
     {
+        Title.text = "Choose 1 Card to add to your Deck";
         SetRange();
         forge = false;
 
@@ -46,6 +48,7 @@ public class CardPick : MonoBehaviour
 
     public void RollForge(bool uncommon = false)
     {
+        Title.text = "Choose 1 Card to Upgrade";
         if (uncommon)
             rarity = 1;
         else rarity = 0;
@@ -130,6 +133,10 @@ public class CardPick : MonoBehaviour
                 break;
             case 1:
                 min = 2 + Library.lightCards;
+                max = Library.waterCards;
+                break;
+            case 2:
+                min = 2 + Library.lightCards + Library.waterCards;
                 max = Library.Cards.Length;
                 break;
         }

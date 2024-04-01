@@ -57,7 +57,7 @@ public class Events : MonoBehaviour
     {
         PlayerScript.SpendSilver(slimeMergeCost);
         DeckScript.ShowCardsToMerge();
-        slimeMergeCost += 10;
+        slimeMergeCost += 9;
         EventTexts[0].text = slimeMergeCost.ToString("0") + " Silver";
         if (PlayerScript.Silver >= slimeMergeCost)
             EventButtons[0].interactable = true;

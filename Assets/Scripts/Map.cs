@@ -26,6 +26,7 @@ public class Map : MonoBehaviour
     public int[] EventCooldown, EventsCooldowns;
     public int currentTile, currentRow, tilesAmount, treasureTile;
     public float danger, eliteDanger, experience;
+    public bool forge;
     int roll, roll2, roll3, tempi;
     float temp;
     bool viable;
@@ -114,9 +115,13 @@ public class Map : MonoBehaviour
         switch (tileEvent[currentTile * 3 + currentRow - 2])
         {
             case 0:
-                //EventsScript.EnterEvent();
-                AddCard.RollCards();
-                CardEventObject.SetActive(true);
+                if (forge)
+                    ForgeScript.Open();
+                else
+                {
+                    AddCard.RollCards();
+                    CardEventObject.SetActive(true);
+                }
                 break;
             case 1:
                 EventsScript.EnterEvent();
@@ -140,7 +145,7 @@ public class Map : MonoBehaviour
                 break;
             case 6:
                 ItemPickScript.RollItems();
-                danger += 0.77f + danger * 0.04f;
+                danger += 0.87f + danger * 0.04f;
                 break;
         }
     }
@@ -194,20 +199,20 @@ public class Map : MonoBehaviour
 
     void SetEnemies()
     {
-        danger += 0.55f + danger * 0.02f;
+        danger += 0.58f + danger * 0.02f;
         CombatScript.elite = false;
         CombatScript.boss = false;
-        if (danger < 1.6f)
+        if (danger < 1.75f)
             CombatScript.SetEnemy(0, 0);
         else
         {
-            if (danger >= 48f && danger > Random.Range(0f, danger + 110f))
+            if (danger >= 52f && danger > Random.Range(0f, danger + 104f))
             {
                 tempi = 0;
-                temp = danger - 28.6f;
+                temp = danger - 40f;
                 while (temp > 0f)
                 {
-                    temp -= 7.13f + tempi * 1.68f;
+                    temp -= 7.05f + tempi * 1.63f;
                     tempi++;
                 }
                 roll = Library.BasicRoll();
@@ -215,13 +220,13 @@ public class Map : MonoBehaviour
                 roll3 = Library.BasicRoll();
                 CombatScript.Set3Enemies(roll, roll2, roll3, tempi);
             }
-            else if (danger >= 12f && danger > Random.Range(0f, danger + 18f))
+            else if (danger >= 14f && danger > Random.Range(0f, danger + 21f))
             {
                 tempi = 0;
-                temp = danger - 11f;
+                temp = danger - 13.5f;
                 while (temp > 0f)
                 {
-                    temp -= 3.94f + tempi * 0.88f;
+                    temp -= 3.91f + tempi * 0.86f;
                     tempi++;
                 }
                 roll = Library.BasicRoll();
@@ -231,10 +236,10 @@ public class Map : MonoBehaviour
             else
             {
                 tempi = 0;
-                temp = danger - 3.25f;
+                temp = danger - 3.4f;
                 while (temp > 0f)
                 {
-                    temp -= 1.88f + tempi * 0.4f;
+                    temp -= 1.87f + tempi * 0.39f;
                     tempi++;
                 }
                 if (danger < Random.Range(0f, danger + 4.2f) && tempi > 1)
@@ -253,13 +258,13 @@ public class Map : MonoBehaviour
 
     void SetElite()
     {
-        danger += 0.65f + danger * 0.02f;
-        eliteDanger += 0.25f + eliteDanger * 0.01f;
+        danger += 0.68f + danger * 0.02f;
+        eliteDanger += 0.26f + eliteDanger * 0.01f;
         tempi = 0;
         temp = danger + eliteDanger;
-        while (temp > 5.25f)
+        while (temp > 5.5f)
         {
-            temp -= 3.04f + tempi * 0.97f;
+            temp -= 3.01f + tempi * 0.95f;
             tempi++;
         }
         roll = Library.EliteRoll();
@@ -278,7 +283,7 @@ public class Map : MonoBehaviour
 
     void MoveTile(int row)
     {
-        danger += 0.34f + 0.01f * currentTile;
+        danger += 0.35f + 0.01f * currentTile;
 
         if (currentTile == 0)
         {

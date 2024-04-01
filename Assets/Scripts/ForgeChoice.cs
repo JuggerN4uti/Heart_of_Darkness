@@ -7,39 +7,39 @@ public class ForgeChoice : MonoBehaviour
 {
     [Header("Scripts")]
     public Player PlayerScript;
-    public Deck DeckScript;
-    public CardPick CardPickScript;
+    //public Deck DeckScript;
+    //public CardPick CardPickScript;
 
-    [Header("Stats")]
-    public int roll;
-    public bool viable;
+    //[Header("Stats")]
+    //public int roll;
+    //public bool viable;
 
     [Header("UI")]
     public GameObject ForgeEventObject;
-    public GameObject CarEventObject;
-    public Image SecondOptionImage;
-    public TMPro.TextMeshProUGUI ErrorMessage;
+    //public GameObject CarEventObject;
+    //public Image SecondOptionImage;
+    public Button[] UpgradeButton;
+    public TMPro.TextMeshProUGUI[] CostText;
 
-    [Header("Gear")] //20.8 power
-    public bool weapon;
-    public int baseDamageIncrease, nextDamageIncrease;
-    public float temp, nextCharge;
-    public int shieldAmount, armorAmount, nextShield, nextArmor, nextResistance;
-    public float shieldCharge, armorCharge, resistanceCharge;
-    public TMPro.TextMeshProUGUI SecendOptionEffect;
+    [Header("Gear")]
+    public bool[] set;
+    public int[] cost;
+    public float[] charge, chargesReq, chargeIncrease;
 
-    [Header("Sprites")]
-    public Sprite[] SecondOptionSprite;
+    //[Header("Sprites")]
+    //public Sprite[] SecondOptionSprite;
 
     public void Open()
     {
-        roll = Random.Range(0, 3);
-        SetGearOption(roll);
+        for (int i = 0; i < 3; i++)
+        {
+            ChargeGear(i, Random.Range(0.5f, 1.5f));
+        }
+        SetGear();
         ForgeEventObject.SetActive(true);
-        CarEventObject.SetActive(false);
     }
 
-    public void UpgradeCard()
+    /*public void UpgradeCard()
     {
         if (DeckScript.CommonCardsInDeck() > 2)
             SetCardsOption();
@@ -48,119 +48,46 @@ public class ForgeChoice : MonoBehaviour
             ErrorMessage.text = "Found not Enough Card to Upgrade";
             Invoke("ErrorEnd", 0.6f);
         }
+    }*/
+
+    public void UpgradeGear(int slot)
+    {
+        PlayerScript.StatValues[5 + slot]++;
+        PlayerScript.SpendIron(cost[slot]);
+        for (int i = 0; i < 3; i++)
+        {
+            if (i != slot)
+                ChargeGear(i, cost[slot] * 0.02f);
+        }
+        cost[slot] = 0;
+        set[slot] = false;
+        SetGear();
     }
 
-    public void UpgradeGear()
+    void SetGear()
     {
-        if (weapon)
+        for (int i = 0; i < 3; i++)
         {
-            PlayerScript.weaponDamage += (baseDamageIncrease + nextDamageIncrease);
-            ChargeWeapon(temp);
-        }
-        else
-        {
-            switch (roll)
+            while (!set[i])
             {
-                case 0:
-                    PlayerScript.StatValues[5] += (shieldAmount + nextShield);
-                    nextShield = 0;
-                    break;
-                case 1:
-                    PlayerScript.StatValues[6] += (armorAmount + nextArmor);
-                    nextArmor = 0;
-                    break;
-                case 2:
-                    PlayerScript.StatValues[7] += nextResistance;
-                    nextResistance = 0;
-                    break;
+                cost[i]++;
+                ChargeGear(i, 1f);
             }
-            ChargeArmor(5.51f); //26,5%
-        }
-        Close();
-    }
-
-    void SetCardsOption()
-    {
-        CardPickScript.RollForge();
-        CarEventObject.SetActive(true);
-
-        temp = PlayerScript.weaponEnergyRequirement * 0.0325f + PlayerScript.weaponStrengthBonus * 0.0033f;
-        ChargeWeapon(temp);
-        ChargeArmor(0.93f); // 4,5%
-    }
-
-    void SetGearOption(int which)
-    {
-        if (which == 0)
-        {
-            weapon = true;
-            SecondOptionImage.sprite = SecondOptionSprite[0];
-            baseDamageIncrease = PlayerScript.weaponEnergyRequirement / 4;
-            temp = PlayerScript.weaponEnergyRequirement * 0.26f + PlayerScript.weaponStrengthBonus * 0.02f;
-            temp -= baseDamageIncrease * 1f;
-            SecendOptionEffect.text = "Increase Damage of\nyour Weapon by " + (baseDamageIncrease + nextDamageIncrease).ToString("0");
-        }
-        else
-        {
-            weapon = false;
-            SecondOptionImage.sprite = SecondOptionSprite[1];
-
-            viable = false;
-            do
-            {
-                ChargeArmor(0.31f); // 1,5%
-                roll = Random.Range(0, 3);
-                if (roll == 2 && nextResistance == 0)
-                    viable = false;
-                else viable = true;
-            } while (!viable);
-
-            switch (roll)
-            {
-                case 0:
-                    SecendOptionEffect.text = "Increase your Shield\nby " + (shieldAmount + nextShield).ToString("0");
-                    break;
-                case 1:
-                    SecendOptionEffect.text = "Increase your Armor\nby " + (armorAmount + nextArmor).ToString("0");
-                    break;
-                case 2:
-                    SecendOptionEffect.text = "Increase your Resistance\nby " + nextResistance.ToString("0");
-                    break;
-            }
+            CostText[i].text = cost[i].ToString("0");
+            if (PlayerScript.Iron >= cost[i])
+                UpgradeButton[i].interactable = true;
+            else UpgradeButton[i].interactable = false;
         }
     }
 
-    void ChargeWeapon(float amount)
+    void ChargeGear(int which, float amount)
     {
-        nextCharge += amount;
-        while (nextCharge >= 1f)
+        charge[which] += amount;
+        if (charge[which] >= chargesReq[which] && !set[which])
         {
-            nextCharge -= 1f;
-            nextDamageIncrease++;
-        }
-    }
-
-    void ChargeArmor(float amount)
-    {
-        shieldCharge += amount;
-        while (shieldCharge >= 5.5f)
-        {
-            shieldCharge -= 5.5f;
-            nextShield++;
-        }
-
-        armorCharge += amount;
-        while (armorCharge >= 14.1f)
-        {
-            armorCharge -= 14.1f;
-            nextArmor++;
-        }
-
-        resistanceCharge += amount;
-        while (resistanceCharge >= 26.6f)
-        {
-            resistanceCharge -= 26.6f;
-            nextResistance++;
+            charge[which] -= chargesReq[which];
+            chargesReq[which] += chargeIncrease[which];
+            set[which] = true;
         }
     }
 
@@ -171,6 +98,6 @@ public class ForgeChoice : MonoBehaviour
 
     void ErrorEnd()
     {
-        ErrorMessage.text = "";
+        //ErrorMessage.text = "";
     }
 }

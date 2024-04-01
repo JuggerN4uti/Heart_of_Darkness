@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int valor, combo, permanentCombo, flurry, lightningDamage;
+    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, totalManaSpent, manaSpentTurn;
 
     [Header("Item Stats")]
     public int turns;
@@ -81,13 +81,19 @@ public class PlayerCombat : MonoBehaviour
         block = 0;
         mana = 0;
         energy = 0;
+        valor = 0;
+        spentValor = 0;
         combo = 0;
         permanentCombo = 0;
+        if (PlayerScript.Item[44])
+            permanentCombo++;
         flurry = 0;
+        totalManaSpent = 0;
         attacks = 0;
         drink = 0;
-        lightningDamage = 40;
-
+        lightningDamage = 36;
+        if (PlayerScript.Item[46])
+            lightningDamage += 9;
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
         shield = PlayerScript.StatValues[5];
@@ -157,6 +163,7 @@ public class PlayerCombat : MonoBehaviour
     public void StartTurn()
     {
         combo = permanentCombo;
+        manaSpentTurn = 0;
         resistanceRing = true;
         if (effect[11] > 0)
             effect[11]--;
@@ -183,6 +190,11 @@ public class PlayerCombat : MonoBehaviour
         if (effect[7] > 0)
             GainMana(manaGain - 1);
         else GainMana(manaGain);
+        if (effect[22] > 0)
+        {
+            GainMana(effect[22]);
+            effect[22] = 0;
+        }
         if (CombatScript.Enemy[0].effect[21] > 0)
             GainMana(CombatScript.Enemy[0].effect[21]);
         if (PlayerScript.Item[5] && CombatScript.turn < 3)
@@ -196,6 +208,11 @@ public class PlayerCombat : MonoBehaviour
         if (effect[12] > 0)
             Cards.Draw(cardDraw - 1);
         else Cards.Draw(cardDraw);
+        if (effect[23] > 0)
+        {
+            Cards.Draw(effect[23]);
+            effect[23] = 0;
+        }
         if (effect[21] > 0)
         {
             for (int i = 0; i < effect[21]; i++)
@@ -211,6 +228,10 @@ public class PlayerCombat : MonoBehaviour
         EquipmentCooldown(1);
         if (PlayerScript.Item[23] && CombatScript.turn % 2 == 0)
             EquipmentCooldown(1);
+        if (PlayerScript.Item[41])
+            GainValor(1);
+        if (PlayerScript.Item[46])
+            GainStormCharge(1);
     }
 
     void UpdateInfo()
@@ -309,7 +330,7 @@ public class PlayerCombat : MonoBehaviour
         if (effect[20] > 0)
             TakeMagicDamage(effect[20]);
         if (CombatScript.Enemy[0].effect[20] > 0 && mana > 0)
-            TakeDamage(mana * 5);
+            TakeDamage(mana * 12);
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
         if (PlayerScript.Item[6])
@@ -389,7 +410,7 @@ public class PlayerCombat : MonoBehaviour
 
     int TurnSanity()
     {
-        temp = Random.Range(CombatScript.turn * 0.261f - 0.457f, CombatScript.turn * 0.512f - 0.405f);
+        temp = Random.Range(CombatScript.turn * 0.243f - 0.502f, CombatScript.turn * 0.485f - 0.468f);
         tempi = 0;
         for (float i = 1f; i < temp; i += 1f)
         {
@@ -486,6 +507,24 @@ public class PlayerCombat : MonoBehaviour
     public void SpendMana(int amount)
     {
         mana -= amount;
+        manaSpentTurn += amount;
+        totalManaSpent += amount;
+        UpdateInfo();
+    }
+
+    void GainValor(int amount)
+    {
+        valor += amount;
+        Display(amount, ValorSprite);
+        if (PlayerScript.Item[41])
+            GainBlock(amount * 3);
+        UpdateInfo();
+    }
+
+    void SpendValor(int amount)
+    {
+        valor -= amount;
+        spentValor += amount;
         UpdateInfo();
     }
 
@@ -507,13 +546,6 @@ public class PlayerCombat : MonoBehaviour
     {
         effect[2] += amount;
         Display(amount, effectSprite[2]);
-        UpdateInfo();
-    }
-
-    void GainValor(int amount)
-    {
-        valor += amount;
-        Display(amount, ValorSprite);
         UpdateInfo();
     }
 
@@ -569,16 +601,21 @@ public class PlayerCombat : MonoBehaviour
     public void GainStormCharge(int amount)
     {
         effect[18] += amount;
-        while (effect[18] >= 10)
+        while (effect[18] >= 9)
         {
-            effect[18] -= 10;
+            effect[18] -= 9;
             if (CombatScript.enemiesAlive > 0)
             {
                 tempi = CombatScript.RandomEnemy();
                 CombatScript.Effect(false, 11, true, tempi);
                 CombatScript.Enemy[tempi].TakeDamage(lightningDamage);
-                CombatScript.Enemy[tempi].GainSlow((10 + lightningDamage) / 20);
-                lightningDamage += 5;
+                CombatScript.Enemy[tempi].GainSlow((8 + lightningDamage) / 18);
+                lightningDamage += 2;
+            }
+            if (PlayerScript.Item[45])
+            {
+                GainDexterity(1);
+                GainBlock(9);
             }
         }
         //Display(amount, effectSprite[18]);
@@ -810,9 +847,14 @@ public class PlayerCombat : MonoBehaviour
             else
             {
                 which -= Library.lightCards;
-                UseWaterAbility(which, level);
+                if (which < Library.waterCards)
+                    UseWaterAbility(which, level);
+                else
+                {
+                    which -= Library.waterCards;
+                    UseNatureAbility(which, level);
+                }
             }
-            // potem dalej etc.
         }
         GainCombo();
     }
@@ -824,6 +866,11 @@ public class PlayerCombat : MonoBehaviour
         {
             if (effect[19] > 0)
                 GainBlock(effect[19]);
+            if (PlayerScript.Item[44])
+            {
+                GainEnergy(3);
+                Cards.Draw(1);
+            }
         }
         UpdateInfo();
     }
@@ -944,6 +991,9 @@ public class PlayerCombat : MonoBehaviour
             case 34:
                 Vengeance(level);
                 break;
+            case 35:
+                HolyFire(level);
+                break;
         }
     }
 
@@ -1059,6 +1109,31 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    public void UseNatureAbility(int which, int level)
+    {
+        switch (which)
+        {
+            case 0:
+                SapMagic(level);
+                break;
+            case 1:
+                Innervate(level);
+                break;
+            case 2:
+                Barkskin(level);
+                break;
+            case 3:
+                CycleOfLife(level);
+                break;
+            case 4:
+                ForceOfNature(level);
+                break;
+            case 5:
+                Meditate(level);
+                break;
+        }
+    }
+
     public string AbilityInfo(int which, int level)
     {
         if (which < Library.neutralCards)
@@ -1091,7 +1166,7 @@ public class PlayerCombat : MonoBehaviour
                     case 4:
                         return "Gain " + FortifyBlock(level).ToString("") + " Block\nGain " + FortifyBlock(level).ToString("") + " Block Next Trun";
                     case 5:
-                        return "Gain " + EmpowerStrength(level).ToString("") + " Strength\n&" + EmpowerEnergy(level).ToString("") + " Energy";
+                        return "Gain " + EmpowerStrength(level).ToString("") + " Strength\n& " + EmpowerEnergy(level).ToString("") + " Energy\nDestroy";
                     case 6:
                         return "Draw " + InspireCardDraw(level).ToString("") + " Cards\nGain " + InspireBlock(level).ToString("") + " Block";
                     case 7:
@@ -1103,13 +1178,17 @@ public class PlayerCombat : MonoBehaviour
                             return "Gain " + DesperateStandBlock(level).ToString("") + " Block\nDestroy";
                         else return "Gain " + DesperateStandBlock(level).ToString("") + " Block";
                     case 9:
-                        return "Deal " + DecisiveStrikeDamage(level).ToString("") + " Damage\nGain " + DecisiveStrikeValor(level).ToString("") + " Valor";
+                        if (valor >= DecisiveStrikeValorReq(level))
+                            return "Deal " + DecisiveStrikeDamage(level).ToString("") + " Damage\nGain " + DecisiveStrikeStrength(level).ToString("") + " Strength\nSpend " + DecisiveStrikeValorReq(level).ToString("") + " Valor";
+                        else return "Deal " + DecisiveStrikeDamage(level).ToString("") + " Damage\nGain " + DecisiveStrikeValor(level).ToString("") + " Valor\n(" + valor.ToString("") + "/" + DecisiveStrikeValorReq(level).ToString("") + ") Valor";
                     case 10:
-                        return "Gain " + BulwarkOfLightBlock(level).ToString("") + " Block\nGain " + BulwarkOfLightValor(level).ToString("") + " Valor";
+                        if (valor >= DecisiveStrikeValorReq(level))
+                            return "Gain " + BulwarkOfLightBlock(level).ToString("") + " Block\nGain " + DecisiveStrikeStrength(level).ToString("") + " Resistance\nSpend " + DecisiveStrikeValorReq(level).ToString("") + " Valor";
+                        else return "Gain " + BulwarkOfLightBlock(level).ToString("") + " Block\nGain " + DecisiveStrikeValor(level).ToString("") + " Valor\n(" + valor.ToString("") + "/" + DecisiveStrikeValorReq(level).ToString("") + ") Valor";
                     case 11:
                         return "Gain " + GoldenAegisBlock(level).ToString("") + " Block\nApply " + GoldenAegisSlow(level).ToString("") + " Slow\nto All Enemies";
                     case 12:
-                        return "Gain " + ShieldWallBlock(level).ToString("") + " Block\nGain " + ShieldWallResistance(level).ToString("") + " Resistance";
+                        return "Gain " + ShieldWallBlock(level).ToString("") + " Block";
                     case 13:
                         return "Gain " + ShieldGlareBlock(level).ToString("") + " Block\nApply " + ShieldGlareWeak(level).ToString("") + " Weak";
                     case 14:
@@ -1123,7 +1202,9 @@ public class PlayerCombat : MonoBehaviour
                     case 18:
                         return "Deal " + ChastiseDamage(level).ToString("") + " Damage\nApply " + ChastiseDaze(level).ToString("") + " Daze & " + ChastiseSlow(level).ToString("") + " Slow";
                     case 19:
-                        return "Deal " + HolyBoltDamage(level).ToString("") + " Damage";
+                        if (valor >= HolyBoltValorReq(level))
+                            return "Deal " + HolyBoltDamage(level).ToString("") + " Damage Twice\nSpend " + HolyBoltValorReq(level).ToString("") + " Valor";
+                        else return "Deal " + HolyBoltDamage(level).ToString("") + " Damage\nGain 1 Valor\n(" + valor.ToString("") + "/" + HolyBoltValorReq(level).ToString("") + ") Valor";
                     case 20:
                         return "Gain " + LayOnHandsValor(level).ToString("") + " Valor\nRestore " + LayOnHandsHeal(level).ToString("") + " Health\nDestroy";
                     case 21:
@@ -1136,7 +1217,7 @@ public class PlayerCombat : MonoBehaviour
                         return "Deal " + CrushingBlowDamage(level).ToString("") + " Damage\nApply " + CrushingBlowSlow(level).ToString("")
                             + " Slow\n" + CrushingBlowWeak(level).ToString("") + " Weak\n& " + CrushingBlowVulnerable(level).ToString("") + " Vulnerable";
                     case 25:
-                        return "Gain " + HeavyArmorBlock(level).ToString("") + " Block";
+                        return "Gain " + HeavyArmorBlock(level).ToString("") + " Block\n& " + HeavyArmorArmor(level).ToString("") + " Armor\nDestroy";
                     case 26:
                         return "Gain " + ShieldOfHopeBlock(level).ToString("") + " Block\nDestroy";
                     case 27:
@@ -1159,117 +1240,145 @@ public class PlayerCombat : MonoBehaviour
                         return "Gain " + GuardianAngelResistance(level).ToString("") + " Resistance\n" + GuardianAngelArmor(level).ToString("") + " Armor\nBlock gained from Armor is affected by Resistance\nDestroy";
                     case 34:
                         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
-                            return "Deal " + VengeancekDamage(level).ToString("") + " Damage, Gain " + VengeanceStrength(level).ToString("") + " Strength\n& " + VengeanceEnergy(level).ToString("") + " Energy";
-                        else return "Deal " + VengeancekDamage(level).ToString("") + " Damage";
+                            return "Deal " + VengeanceDamage(level).ToString("") + " Damage, Gain " + VengeanceStrength(level).ToString("") + " Strength\n& " + VengeanceEnergy(level).ToString("") + " Energy";
+                        else return "Deal " + VengeanceDamage(level).ToString("") + " Damage";
+                    case 35:
+                        return "Deal " + HolyFireDamage(level).ToString("") + " Damage";
                 }
             }
             else
             {
                 which -= Library.lightCards;
-                switch (which)
+                if (which < Library.waterCards)
                 {
-                    case 0:
-                        return "Deal " + QuickCutDamage(level).ToString("") + " Damage";
-                    case 1:
-                        if (level == 0)
-                            return "Deal " + HarpoonThrowDamage(level).ToString("") + " Damage\nDraw a Card";
-                        else return "Deal " + HarpoonThrowDamage(level).ToString("") + " Damage\nDraw " + HarpoonThrowDraw(level).ToString("") + " Cards";
-                    case 2:
-                        return "Deal " + CutDownDamage(level).ToString("") + " Damage\nApply " + CutDownBleed(level).ToString("") + " Bleed";
-                    case 3:
-                        return "Apply " + EnsnareSlow(level).ToString("") + " Slow\nbut increase Targets\nTenacity by 1";
-                    case 4:
-                        return "Deal " + ViciousSlashDamage(level).ToString("") + " Damage\nApply " + ViciousSlashBleed(level).ToString("") + " Bleed";
-                    case 5:
-                        return "Deal " + RuptureDamage(level).ToString("") + " Damage";
-                    case 6:
-                        return "Gain " + ProtectiveBubbleBlock(level).ToString("") + " Block\n& " + ProtectiveBubbleShield(level).ToString("") + " Shield";
-                    case 7:
-                        return "Gain 1 Dexterity\nEvery Card playd gives " + SwiftBlock(level).ToString("") + " Block\nDestroy";
-                    case 8:
-                        return "Draw " + HopDraw(level).ToString("") + " Card\nGain " + HopBlock(level).ToString("") + " Block";
-                    case 9:
-                        return "Deal " + ImpaleDamage(level).ToString("") + " Damage\nApply " + ImpaleSlow(level).ToString("") + " Slow\n& gain that much Energy";
-                    case 10:
-                        return "Deal " + FlurryDamage(level).ToString("") + " Damage\nGain " + FlurryEnergy(level).ToString("") + " Energy\nIncrease future Flurry Energy gain by " + FlurryGain(level).ToString("");
-                    case 11:
-                        return "Gain 2 Strength\nEvery Attack applies " + SerratedBladeBleed(level).ToString("") + " Bleed\nDestroy";
-                    case 12:
-                        return "Gain " + ShellsUpBlock(level).ToString("") + " Block";
-                    case 13:
-                        return "Deal " + DeadlySwingsDamage(level).ToString("") + " Damage\n" + DeadlySwingsAmount(level).ToString("") + " Times";
-                    case 14:
-                        return "Deal " + SteelOfStealDamage(level).ToString("") + " Damage\nGain " + SteelOfStealSilver(level).ToString("") + " Silver\nDestroy";
-                    case 15:
-                        return "Deal " + EviscerateDamage(level).ToString("") + " Damage";
-                    case 16:
-                        if (combo < 3)
-                            return "Gain " + DoubleJumpBlock(level).ToString("") + " Block\n(" + combo.ToString("") + "/3 Combo)";
-                        else return "Gain " + DoubleJumpBlock(level).ToString("") + " Block Twice";
-                    case 17:
-                        if (combo < 4)
-                            return combo.ToString("") + "/4 Combo)";
-                        else if (level == 0) return "Draw a Card\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
-                        else return "Draw " + FlowLikeWaterDraw(level).ToString("") + " Cards\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
-                    case 18:
-                        return "Gain " + PreparationBlock(level).ToString("") + " Block\n& 1 permanent Combo,\nEvery 5x Combo reached, gain " + PreparationStacks(level).ToString("") + " Block\nDestroy";
-                    case 19:
-                        return "Deal " + StaggeringBlowDamage(level).ToString("") + " Damage\nreduce Targets\nTenacity by 1\n& Apply " + StaggeringBlowSlow(level).ToString("") + " Slow\nDestroy";
-                    case 20:
-                        return "Deal " + DredgeLineDamage(level).ToString("") + " Damage\nApply " + DredgeLineSlow(level).ToString("") + " Slow\nGain " + DredgeLineEnergy(level).ToString("") + " Energy";
-                    case 21:
-                        return "Deal " + ShredDamage(level).ToString("") + " Damage\nBreak up to " + ShredBreak(level).ToString("") + " Shield\nGain that much Block";
-                    case 22:
-                        return "Gain " + StrengthOfTheDepthsStrength(level).ToString("") + " Strength\n& " + StrengthOfTheDepthsBlock(level).ToString("") + " Block";
-                    case 23:
-                        return "Every Weapon Attack Gives " + TridentOfStormsStacks(level).ToString("") + " Storm Charges\nDestroy";
-                    case 24:
-                        return "Gain " + ConduitBlock(level).ToString("") + " Block\n& " + ConduitCharges(level).ToString("") + " Storm Charges";
-                    case 25:
-                        if (energy >= 12)
-                            return "Gain " + AnchoredBlock(level, true).ToString("") + " Block\n" + AnchoredResistance(level).ToString("") + " Resistance\nSpend 12 Energy";
-                        else return "Gain " + AnchoredBlock(level, false).ToString("") + " Block\n(" + energy.ToString("") + "/12 Energy)";
-                    case 26:
-                        return "Gain " + NimbleEnergy(level).ToString("") + " Energy\n& " + NimbleBlock(level, NimbleEnergy(level)).ToString("") + " Block";
-                    case 27:
-                        if (level == 0)
-                        {
-                            if (combo < 2)
-                                return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/2 Combo)";
-                            else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength";
-                        }
-                        else if (level == 1)
-                        {
-                            if (combo < 1)
-                                return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/1 Combo)";
-                            else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength";
-                        }
-                        else
-                        {
-                            if (combo < 1)
-                                return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/1 Combo)\n(" + combo.ToString("") + "/3 Combo)";
-                            else if (combo < 3)
-                                return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength\n(" + combo.ToString("") + "/3 Combo)";
-                            else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 2 Strength";
-                        }
-                    case 28:
-                        return "Deal " + RendDamage(level).ToString("") + " Damage\nGain " + RendBlock(level).ToString("") + " Block\n" + RendAmount(level).ToString("") + " Times";
-                    case 29:
-                        return "Gain " + ThickSkinBlock(level).ToString("") + " Block\nIncrease Max Health by " + ThickSkinHealth(level).ToString("") + " permamently\nDestroy";
-                    case 30:
-                        return "Apply " + FrozenTouchBleed(level).ToString("") + " Bleed\n& " + FrozenTouchSlow(level).ToString("") + " Slow";
-                    case 31:
-                        if (combo <= 1)
-                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
-                        else if (combo < EyeOfTheStormCombo(level))
-                            return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
-                        else return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges";
-                    case 32:
-                        return "Gain " + AcclimationBlock(level).ToString("") + " Block\nApply " + AcclimationSlow(level).ToString("") + " Slow";
-                    case 33:
-                        return "Deal " + TorrentDamage(level).ToString("") + " Damage\nGain " + TorrentCharges(level).ToString("") + " Storm Charges";
-                    case 34:
-                        return "Deal " + RiptideDamage().ToString("") + " Damage\n& Apply 2 Slow\nto all Enemies\nRepeat " + RiptideRecasts(level).ToString("") + " Time/s next Turn";
+                    switch (which)
+                    {
+                        case 0:
+                            return "Deal " + QuickCutDamage(level).ToString("") + " Damage";
+                        case 1:
+                            if (level == 0)
+                                return "Deal " + HarpoonThrowDamage(level).ToString("") + " Damage\nDraw a Card";
+                            else return "Deal " + HarpoonThrowDamage(level).ToString("") + " Damage\nDraw " + HarpoonThrowDraw(level).ToString("") + " Cards";
+                        case 2:
+                            return "Deal " + CutDownDamage(level).ToString("") + " Damage\nApply " + CutDownBleed(level).ToString("") + " Bleed";
+                        case 3:
+                            return "Apply " + EnsnareSlow(level).ToString("") + " Slow\nbut increase Targets\nTenacity by 1";
+                        case 4:
+                            return "Deal " + ViciousSlashDamage(level).ToString("") + " Damage\nApply " + ViciousSlashBleed(level).ToString("") + " Bleed";
+                        case 5:
+                            return "Deal " + RuptureDamage(level).ToString("") + " Damage";
+                        case 6:
+                            return "Gain " + ProtectiveBubbleBlock(level).ToString("") + " Block\n& " + ProtectiveBubbleShield(level).ToString("") + " Shield";
+                        case 7:
+                            return "Gain 1 Dexterity\nEvery Card playd gives " + SwiftBlock(level).ToString("") + " Block\nDestroy";
+                        case 8:
+                            return "Draw " + HopDraw(level).ToString("") + " Card\nGain " + HopBlock(level).ToString("") + " Block";
+                        case 9:
+                            return "Deal " + ImpaleDamage(level).ToString("") + " Damage\nApply " + ImpaleSlow(level).ToString("") + " Slow\n& gain that much Energy";
+                        case 10:
+                            return "Deal " + FlurryDamage(level).ToString("") + " Damage\nGain " + FlurryEnergy(level).ToString("") + " Energy\nIncrease future Flurry Energy gain by " + FlurryGain(level).ToString("");
+                        case 11:
+                            return "Gain 2 Strength\nEvery Attack applies " + SerratedBladeBleed(level).ToString("") + " Bleed\nDestroy";
+                        case 12:
+                            return "Gain " + ShellsUpBlock(level).ToString("") + " Block";
+                        case 13:
+                            return "Deal " + DeadlySwingsDamage(level).ToString("") + " Damage\n" + DeadlySwingsAmount(level).ToString("") + " Times";
+                        case 14:
+                            return "Deal " + SteelOfStealDamage(level).ToString("") + " Damage\nGain " + SteelOfStealSilver(level).ToString("") + " Silver\nDestroy";
+                        case 15:
+                            return "Deal " + EviscerateDamage(level).ToString("") + " Damage";
+                        case 16:
+                            if (combo < 3)
+                                return "Gain " + DoubleJumpBlock(level).ToString("") + " Block\n(" + combo.ToString("") + "/3 Combo)";
+                            else return "Gain " + DoubleJumpBlock(level).ToString("") + " Block Twice";
+                        case 17:
+                            if (combo < 4)
+                                return combo.ToString("") + "/4 Combo)";
+                            else if (level == 0) return "Draw a Card\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                            else return "Draw " + FlowLikeWaterDraw(level).ToString("") + " Cards\nGain" + FlowLikeWaterMana(level).ToString("") + " Mana\n& " + FlowLikeWaterEnergy(level).ToString("") + " Energy";
+                        case 18:
+                            return "Gain " + PreparationBlock(level).ToString("") + " Block\n& 1 permanent Combo,\nEvery 5x Combo reached, gain " + PreparationStacks(level).ToString("") + " Block\nDestroy";
+                        case 19:
+                            return "Deal " + StaggeringBlowDamage(level).ToString("") + " Damage\nreduce Targets\nTenacity by 1\n& Apply " + StaggeringBlowSlow(level).ToString("") + " Slow\nDestroy";
+                        case 20:
+                            return "Deal " + DredgeLineDamage(level).ToString("") + " Damage\nApply " + DredgeLineSlow(level).ToString("") + " Slow\nGain " + DredgeLineEnergy(level).ToString("") + " Energy";
+                        case 21:
+                            return "Deal " + ShredDamage(level).ToString("") + " Damage\nBreak up to " + ShredBreak(level).ToString("") + " Shield\nGain that much Block";
+                        case 22:
+                            return "Gain " + StrengthOfTheDepthsStrength(level).ToString("") + " Strength\n& " + StrengthOfTheDepthsBlock(level).ToString("") + " Block";
+                        case 23:
+                            return "Every Weapon Attack Gives " + TridentOfStormsStacks(level).ToString("") + " Storm Charges\nDestroy";
+                        case 24:
+                            return "Gain " + ConduitBlock(level).ToString("") + " Block\n& " + ConduitCharges(level).ToString("") + " Storm Charges";
+                        case 25:
+                            if (energy >= 12)
+                                return "Gain " + AnchoredBlock(level, true).ToString("") + " Block\n" + AnchoredResistance(level).ToString("") + " Resistance\nSpend 12 Energy";
+                            else return "Gain " + AnchoredBlock(level, false).ToString("") + " Block\n(" + energy.ToString("") + "/12 Energy)";
+                        case 26:
+                            return "Gain " + NimbleEnergy(level).ToString("") + " Energy\n& " + NimbleBlock(level, NimbleEnergy(level)).ToString("") + " Block";
+                        case 27:
+                            if (level == 0)
+                            {
+                                if (combo < 2)
+                                    return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/2 Combo)";
+                                else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength";
+                            }
+                            else if (level == 1)
+                            {
+                                if (combo < 1)
+                                    return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/1 Combo)";
+                                else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength";
+                            }
+                            else
+                            {
+                                if (combo < 1)
+                                    return "Deal " + SinkDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/1 Combo)\n(" + combo.ToString("") + "/3 Combo)";
+                                else if (combo < 3)
+                                    return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 1 Strength\n(" + combo.ToString("") + "/3 Combo)";
+                                else return "Deal " + SinkDamage(level).ToString("") + " Damage\nGain 2 Strength";
+                            }
+                        case 28:
+                            return "Deal " + RendDamage(level).ToString("") + " Damage\nGain " + RendBlock(level).ToString("") + " Block\n" + RendAmount(level).ToString("") + " Times";
+                        case 29:
+                            return "Gain " + ThickSkinBlock(level).ToString("") + " Block\nIncrease Max Health by " + ThickSkinHealth(level).ToString("") + " permamently\nDestroy";
+                        case 30:
+                            return "Apply " + FrozenTouchBleed(level).ToString("") + " Bleed\n& " + FrozenTouchSlow(level).ToString("") + " Slow";
+                        case 31:
+                            if (combo <= 1)
+                                return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                            else if (combo < EyeOfTheStormCombo(level))
+                                return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges\n(" + combo.ToString("") + "/" + EyeOfTheStormCombo(level).ToString("") + " Combo)";
+                            else return "Deal " + EyeOfTheStormDamage(level).ToString("") + " Damage\nGain " + EyeOfTheStormCharges(level).ToString("") + " Storm Charges";
+                        case 32:
+                            return "Gain " + AcclimationBlock(level).ToString("") + " Block\nApply " + AcclimationSlow(level).ToString("") + " Slow";
+                        case 33:
+                            return "Deal " + TorrentDamage(level).ToString("") + " Damage\nGain " + TorrentCharges(level).ToString("") + " Storm Charges";
+                        case 34:
+                            return "Deal " + RiptideDamage().ToString("") + " Damage\n& Apply 2 Slow\nto all Enemies\nRepeat " + RiptideRecasts(level).ToString("") + " Time/s next Turn";
+                    }
+                }
+                else
+                {
+                    which -= Library.waterCards;
+                    switch (which)
+                    {
+                        case 0:
+                            return "Deal " + SapMagicDamage(level).ToString("") + " Damage\nGain 1 Mana next Turn";
+                        case 1:
+                            return "Gain " + InnervateMana(level).ToString("") + " Mana\n& Draw 1 Card";
+                        case 2:
+                            return "Gain " + BarkskinBlock(level).ToString("") + " Block";
+                        case 3:
+                            if (level == 0)
+                                return "Draw 1 Card\nGain " + CycleOfLifeBlock(level, 0).ToString("") + " Block";
+                            return "Draw 2 Cards\nGain " + CycleOfLifeBlock(level, 1).ToString("") + " Block";
+                        case 4:
+                            return "Deal " + ForceOfNatureDamage(level).ToString("") + " Damage\nApply " + ForceOfNatureSlow(level).ToString("") + " Slow";
+                        case 5:
+                            if (level == 0)
+                                return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 1 Card\nNext Turn";
+                            return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 2 Cards\nNext Turn";
+                    }
                 }
             }
         }
@@ -1544,15 +1653,34 @@ public class PlayerCombat : MonoBehaviour
         CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DecisiveStrikeDamage(level));
         OnHit();
-        GainValor(DecisiveStrikeValor(level));
+        if (valor >= DecisiveStrikeValorReq(level))
+        {
+            GainStrength(DecisiveStrikeStrength(level));
+            SpendValor(DecisiveStrikeValorReq(level));
+        }
+        else GainValor(DecisiveStrikeValor(level));
     }
 
     int DecisiveStrikeDamage(int level)
     {
-        tempi = 10 + effect[0];
-        tempi += 1 * level;
-        tempi += valor;
+        tempi = 12 + effect[0];
+        tempi += 2 * level;
         return DamageDealtModifier(tempi);
+    }
+
+    int DecisiveStrikeValorReq(int level)
+    {
+        tempi = 4;
+        tempi -= level;
+        tempi += (level / 2) * 3;
+        return tempi;
+    }
+
+    int DecisiveStrikeStrength(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
     }
 
     int DecisiveStrikeValor(int level)
@@ -1565,22 +1693,19 @@ public class PlayerCombat : MonoBehaviour
     void BulwarkOfLight(int level) // ID L 10
     {
         GainBlock(BulwarkOfLightBlock(level));
-        GainValor(BulwarkOfLightValor(level));
+        if (valor >= DecisiveStrikeValorReq(level))
+        {
+            GainResistance(DecisiveStrikeStrength(level));
+            SpendValor(DecisiveStrikeValorReq(level));
+        }
+        else GainValor(DecisiveStrikeValor(level));
     }
 
     int BulwarkOfLightBlock(int level)
     {
-        tempi = 9 + effect[1];
-        tempi += 1 * level;
-        tempi += valor;
+        tempi = 11 + effect[1];
+        tempi += 2 * level;
         return BlockGainedModifier(tempi);
-    }
-
-    int BulwarkOfLightValor(int level)
-    {
-        tempi = 1;
-        tempi += level;
-        return tempi;
     }
 
     void GoldenAegis(int level) // ID L 11
@@ -1613,23 +1738,13 @@ public class PlayerCombat : MonoBehaviour
     void ShieldWall(int level) // ID L 12
     {
         GainBlock(ShieldWallBlock(level));
-        GainResistance(ShieldWallResistance(level));
     }
 
     int ShieldWallBlock(int level)
     {
-        tempi = 8 + effect[1];
-        tempi += 4 * level;
-        if (level > 1)
-            tempi -= 3;
+        tempi = 10 + 2 * effect[1];
+        tempi += (2 + effect[1]) * level;
         return BlockGainedModifier(tempi);
-    }
-
-    int ShieldWallResistance(int level)
-    {
-        tempi = 1;
-        tempi += level / 2;
-        return tempi;
     }
 
     void ShieldGlare(int level) // ID L 13
@@ -1723,14 +1838,13 @@ public class PlayerCombat : MonoBehaviour
     int ConsecrationDamage(int level)
     {
         tempi = 16 + effect[0];
-        tempi += 5 * level;
-        tempi += valor;
+        tempi += 6 * level;
         return DamageDealtModifier(tempi);
     }
 
     int ConsecrationSlow(int level)
     {
-        tempi = 1;
+        tempi = 2;
         tempi += level;
         return tempi;
     }
@@ -1798,14 +1912,28 @@ public class PlayerCombat : MonoBehaviour
         CombatScript.Effect(false, 7, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyBoltDamage(level));
         OnHit();
+        if (valor >= HolyBoltValorReq(level))
+        {
+            CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyBoltDamage(level));
+            OnHit();
+            SpendValor(HolyBoltValorReq(level));
+        }
+        else GainValor(1);
     }
 
     int HolyBoltDamage(int level)
     {
-        tempi = 7 + effect[0];
-        tempi += 2 * level;
-        tempi += (2 + level) * valor;
+        tempi = 6 + effect[0];
+        tempi += 3 * level;
+        tempi -= (level / 2) * 2;
         return DamageDealtModifier(tempi);
+    }
+
+    int HolyBoltValorReq(int level)
+    {
+        tempi = 5;
+        tempi -= level / 2;
+        return tempi;
     }
 
     void LayOnHands(int level) // ID L 20
@@ -1823,7 +1951,7 @@ public class PlayerCombat : MonoBehaviour
 
     int LayOnHandsHeal(int level)
     {
-        tempi = 2;
+        tempi = 3;
         tempi += 2 * level;
         return tempi;
     }
@@ -1921,13 +2049,19 @@ public class PlayerCombat : MonoBehaviour
     void HeavyArmor(int level) // ID L 25
     {
         GainBlock(HeavyArmorBlock(level));
+        GainArmor(HeavyArmorArmor(level));
     }
 
     int HeavyArmorBlock(int level)
     {
-        tempi = 10 + 2 * effect[1];
-        tempi += (2 + effect[1]) * level;
+        tempi = 12 + effect[1];
         return BlockGainedModifier(tempi);
+    }
+
+    int HeavyArmorArmor(int level)
+    {
+        tempi = 2 + level;
+        return tempi;
     }
 
     void ShieldOfHope(int level) // ID L 26
@@ -2050,14 +2184,13 @@ public class PlayerCombat : MonoBehaviour
     int LightsChosenStrength(int level)
     {
         tempi = 1;
-        tempi += level;
+        tempi += (1 + level) /2;
         return tempi;
     }
 
     int LightsChosenResistance(int level)
     {
         tempi = 1;
-        tempi += level;
         tempi -= level / 2;
         return tempi;
     }
@@ -2065,7 +2198,7 @@ public class PlayerCombat : MonoBehaviour
     int LightsChosenDexterity(int level)
     {
         tempi = 1;
-        tempi += level / 2;
+        tempi += level;
         return tempi;
     }
 
@@ -2118,7 +2251,7 @@ public class PlayerCombat : MonoBehaviour
     void Vengeance(int level) // ID L 34
     {
         CombatScript.Effect(false, 2, true, CombatScript.targetedEnemy);
-        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(VengeancekDamage(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(VengeanceDamage(level));
         OnHit();
         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
         {
@@ -2127,7 +2260,7 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    int VengeancekDamage(int level)
+    int VengeanceDamage(int level)
     {
         tempi = 11 + effect[0];
         tempi += 2 * level;
@@ -2146,6 +2279,23 @@ public class PlayerCombat : MonoBehaviour
         tempi = 4;
         tempi += 2 * level;
         return tempi;
+    }
+
+    void HolyFire(int level)
+    {
+        CombatScript.Effect(false, 5, true, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyFireDamage(level));
+        OnHit();
+    }
+
+    int HolyFireDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 2 * level;
+        if (level > 0)
+            tempi += (3 + level) * (spentValor / 3);
+        else tempi += spentValor;
+        return DamageDealtModifier(tempi);
     }
 
     // WATER
@@ -2857,7 +3007,7 @@ public class PlayerCombat : MonoBehaviour
 
     int AcclimationBlock(int level)
     {
-        tempi = 2;
+        tempi = 2 + effect[1];
         tempi += 4 * level;
         tempi -= (level / 2) * 3;
         tempi += 2 * CombatScript.Enemy[CombatScript.targetedEnemy].tenacity;
@@ -2911,13 +3061,129 @@ public class PlayerCombat : MonoBehaviour
 
     int RiptideDamage()
     {
-        tempi = 12 + effect[0];
+        tempi = 10 + effect[0];
         return DamageDealtModifier(tempi);
     }
 
     int RiptideRecasts(int level)
     {
         tempi = 1 + level;
+        return tempi;
+    }
+
+    // NATURE
+    void SapMagic(int level) // ID N 0
+    {
+        //CombatScript.Effect(false, 10, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SapMagicDamage(level));
+        OnHit();
+        effect[22]++;
+    }
+
+    int SapMagicDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 4 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    void Innervate(int level) // ID N 1
+    {
+        GainMana(InnervateMana(level));
+        Cards.Draw(1);
+    }
+
+    int InnervateMana(int level)
+    {
+        tempi = 1;
+        tempi += level;
+        return tempi;
+    }
+
+    void Barkskin(int level) // ID N 2
+    {
+        GainBlock(BarkskinBlock(level));
+    }
+
+    int BarkskinBlock(int level)
+    {
+        tempi = 6 + effect[1];
+        tempi += 2 * level;
+        tempi += (3 + level) * manaSpentTurn;
+        return BlockGainedModifier(tempi);
+    }
+
+    void CycleOfLife(int level) // ID N 3
+    {
+        Cards.Draw(CycleOfLifeDraw(level));
+        GainBlock(CycleOfLifeBlock(level, 0));
+    }
+
+    int CycleOfLifeDraw(int level)
+    {
+        tempi = 1;
+        tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    int CycleOfLifeBlock(int level, int additionalCards)
+    {
+        tempi = 2;
+        tempi += level / 2;
+        tempi *= (Cards.CardsInHand + additionalCards);
+        tempi += effect[1];
+        return BlockGainedModifier(tempi);
+    }
+
+    void ForceOfNature(int level) // ID N 4
+    {
+        //CombatScript.Effect(false, 10, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ForceOfNatureDamage(level));
+        OnHit();
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ForceOfNatureSlow(level));
+    }
+
+    int ForceOfNatureDamage(int level)
+    {
+        tempi = 18 + effect[0];
+        tempi += 2 * level;
+        tempi += (2 + level) * (totalManaSpent / (3 + level));
+        return DamageDealtModifier(tempi);
+    }
+
+    int ForceOfNatureSlow(int level)
+    {
+        tempi2 = 11 - level;
+        tempi2 = ForceOfNatureDamage(level) / tempi2;
+        return tempi2;
+    }
+
+    void Meditate(int level) // ID N 5
+    {
+        GainBlock(MeditateBlock(level));
+        effect[22] += MeditateMana(level);
+        effect[23] += MeditateDraw(level);
+    }
+
+    int MeditateBlock(int level)
+    {
+        tempi = 7 + effect[1];
+        tempi += 2 * level;
+        temp -= level / 2;
+        return BlockGainedModifier(tempi);
+    }
+
+    int MeditateMana(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        return tempi;
+    }
+
+    int MeditateDraw(int level)
+    {
+        tempi = 1;
+        tempi += (1 + level) / 2;
         return tempi;
     }
 

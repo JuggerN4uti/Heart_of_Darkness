@@ -6,5 +6,6 @@ public class Item : MonoBehaviour
 {
     public Sprite ItemSprite;
     public string ItemName, ItemTooltip;
-    public bool text;
+    public bool text, nonNeutral;
+    public int Class;
 }

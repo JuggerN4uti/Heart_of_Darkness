@@ -18,6 +18,7 @@ public class HeroChoice : MonoBehaviour
     [Header("Stats")]
     public int[] LightStats;
     public int[] WaterStats;
+    public int[] NatureStats;
     public int[] weaponDamage, weaponStrengthBonus, weaponEnergyRequirement;
     public string[] weaponName;
 
@@ -44,8 +45,17 @@ public class HeroChoice : MonoBehaviour
                     PlayerScript.StatValues[i] += WaterStats[i];
                 }
                 ComboDisplay.SetActive(true);
-                DeckScript.CardID[4] = 46;
-                DeckScript.CardID[9] = 63;
+                DeckScript.CardID[4] = 47;
+                DeckScript.CardID[9] = 64;
+                break;
+            case 2:
+                for (int i = 0; i < LightStats.Length; i++)
+                {
+                    PlayerScript.StatValues[i] += NatureStats[i];
+                }
+                //ComboDisplay.SetActive(true);
+                //DeckScript.CardID[4] = 47;
+                //DeckScript.CardID[9] = 64;
                 break;
         }
         PlayerScript.Class = which;

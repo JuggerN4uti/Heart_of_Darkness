@@ -104,6 +104,43 @@ MonoBehaviour:
   - Deal Damage equal to your Block
   - Gain 2 Block, Deal Damage equal to your Block
   - Gain 4 Block, Deal Damage equal to your Block
+--- !u!1 &253677507769866406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6133760844408124017}
+  m_Layer: 0
+  m_Name: Nature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6133760844408124017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253677507769866406}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5190638899738953353}
+  - {fileID: 3096672172944766025}
+  - {fileID: 1708293601726086705}
+  - {fileID: 4016845180896665738}
+  - {fileID: 1362100436590243791}
+  - {fileID: 7692952095952915859}
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &369342426370396040
 GameObject:
   m_ObjectHideFlags: 0
@@ -622,11 +659,11 @@ MonoBehaviour:
   CardSprite: {fileID: 21300000, guid: ee3dfc5abe1bd4747ab33246b8d37034, type: 3}
   CardName: Heavy Armor
   CardManaCost: 0100000001000000010000000100000001000000
-  SingleUse: 0
+  SingleUse: 1
   CardTooltip:
-  - Gain 10 Block. Resistance bonus is Doubled
-  - Gain 12 Block. Resistance bonus is Tripled
-  - Gain 14 Block. Resistance bonus is Quadrupled
+  - Gain 12 Block & 2 Armor. Destroy
+  - Gain 14 Block & 3 Armor. Destroy
+  - Gain 16 Block & 4 Armor. Destroy
 --- !u!1 &1119688564298723055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,9 +1663,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 10 Damage, Gain 1 Valor. Damage Dealt increased by Valor
-  - Deal 11 Damage, Gain 2 Valor. Damage Dealt increased by Valor
-  - Deal 12 Damage, Gain 3 Valor. Damage Dealt increased by Valor
+  - 'Deal 12 Damage. Valor 4: Gain 1 Strength, otherwise Gain 1 Valor'
+  - 'Deal 14 Damage. Valor 3: Gain 1 Strength, otherwise Gain 2 Valor'
+  - 'Deal 16 Damage. Valor 5: Gain 2 Strength, otherwise Gain 3 Valor'
 --- !u!1 &3098920686773599662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1681,6 +1718,58 @@ MonoBehaviour:
   - Gain 2 Strength. Your every Attack this Combat applies 1 Bleed. Destroy
   - Gain 2 Strength. Your every Attack this Combat applies 1 Bleed. Destroy
   - Gain 2 Strength. Your every Attack this Combat applies 2 Bleed. Destroy
+--- !u!1 &3101317740768315056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3096672172944766025}
+  - component: {fileID: 5585599275091979956}
+  m_Layer: 0
+  m_Name: Innervate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3096672172944766025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101317740768315056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5585599275091979956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3101317740768315056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: ca7aa1ee4341f08449ec6c1dac4b5c23, type: 3}
+  CardName: Innervate
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Mana & Draw a Card. Destroy
+  - Gain 2 Mana & Draw a Card. Destroy
+  - Gain 3 Mana & Draw a Card. Destroy
 --- !u!1 &3547554386167414550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1941,6 +2030,162 @@ MonoBehaviour:
   - Deal 9 Damage, Gain 10 Silver. Destroy
   - Deal 11 Damage, Gain 14 Silver. Destroy
   - Deal 13 Damage, Gain 18 Silver. Destroy
+--- !u!1 &3824815911611863322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5190638899738953353}
+  - component: {fileID: 4662700639182740039}
+  m_Layer: 0
+  m_Name: Sap Magic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5190638899738953353
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824815911611863322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4662700639182740039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3824815911611863322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 09f693147843a4d46ac3e7eba1123925, type: 3}
+  CardName: Sap Magic
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 11 Damage, Gain 1 Mana next Turn
+  - Deal 15 Damage, Gain 1 Mana next Turn
+  - Deal 19 Damage, Gain 1 Mana next Turn
+--- !u!1 &3911556929416912178
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7918385692120944109}
+  - component: {fileID: 1656805422280805728}
+  m_Layer: 0
+  m_Name: Holy Fire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7918385692120944109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3911556929416912178}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4956683918502943850}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656805422280805728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3911556929416912178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 73109155e38071044b826fce8401de9e, type: 3}
+  CardName: Holy Fire
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 11 Damage, Damage increased by Valor spent this Combat
+  - Deal 13 Damage, Damage increased by 4 per 3 Valor spent this Combat
+  - Deal 15 Damage, Damage increased by 5 per 3 Valor spent this Combat
+--- !u!1 &4170702260030835188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7692952095952915859}
+  - component: {fileID: 3094189225394088247}
+  m_Layer: 0
+  m_Name: Meditate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7692952095952915859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170702260030835188}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3094189225394088247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4170702260030835188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: edab8cb587e60c0468c1245d9fc59aab, type: 3}
+  CardName: Meditate
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 7 Block. Gain 1 Mana & Draw 1 Card next Turn
+  - Gain 9 Block. Gain 1 Mana & Draw 2 Cards next Turn
+  - Gain 10 Block. Gain 2 Mana & Draw 2 Cards next Turn
 --- !u!1 &4180856026954887197
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,6 +2353,7 @@ Transform:
   - {fileID: 6855524620088823062}
   - {fileID: 6983493095402627513}
   - {fileID: 2938241329302571263}
+  - {fileID: 7918385692120944109}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2212,9 +2458,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Strength, Resistance & Dexterity. Destroy
-  - Gain 2 Strength, Resistance & 1 Dexterity. Destroy
-  - Gain 3 Strength, 2 Resistance & Dexterity. Destroy
+  - Gain 1 Strength, 1 Resistance & 1 Dexterity. Destroy
+  - Gain 2 Strength, 1 Resistance & 2 Dexterity. Destroy
+  - Gain 2 Strength, 2 Resistance & 3 Dexterity. Destroy
 --- !u!1 &4688838065884363077
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,6 +2702,7 @@ Transform:
   - {fileID: 8785944750833708101}
   - {fileID: 4956683918502943850}
   - {fileID: 3116664440623484321}
+  - {fileID: 6133760844408124017}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2509,6 +2756,7 @@ MonoBehaviour:
   - {fileID: 794969988877965574}
   - {fileID: 1626051629611766600}
   - {fileID: 2975767088335929206}
+  - {fileID: 1656805422280805728}
   - {fileID: 7661312308291391011}
   - {fileID: 531663049885612477}
   - {fileID: 5694697676957739292}
@@ -2544,6 +2792,12 @@ MonoBehaviour:
   - {fileID: 4784634740919980181}
   - {fileID: 1555238934440777140}
   - {fileID: 4552255908263330842}
+  - {fileID: 4662700639182740039}
+  - {fileID: 5585599275091979956}
+  - {fileID: 912172979844134387}
+  - {fileID: 5746219318661487943}
+  - {fileID: 4809683868364726339}
+  - {fileID: 3094189225394088247}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -2551,7 +2805,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 93ae9aec85b7d054ba708d5059803bf1, type: 3}
   - {fileID: 21300000, guid: 24522fd3b4e1dcf40b43125e90a25f82, type: 3}
   neutralCards: 2
-  lightCards: 35
+  lightCards: 36
+  waterCards: 35
 --- !u!1 &5368283676432036145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2601,9 +2856,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
   CardTooltip:
-  - Deal 7 Damage. Damage Dealt increased by 2 per Valor
-  - Deal 9 Damage. Damage Dealt increased by 3 per Valor
-  - Deal 11 Damage. Damage Dealt increased by 4 per Valor
+  - 'Deal 6 Damage. Valor 5: Twice, otherwise Gain 1 Valor'
+  - 'Deal 9 Damage. Valor 5: Twice, otherwise Gain 1 Valor'
+  - 'Deal 10 Damage. Valor 4: Twice, otherwise Gain 1 Valor'
 --- !u!1 &5631511503270810478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3072,12 +3327,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 16 Damage & Apply 1 Slow to all Enemies, Gain 2 Valor. Damage Dealt increased
-    by Valor
-  - Deal 21 Damage & Apply 2 Slow to all Enemies, Gain 3 Valor. Damage Dealt increased
-    by Valor
-  - Deal 26 Damage & Apply 3 Slow to all Enemies, Gain 4 Valor. Damage Dealt increased
-    by Valor
+  - Deal 16 Damage & Apply 2 Slow to all Enemies, Gain 2 Valor
+  - Deal 22 Damage & Apply 3 Slow to all Enemies, Gain 3 Valor
+  - Deal 28 Damage & Apply 4 Slow to all Enemies, Gain 4 Valor
 --- !u!1 &6724833001348074672
 GameObject:
   m_ObjectHideFlags: 0
@@ -3130,6 +3382,61 @@ MonoBehaviour:
   - Deal 7 Damage, Apply 3 Bleed
   - Deal 8 Damage, Apply 5 Bleed
   - Deal 9 Damage, Apply 7 Bleed
+--- !u!1 &6865833207568054539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1362100436590243791}
+  - component: {fileID: 4809683868364726339}
+  m_Layer: 0
+  m_Name: Force of Nature
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1362100436590243791
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865833207568054539}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4809683868364726339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6865833207568054539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: b08363103e3e54241a355dd7dab61476, type: 3}
+  CardName: Force of Nature
+  CardManaCost: 0300000003000000030000000300000003000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 18 Damage. Damage increased by 2 per 3 Mana spent this Combat. Apply 1 Slow
+    per 11 Damage
+  - Deal 20 Damage. Damage increased by 3 per 4 Mana spent this Combat. Apply 1 Slow
+    per 10 Damage
+  - Deal 22 Damage. Damage increased by 4 per 5 Mana spent this Combat. Apply 1 Slow
+    per 9 Damage
 --- !u!1 &6965736690019580984
 GameObject:
   m_ObjectHideFlags: 0
@@ -3283,9 +3590,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 12 Damage & Apply 2 Slow to all Enemies. Repeat this next Turn
-  - Deal 12 Damage & Apply 2 Slow to all Enemies. Repeat this Twice next Turn
-  - Deal 12 Damage & Apply 2 Slow to all Enemies. Repeat this Thrice next Turn
+  - Deal 10 Damage & Apply 2 Slow to all Enemies. Repeat this next Turn
+  - Deal 10 Damage & Apply 2 Slow to all Enemies. Repeat this Twice next Turn
+  - Deal 10 Damage & Apply 2 Slow to all Enemies. Repeat this Thrice next Turn
 --- !u!1 &7455830186716806652
 GameObject:
   m_ObjectHideFlags: 0
@@ -3387,9 +3694,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 1
   CardTooltip:
-  - Gain 2 Valor, Restore 2 Health. Destroy
-  - Gain 3 Valor, Restore 4 Health. Destroy
-  - Gain 4 Valor, Restore 6 Health. Destroy
+  - Gain 2 Valor, Restore 3 Health. Destroy
+  - Gain 3 Valor, Restore 5 Health. Destroy
+  - Gain 4 Valor, Restore 7 Health. Destroy
 --- !u!1 &7733901304945894842
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,9 +3746,113 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 9 Block, Gain 1 Valor. Block Gained increased by Valor
-  - Gain 10 Block, Gain 2 Valor. Block Gained increased by Valor
-  - Gain 11 Block, Gain 3 Valor. Block Gained increased by Valor
+  - 'Gain 11 Block. Valor 4: Gain 1 Resistance, otherwise Gain 1 Valor'
+  - 'Gain 13 Block. Valor 3: Gain 1 Resistance, otherwise Gain 2 Valor'
+  - 'Gain 15 Block. Valor 5: Gain 2 Resistance, otherwise Gain 3 Valor'
+--- !u!1 &7986722737720104172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1708293601726086705}
+  - component: {fileID: 912172979844134387}
+  m_Layer: 0
+  m_Name: Barkskin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1708293601726086705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7986722737720104172}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &912172979844134387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7986722737720104172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: a9a918a6ad8235f49bc56f27dfefc7dd, type: 3}
+  CardName: Barkskin
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 6 Block. Block gain increased by 3 per Mana spent this Turn
+  - Gain 8 Block. Block gain increased by 4 per Mana spent this Turn
+  - Gain 10 Block. Block gain increased by 5 per Mana spent this Turn
+--- !u!1 &8451823244882498875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4016845180896665738}
+  - component: {fileID: 5746219318661487943}
+  m_Layer: 0
+  m_Name: Cycle of Life
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4016845180896665738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451823244882498875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5746219318661487943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8451823244882498875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 998e54759b97a74439145d5409e05f67, type: 3}
+  CardName: Cycle of Life
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Draw 1 Card. Gain 2 Block for every Card in Hand
+  - Draw 2 Card. Gain 2 Block for every Card in Hand
+  - Draw 2 Card. Gain 3 Block for every Card in Hand
 --- !u!1 &8655902471418726768
 GameObject:
   m_ObjectHideFlags: 0
@@ -3855,9 +4266,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 8 Block, Gain 1 Resistance
-  - Gain 12 Block, Gain 1 Resistance
-  - Gain 13 Block, Gain 2 Resistance
+  - Gain 10 Block. Resistance bonus is Doubled
+  - Gain 12 Block. Resistance bonus is Tripled
+  - Gain 14 Block. Resistance bonus is Quadrupled
 --- !u!1 &8973711149042071427
 GameObject:
   m_ObjectHideFlags: 0

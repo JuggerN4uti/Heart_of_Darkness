@@ -324,7 +324,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Trident of Storms:\nWeapon Attack Give " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Storm Charge/s";
                 break;
             case 18:
-                EffectTooltip.text = "Storm Charge:\nUpon reaching 10 Charges summon Lighting at random Enemy";
+                EffectTooltip.text = "Storm Charge:\nUpon reaching 9 Charges summon Lighting at random Enemy";
                 break;
             case 19:
                 EffectTooltip.text = "Prepared:\nUpon reaching 5x Combo Gain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block";
@@ -334,6 +334,12 @@ public class Combat : MonoBehaviour
                 break;
             case 21:
                 EffectTooltip.text = "Riptides:\nNext Turn, Cast Riptide " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Time/s";
+                break;
+            case 22:
+                EffectTooltip.text = "Stored Mana:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Mana at the start of next Turn";
+                break;
+            case 23:
+                EffectTooltip.text = "Stored Cards:\nDraw " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s at the start of next Turn";
                 break;
         }
     }
@@ -403,7 +409,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Soul Harvest:\nWhen you end Turn with 0 Mana, gain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength\n & " + (3 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Shield";
                 break;
             case 20:
-                EffectTooltip.text = "Reaper of Souls:\nWhen you end Turn with unspent Mana, gain 1 Strength & Deal 5 Damage per Mana left";
+                EffectTooltip.text = "Reaper of Souls:\nWhen you end Turn with unspent Mana, gain 2 Strength & Deal 12 Damage per Mana left";
                 break;
             case 21:
                 EffectTooltip.text = "Unstable Power:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Mana each Turn";

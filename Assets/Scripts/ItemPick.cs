@@ -23,19 +23,19 @@ public class ItemPick : MonoBehaviour
         do
         {
             roll = Random.Range(0, Library.Items.Length);
-        } while (PlayerScript.Item[roll]);
+        } while ((PlayerScript.Item[roll]) || (Library.Items[roll].nonNeutral && Library.Items[roll].Class != PlayerScript.Class));
         rolledID[0] = roll;
 
         do
         {
             roll = Random.Range(0, Library.Items.Length);
-        } while (PlayerScript.Item[roll] || roll == rolledID[0]);
+        } while ((PlayerScript.Item[roll] || roll == rolledID[0]) || (Library.Items[roll].nonNeutral && Library.Items[roll].Class != PlayerScript.Class));
         rolledID[1] = roll;
 
         do
         {
             roll = Random.Range(0, Library.Items.Length);
-        } while (PlayerScript.Item[roll] || roll == rolledID[0] || roll == rolledID[1]);
+        } while ((PlayerScript.Item[roll] || roll == rolledID[0] || roll == rolledID[1]) || (Library.Items[roll].nonNeutral && Library.Items[roll].Class != PlayerScript.Class));
         rolledID[2] = roll;
 
         ItemPickObject.SetActive(true);

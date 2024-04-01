@@ -65,6 +65,10 @@ public class LibraryPick : MonoBehaviour
                 break;
             case 1:
                 min = 2 + Library.lightCards;
+                max = Library.waterCards;
+                break;
+            case 2:
+                min = 2 + Library.lightCards + Library.waterCards;
                 max = Library.Cards.Length;
                 break;
         }

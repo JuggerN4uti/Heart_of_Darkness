@@ -29,6 +29,8 @@ public class Hand : MonoBehaviour
     public int CardsInHand;
     public int[] CardsID, CardsLevel;
     public int skipDraw;
+    public bool destroyed;
+    int playedID, playedLevel;
 
     [Header("Item Stats")]
     public int cardsPlayed;
@@ -105,45 +107,50 @@ public class Hand : MonoBehaviour
 
     public void PlayCard(int which)
     {
-        Player.UseAbility(CardsID[which], CardsLevel[which]);
-        Player.SpendMana(Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]]);
-        if (PlayerScript.Item[38] && Library.Cards[CardsID[which]].CardManaCost[CardsLevel[which]] >= 2)
+        destroyed = false;
+        playedID = CardsID[which];
+        playedLevel = CardsLevel[which];
+
+        if (!Library.Cards[playedID].SingleUse)
+        {
+            if (playedID == 10)
+            {
+                if (Player.HealthProcentage() >= 0.5f)
+                    CardDiscard.ShuffleIn(playedID, playedLevel);
+                else destroyed = true;
+            }
+            else CardDiscard.ShuffleIn(playedID, playedLevel);
+        }
+        else destroyed = true;
+
+        for (int i = which; i < CardsInHand; i++)
+        {
+            if (i < 9)
+            {
+                CardsID[i] = CardsID[i + 1];
+                CardsLevel[i] = CardsLevel[i + 1];
+            }
+        }
+        CardsInHand--;
+
+        Player.UseAbility(playedID, playedLevel);
+        Player.SpendMana(Library.Cards[playedID].CardManaCost[playedLevel]);
+        if (PlayerScript.Item[38] && Library.Cards[playedID].CardManaCost[playedLevel] >= 2)
             Player.EquipmentCooldown(2);
 
         if (PlayerScript.Item[19])
         {
             cardsPlayed++;
             Player.ItemsScript.SetText();
-            if (cardsPlayed % 9 == 0)
+            if (cardsPlayed % 8 == 0)
                 Draw(1);
         }
 
-        if (!Library.Cards[CardsID[which]].SingleUse)
-        {
-            if (CardsID[which] == 10)
-            {
-                if (Player.HealthProcentage() >= 0.5f)
-                    CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
-                else if (PlayerScript.Item[21])
-                {
-                    Player.GainBlock(3);
-                    Draw(1);
-                }
-            }
-            else CardDiscard.ShuffleIn(CardsID[which], CardsLevel[which]);
-        }
-        else if (PlayerScript.Item[21])
+        if (PlayerScript.Item[21] && destroyed)
         {
             Player.GainBlock(3);
             Draw(1);
         }
-
-        for (int i = which; i < CardsInHand; i++)
-        {
-            CardsID[i] = CardsID[i + 1];
-            CardsLevel[i] = CardsLevel[i + 1];
-        }
-        CardsInHand--;
 
         UpdateInfo();
         Unhovered();

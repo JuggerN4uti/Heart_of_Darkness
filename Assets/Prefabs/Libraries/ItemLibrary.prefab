@@ -48,6 +48,8 @@ MonoBehaviour:
   ItemName: Whetstone
   ItemTooltip: Every 7 attacks gain 1 Strength
   text: 1
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &536108194450981497
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +98,8 @@ MonoBehaviour:
   ItemName: Amethyst Shard
   ItemTooltip: Gain 1 extra Mana on first 2 Turns
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &660370001351184554
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,6 +149,8 @@ MonoBehaviour:
   ItemTooltip: Gain 1 Strength, whenever you deal 22 Damage or more, increase it
     by 4
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &746340115692774379
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,6 +200,8 @@ MonoBehaviour:
   ItemTooltip: Draw additional Card every odd Turn & +1 Cooldown on Equipment on
     every even Turn
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &812429089564479260
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,6 +250,8 @@ MonoBehaviour:
   ItemName: Obsidian Shield
   ItemTooltip: Take 1 less Damage from all sources
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &1292755261754611570
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +300,8 @@ MonoBehaviour:
   ItemName: Revenant Flail
   ItemTooltip: Whenever an Enemy is Stunned, it gains Daze equal to it's Tenacity
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &1575500223698261404
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +350,8 @@ MonoBehaviour:
   ItemName: Curved Knife
   ItemTooltip: Gain 1 Strength, when applying at least 4 Bleed, apply 1 more
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &1760754285062071949
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +400,8 @@ MonoBehaviour:
   ItemName: Tongs
   ItemTooltip: Every 7 attacks gain 1 Resistance
   text: 1
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &1931912062124653995
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +451,8 @@ MonoBehaviour:
   ItemTooltip: Remove Equipment Energy Cost, whenever you play a Card, that costs
     2 or more Mana, gain +3 Equipment Cooldown
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &1984920429680707578
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +501,59 @@ MonoBehaviour:
   ItemName: Black Dahlia
   ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 3 Block
   text: 0
+  nonNeutral: 0
+  Class: 0
+--- !u!1 &1996646493603915266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4924573390267792749}
+  - component: {fileID: 1934812183501331009}
+  m_Layer: 0
+  m_Name: Lily Pad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4924573390267792749
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996646493603915266}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 44
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1934812183501331009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996646493603915266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 29db939b7f1eb014dba6b858c1afa995, type: 3}
+  ItemName: Lily Pad
+  ItemTooltip: Gain 1 permament Combo. Reaching 5x Combo gives 3 Energy & 1 Card
+    Draw
+  text: 0
+  nonNeutral: 1
+  Class: 1
 --- !u!1 &2230659321674342481
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +603,8 @@ MonoBehaviour:
   ItemTooltip: Start Combat with 1 Strength for every 20 Bonus Health. Every Enemy
     slain gives 1 Max Health
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &2363789638655339383
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +653,8 @@ MonoBehaviour:
   ItemName: Energy Drink
   ItemTooltip: Gain 1 Dexterity, every 25 Energy gained gives +1 Cooldown on Equipment
   text: 1
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &2429483237260965031
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,6 +703,8 @@ MonoBehaviour:
   ItemName: Top Hat
   ItemTooltip: Gain 8 Max Health, whenever you play Rare Card, gain 10 Block
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &2440812099288369952
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,6 +753,8 @@ MonoBehaviour:
   ItemName: Time Bomb
   ItemTooltip: Gain 1 Max Mana, but each Turn take 2 times current Turn Damage
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &2794719596523347537
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +803,58 @@ MonoBehaviour:
   ItemName: Spiked Shield
   ItemTooltip: Gain 7 Shield & 2 Thorns
   text: 0
+  nonNeutral: 0
+  Class: 0
+--- !u!1 &2832998433707856973
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1075311465042438081}
+  - component: {fileID: 2998231443424830878}
+  m_Layer: 0
+  m_Name: Bottled Lightning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1075311465042438081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2832998433707856973}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 46
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2998231443424830878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2832998433707856973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 99fff120e997c164f8609db5a1c1324f, type: 3}
+  ItemName: Bottled Lightning
+  ItemTooltip: Increase Lightning Damage by 9. Every Turn gain 1 Storm Charge
+  text: 0
+  nonNeutral: 1
+  Class: 1
 --- !u!1 &3157136779464072148
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +903,8 @@ MonoBehaviour:
   ItemName: Broken Sword
   ItemTooltip: Gain 1 Strength, Weak is less effective on you
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &3543279966215379294
 GameObject:
   m_ObjectHideFlags: 0
@@ -820,6 +953,8 @@ MonoBehaviour:
   ItemName: Caltrops
   ItemTooltip: Enemies Start with 3 Bleed
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &3618855757112264405
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,6 +1003,8 @@ MonoBehaviour:
   ItemName: Bell
   ItemTooltip: Enemies deal 5% less Damage, Weak reduces by additional 15%
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &3627225682483906447
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +1053,8 @@ MonoBehaviour:
   ItemName: Anchor
   ItemTooltip: Up to 13 Block is retained
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &3672624895320583515
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,6 +1103,8 @@ MonoBehaviour:
   ItemName: Horseshoe
   ItemTooltip: Every 3 attacks gives 2 Energy
   text: 1
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &4150834564318633801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1153,58 @@ MonoBehaviour:
   ItemName: Sapphire Shard
   ItemTooltip: Gain 3 Dexterity
   text: 0
+  nonNeutral: 0
+  Class: 0
+--- !u!1 &4439249467878400924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1010916004776400109}
+  - component: {fileID: 8396771205323782371}
+  m_Layer: 0
+  m_Name: Copper Rod
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1010916004776400109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4439249467878400924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 45
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8396771205323782371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4439249467878400924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: a6e73d62b24dc1e4698ca0d75548b6e7, type: 3}
+  ItemName: Copper Rod
+  ItemTooltip: Summoning Lightning gives 1 Dexterity & 9 Block
+  text: 0
+  nonNeutral: 1
+  Class: 1
 --- !u!1 &4577658771466106992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,6 +1253,8 @@ MonoBehaviour:
   ItemName: Emerald Shard
   ItemTooltip: Gain 20 Max Health
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &4684938253370874053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1303,8 @@ MonoBehaviour:
   ItemName: Mead
   ItemTooltip: Enemies start with 5 Daze & 2 Slow
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &4890951267986123716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,6 +1354,8 @@ MonoBehaviour:
   ItemTooltip: Gain 4 Max Health, when visiting Camp, Restore 2 Health & 1 Sanity
     for every 5 Cards in Deck
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &5163171284113539459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1426,12 @@ Transform:
   - {fileID: 1612456115443030920}
   - {fileID: 2962335600176430970}
   - {fileID: 2779057119862437833}
+  - {fileID: 3817467886193783323}
+  - {fileID: 2133435700351406800}
+  - {fileID: 6573572251145395543}
+  - {fileID: 4924573390267792749}
+  - {fileID: 1010916004776400109}
+  - {fileID: 1075311465042438081}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1284,6 +1489,12 @@ MonoBehaviour:
   - {fileID: 6806182152654394075}
   - {fileID: 4281218603595402295}
   - {fileID: 1958634808445760387}
+  - {fileID: 2869789701927026577}
+  - {fileID: 1096666162329538003}
+  - {fileID: 6815945425392291270}
+  - {fileID: 1934812183501331009}
+  - {fileID: 8396771205323782371}
+  - {fileID: 2998231443424830878}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1544,8 @@ MonoBehaviour:
   ItemTooltip: After shuffling at least 15 Cards into Draw Pile, gain 1 Mana & 3
     Energy
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &5266035866176851714
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1594,8 @@ MonoBehaviour:
   ItemName: Reaper Scythe
   ItemTooltip: Ending Turn with unspent Mana gives 1 Strength & 5 Block
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &5316911593553640053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1429,6 +1644,8 @@ MonoBehaviour:
   ItemName: Ruby Shard
   ItemTooltip: Gain 2 Strength
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &6299909728797860564
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1694,8 @@ MonoBehaviour:
   ItemName: Bandages
   ItemTooltip: Reduce Bleed by 1 each Turn. Restore 5% missing Health after Combat
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &6352612750397758032
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,6 +1745,8 @@ MonoBehaviour:
   ItemTooltip: Double the power of other Rings, if you have all three, increase Max
     Mana by 1
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &6531875655818891139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,6 +1795,58 @@ MonoBehaviour:
   ItemName: Arcane Dust
   ItemTooltip: Every 3 Turns gain 1 extra Mana
   text: 1
+  nonNeutral: 0
+  Class: 0
+--- !u!1 &6898081947645434277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6573572251145395543}
+  - component: {fileID: 6815945425392291270}
+  m_Layer: 0
+  m_Name: Bottled Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6573572251145395543
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898081947645434277}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 43
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6815945425392291270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898081947645434277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: b7faa001ba2ca9946bb5dad1f309fd6c, type: 3}
+  ItemName: Bottled Light
+  ItemTooltip: When applying Weak or Vulnerable on Enemy, also Apply 2 Slow
+  text: 1
+  nonNeutral: 1
+  Class: 0
 --- !u!1 &6962654779521220800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1622,6 +1895,8 @@ MonoBehaviour:
   ItemName: Unbreakable Soul
   ItemTooltip: Gain 1 max Mana, but all non-Boss Enemies are 1 level tougher
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &6964184503356760131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,6 +1945,8 @@ MonoBehaviour:
   ItemName: Broken Shield
   ItemTooltip: Gain 1 Resistance, Frail is less effective on you
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &7162581655545443049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,6 +1996,8 @@ MonoBehaviour:
   ItemTooltip: Gain 2 Dexterity, whenever you gain 4 or more Energy, increase it
     by 1
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &7590636758870944764
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,6 +2047,8 @@ MonoBehaviour:
   ItemTooltip: Gain 1 Resistance, whenever you gain 15 or more Block, increase it
     by 3
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &7595522785966974393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1816,6 +2097,8 @@ MonoBehaviour:
   ItemName: Sledgehammer
   ItemTooltip: Every 4 attacks gain 5 Block
   text: 1
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &8042306616313430034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,6 +2147,8 @@ MonoBehaviour:
   ItemName: Topaz Shard
   ItemTooltip: Gain 2 Resistance
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &8308167264721718574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,6 +2197,108 @@ MonoBehaviour:
   ItemName: Cursed Blade
   ItemTooltip: Applying Debuff to enemy also deals 6 Damage
   text: 0
+  nonNeutral: 0
+  Class: 0
+--- !u!1 &8337952098507594446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2133435700351406800}
+  - component: {fileID: 1096666162329538003}
+  m_Layer: 0
+  m_Name: Golden Cuffs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2133435700351406800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337952098507594446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 42
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1096666162329538003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8337952098507594446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 82c387dc633543042968c62e236b0514, type: 3}
+  ItemName: Golden Cuffs
+  ItemTooltip: When applying Weak or Vulnerable on Enemy, also Apply 2 Slow
+  text: 0
+  nonNeutral: 1
+  Class: 0
+--- !u!1 &8437509895722492197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3817467886193783323}
+  - component: {fileID: 2869789701927026577}
+  m_Layer: 0
+  m_Name: Halo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3817467886193783323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437509895722492197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 41
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2869789701927026577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437509895722492197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: ab22ee711a51043439ff1d3405413191, type: 3}
+  ItemName: Halo
+  ItemTooltip: Every Turn Gain 1 Valor. Whenever you Gain Valor, also Gain 3 Block
+  text: 0
+  nonNeutral: 1
+  Class: 0
 --- !u!1 &8438427215263347385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,6 +2347,8 @@ MonoBehaviour:
   ItemName: Cracked Chestplate
   ItemTooltip: Gain 5 Shield, gain 5 Block each Turn while Shielded
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &8507136596404406398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2008,6 +2397,8 @@ MonoBehaviour:
   ItemName: Shattered Mirror
   ItemTooltip: Gain 1 max Mana, but Draw 1 less Card each Turn
   text: 0
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &8994416201596517766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,8 +2445,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: daa9541a45c8b4042b47a7779162ed8e, type: 3}
   ItemName: Broken Record
-  ItemTooltip: Every 9 Cards played, Draw 1 Card
+  ItemTooltip: Every 8 Cards played, Draw 1 Card
   text: 1
+  nonNeutral: 0
+  Class: 0
 --- !u!1 &9073401519775684056
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,3 +2497,5 @@ MonoBehaviour:
   ItemName: Runic Dagger
   ItemTooltip: Every 9 attacks gain 1 Mana
   text: 1
+  nonNeutral: 0
+  Class: 0
