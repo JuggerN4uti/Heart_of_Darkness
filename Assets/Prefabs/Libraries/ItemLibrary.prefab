@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 6e82f5effb41e2d418d1246013cad4f8, type: 3}
   ItemName: Duality Stone
-  ItemTooltip: Draw additional Card every odd Turn & +1 Cooldown on Equipment on
+  ItemTooltip: Draw additional Card every odd Turn & +2 Cooldown on Equipment on
     every even Turn
   text: 0
   nonNeutral: 0
@@ -1541,7 +1541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: a90b354caf6068644a787583a1872856, type: 3}
   ItemName: Hourglass
-  ItemTooltip: After shuffling at least 15 Cards into Draw Pile, gain 1 Mana & 3
+  ItemTooltip: After shuffling at least 14 Cards into Draw Pile, gain 1 Mana & 4
     Energy
   text: 0
   nonNeutral: 0
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: b7faa001ba2ca9946bb5dad1f309fd6c, type: 3}
   ItemName: Bottled Light
-  ItemTooltip: When applying Weak or Vulnerable on Enemy, also Apply 2 Slow
+  ItemTooltip: Every Turn Deal 2 Damage to all Enemies, increased by 1 per 2 Turns
   text: 1
   nonNeutral: 1
   Class: 0

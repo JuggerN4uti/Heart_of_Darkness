@@ -19,12 +19,13 @@ public class ForgeChoice : MonoBehaviour
     //public GameObject CarEventObject;
     //public Image SecondOptionImage;
     public Button[] UpgradeButton;
-    public TMPro.TextMeshProUGUI[] CostText;
+    public TMPro.TextMeshProUGUI[] CostText, Info;
 
     [Header("Gear")]
     public bool[] set;
     public int[] cost;
     public float[] charge, chargesReq, chargeIncrease;
+    float temp;
 
     //[Header("Sprites")]
     //public Sprite[] SecondOptionSprite;
@@ -33,7 +34,7 @@ public class ForgeChoice : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            ChargeGear(i, Random.Range(0.5f, 1.5f));
+            charge[i] += Random.Range(0.55f, 1.625f);
         }
         SetGear();
         ForgeEventObject.SetActive(true);
@@ -57,10 +58,13 @@ public class ForgeChoice : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             if (i != slot)
-                ChargeGear(i, cost[slot] * 0.02f);
+                charge[i] += cost[slot] * 0.02f;
         }
-        cost[slot] = 0;
-        set[slot] = false;
+        while (charge[slot] >= 1f)
+        {
+            charge[slot] -= 1f;
+        }
+        chargesReq[slot] += chargeIncrease[slot];
         SetGear();
     }
 
@@ -68,26 +72,18 @@ public class ForgeChoice : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            while (!set[i])
+            cost[i] = 0;
+            temp = charge[i];
+            while (temp < chargesReq[i])
             {
                 cost[i]++;
-                ChargeGear(i, 1f);
+                temp += 1f;
             }
             CostText[i].text = cost[i].ToString("0");
+            Info[i].text = "Current: " + PlayerScript.StatValues[5 + i].ToString("0");
             if (PlayerScript.Iron >= cost[i])
                 UpgradeButton[i].interactable = true;
             else UpgradeButton[i].interactable = false;
-        }
-    }
-
-    void ChargeGear(int which, float amount)
-    {
-        charge[which] += amount;
-        if (charge[which] >= chargesReq[which] && !set[which])
-        {
-            charge[which] -= chargesReq[which];
-            chargesReq[which] += chargeIncrease[which];
-            set[which] = true;
         }
     }
 

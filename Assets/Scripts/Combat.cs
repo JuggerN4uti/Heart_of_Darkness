@@ -341,6 +341,9 @@ public class Combat : MonoBehaviour
             case 23:
                 EffectTooltip.text = "Stored Cards:\nDraw " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s at the start of next Turn";
                 break;
+            case 24:
+                EffectTooltip.text = "Deflect:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Stored Block when being attacked this Turn";
+                break;
         }
     }
 
@@ -414,6 +417,12 @@ public class Combat : MonoBehaviour
             case 21:
                 EffectTooltip.text = "Unstable Power:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Mana each Turn";
                 break;
+            case 22:
+                EffectTooltip.text = "One with the Swamp:\nDeal " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " to Mud Piles every Turn, Mud Piles Killed by Bog-Thing gives 1 Level";
+                break;
+            case 23:
+                EffectTooltip.text = "Just Mud:\nCan not be Killed, instead Deal " + Enemy[enemy].BogThingDamage() + " Damage to Bog-Thing & Respawns with " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Health";
+                break;
         }
     }
 
@@ -435,6 +444,22 @@ public class Combat : MonoBehaviour
                 break;
             case 4:
                 EffectTooltip.text = "Frailty:\nGain " + (2 * Player.PlayerScript.CurseValue[curse]).ToString("0") + " Frail. Frail is more effective";
+                break;
+        }
+    }
+
+    public void ClassEffectHovered(int classEffect)
+    {
+        switch (classEffect)
+        {
+            case 0:
+                EffectTooltip.text = "Valor:\n Gained & Used by certain Cards for empowered Effects";
+                break;
+            case 1:
+                EffectTooltip.text = "Combo:\n Gained by playing Cards, resets each Turn";
+                break;
+            case 2:
+                EffectTooltip.text = "Blossom:\n Gained each Turn to empower certain Cards";
                 break;
         }
     }

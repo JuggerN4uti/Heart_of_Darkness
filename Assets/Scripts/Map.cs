@@ -206,10 +206,10 @@ public class Map : MonoBehaviour
             CombatScript.SetEnemy(0, 0);
         else
         {
-            if (danger >= 52f && danger > Random.Range(0f, danger + 104f))
+            if (danger >= 45f && danger > Random.Range(0f, danger + 105f))
             {
                 tempi = 0;
-                temp = danger - 40f;
+                temp = danger - 45f;
                 while (temp > 0f)
                 {
                     temp -= 7.05f + tempi * 1.63f;
@@ -220,10 +220,10 @@ public class Map : MonoBehaviour
                 roll3 = Library.BasicRoll();
                 CombatScript.Set3Enemies(roll, roll2, roll3, tempi);
             }
-            else if (danger >= 14f && danger > Random.Range(0f, danger + 21f))
+            else if (danger >= 15f && danger > Random.Range(0f, danger + 21f))
             {
                 tempi = 0;
-                temp = danger - 13.5f;
+                temp = danger - 15f;
                 while (temp > 0f)
                 {
                     temp -= 3.91f + tempi * 0.86f;
@@ -278,7 +278,12 @@ public class Map : MonoBehaviour
         roll = Library.BossRoll();
         CombatScript.elite = false;
         CombatScript.boss = true;
-        CombatScript.SetEnemy(roll, 0);
+        if (roll == 17)
+        {
+            CombatScript.Set3Enemies(roll + 1, roll, roll + 1, 0);
+            CombatScript.enemiesAlive = 1;
+        }
+        else CombatScript.SetEnemy(roll, 0);
     }
 
     void MoveTile(int row)

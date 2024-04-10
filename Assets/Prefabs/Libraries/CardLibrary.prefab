@@ -138,6 +138,15 @@ Transform:
   - {fileID: 4016845180896665738}
   - {fileID: 1362100436590243791}
   - {fileID: 7692952095952915859}
+  - {fileID: 8072642999596198793}
+  - {fileID: 8643053404062289590}
+  - {fileID: 7639095743045881579}
+  - {fileID: 6541244274671333683}
+  - {fileID: 6777144581042957033}
+  - {fileID: 8515630336693096034}
+  - {fileID: 7747609059249635095}
+  - {fileID: 9059644792967282546}
+  - {fileID: 6716442360755063288}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -456,6 +465,58 @@ MonoBehaviour:
   - Deal 7 Damage, Apply 1 Daze per 2 Damage dealt & 1 Slow
   - Deal 8 Damage, Apply 1 Daze per 2 Damage dealt & 2 Slow
   - Deal 10 Damage, Apply 1 Daze per 2 Damage dealt & 3 Slow
+--- !u!1 &918201630401360132
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7747609059249635095}
+  - component: {fileID: 8589041573346963966}
+  m_Layer: 0
+  m_Name: Earthen Hide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7747609059249635095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918201630401360132}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8589041573346963966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918201630401360132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 1282356060e4bcf4086578fb4892704c, type: 3}
+  CardName: Earthen Hide
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Gain 20 Block. Blossom 7: Gain 1 Mana'
+  - 'Gain 24 Block. Blossom 6: Gain 1 Mana'
+  - 'Gain 28 Block. Blossom 5: Gain 1 Mana'
 --- !u!1 &959071048080588986
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,6 +829,61 @@ MonoBehaviour:
   - Dain 7 Block & next Turn
   - Dain 9 Block & next Turn
   - Dain 11 Block & next Turn
+--- !u!1 &1308403526492297883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7639095743045881579}
+  - component: {fileID: 1773034159901340006}
+  m_Layer: 0
+  m_Name: Entangling Roots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7639095743045881579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308403526492297883}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1773034159901340006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308403526492297883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 9e7f544c0b30aa5438f1142d2f529b66, type: 3}
+  CardName: Entangling Roots
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 12 Damage & Apply 2 Slow to all Enemies. Also target a random Enemy per
+    7 Blossom
+  - Deal 15 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+    7 Blossom
+  - Deal 20 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+    6 Blossom
 --- !u!1 &1348583664235774408
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,6 +1040,58 @@ MonoBehaviour:
   - Gain 2 Strength and 2 Energy. Destroy
   - Gain 3 Strength and 4 Energy. Destroy
   - Gain 4 Strength and 6 Energy. Destroy
+--- !u!1 &1468748874253565741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8643053404062289590}
+  - component: {fileID: 3990667692404271305}
+  m_Layer: 0
+  m_Name: Wild Growth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8643053404062289590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468748874253565741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3990667692404271305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468748874253565741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 81ec8ae8b52b1ab4c90e643eed896b8c, type: 3}
+  CardName: Wild Growth
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 8 Block & 1 Blossom
+  - Gain 12 Block & 1 Blossom
+  - Gain 16 Block & 1 Blossom
 --- !u!1 &1487637774565216117
 GameObject:
   m_ObjectHideFlags: 0
@@ -990,6 +1158,58 @@ Transform:
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1676885426452579541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8072642999596198793}
+  - component: {fileID: 3022822968488581758}
+  m_Layer: 0
+  m_Name: Clean Cut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8072642999596198793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676885426452579541}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3022822968488581758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676885426452579541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 3f6b76ba73a1af34fad25e0840e8ee56, type: 3}
+  CardName: Clean Cut
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 11 Damage, Doubled against not shielded Target
+  - Deal 14 Damage, Doubled against not shielded Target
+  - Deal 17 Damage, Doubled against not shielded Target
 --- !u!1 &1908293998173996713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,6 +1366,58 @@ MonoBehaviour:
   - Deal 1 Damage, Break up to 8 Shield, Gain that much Block
   - Deal 2 Damage, Break up to 11 Shield, Gain that much Block
   - Deal 3 Damage, Break up to 14 Shield, Gain that much Block
+--- !u!1 &2223680159375334428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9059644792967282546}
+  - component: {fileID: 1324248681781368068}
+  m_Layer: 0
+  m_Name: Power of the Wild
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9059644792967282546
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223680159375334428}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1324248681781368068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2223680159375334428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 7fc71a21457cf7f4cad2fea1bdfab708, type: 3}
+  CardName: Power of the Wild
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 9 Damage, Gain 1 Blossom per 8 Damage
+  - Deal 12 Damage, Gain 1 Blossom per 8 Damage
+  - Deal 15 Damage, Gain 1 Blossom per 8 Damage
 --- !u!1 &2312856137628458427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,6 +2042,58 @@ MonoBehaviour:
   - Gain 1 Mana & Draw a Card. Destroy
   - Gain 2 Mana & Draw a Card. Destroy
   - Gain 3 Mana & Draw a Card. Destroy
+--- !u!1 &3527039016728313761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8515630336693096034}
+  - component: {fileID: 5552275223329963858}
+  m_Layer: 0
+  m_Name: Mana Well
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8515630336693096034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527039016728313761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5552275223329963858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3527039016728313761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 8d1030a77fcb5d345af7bacf0eff4244, type: 3}
+  CardName: Mana Well
+  CardManaCost: 0300000002000000010000000000000000000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Max Mana. Destroy
+  - Gain 1 Max Mana. Destroy
+  - Gain 1 Max Mana. Destroy
 --- !u!1 &3547554386167414550
 GameObject:
   m_ObjectHideFlags: 0
@@ -2798,6 +3122,15 @@ MonoBehaviour:
   - {fileID: 5746219318661487943}
   - {fileID: 4809683868364726339}
   - {fileID: 3094189225394088247}
+  - {fileID: 3022822968488581758}
+  - {fileID: 3990667692404271305}
+  - {fileID: 1773034159901340006}
+  - {fileID: 4435135211985773022}
+  - {fileID: 8597513624706474765}
+  - {fileID: 5552275223329963858}
+  - {fileID: 8589041573346963966}
+  - {fileID: 1324248681781368068}
+  - {fileID: 551923493813103243}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -3070,6 +3403,58 @@ MonoBehaviour:
   - Gain 1 Block for every 10 Max Health. Increase Max Health by 2 permamently. Destroy
   - Gain 1 Block for every 9 Max Health. Increase Max Health by 4 permamently. Destroy
   - Gain 1 Block for every 8 Max Health. Increase Max Health by 6 permamently. Destroy
+--- !u!1 &6153925152798367221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6716442360755063288}
+  - component: {fileID: 551923493813103243}
+  m_Layer: 0
+  m_Name: Pin Down
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6716442360755063288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153925152798367221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &551923493813103243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153925152798367221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 9f60500edb91c864499b318068c05986, type: 3}
+  CardName: Pin Down
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 7 Damage, Apply 1 Slow per 4 Damage
+  - Deal 10 Damage, Apply 1 Slow per 4 Damage
+  - Deal 13 Damage, Apply 1 Slow per 4 Damage
 --- !u!1 &6173071058473636468
 GameObject:
   m_ObjectHideFlags: 0
@@ -3431,11 +3816,11 @@ MonoBehaviour:
   CardManaCost: 0300000003000000030000000300000003000000
   SingleUse: 0
   CardTooltip:
-  - Deal 18 Damage. Damage increased by 2 per 3 Mana spent this Combat. Apply 1 Slow
+  - Deal 18 Damage. Damage increased by 3 per 4 Mana spent this Combat. Apply 1 Slow
     per 11 Damage
-  - Deal 20 Damage. Damage increased by 3 per 4 Mana spent this Combat. Apply 1 Slow
-    per 10 Damage
   - Deal 22 Damage. Damage increased by 4 per 5 Mana spent this Combat. Apply 1 Slow
+    per 10 Damage
+  - Deal 26 Damage. Damage increased by 5 per 6 Mana spent this Combat. Apply 1 Slow
     per 9 Damage
 --- !u!1 &6965736690019580984
 GameObject:
@@ -3749,6 +4134,58 @@ MonoBehaviour:
   - 'Gain 11 Block. Valor 4: Gain 1 Resistance, otherwise Gain 1 Valor'
   - 'Gain 13 Block. Valor 3: Gain 1 Resistance, otherwise Gain 2 Valor'
   - 'Gain 15 Block. Valor 5: Gain 2 Resistance, otherwise Gain 3 Valor'
+--- !u!1 &7900035142374541429
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6541244274671333683}
+  - component: {fileID: 4435135211985773022}
+  m_Layer: 0
+  m_Name: Deflect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6541244274671333683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900035142374541429}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4435135211985773022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7900035142374541429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 225695352d83d7e47a3c9098c75c10dc, type: 3}
+  CardName: Deflect
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 11 Block. Gain 3 Stored Block when being attacked this Turn
+  - Gain 13 Block. Gain 5 Stored Block when being attacked this Turn
+  - Gain 15 Block. Gain 7 Stored Block when being attacked this Turn
 --- !u!1 &7986722737720104172
 GameObject:
   m_ObjectHideFlags: 0
@@ -3801,6 +4238,58 @@ MonoBehaviour:
   - Gain 6 Block. Block gain increased by 3 per Mana spent this Turn
   - Gain 8 Block. Block gain increased by 4 per Mana spent this Turn
   - Gain 10 Block. Block gain increased by 5 per Mana spent this Turn
+--- !u!1 &8376270669732810254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6777144581042957033}
+  - component: {fileID: 8597513624706474765}
+  m_Layer: 0
+  m_Name: Earthen Might
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6777144581042957033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376270669732810254}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8597513624706474765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376270669732810254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: ee1d60f47d09d3c479958a9fd1067686, type: 3}
+  CardName: Earthen Might
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Gain 9 Block. Blossom 5: Increase Block gained by 4 & Gain 1 Strength'
+  - 'Gain 12 Block. Blossom 5: Increase Block gained by 6 & Gain 1 Strength'
+  - 'Gain 15 Block. Blossom 5: Increase Block gained by 8 & Gain 1 Strength'
 --- !u!1 &8451823244882498875
 GameObject:
   m_ObjectHideFlags: 0

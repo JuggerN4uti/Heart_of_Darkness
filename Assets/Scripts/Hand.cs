@@ -136,7 +136,7 @@ public class Hand : MonoBehaviour
         Player.UseAbility(playedID, playedLevel);
         Player.SpendMana(Library.Cards[playedID].CardManaCost[playedLevel]);
         if (PlayerScript.Item[38] && Library.Cards[playedID].CardManaCost[playedLevel] >= 2)
-            Player.EquipmentCooldown(2);
+            Player.EquipmentCooldown(3);
 
         if (PlayerScript.Item[19])
         {

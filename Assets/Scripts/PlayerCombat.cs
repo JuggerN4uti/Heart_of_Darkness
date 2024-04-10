@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, totalManaSpent, manaSpentTurn;
+    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn;
 
     [Header("Item Stats")]
     public int turns;
@@ -47,7 +47,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject BlockDisplay;
     public Image HealthBarFill, SanityBarFill, EnergyBarFill;
     public Button WeaponUseButton;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ValorValue, ComboValue, WeaponCost, ManaValue;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ValorValue, ComboValue, BlossomValue, WeaponCost, ManaValue;
     public TMPro.TextMeshProUGUI[] CurseText;
     public GameObject[] UnitObject, CurseObject;
     public Image[] UnitSprite;
@@ -88,6 +88,7 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[44])
             permanentCombo++;
         flurry = 0;
+        blossom = 0;
         totalManaSpent = 0;
         attacks = 0;
         drink = 0;
@@ -163,6 +164,7 @@ public class PlayerCombat : MonoBehaviour
     public void StartTurn()
     {
         combo = permanentCombo;
+        GainBlossom(1);
         manaSpentTurn = 0;
         resistanceRing = true;
         if (effect[11] > 0)
@@ -221,20 +223,21 @@ public class PlayerCombat : MonoBehaviour
             }
             effect[21] = 0;
         }
+        effect[24] = 0;
         if (PlayerScript.Item[23] && CombatScript.turn % 2 == 1)
             Cards.Draw(1);
         if (PlayerScript.CurseValue[2] > 0 && CombatScript.turn % 2 == 0)
             CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
         EquipmentCooldown(1);
         if (PlayerScript.Item[23] && CombatScript.turn % 2 == 0)
-            EquipmentCooldown(1);
+            EquipmentCooldown(2);
         if (PlayerScript.Item[41])
             GainValor(1);
         if (PlayerScript.Item[46])
             GainStormCharge(1);
     }
 
-    void UpdateInfo()
+    public void UpdateInfo()
     {
         HealthBarFill.fillAmount = (health * 1f) / (maxHealth * 1f);
         SanityBarFill.fillAmount = (sanity * 1f) / (maxSanity * 1f);
@@ -254,6 +257,7 @@ public class PlayerCombat : MonoBehaviour
         EnergyValue.text = energy.ToString("");
         ValorValue.text = valor.ToString("");
         ComboValue.text = combo.ToString("");
+        BlossomValue.text = blossom.ToString("");
         if (shield > 0)
         {
             ShieldDisplay.SetActive(true);
@@ -525,6 +529,13 @@ public class PlayerCombat : MonoBehaviour
     {
         valor -= amount;
         spentValor += amount;
+        UpdateInfo();
+    }
+
+    void GainBlossom(int amount)
+    {
+        blossom += amount;
+        //Display(amount, ValorSprite);
         UpdateInfo();
     }
 
@@ -1131,6 +1142,33 @@ public class PlayerCombat : MonoBehaviour
             case 5:
                 Meditate(level);
                 break;
+            case 6:
+                CleanCut(level);
+                break;
+            case 7:
+                WildGrowth(level);
+                break;
+            case 8:
+                EntanglingRoots(level);
+                break;
+            case 9:
+                Deflect(level);
+                break;
+            case 10:
+                EarthenMight(level);
+                break;
+            case 11:
+                ManaWell();
+                break;
+            case 12:
+                EarthenHide(level);
+                break;
+            case 13:
+                PowerOfTheWild(level);
+                break;
+            case 14:
+                PinDown(level);
+                break;
         }
     }
 
@@ -1378,6 +1416,32 @@ public class PlayerCombat : MonoBehaviour
                             if (level == 0)
                                 return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 1 Card\nNext Turn";
                             return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 2 Cards\nNext Turn";
+                        case 6:
+                            return "Deal " + CleanCutDamage(level).ToString("") + " Damage";
+                        case 7:
+                            return "Gain " + WildGrowthBlock(level).ToString("") + " Block\n& 1 Blossom";
+                        case 8:
+                            if (EntanglingRootsTargets(level) == 0)
+                                return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies";
+                            else if (EntanglingRootsTargets(level) == 1)
+                                return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random 1 Time";
+                            else return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random " + EntanglingRootsTargets(level).ToString("") + " Times";
+                        case 9:
+                            return "Gain " + DeflectBlock(level).ToString("") + " Block\nGain " + DeflectStored(level).ToString("") + " Stored Block when being attacked this Turn";
+                        case 10:
+                            if (blossom < 5)
+                                return "Gain " + EarthenMightBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/5 Blossom)";
+                            else return "Gain " + EarthenMightBlock(level).ToString("") + " Block\nGain 1 Strength";
+                        case 11:
+                            return "Gain 1 Max Mana";
+                        case 12:
+                            if (blossom < EarthenHideReq(level))
+                                return "Gain " + EarthenHideBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/" + EarthenHideReq(level).ToString("") + " Blossom)";
+                            else return "Gain " + EarthenHideBlock(level).ToString("") + " Block\nGain 1 Mana";
+                        case 13:
+                            return "Deal " + PowerOfTheWildDamage(level).ToString("") + " Damage\nGain " + PowerOfTheWildBlossom(level).ToString("") + " Blossom";
+                        case 14:
+                            return "Deal " + PinDownDamage(level).ToString("") + " Damage\nApply " + PinDownSlow(level).ToString("") + " Slow";
                     }
                 }
             }
@@ -3146,8 +3210,8 @@ public class PlayerCombat : MonoBehaviour
     int ForceOfNatureDamage(int level)
     {
         tempi = 18 + effect[0];
-        tempi += 2 * level;
-        tempi += (2 + level) * (totalManaSpent / (3 + level));
+        tempi += 4 * level;
+        tempi += (3 + level) * (totalManaSpent / (4 + level));
         return DamageDealtModifier(tempi);
     }
 
@@ -3184,6 +3248,187 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 1;
         tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    void CleanCut(int level) // ID N 6
+    {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CleanCutDamage(level));
+        OnHit();
+    }
+
+    int CleanCutDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 3 * level;
+        if (CombatScript.Enemy[CombatScript.targetedEnemy].TotalBlock() <= 0)
+            tempi *= 2;
+        return DamageDealtModifier(tempi);
+    }
+
+    void WildGrowth(int level) // ID N 7
+    {
+        GainBlock(WildGrowthBlock(level));
+        GainBlossom(1);
+    }
+
+    int WildGrowthBlock(int level)
+    {
+        tempi = 8 + effect[1];
+        tempi += 4 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    void EntanglingRoots(int level) // ID N 8
+    {
+        for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
+        {
+            if (CombatScript.enemyAlive[i])
+            {
+                //CombatScript.Effect(false, 12, true, i);
+                CombatScript.Enemy[i].TakeDamage(EntanglingRootsDamage(level));
+                CombatScript.Enemy[i].GainSlow(EntanglingRootsSlow(level));
+            }
+        }
+        if (EntanglingRootsTargets(level) > 0)
+        {
+            for (int i = 0; i < EntanglingRootsTargets(level); i++)
+            {
+                if (CombatScript.enemiesAlive > 0)
+                {
+                    tempi2 = CombatScript.RandomEnemy();
+                    //CombatScript.Effect(false, 11, true, tempi);
+                    CombatScript.Enemy[tempi2].TakeDamage(EntanglingRootsDamage(level));
+                    CombatScript.Enemy[tempi2].GainSlow(EntanglingRootsSlow(level));
+                }
+            }
+        }
+        OnHit();
+    }
+
+    int EntanglingRootsDamage(int level)
+    {
+        tempi = 12 + effect[0];
+        tempi += 3 * level;
+        tempi += (level / 2) * 2;
+        return DamageDealtModifier(tempi);
+    }
+
+    int EntanglingRootsSlow(int level)
+    {
+        tempi = 2;
+        tempi += (1 + level) / 2;
+        return tempi;
+    }
+
+    int EntanglingRootsTargets(int level)
+    {
+        tempi2 = 7 - (level / 2);
+        tempi2 = blossom / tempi2;
+        return tempi2;
+    }
+
+    void Deflect(int level) // ID N 9
+    {
+        GainBlock(DeflectBlock(level));
+        effect[24] += DeflectStored(level);
+    }
+
+    int DeflectBlock(int level)
+    {
+        tempi = 11 + effect[1];
+        tempi += 2 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    int DeflectStored(int level)
+    {
+        tempi = 3;
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    void EarthenMight(int level) // ID N 10
+    {
+        GainBlock(EarthenMightBlock(level));
+        if (blossom >= 5)
+            GainStrength(1);
+    }
+
+    int EarthenMightBlock(int level)
+    {
+        tempi = 9 + effect[1];
+        tempi += 3 * level;
+        if (blossom >= 5)
+            tempi += 4 + 2 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    void ManaWell() // ID N 11
+    {
+        manaGain++;
+    }
+
+    void EarthenHide(int level) // ID N 12
+    {
+        GainBlock(EarthenHideBlock(level));
+        if (blossom >= EarthenHideReq(level))
+            GainMana(1);
+    }
+
+    int EarthenHideBlock(int level)
+    {
+        tempi = 20 + effect[1];
+        tempi += 4 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    int EarthenHideReq(int level)
+    {
+        tempi = 7 - level;
+        return tempi;
+    }
+
+    void PowerOfTheWild(int level) // ID N 13
+    {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PowerOfTheWildDamage(level));
+        GainBlossom(PowerOfTheWildBlossom(level));
+        OnHit();
+    }
+
+    int PowerOfTheWildDamage(int level)
+    {
+        tempi = 9 + effect[0];
+        tempi += 3 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int PowerOfTheWildBlossom(int level)
+    {
+        tempi = PowerOfTheWildDamage(level) / 8;
+        return tempi;
+    }
+
+    void PinDown(int level) // ID N 14
+    {
+        CombatScript.Effect(false, 7, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(PinDownDamage(level));
+        CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(PinDownSlow(level));
+        OnHit();
+    }
+
+    int PinDownDamage(int level)
+    {
+        tempi = 7 + effect[0];
+        tempi += 2 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int PinDownSlow(int level)
+    {
+        tempi = PinDownDamage(level) / 4;
         return tempi;
     }
 

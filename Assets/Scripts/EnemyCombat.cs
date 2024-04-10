@@ -21,7 +21,7 @@ public class EnemyCombat : MonoBehaviour
     [Header("Additional Stats")]
     public float soulShards;
     public float unstableCharge;
-    public int totalUnspentMana;
+    public int totalUnspentMana, assimilatedMud, assimilations;
 
     [Header("Moves")]
     public int[] movesValue;
@@ -109,6 +109,8 @@ public class EnemyCombat : MonoBehaviour
         soulShards = 0f;
         unstableCharge = 0f;
         totalUnspentMana = 0;
+        assimilatedMud = 0;
+        assimilations = 0;
         for (int i = 0; i < Library.Enemies[unitID].StartingEffects.Length; i++)
         {
             effect[i] = LevelCalculated(Library.Enemies[unitID].StartingEffects[i]);
@@ -238,6 +240,8 @@ public class EnemyCombat : MonoBehaviour
                 currentMoveValue = DamnationDamage();
             else if (unitID == 15 && currentMove == 0)
                 currentMoveValue = GorgeDamage();
+            else if (unitID == 18 && currentMove == 0)
+                currentMoveValue = DisgustingMixDamage();
             else currentMoveValue = movesValue[currentMove];
         }
     }
@@ -275,6 +279,14 @@ public class EnemyCombat : MonoBehaviour
             CombatScript.Player.LoseSanity(effect[6]);
         if (effect[13] > 0)
             GainBlock(effect[13]);
+        if (effect[22] > 0)
+        {
+            tempi2 = 0;
+            DamageMud(effect[22], 0);
+            DamageMud(effect[22], 2);
+            if (tempi2 > 0)
+                GainLevel(tempi2);
+        }
         if (stunned)
         {
             stunned = false;
@@ -583,10 +595,10 @@ public class EnemyCombat : MonoBehaviour
                 case (11, 0): // Strange Potion
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    tempi = LevelCalculated(Random.Range(8, 13)) / 10;
+                    tempi = LevelCalculated(Random.Range(8, 11)) / 10;
                     if (tempi > 0)
                         CombatScript.Player.GainSlow(tempi);
-                    tempi = LevelCalculated(Random.Range(9, 14)) / 10;
+                    tempi = LevelCalculated(Random.Range(7, 14)) / 10;
                     if (tempi > 0)
                         CombatScript.Player.GainWeak(tempi);
                     break;
@@ -598,14 +610,14 @@ public class EnemyCombat : MonoBehaviour
                     GainHealth(LevelCalculated(tempi));
                     break;
                 case (11, 2): // Succumb
-                    tempi = 16;
+                    tempi = 15;
                     tempi2 = LevelCalculated(2);
                     if (slow >= tempi2)
                         slow -= tempi2;
                     else
                     {
                         tempi2 -= slow;
-                        tempi += 6 * tempi2;
+                        tempi += 5 * tempi2;
                         slow = 0;
                     }
                     GainBlock(LevelCalculated(tempi));
@@ -618,7 +630,7 @@ public class EnemyCombat : MonoBehaviour
                 case (12, 1): // Feral Howl
                     CombatScript.Player.GainWeak(LevelCalculated(2));
                     CombatScript.Player.GainTerror(LevelCalculated(1));
-                    CombatScript.Player.LoseSanity(Random.Range(10, 13));
+                    CombatScript.Player.LoseSanity(Random.Range(8, 13));
                     break;
                 case (12, 2): // Onslaught
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -743,6 +755,40 @@ public class EnemyCombat : MonoBehaviour
                     CombatScript.Player.LoseSanity(Random.Range(5, 10));
                     moveCooldown[0] -= LevelCalculated(1);
                     break;
+                case (16, 1): // Visions
+                    CombatScript.Player.GainTerror(LevelCalculated(1));
+                    CombatScript.Player.LoseSanity(Random.Range(9, 12));
+                    break;
+                case (16, 2): // Tentacle Slap
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.LoseSanity(Random.Range(6, 9));
+                    break;
+                case (17, 1): // Assimilate
+                    tempi = CombatScript.Enemy[0].maxHealth + CombatScript.Enemy[2].maxHealth;
+                    tempi = LevelCalculated(tempi) / 25;
+                    GainHealth(tempi);
+                    Assimilation(tempi);
+                    break;
+                case (17, 2): // Earthquake
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    tempi2 = 0;
+                    DamageMud(AttackDamage(), 0);
+                    DamageMud(AttackDamage(), 2);
+                    if (tempi2 > 0)
+                        GainLevel(tempi2);
+                    break;
+                case (18, 0): // Disgusting Mix
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.LoseSanity(Random.Range(1 + maxHealth / 75, 4 + maxHealth / 67));
+                    break;
+                case (18, 1): // Amalgamate
+                    tempi = LevelCalculated(7 + maxHealth / 13);
+                    CombatScript.Enemy[1].Display(1, effectSprite[22]);
+                    CombatScript.Enemy[1].effect[22] += 1;
+                    break;
             }
         }
     }
@@ -758,6 +804,11 @@ public class EnemyCombat : MonoBehaviour
         }
         if (CombatScript.Player.effect[4] > 0)
             TakeDamage(CombatScript.Player.effect[4]);
+        if (CombatScript.Player.effect[24] > 0)
+        {
+            CombatScript.Player.effect[3] += CombatScript.Player.effect[24];
+            CombatScript.Player.UpdateInfo();
+        }
     }
 
     void Stunned()
@@ -819,6 +870,12 @@ public class EnemyCombat : MonoBehaviour
     public int GorgeDamage()
     {
         tempi = movesValue[currentMove] + LevelCalculated(CombatScript.Player.health / 8);
+        return tempi;
+    }
+
+    public int DisgustingMixDamage()
+    {
+        tempi = movesValue[currentMove] + LevelCalculated(maxHealth / 45);
         return tempi;
     }
 
@@ -903,7 +960,11 @@ public class EnemyCombat : MonoBehaviour
         }
         health -= amount;
         if (health <= 0 && !slain)
-            Perish();
+        {
+            if (effect[23] > 0)
+                Respawn();
+            else Perish();
+        }
         UpdateInfo();
     }
 
@@ -914,6 +975,13 @@ public class EnemyCombat : MonoBehaviour
             CombatScript.Player.GainHealth(1);
         Unit.SetActive(false);
         CombatScript.EnemyDefeated(order);
+    }
+
+    void Respawn()
+    {
+        CombatScript.Enemy[1].TakeDamage(BogThingDamage());
+        GainHealth(effect[23]);
+        RestoreHealth(maxHealth);
     }
 
     public void BreakShield(int amount)
@@ -1070,6 +1138,27 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
+    void DamageMud(int amount, int which)
+    {
+        amount *= 10 + CombatScript.Enemy[which].effect[9];
+        amount /= 10;
+        if (CombatScript.Enemy[which].health < amount)
+            tempi2++;
+        CombatScript.Enemy[which].TakeDamage(amount);
+    }
+
+    void Assimilation(int amount)
+    {
+        assimilatedMud += amount;
+        while (assimilatedMud >= 15 + 3 * assimilations)
+        {
+            GainStrength(2);
+            Display(1, effectSprite[22]);
+            effect[22] += 1;
+            assimilations++;
+        }
+    }
+
     public bool IntentToAttack()
     {
         if (stunned)
@@ -1132,7 +1221,11 @@ public class EnemyCombat : MonoBehaviour
     {
         int oldHealth = LevelCalculatedDef(Library.Enemies[unitID].UnitHealth);
         int oldTenacity = LevelCalculated(Library.Enemies[unitID].UnitTenacity);
-        int oldEnormous = LevelCalculated(Library.Enemies[unitID].StartingEffects[8]);
+        int oldEffect = 0;
+        if (unitID == 15)
+            oldEffect = LevelCalculated(Library.Enemies[unitID].StartingEffects[8]);
+        else if (unitID == 17)
+            oldEffect = LevelCalculated(Library.Enemies[unitID].StartingEffects[22]);
 
         level += levels;
         Display(levels, LevelSprite);
@@ -1142,8 +1235,16 @@ public class EnemyCombat : MonoBehaviour
         health += tempi2;
         tempi2 = LevelCalculated(Library.Enemies[unitID].UnitTenacity) - oldTenacity;
         tenacity += tempi2;
-        tempi2 = LevelCalculated(Library.Enemies[unitID].StartingEffects[8]) - oldEnormous;
-        effect[8] += tempi2;
+        if (unitID == 15)
+        {
+            tempi2 = LevelCalculated(Library.Enemies[unitID].StartingEffects[8]) - oldEffect;
+            effect[8] += tempi2;
+        }
+        else if (unitID == 17)
+        {
+            tempi2 = LevelCalculated(Library.Enemies[unitID].StartingEffects[22]) - oldEffect;
+            effect[22] += tempi2;
+        }
 
         LevelValue.text = (level + 1).ToString("0");
         UpdateInfo();
@@ -1153,6 +1254,12 @@ public class EnemyCombat : MonoBehaviour
     public int TotalBlock()
     {
         tempi = shield + block;
+        return tempi;
+    }
+
+    public int BogThingDamage()
+    {
+        tempi = 5 + maxHealth / 5;
         return tempi;
     }
 }

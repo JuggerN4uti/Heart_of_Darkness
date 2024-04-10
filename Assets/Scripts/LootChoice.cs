@@ -9,6 +9,7 @@ public class LootChoice : MonoBehaviour
     public Player PlayerScript;
     public CardPick CardCollection;
     public ItemPick ItemPickScript;
+    public BossLoot BossLootScript;
 
     [Header("Stats")]
     public int silver;
@@ -29,7 +30,7 @@ public class LootChoice : MonoBehaviour
 
     [Header("Sprites")]
     public Sprite SilverSprite;
-    public Sprite IronSprite, ItemSprite, CommonSprite, UncommonSprite, MergeSprite;
+    public Sprite IronSprite, ItemSprite, BossSprite, CommonSprite, UncommonSprite, MergeSprite;
     public Sprite[] GemSprites;
 
     public void SetRewards(float dangerBonus, bool elite)
@@ -38,10 +39,10 @@ public class LootChoice : MonoBehaviour
         iron = Random.Range(2, 5);
         item = elite;
         temp = dangerBonus + gemCharge;
-        if (temp >= Random.Range(0f, 100f + temp))
+        if (temp >= 40f && temp >= Random.Range(0f, 200f + temp))
         {
             gem = true;
-            gemID = Random.Range(0, GemSprites.Length);
+            //gemID = Random.Range(0, GemSprites.Length);
             gemCharge = 0f;
         }
         else
@@ -130,8 +131,8 @@ public class LootChoice : MonoBehaviour
         if (gem)
         {
             PicksObject[current].SetActive(true);
-            PicksImages[current].sprite = GemSprites[gemID];
-            PicksValue[current].text = "Gem!";
+            PicksImages[current].sprite = BossSprite; //GemSprites[gemID];
+            PicksValue[current].text = "!!!";//"Gem!";
             lootID[current] = 3;
             current++;
         }
@@ -180,7 +181,8 @@ public class LootChoice : MonoBehaviour
                 uncommonCards--;
                 break;
             case 3:
-                PlayerScript.Gems[gemID]++;
+                BossLootScript.Open(1);
+                //PlayerScript.Gems[gemID]++;
                 gem = false;
                 break;
             case 4:

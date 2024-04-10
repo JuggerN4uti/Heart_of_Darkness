@@ -78,10 +78,10 @@ public class DrawPile : MonoBehaviour
             CardLevel[i] = CardDiscard.CardLevel[i];
         }
 
-        if (CardDeck.PlayerScript.Item[22] && CardDiscard.cardsInPile >= 15)
+        if (CardDeck.PlayerScript.Item[22] && CardDiscard.cardsInPile >= 14)
         {
             Player.GainMana(1);
-            Player.GainEnergy(3);
+            Player.GainEnergy(4);
         }
 
         cardsInPile = CardDiscard.cardsInPile;
