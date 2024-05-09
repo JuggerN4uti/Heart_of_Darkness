@@ -1,5 +1,42 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &52901582145630222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2833831169137383652}
+  m_Layer: 0
+  m_Name: 2nd BOSS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2833831169137383652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52901582145630222}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6159599920443847437}
+  - {fileID: 6021148653568419539}
+  - {fileID: 8038412872095145707}
+  - {fileID: 6072800375701617266}
+  - {fileID: 7540797738726067794}
+  - {fileID: 6315448323103705289}
+  m_Father: {fileID: 5664719147339333400}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &406831563827377129
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +159,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
   - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
-  MovesValues: 18000000000000000e00000018000000
+  MovesValues: 18000000000000001200000018000000
   MovesCooldowns: 03000000040000000600000004000000
   StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000800000000000000
   additionalText:
@@ -262,6 +299,73 @@ MonoBehaviour:
   - 
   attackIntention: 01010001
   normalAttack: 00000000
+--- !u!1 &1282629560476687326
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6072800375701617266}
+  - component: {fileID: 3904752859436694330}
+  m_Layer: 0
+  m_Name: Corrupted Treant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6072800375701617266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282629560476687326}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2833831169137383652}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3904752859436694330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282629560476687326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Corrupted Treant
+  UnitID: 14
+  UnitHealth: 650
+  UnitShield: 185
+  UnitTenacity: 8
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: d4851e8c74f5f64488b3e0791723af59, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  MovesValues: 0d0000001b0000000000000019000000
+  MovesCooldowns: 04000000030000000300000006000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000100000001000000
+  additionalText:
+  - 
+  - 
+  - 
+  - 
+  attackIntention: 01010001
+  normalAttack: 00000000
 --- !u!1 &2078635955511941928
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +465,7 @@ Transform:
   - {fileID: 811370481288226646}
   - {fileID: 5335328618324209800}
   - {fileID: 4952700484388308684}
+  - {fileID: 2833831169137383652}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -396,9 +501,13 @@ MonoBehaviour:
   - {fileID: 4505922780773696863}
   - {fileID: 8874013108099567008}
   - {fileID: 2801294993999161791}
+  - {fileID: 4712043118608535035}
+  - {fileID: 2321594696280637552}
+  - {fileID: 5275954776749858235}
   basicID: 0100000002000000030000000400000005000000080000000b0000000d00000010000000
   eliteID: 070000000a0000000f000000
-  bossID: 110000001100000011000000
+  bossID: 090000000e00000011000000
+  lastBossID: 130000001400000015000000
 --- !u!1 &2498852512023481834
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +904,73 @@ MonoBehaviour:
   - 
   attackIntention: 01010100
   normalAttack: 00000000
+--- !u!1 &3878673921697693901
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6021148653568419539}
+  - component: {fileID: 2321594696280637552}
+  m_Layer: 0
+  m_Name: Lord of Agony
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6021148653568419539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878673921697693901}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2833831169137383652}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2321594696280637552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3878673921697693901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Lord of Torment
+  UnitID: 20
+  UnitHealth: 780
+  UnitShield: 225
+  UnitTenacity: 10
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: 3c264efd08d0b6044bb93ae4be8f093f, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  MovesValues: 0f00000020000000000000001e000000
+  MovesCooldowns: 04000000030000000400000006000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000001000000020000000000000000000000
+  additionalText:
+  - 
+  - 
+  - 
+  - 
+  attackIntention: 01010001
+  normalAttack: 00000000
 --- !u!1 &4477778053752355417
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +1168,73 @@ MonoBehaviour:
   - 
   attackIntention: 01010100
   normalAttack: 00000100
+--- !u!1 &4806595018422936619
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6159599920443847437}
+  - component: {fileID: 4712043118608535035}
+  m_Layer: 0
+  m_Name: RatGod
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6159599920443847437
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806595018422936619}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2833831169137383652}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4712043118608535035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4806595018422936619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: RatGod
+  UnitID: 19
+  UnitHealth: 1200
+  UnitShield: 0
+  UnitTenacity: 7
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: 68eb677719c893c428b1642a2a646281, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  MovesValues: 0a000000170000000d00000000000000
+  MovesCooldowns: 05000000020000000300000008000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000100000001000000000000000000000000000000000000000000000000000000
+  additionalText:
+  - 
+  - 
+  - x2
+  - 
+  attackIntention: 01010100
+  normalAttack: 00000000
 --- !u!1 &5292068156729548313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1058,6 +1301,73 @@ MonoBehaviour:
   - 
   - 
   attackIntention: 01010000
+  normalAttack: 00000000
+--- !u!1 &5649908294670070441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6315448323103705289}
+  - component: {fileID: 973178142873834942}
+  m_Layer: 0
+  m_Name: Tar Lord
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6315448323103705289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649908294670070441}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2833831169137383652}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &973178142873834942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5649908294670070441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Tar Lord
+  UnitID: 14
+  UnitHealth: 650
+  UnitShield: 185
+  UnitTenacity: 8
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: 4f3c7589a1a22fc4db994407cbd3d495, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  MovesValues: 0d0000001b0000000000000019000000
+  MovesCooldowns: 04000000030000000300000006000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000100000001000000
+  additionalText:
+  - 
+  - 
+  - 
+  - 
+  attackIntention: 01010001
   normalAttack: 00000000
 --- !u!1 &5996746671537136830
 GameObject:
@@ -1160,6 +1470,73 @@ MonoBehaviour:
   - 
   attackIntention: 010001
   normalAttack: 000000
+--- !u!1 &6398732926902000261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8038412872095145707}
+  - component: {fileID: 5275954776749858235}
+  m_Layer: 0
+  m_Name: The Bog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8038412872095145707
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6398732926902000261}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2833831169137383652}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5275954776749858235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6398732926902000261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: The Bog
+  UnitID: 21
+  UnitHealth: 1200
+  UnitShield: 0
+  UnitTenacity: 10
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: 09b2450658bee9546b16d147f107f5c6, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: a448171a601a55549b83ff6e468454c5, type: 3}
+  MovesValues: 1c00000000000000150000001c000000
+  MovesCooldowns: 03000000040000000600000004000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000c00000000000000
+  additionalText:
+  - 
+  - 
+  - ' AoE'
+  - 
+  attackIntention: 01000101
+  normalAttack: 01000001
 --- !u!1 &7035486100432542993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,6 +1840,73 @@ Transform:
   m_Father: {fileID: 5664719147339333400}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8147568597907247106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7540797738726067794}
+  - component: {fileID: 6154999479835073093}
+  m_Layer: 0
+  m_Name: Glorious Creation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7540797738726067794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8147568597907247106}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2833831169137383652}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6154999479835073093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8147568597907247106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e750d0135a1a5bd4fb8dee52aab58a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitName: Glorious Creation
+  UnitID: 14
+  UnitHealth: 650
+  UnitShield: 185
+  UnitTenacity: 8
+  MovesCount: 4
+  boss: 1
+  UnitSprite: {fileID: 21300000, guid: 7057c820e4c50424dbb92c9d83cb6134, type: 3}
+  MovesSprite:
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
+  - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
+  - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
+  MovesValues: 0d0000001b0000000000000019000000
+  MovesCooldowns: 04000000030000000300000006000000
+  StartingEffects: 000000000000000000000000000000000000000000000000000000000000000003000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000100000001000000
+  additionalText:
+  - 
+  - 
+  - 
+  - 
+  attackIntention: 01010001
+  normalAttack: 00000000
 --- !u!1 &8313040951267365545
 GameObject:
   m_ObjectHideFlags: 0

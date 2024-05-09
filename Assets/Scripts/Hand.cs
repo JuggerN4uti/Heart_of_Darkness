@@ -136,7 +136,7 @@ public class Hand : MonoBehaviour
         Player.UseAbility(playedID, playedLevel);
         Player.SpendMana(Library.Cards[playedID].CardManaCost[playedLevel]);
         if (PlayerScript.Item[38] && Library.Cards[playedID].CardManaCost[playedLevel] >= 2)
-            Player.EquipmentCooldown(3);
+            Player.EquipmentCooldown(4);
 
         if (PlayerScript.Item[19])
         {
@@ -148,7 +148,7 @@ public class Hand : MonoBehaviour
 
         if (PlayerScript.Item[21] && destroyed)
         {
-            Player.GainBlock(3);
+            Player.GainBlock(4);
             Draw(1);
         }
 

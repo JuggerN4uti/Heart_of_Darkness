@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Scripts")]
     public Deck DeckScript;
-    public ItemsCollected ItemsScript;
+    public ItemsCollected ItemsScript, CombatItemsScript;
     public UnitChoice[] Units;
 
     [Header("Stats")]
@@ -233,6 +233,7 @@ public class Player : MonoBehaviour
     public void CollectItem(int which)
     {
         ItemsScript.CollectItem(which);
+        CombatItemsScript.CollectItem(which);
         Item[which] = true;
         switch (which)
         {

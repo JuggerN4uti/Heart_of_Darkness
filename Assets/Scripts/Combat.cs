@@ -88,6 +88,40 @@ public class Combat : MonoBehaviour
         ResetCombat();
     }
 
+    public void SetLordOfAgony()
+    {
+        Enemy[0].Unit.SetActive(true);
+        Enemy[0].SetUnit(5, 2);
+        enemyAlive[0] = true;
+        Enemy[1].Unit.SetActive(true);
+        Enemy[1].SetUnit(20, 0);
+        enemyAlive[1] = true;
+        Enemy[2].Unit.SetActive(true);
+        Enemy[2].SetUnit(13, 0);
+        enemyAlive[2] = true;
+        targetedEnemy = 0;
+        enemiesAlive = 3;
+
+        ResetCombat();
+    }
+
+    public void SetTheBog()
+    {
+        Enemy[0].Unit.SetActive(true);
+        Enemy[0].SetUnit(18, 4);
+        enemyAlive[0] = true;
+        Enemy[1].Unit.SetActive(true);
+        Enemy[1].SetUnit(21, 0);
+        enemyAlive[1] = true;
+        Enemy[2].Unit.SetActive(true);
+        Enemy[2].SetUnit(18, 4);
+        enemyAlive[2] = true;
+        targetedEnemy = 0;
+        enemiesAlive = 1;
+
+        ResetCombat();
+    }
+
     void ResetCombat()
     {
         RemoveTargets();
@@ -194,7 +228,7 @@ public class Combat : MonoBehaviour
             if (enemyAlive[i])
             {
                 if (Enemy[i].effect[14] > 0)
-                    Enemy[i].GainLink();
+                    Enemy[i].GainLink(0, true);
             }
         }
     }
@@ -202,6 +236,10 @@ public class Combat : MonoBehaviour
     void WonCombat()
     {
         Player.ItemsScript.ResetText();
+        for (int i = 0; i < 3; i++)
+        {
+            enemyAlive[i] = false;
+        }
         Fade.StartDarken();
         Player.Set();
         if (boss)
@@ -342,7 +380,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Stored Cards:\nDraw " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Card/s at the start of next Turn";
                 break;
             case 24:
-                EffectTooltip.text = "Deflect:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Stored Block when being attacked this Turn";
+                EffectTooltip.text = "Deflect:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Stored Block & Deal " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Damage when being attacked this Turn";
                 break;
         }
     }

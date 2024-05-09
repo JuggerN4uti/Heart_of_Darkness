@@ -12,7 +12,7 @@ public class HeroChoice : MonoBehaviour
     [Header("UI")]
     public GameObject HeroChoiceScene;
     public GameObject EquipmentChoiceScene;
-    public GameObject MapScene, PlayerHUD, ValorDisplay, ComboDisplay, BlossomDisplay;
+    public GameObject MapScene, ValorDisplay, ComboDisplay, BlossomDisplay;
     public Image HeroImage, WeaponImage, WeaponImage2;
 
     [Header("Stats")]
@@ -71,6 +71,5 @@ public class HeroChoice : MonoBehaviour
         HeroChoiceScene.SetActive(false);
         EquipmentChoiceScene.SetActive(true);
         //MapScene.SetActive(true);
-        PlayerHUD.SetActive(true);
     }
 }

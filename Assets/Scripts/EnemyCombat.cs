@@ -242,6 +242,8 @@ public class EnemyCombat : MonoBehaviour
                 currentMoveValue = GorgeDamage();
             else if (unitID == 18 && currentMove == 0)
                 currentMoveValue = DisgustingMixDamage();
+            else if (unitID == 20 && currentMove == 3)
+                currentMoveValue = Damnation2Damage();
             else currentMoveValue = movesValue[currentMove];
         }
     }
@@ -263,7 +265,7 @@ public class EnemyCombat : MonoBehaviour
         if (PlayerScript.Item[43])
         {
             CombatScript.Effect(false, 5, true, order);
-            TakeDamage(2 + CombatScript.turn / 3);
+            TakeDamage(2 + CombatScript.turn / 2);
         }
         if (block > 0)
             block = 0;
@@ -525,7 +527,7 @@ public class EnemyCombat : MonoBehaviour
                     CombatScript.Player.GainSlow(LevelCalculated(1));
                     CombatScript.Player.GainTerror(LevelCalculated(1));
                     CombatScript.Player.LoseSanity(Random.Range(7, 12));
-                    GainLink();
+                    GainLink(0, true);
                     break;
                 case (9, 2): // Chop Chop
                     for (int i = 0; i < 2; i++)
@@ -694,7 +696,7 @@ public class EnemyCombat : MonoBehaviour
                 case (14, 2): // More!
                     GainStrength(LevelCalculated(5 + effect[3] / 7));
                     effect[11] += LevelCalculated(2 + (effect[3] * 1) / 5);
-                    Display(LevelCalculated(2 + effect[3] / 3), effectSprite[11]);
+                    Display(LevelCalculated(2 + effect[3] / 5), effectSprite[11]);
                     GainBlock(LevelCalculated(23));
                     Unstable(1.25f + 0.1f * effect[21]);
                     movesCooldowns[0] += 1;
@@ -789,6 +791,111 @@ public class EnemyCombat : MonoBehaviour
                     CombatScript.Enemy[1].Display(1, effectSprite[22]);
                     CombatScript.Enemy[1].effect[22] += 1;
                     break;
+                case (19, 0): // Lambs to the Slaughter
+                    if (AttackDamage() > CombatScript.Player.TotalBlock())
+                        GainHealth(AttackDamage() - CombatScript.Player.TotalBlock());
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    effect[14] += 1;
+                    Display(1, effectSprite[14]);
+                    CombatScript.Player.LoseSanity(Random.Range(6, 16));
+                    GainLink(1, false);
+                    break;
+                case (19, 1): // Pulverize
+                    if (AttackDamage() > CombatScript.Player.TotalBlock())
+                        GainHealth(AttackDamage() - CombatScript.Player.TotalBlock());
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainSlow(LevelCalculated(1));
+                    CombatScript.Player.GainTerror(LevelCalculated(2));
+                    CombatScript.Player.LoseSanity(Random.Range(10, 11));
+                    GainLink(2, true);
+                    break;
+                case (19, 2): // Chop Chop
+                    for (int i = 0; i < 2; i++)
+                    {
+                        if (AttackDamage() > CombatScript.Player.TotalBlock())
+                            GainHealth(AttackDamage() - CombatScript.Player.TotalBlock());
+                        CombatScript.Player.TakeDamage(AttackDamage());
+                        OnHit();
+                    }
+                    GainHealth(LevelCalculated(5 + (effect[3] * 8) / 9));
+                    tempi = (maxHealth - 1200) / 14 - 3;
+                    if (tempi > 0)
+                        GainStrength(LevelCalculated(tempi));
+                    break;
+                case (19, 3): // Stitched Up
+                    tempi = maxHealth - health;
+                    if (tempi > 0)
+                    {
+                        if (tempi > maxHealth * 3 / 5)
+                            tempi = maxHealth * 3 / 5;
+                        RestoreHealth(tempi);
+                        tempi2 = tempi / 15 - 9;
+                        if (tempi2 > 0)
+                        {
+                            GainBleed(tempi2);
+                            GainDaze(tempi2);
+                        }
+                        tempi2 = tempi / 90 - 3;
+                        if (tempi2 > 0)
+                            GainVulnerable(tempi2);
+                    }
+                    break;
+                case (20, 0): // Terrify
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    CombatScript.Player.GainTerror(LevelCalculated(2));
+                    CombatScript.Player.LoseSanity(Random.Range(4 + 3 * CursesOnPlayer(), 12 + 4 * CursesOnPlayer()));
+                    Unstable(0.16f);
+                    break;
+                case (20, 1): // Reap
+                    if (AttackDamage() > CombatScript.Player.TotalBlock())
+                        tempi = AttackDamage() - CombatScript.Player.TotalBlock();
+                    else tempi = 0;
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    tempi2 = tempi * 2 / 11;
+                    if (tempi2 > 0)
+                        GainStrength(tempi2);
+                    tempi2 = LevelCalculated(14);
+                    tempi2 += (AttackDamage() * 5 + tempi * 9) / 15;
+                    GainBlock(tempi2);
+                    Unstable(0.22f + 0.018f * effect[3]);
+                    break;
+                case (20, 2): // More!
+                    GainStrength(LevelCalculated(6 + effect[3] / 7));
+                    effect[11] += LevelCalculated(3 + (effect[3] * 1) / 5);
+                    Display(LevelCalculated(3 + effect[3] / 5), effectSprite[11]);
+                    GainBlock(LevelCalculated(26));
+                    Unstable(1.18f + 0.11f * effect[21]);
+                    movesCooldowns[0] += 1;
+                    moveCooldown[0] += 1;
+                    break;
+                case (20, 3): // Damnation
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    tempi = LevelCalculated(4 + totalUnspentMana);
+                    tempi /= 9;
+                    if (tempi > 0)
+                        CombatScript.Player.GainVulnerable(tempi);
+                    Unstable(0.25f + 0.028f * totalUnspentMana);
+                    break;
+                case (21, 1): // Assimilate
+                    tempi = CombatScript.Enemy[0].maxHealth + CombatScript.Enemy[2].maxHealth;
+                    tempi = LevelCalculated(tempi) / 20;
+                    GainHealth(tempi);
+                    Assimilation(tempi + 1);
+                    break;
+                case (21, 2): // Earthquake
+                    CombatScript.Player.TakeDamage(AttackDamage());
+                    OnHit();
+                    tempi2 = 0;
+                    DamageMud(AttackDamage(), 0);
+                    DamageMud(AttackDamage(), 2);
+                    if (tempi2 > 0)
+                        GainLevel(tempi2);
+                    break;
             }
         }
     }
@@ -806,6 +913,7 @@ public class EnemyCombat : MonoBehaviour
             TakeDamage(CombatScript.Player.effect[4]);
         if (CombatScript.Player.effect[24] > 0)
         {
+            TakeDamage(CombatScript.Player.effect[24]);
             CombatScript.Player.effect[3] += CombatScript.Player.effect[24];
             CombatScript.Player.UpdateInfo();
         }
@@ -867,6 +975,12 @@ public class EnemyCombat : MonoBehaviour
         return tempi;
     }
 
+    public int Damnation2Damage()
+    {
+        tempi = movesValue[currentMove] + LevelCalculated((totalUnspentMana * 25) / 41);
+        return tempi;
+    }
+
     public int GorgeDamage()
     {
         tempi = movesValue[currentMove] + LevelCalculated(CombatScript.Player.health / 8);
@@ -923,7 +1037,7 @@ public class EnemyCombat : MonoBehaviour
             amount /= 5;
             GainBleed(1);
         }
-        if (PlayerScript.Item[30] && amount >= 22)
+        if (PlayerScript.Item[30] && amount >= 20)
         {
             if (PlayerScript.Item[33])
                 amount += 8;
@@ -1079,7 +1193,7 @@ public class EnemyCombat : MonoBehaviour
 
     public void GainBleed(int amount)
     {
-        if (PlayerScript.Item[25] && amount >= 4)
+        if (PlayerScript.Item[25] && amount >= 3)
             amount++;
         effect[1] += amount;
         Display(amount, effectSprite[1]);
@@ -1111,9 +1225,11 @@ public class EnemyCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    public void GainLink()
+    public void GainLink(int bonus, bool tether)
     {
-        effect[15] += effect[14];
+        effect[15] += bonus;
+        if (tether)
+            effect[15] += effect[14];
         while (effect[15] >= 10)
         {
             effect[15] -= 10;

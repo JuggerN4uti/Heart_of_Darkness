@@ -26,7 +26,7 @@ public class Map : MonoBehaviour
     public int[] EventCooldown, EventsCooldowns;
     public int currentTile, currentRow, tilesAmount, treasureTile;
     public float danger, eliteDanger, experience;
-    public bool forge;
+    public bool forge, last;
     int roll, roll2, roll3, tempi;
     float temp;
     bool viable;
@@ -275,15 +275,27 @@ public class Map : MonoBehaviour
 
     void SetBoss()
     {
-        roll = Library.BossRoll();
         CombatScript.elite = false;
         CombatScript.boss = true;
-        if (roll == 17)
+        if (last)
         {
-            CombatScript.Set3Enemies(roll + 1, roll, roll + 1, 0);
-            CombatScript.enemiesAlive = 1;
+            roll = Library.LastBossRoll();
+            if (roll == 20)
+                CombatScript.SetLordOfAgony();
+            else if (roll == 21)
+                CombatScript.SetTheBog();
+            else CombatScript.SetEnemy(roll, 0);
         }
-        else CombatScript.SetEnemy(roll, 0);
+        else
+        {
+            roll = Library.BossRoll();
+            if (roll == 17)
+            {
+                CombatScript.Set3Enemies(roll + 1, roll, roll + 1, 0);
+                CombatScript.enemiesAlive = 1;
+            }
+            else CombatScript.SetEnemy(roll, 0);
+        }
     }
 
     void MoveTile(int row)

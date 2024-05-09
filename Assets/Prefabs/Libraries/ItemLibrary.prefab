@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 94fe9c71e69f0d14184eaf2d0ba23836, type: 3}
   ItemName: Ring of Strength
-  ItemTooltip: Gain 1 Strength, whenever you deal 22 Damage or more, increase it
+  ItemTooltip: Gain 1 Strength, whenever you deal 20 Damage or more, increase it
     by 4
   text: 0
   nonNeutral: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 10fcf3dd8eaedf74987a615ea239e24f, type: 3}
   ItemName: Curved Knife
-  ItemTooltip: Gain 1 Strength, when applying at least 4 Bleed, apply 1 more
+  ItemTooltip: Gain 1 Strength, when applying at least 3 Bleed, apply 1 more
   text: 0
   nonNeutral: 0
   Class: 0
@@ -449,7 +449,7 @@ MonoBehaviour:
   ItemSprite: {fileID: 21300000, guid: d2dff8128b183ab46b55ddada154bea4, type: 3}
   ItemName: Quiver
   ItemTooltip: Remove Equipment Energy Cost, whenever you play a Card, that costs
-    2 or more Mana, gain +3 Equipment Cooldown
+    2 or more Mana, gain +4 Equipment Cooldown
   text: 0
   nonNeutral: 0
   Class: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: f1c6cce645592404fa50ad0d5920f34d, type: 3}
   ItemName: Black Dahlia
-  ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 3 Block
+  ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 4 Block
   text: 0
   nonNeutral: 0
   Class: 0
@@ -549,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 29db939b7f1eb014dba6b858c1afa995, type: 3}
   ItemName: Lily Pad
-  ItemTooltip: Gain 1 permament Combo. Reaching 5x Combo gives 3 Energy & 1 Card
+  ItemTooltip: Gain 1 permament Combo. Reaching 5x Combo gives 4 Energy & 1 Card
     Draw
   text: 0
   nonNeutral: 1
@@ -651,7 +651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 214ba93f122142c47ada037e3a72d16e, type: 3}
   ItemName: Energy Drink
-  ItemTooltip: Gain 1 Dexterity, every 25 Energy gained gives +1 Cooldown on Equipment
+  ItemTooltip: Gain 1 Dexterity, every 23 Energy gained gives +1 Cooldown on Equipment
   text: 1
   nonNeutral: 0
   Class: 0
@@ -2095,7 +2095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: db9a5913d657581438f9e07bab0873ff, type: 3}
   ItemName: Sledgehammer
-  ItemTooltip: Every 4 attacks gain 5 Block
+  ItemTooltip: Every 3 attacks gain 4 Block
   text: 1
   nonNeutral: 0
   Class: 0

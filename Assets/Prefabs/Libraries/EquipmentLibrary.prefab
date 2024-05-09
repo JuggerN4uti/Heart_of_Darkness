@@ -254,11 +254,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EquipmentSprite: {fileID: 21300000, guid: d8c6ac661ac2ce34db638caf76e6ca53, type: 3}
   EquipmentName: Dagger
-  EquipmentTooltip: Deal 2 Damage, Apply 1 Bleed
+  EquipmentTooltip: Deal 4 Damage
   Cost: 2
-  Uses: 2
-  Cooldown: 5
-  Gain: 2
+  Uses: 3
+  Cooldown: 2
+  Gain: 1
 --- !u!1 &5993413118988951642
 GameObject:
   m_ObjectHideFlags: 0

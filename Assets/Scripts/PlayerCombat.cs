@@ -486,9 +486,9 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[34])
         {
             drink += amount;
-            while (drink >= 25)
+            while (drink >= 23)
             {
-                drink -= 25;
+                drink -= 23;
                 EquipmentCooldown(1);
             }
         }
@@ -662,7 +662,7 @@ public class PlayerCombat : MonoBehaviour
                     TheWeaponEffect.text = "Gain " + BucklerBlock().ToString("0") + " Block";
                     break;
                 case 1:
-                    TheWeaponEffect.text = "Deal " + DaggerDamage().ToString("0") + " Damage\nApply 1 Bleed";
+                    TheWeaponEffect.text = "Deal " + DaggerDamage().ToString("0") + " Damage";
                     break;
                 case 2:
                     TheWeaponEffect.text = "Draw 1 Card";
@@ -732,8 +732,8 @@ public class PlayerCombat : MonoBehaviour
             GainStrength(1);
         if (PlayerScript.Item[10] && attacks % 7 == 0)
             GainResistance(1);
-        if (PlayerScript.Item[11] && attacks % 4 == 0)
-            GainBlock(5);
+        if (PlayerScript.Item[11] && attacks % 3 == 0)
+            GainBlock(4);
         if (PlayerScript.Item[12] && attacks % 9 == 0)
             GainMana(1);
         if (PlayerScript.Item[17] && attacks % 3 == 0)
@@ -758,8 +758,8 @@ public class PlayerCombat : MonoBehaviour
         {
             if (PlayerScript.Item[28])
             {
-                value *= 4;
-                value /= 5 + PlayerScript.CurseValue[0];
+                value *= 9;
+                value /= 11 + PlayerScript.CurseValue[0];
             }
             else
             {
@@ -776,8 +776,8 @@ public class PlayerCombat : MonoBehaviour
         {
             if (PlayerScript.Item[29])
             {
-                value *= 4;
-                value /= 5 + PlayerScript.CurseValue[4];
+                value *= 9;
+                value /= 11 + PlayerScript.CurseValue[4];
             }
             else
             {
@@ -879,7 +879,7 @@ public class PlayerCombat : MonoBehaviour
                 GainBlock(effect[19]);
             if (PlayerScript.Item[44])
             {
-                GainEnergy(3);
+                GainEnergy(4);
                 Cards.Draw(1);
             }
         }
@@ -1427,7 +1427,7 @@ public class PlayerCombat : MonoBehaviour
                                 return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random 1 Time";
                             else return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random " + EntanglingRootsTargets(level).ToString("") + " Times";
                         case 9:
-                            return "Gain " + DeflectBlock(level).ToString("") + " Block\nGain " + DeflectStored(level).ToString("") + " Stored Block when being attacked this Turn";
+                            return "Gain " + DeflectBlock(level).ToString("") + " Block\nGain " + DeflectStacks(level).ToString("") + " Stored Block & Deal " + DeflectStacks(level).ToString("") + " Damage when being attacked this Turn";
                         case 10:
                             if (blossom < 5)
                                 return "Gain " + EarthenMightBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/5 Blossom)";
@@ -1466,12 +1466,11 @@ public class PlayerCombat : MonoBehaviour
         CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DaggerDamage());
         OnHit();
-        CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(1);
     }
 
     int DaggerDamage()
     {
-        tempi = 2 + effect[0];
+        tempi = 4 + effect[0];
         return DamageDealtModifier(tempi);
     }
 
@@ -3138,7 +3137,7 @@ public class PlayerCombat : MonoBehaviour
     // NATURE
     void SapMagic(int level) // ID N 0
     {
-        //CombatScript.Effect(false, 10, false, CombatScript.targetedEnemy);
+        CombatScript.Effect(false, 15, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SapMagicDamage(level));
         OnHit();
         effect[22]++;
@@ -3201,7 +3200,7 @@ public class PlayerCombat : MonoBehaviour
 
     void ForceOfNature(int level) // ID N 4
     {
-        //CombatScript.Effect(false, 10, false, CombatScript.targetedEnemy);
+        CombatScript.Effect(false, 13, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ForceOfNatureDamage(level));
         OnHit();
         CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(ForceOfNatureSlow(level));
@@ -3286,7 +3285,7 @@ public class PlayerCombat : MonoBehaviour
         {
             if (CombatScript.enemyAlive[i])
             {
-                //CombatScript.Effect(false, 12, true, i);
+                CombatScript.Effect(false, 14, true, i);
                 CombatScript.Enemy[i].TakeDamage(EntanglingRootsDamage(level));
                 CombatScript.Enemy[i].GainSlow(EntanglingRootsSlow(level));
             }
@@ -3298,7 +3297,7 @@ public class PlayerCombat : MonoBehaviour
                 if (CombatScript.enemiesAlive > 0)
                 {
                     tempi2 = CombatScript.RandomEnemy();
-                    //CombatScript.Effect(false, 11, true, tempi);
+                    CombatScript.Effect(false, 14, true, tempi2);
                     CombatScript.Enemy[tempi2].TakeDamage(EntanglingRootsDamage(level));
                     CombatScript.Enemy[tempi2].GainSlow(EntanglingRootsSlow(level));
                 }
@@ -3309,7 +3308,7 @@ public class PlayerCombat : MonoBehaviour
 
     int EntanglingRootsDamage(int level)
     {
-        tempi = 12 + effect[0];
+        tempi = 13 + effect[0];
         tempi += 3 * level;
         tempi += (level / 2) * 2;
         return DamageDealtModifier(tempi);
@@ -3332,7 +3331,7 @@ public class PlayerCombat : MonoBehaviour
     void Deflect(int level) // ID N 9
     {
         GainBlock(DeflectBlock(level));
-        effect[24] += DeflectStored(level);
+        effect[24] += DeflectStacks(level);
     }
 
     int DeflectBlock(int level)
@@ -3342,9 +3341,9 @@ public class PlayerCombat : MonoBehaviour
         return BlockGainedModifier(tempi);
     }
 
-    int DeflectStored(int level)
+    int DeflectStacks(int level)
     {
-        tempi = 3;
+        tempi = 2;
         tempi += 2 * level;
         return tempi;
     }

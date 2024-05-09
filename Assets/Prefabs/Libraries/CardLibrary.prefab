@@ -878,11 +878,11 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 12 Damage & Apply 2 Slow to all Enemies. Also target a random Enemy per
+  - Deal 13 Damage & Apply 2 Slow to all Enemies. Also target a random Enemy per
     7 Blossom
-  - Deal 15 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+  - Deal 16 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
     7 Blossom
-  - Deal 20 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+  - Deal 21 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
     6 Blossom
 --- !u!1 &1348583664235774408
 GameObject:
@@ -4183,9 +4183,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 11 Block. Gain 3 Stored Block when being attacked this Turn
-  - Gain 13 Block. Gain 5 Stored Block when being attacked this Turn
-  - Gain 15 Block. Gain 7 Stored Block when being attacked this Turn
+  - Gain 11 Block. Gain 2 Stored Block & Deal 2 Damage when being attacked this Turn
+  - Gain 13 Block. Gain 4 Stored Block & Deal 4 Damage when being attacked this Turn
+  - Gain 15 Block. Gain 6 Stored Block & Deal 6 Damage when being attacked this Turn
 --- !u!1 &7986722737720104172
 GameObject:
   m_ObjectHideFlags: 0
