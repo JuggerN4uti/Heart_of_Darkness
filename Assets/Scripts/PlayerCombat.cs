@@ -94,7 +94,7 @@ public class PlayerCombat : MonoBehaviour
         drink = 0;
         lightningDamage = 36;
         if (PlayerScript.Item[46])
-            lightningDamage += 9;
+            lightningDamage += 11;
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
         shield = PlayerScript.StatValues[5];

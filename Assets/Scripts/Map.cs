@@ -300,7 +300,7 @@ public class Map : MonoBehaviour
 
     void MoveTile(int row)
     {
-        danger += 0.35f + 0.01f * currentTile;
+        danger += 0.34f + 0.01f * currentTile;
 
         if (currentTile == 0)
         {

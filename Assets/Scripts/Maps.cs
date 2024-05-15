@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Maps : MonoBehaviour
 {
@@ -32,6 +33,11 @@ public class Maps : MonoBehaviour
             MapObject[currentMap].SetActive(false);
             currentMap++;
             NextMap();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("End", 1);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

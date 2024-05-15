@@ -27,7 +27,7 @@ public class Combat : MonoBehaviour
     [Header("UI")]
     public Button EndTurnButton;
     public TMPro.TextMeshProUGUI TurnCounter, EffectTooltip;
-    public GameObject CombatScene, Hand, StoryScene, ResultsScene;
+    public GameObject CombatScene, Hand, PlayerHUD, Maps, StoryScene, ResultsScene;
     public GameObject[] TargetedObject;
     // public string/image[] playerEffects, enemyEffects; mo¿e potem zamieniæ na premade tooltipy
 
@@ -276,6 +276,8 @@ public class Combat : MonoBehaviour
     {
         CombatScene.SetActive(false);
         Hand.SetActive(false);
+        PlayerHUD.SetActive(false);
+        Maps.SetActive(false);
         if (StoryScript.StoryChapter == 4)
         {
             AdventureScript.AdventureComplete(true, mapDanger);
@@ -285,8 +287,10 @@ public class Combat : MonoBehaviour
         }
         else
         {
-            AdventureScript.AdventureComplete(false, mapDanger);
-            ResultsScene.SetActive(true);
+            PlayerPrefs.SetInt("End", 0);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //AdventureScript.AdventureComplete(false, mapDanger);
+            //ResultsScene.SetActive(true);
         }
     }
 

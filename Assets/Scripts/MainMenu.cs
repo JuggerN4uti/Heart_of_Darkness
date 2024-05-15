@@ -16,4 +16,9 @@ public class MainMenu : MonoBehaviour
         PlayerPrefs.SetInt("Story", 0);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }

@@ -851,7 +851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 99fff120e997c164f8609db5a1c1324f, type: 3}
   ItemName: Bottled Lightning
-  ItemTooltip: Increase Lightning Damage by 9. Every Turn gain 1 Storm Charge
+  ItemTooltip: Increase Lightning Damage by 11. Every Turn gain 1 Storm Charge
   text: 0
   nonNeutral: 1
   Class: 1
@@ -2195,7 +2195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: e3d34b8f09f9d0149bbfa03b02984f47, type: 3}
   ItemName: Cursed Blade
-  ItemTooltip: Applying Debuff to enemy also deals 6 Damage
+  ItemTooltip: Applying Debuff to enemy also deals 7 Damage
   text: 0
   nonNeutral: 0
   Class: 0

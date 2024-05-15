@@ -34,7 +34,7 @@ public class ForgeChoice : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            charge[i] += Random.Range(0.57f, 1.71f);
+            charge[i] += Random.Range(0.59f, 1.71f);
         }
         SetGear();
         ForgeEventObject.SetActive(true);
@@ -58,7 +58,7 @@ public class ForgeChoice : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             if (i != slot)
-                charge[i] += cost[slot] * 0.024f;
+                charge[i] += cost[slot] * 0.026f;
         }
         while (charge[slot] >= 1f)
         {

@@ -930,7 +930,7 @@ public class EnemyCombat : MonoBehaviour
             if (PlayerScript.Item[26])
                 GainDaze(tenacity);
             if (PlayerScript.Item[13])
-                TakeDamage(6);
+                TakeDamage(7);
             if (effect[16] > 0)
                 TakeDamage(maxHealth / 20);
             else if (effect[18] > 0)
@@ -1185,7 +1185,7 @@ public class EnemyCombat : MonoBehaviour
         effect[0] += amount;
         Display(amount, effectSprite[0]);
         if (PlayerScript.Item[13])
-            TakeDamage(6 * amount);
+            TakeDamage(7 * amount);
         if (PlayerScript.Item[42])
             GainSlow(amount * 2);
         UpdateInfo();
@@ -1219,7 +1219,7 @@ public class EnemyCombat : MonoBehaviour
         effect[9] += amount;
         Display(amount, effectSprite[9]);
         if (PlayerScript.Item[13])
-            TakeDamage(6 * amount);
+            TakeDamage(7 * amount);
         if (PlayerScript.Item[42])
             GainSlow(amount * 2);
         UpdateInfo();
