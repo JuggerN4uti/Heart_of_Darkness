@@ -73,24 +73,24 @@ public class LootChoice : MonoBehaviour
                     ChargeCard(0.2f);
                     break;
                 case 3:
-                    ChargeQuality(0.04f);
+                    ChargeQuality(0.0424f);
                     break;
                 case 4:
-                    ChargeMerge(0.11f);
+                    ChargeMerge(0.1166f);
                     break;
                 case 5:
                     ChargeCard(0.08f);
-                    ChargeQuality(0.024f);
+                    ChargeQuality(0.0252f);
                     break;
                 case 6:
-                    ChargeMerge(0.066f);
-                    ChargeQuality(0.016f);
+                    ChargeMerge(0.0699f);
+                    ChargeQuality(0.0169f);
                     break;
                 case 7:
                     iron++;
                     break;
             }
-            dangerBonus -= 1.075f + rollsCount * 0.175f;
+            dangerBonus -= 1.074f + rollsCount * 0.174f;
             rollsCount++;
         }
         UpdateLoot();

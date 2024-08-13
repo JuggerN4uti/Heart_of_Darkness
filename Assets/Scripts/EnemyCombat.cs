@@ -96,7 +96,7 @@ public class EnemyCombat : MonoBehaviour
             GainSlow(2);
         }
         if (PlayerScript.Item[24])
-            GainBleed(3);
+            GainBleed(4);
         LevelValue.text = (level + 1).ToString("0");
         UpdateInfo();
         StartTurn();
@@ -931,6 +931,12 @@ public class EnemyCombat : MonoBehaviour
                 GainDaze(tenacity);
             if (PlayerScript.Item[13])
                 TakeDamage(7);
+            if (PlayerScript.Item[50])
+            {
+                CombatScript.Player.effect[22]++;
+                CombatScript.Player.effect[25] += 2;
+                PlayerScript.UpdateInfo();
+            }
             if (effect[16] > 0)
                 TakeDamage(maxHealth / 20);
             else if (effect[18] > 0)

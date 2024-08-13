@@ -8,6 +8,7 @@ public class HeroChoice : MonoBehaviour
     [Header("Scripts")]
     public Player PlayerScript;
     public Deck DeckScript;
+    public CardLibrary CLibrary;
 
     [Header("UI")]
     public GameObject HeroChoiceScene;
@@ -36,8 +37,8 @@ public class HeroChoice : MonoBehaviour
                     PlayerScript.StatValues[i] += LightStats[i];
                 }
                 ValorDisplay.SetActive(true);
-                DeckScript.CardID[4] = 26;
-                DeckScript.CardID[9] = 13;
+                DeckScript.CardID[4] = 24 + CLibrary.neutralCards;
+                DeckScript.CardID[9] = 11 + CLibrary.neutralCards;
                 break;
             case 1:
                 for (int i = 0; i < LightStats.Length; i++)
@@ -45,8 +46,8 @@ public class HeroChoice : MonoBehaviour
                     PlayerScript.StatValues[i] += WaterStats[i];
                 }
                 ComboDisplay.SetActive(true);
-                DeckScript.CardID[4] = 47;
-                DeckScript.CardID[9] = 64;
+                DeckScript.CardID[4] = 9 + CLibrary.neutralCards + CLibrary.lightCards;
+                DeckScript.CardID[9] = 26 + CLibrary.neutralCards + CLibrary.lightCards;
                 break;
             case 2:
                 for (int i = 0; i < LightStats.Length; i++)
@@ -54,8 +55,8 @@ public class HeroChoice : MonoBehaviour
                     PlayerScript.StatValues[i] += NatureStats[i];
                 }
                 BlossomDisplay.SetActive(true);
-                DeckScript.CardID[4] = 81;
-                DeckScript.CardID[9] = 75;
+                DeckScript.CardID[4] = 8 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards;
+                DeckScript.CardID[9] = 2 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards;
                 break;
         }
         PlayerScript.Class = which;

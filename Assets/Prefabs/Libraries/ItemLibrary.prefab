@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &125395176129709426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7879402482494649151}
+  - component: {fileID: 8163454834027022437}
+  m_Layer: 0
+  m_Name: Boots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7879402482494649151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125395176129709426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 47
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8163454834027022437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125395176129709426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: ec01a00ab275ca7479a6dd279bf3eb2b, type: 3}
+  ItemName: Boots
+  ItemTooltip: Gain 1 Dexterity. Every Turn Gain Block equal to Dexterity
+  text: 0
+  nonNeutral: 0
+  Class: 1
 --- !u!1 &531328722496372159
 GameObject:
   m_ObjectHideFlags: 0
@@ -46,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: d46061b40082cce4999fa622f827a145, type: 3}
   ItemName: Whetstone
-  ItemTooltip: Every 7 attacks gain 1 Strength
+  ItemTooltip: Every 6 attacks gain 1 Strength
   text: 1
   nonNeutral: 0
   Class: 0
@@ -398,7 +448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 46924b89b32254b4ebbdc0011426cfa3, type: 3}
   ItemName: Tongs
-  ItemTooltip: Every 7 attacks gain 1 Resistance
+  ItemTooltip: Every 6 attacks gain 1 Resistance
   text: 1
   nonNeutral: 0
   Class: 0
@@ -499,7 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: f1c6cce645592404fa50ad0d5920f34d, type: 3}
   ItemName: Black Dahlia
-  ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 4 Block
+  ItemTooltip: Whenever you Destroy a Card, Draw 1 & Gain 5 Block
   text: 0
   nonNeutral: 0
   Class: 0
@@ -554,6 +604,56 @@ MonoBehaviour:
   text: 0
   nonNeutral: 1
   Class: 1
+--- !u!1 &2168767258754780742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3081266337573630164}
+  - component: {fileID: 8335122274669239297}
+  m_Layer: 0
+  m_Name: Violet Lotus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3081266337573630164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168767258754780742}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 50
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8335122274669239297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2168767258754780742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 5228ae36e2dd61944bb32e17cd6f0d75, type: 3}
+  ItemName: Violet Lotus
+  ItemTooltip: Whenever Enemy is Stunned, Gain 1 Mana & 2 Energy next Turn
+  text: 0
+  nonNeutral: 1
+  Class: 2
 --- !u!1 &2230659321674342481
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +801,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: c26457b99a721eb489feeb1bed6db54a, type: 3}
   ItemName: Top Hat
-  ItemTooltip: Gain 8 Max Health, whenever you play Rare Card, gain 10 Block
+  ItemTooltip: Gain 10 Max Health, whenever you play Rare Card, gain 10 Block
   text: 0
   nonNeutral: 0
   Class: 0
@@ -751,7 +851,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 566ed37048826e345b1cd992c4684c31, type: 3}
   ItemName: Time Bomb
-  ItemTooltip: Gain 1 Max Mana, but each Turn take 2 times current Turn Damage
+  ItemTooltip: Gain 1 Max Mana, but each Turn take 2 Damage, increased by 1 each
+    Turn
   text: 0
   nonNeutral: 0
   Class: 0
@@ -905,6 +1006,56 @@ MonoBehaviour:
   text: 0
   nonNeutral: 0
   Class: 0
+--- !u!1 &3450844257289766075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8173690364879281300}
+  - component: {fileID: 2242751400695878656}
+  m_Layer: 0
+  m_Name: Sapling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8173690364879281300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450844257289766075}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 49
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2242751400695878656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3450844257289766075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 5c8cf33e495879e4093930fb8bf22582, type: 3}
+  ItemName: Sapling
+  ItemTooltip: Start with 3 Blossom
+  text: 0
+  nonNeutral: 1
+  Class: 2
 --- !u!1 &3543279966215379294
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +1102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: eba4839b26a3ea5448d0910d5a050fcd, type: 3}
   ItemName: Caltrops
-  ItemTooltip: Enemies Start with 3 Bleed
+  ItemTooltip: Enemies Start with 4 Bleed
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1432,6 +1583,10 @@ Transform:
   - {fileID: 4924573390267792749}
   - {fileID: 1010916004776400109}
   - {fileID: 1075311465042438081}
+  - {fileID: 7879402482494649151}
+  - {fileID: 3646959469158742752}
+  - {fileID: 8173690364879281300}
+  - {fileID: 3081266337573630164}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1495,6 +1650,10 @@ MonoBehaviour:
   - {fileID: 1934812183501331009}
   - {fileID: 8396771205323782371}
   - {fileID: 2998231443424830878}
+  - {fileID: 8163454834027022437}
+  - {fileID: 7913262959773893874}
+  - {fileID: 2242751400695878656}
+  - {fileID: 8335122274669239297}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,7 +1851,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: b78f37b4fbb617046b4eb2f306b4e430, type: 3}
   ItemName: Bandages
-  ItemTooltip: Reduce Bleed by 1 each Turn. Restore 5% missing Health after Combat
+  ItemTooltip: Reduce Bleed by 1 each Turn. Restore 6% missing Health after Combat
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1793,7 +1952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 86847eb706767c24abba2cbc64aea81b, type: 3}
   ItemName: Arcane Dust
-  ItemTooltip: Every 3 Turns gain 1 extra Mana
+  ItemTooltip: Every 3 Turns gain 1 extra Mana & Draw a Card
   text: 1
   nonNeutral: 0
   Class: 0
@@ -1993,7 +2152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: dc2aaffd388350844bc0eba5ca033649, type: 3}
   ItemName: Ring of Dexterity
-  ItemTooltip: Gain 2 Dexterity, whenever you gain 4 or more Energy, increase it
+  ItemTooltip: Gain 2 Dexterity, whenever you gain 3 or more Energy, increase it
     by 1
   text: 0
   nonNeutral: 0
@@ -2149,6 +2308,56 @@ MonoBehaviour:
   text: 0
   nonNeutral: 0
   Class: 0
+--- !u!1 &8160860664644889816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3646959469158742752}
+  - component: {fileID: 7913262959773893874}
+  m_Layer: 0
+  m_Name: Bear Fur
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3646959469158742752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160860664644889816}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 48
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7913262959773893874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8160860664644889816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 0823758126aca24439fa053136603ea0, type: 3}
+  ItemName: Bear Fur
+  ItemTooltip: Gain 1 Strength. Whenever you gain Strength, also Gain 4 Block
+  text: 0
+  nonNeutral: 1
+  Class: 2
 --- !u!1 &8308167264721718574
 GameObject:
   m_ObjectHideFlags: 0
@@ -2445,7 +2654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: daa9541a45c8b4042b47a7779162ed8e, type: 3}
   ItemName: Broken Record
-  ItemTooltip: Every 8 Cards played, Draw 1 Card
+  ItemTooltip: Every 7 Cards played, Draw 1 Card
   text: 1
   nonNeutral: 0
   Class: 0

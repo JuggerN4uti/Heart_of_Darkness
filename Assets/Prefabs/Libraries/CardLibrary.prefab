@@ -147,6 +147,9 @@ Transform:
   - {fileID: 7747609059249635095}
   - {fileID: 9059644792967282546}
   - {fileID: 6716442360755063288}
+  - {fileID: 2332525493434652045}
+  - {fileID: 7685837473073422528}
+  - {fileID: 7531400821287667287}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -673,6 +676,58 @@ MonoBehaviour:
   - Deal 8 Damage
   - Deal 11 Damage
   - Deal 14 Damage
+--- !u!1 &1000815277175499689
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2332525493434652045}
+  - component: {fileID: 7540183142710618880}
+  m_Layer: 0
+  m_Name: Rejuvenation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2332525493434652045
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000815277175499689}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7540183142710618880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000815277175499689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: b51c8ff55af30ba4c9f6fad3dc0b6bd9, type: 3}
+  CardName: Rejuvenation
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 1
+  CardTooltip:
+  - Restore 6 Health. Destroy
+  - Restore 9 Health. Destroy
+  - Restore 12 Health. Destroy
 --- !u!1 &1101227934036142529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,6 +1681,58 @@ MonoBehaviour:
   - Deal 20 Damage, 1 Slow, 1 Weak & 1 Vulnerable
   - Deal 25 Damage, 2 Slow, 2 Weak & 1 Vulnerable
   - Deal 30 Damage, 2 Slow, 2 Weak & 2 Vulnerable
+--- !u!1 &2496964385644088991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7685837473073422528}
+  - component: {fileID: 5377813811475271702}
+  m_Layer: 0
+  m_Name: Volley
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7685837473073422528
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496964385644088991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5377813811475271702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2496964385644088991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 722e44e7b9937ff4a81074dbbd94ecaa, type: 3}
+  CardName: Volley
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 6 Damage to a random Enemy 3 times
+  - Deal 6 Damage to a random Enemy 4 times
+  - Deal 6 Damage to a random Enemy 5 times
 --- !u!1 &2697824346853653083
 GameObject:
   m_ObjectHideFlags: 0
@@ -3131,6 +3238,9 @@ MonoBehaviour:
   - {fileID: 8589041573346963966}
   - {fileID: 1324248681781368068}
   - {fileID: 551923493813103243}
+  - {fileID: 7540183142710618880}
+  - {fileID: 5377813811475271702}
+  - {fileID: 792440148980345017}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -3140,6 +3250,7 @@ MonoBehaviour:
   neutralCards: 2
   lightCards: 36
   waterCards: 35
+  natureCards: 18
 --- !u!1 &5368283676432036145
 GameObject:
   m_ObjectHideFlags: 0
@@ -4134,6 +4245,61 @@ MonoBehaviour:
   - 'Gain 11 Block. Valor 4: Gain 1 Resistance, otherwise Gain 1 Valor'
   - 'Gain 13 Block. Valor 3: Gain 1 Resistance, otherwise Gain 2 Valor'
   - 'Gain 15 Block. Valor 5: Gain 2 Resistance, otherwise Gain 3 Valor'
+--- !u!1 &7806536079800680109
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7531400821287667287}
+  - component: {fileID: 792440148980345017}
+  m_Layer: 0
+  m_Name: Savagery
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7531400821287667287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7806536079800680109}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6133760844408124017}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &792440148980345017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7806536079800680109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 4de974ee32bbb8545bc164b221db639d, type: 3}
+  CardName: Savagery
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Gain 1 Strength & 3 Block. Blossom 4: Gain 2 Strength instead, but increase
+    Blossom required by 4'
+  - 'Gain 1 Strength & 6 Block. Blossom 3: Gain 2 Strength instead, but increase
+    Blossom required by 3'
+  - 'Gain 1 Strength & 9 Block. Blossom 6: Gain 3 Strength instead, but increase
+    Blossom required by 5'
 --- !u!1 &7900035142374541429
 GameObject:
   m_ObjectHideFlags: 0

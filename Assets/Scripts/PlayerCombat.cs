@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn;
+    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn, savageryIncrease;
 
     [Header("Item Stats")]
     public int turns;
@@ -89,7 +89,10 @@ public class PlayerCombat : MonoBehaviour
             permanentCombo++;
         flurry = 0;
         blossom = 0;
+        if (PlayerScript.Item[49])
+            blossom += 3;
         totalManaSpent = 0;
+        savageryIncrease = 0;
         attacks = 0;
         drink = 0;
         lightningDamage = 36;
@@ -128,6 +131,8 @@ public class PlayerCombat : MonoBehaviour
             effect[4] += 2;
         if (PlayerScript.Item[39])
             effect[0] += (PlayerScript.MaxHealth - PlayerScript.BaseHealth) / 20;
+        if (PlayerScript.Item[48])
+            GainBlock(effect[0] * 4);
 
         if (PlayerScript.secondEquipment)
             equipmentAmount = 2;
@@ -153,7 +158,7 @@ public class PlayerCombat : MonoBehaviour
     {
         ItemsScript.ResetText();
         if (PlayerScript.Item[16])
-            RestoreHealth((maxHealth - health) / 20);
+            RestoreHealth((maxHealth - health) * 6 / 100);
         PlayerScript.MaxHealth = maxHealth;
         PlayerScript.Health = health;
         PlayerScript.MaxSanity = maxSanity;
@@ -188,6 +193,11 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[27] && shield > 0)
             GainBlock(5);
         GainEnergy(8 + effect[2]);
+        if (effect[25] > 0)
+        {
+            GainEnergy(effect[25]);
+            effect[25] = 0;
+        }
         mana = 0;
         if (effect[7] > 0)
             GainMana(manaGain - 1);
@@ -205,7 +215,10 @@ public class PlayerCombat : MonoBehaviour
         {
             turns++;
             if (turns % 3 == 0)
+            {
                 GainMana(1);
+                Cards.Draw(1);
+            }
         }
         if (effect[12] > 0)
             Cards.Draw(cardDraw - 1);
@@ -235,6 +248,8 @@ public class PlayerCombat : MonoBehaviour
             GainValor(1);
         if (PlayerScript.Item[46])
             GainStormCharge(1);
+        if (PlayerScript.Item[47])
+            GainBlock(effect[2]);
     }
 
     public void UpdateInfo()
@@ -338,7 +353,7 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
         if (PlayerScript.Item[6])
-            TakeDamage(CombatScript.turn * 2);
+            TakeDamage(2 + CombatScript.turn * 1);
         if (PlayerScript.Item[16] && effect[8] > 0)
             effect[8]--;
         if (PlayerScript.Item[40] && mana > 0)
@@ -476,7 +491,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void GainEnergy(int amount)
     {
-        if (PlayerScript.Item[32] && amount >= 4)
+        if (PlayerScript.Item[32] && amount >= 3)
         {
             if (PlayerScript.Item[33])
                 amount += 2;
@@ -543,6 +558,8 @@ public class PlayerCombat : MonoBehaviour
     {
         effect[0] += amount;
         Display(amount, effectSprite[0]);
+        if (PlayerScript.Item[48])
+            GainBlock(amount * 4);
         UpdateInfo();
     }
 
@@ -728,9 +745,9 @@ public class PlayerCombat : MonoBehaviour
         attacks++;
         if (effect[15] > 0)
             CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(effect[15]);
-        if (PlayerScript.Item[9] && attacks % 7 == 0)
+        if (PlayerScript.Item[9] && attacks % 6 == 0)
             GainStrength(1);
-        if (PlayerScript.Item[10] && attacks % 7 == 0)
+        if (PlayerScript.Item[10] && attacks % 6 == 0)
             GainResistance(1);
         if (PlayerScript.Item[11] && attacks % 3 == 0)
             GainBlock(4);
@@ -758,8 +775,8 @@ public class PlayerCombat : MonoBehaviour
         {
             if (PlayerScript.Item[28])
             {
-                value *= 9;
-                value /= 11 + PlayerScript.CurseValue[0];
+                value *= 11;
+                value /= 13 + PlayerScript.CurseValue[0];
             }
             else
             {
@@ -776,8 +793,8 @@ public class PlayerCombat : MonoBehaviour
         {
             if (PlayerScript.Item[29])
             {
-                value *= 9;
-                value /= 11 + PlayerScript.CurseValue[4];
+                value *= 11;
+                value /= 13 + PlayerScript.CurseValue[4];
             }
             else
             {
@@ -1169,6 +1186,15 @@ public class PlayerCombat : MonoBehaviour
             case 14:
                 PinDown(level);
                 break;
+            case 15:
+                Rejuvenation(level);
+                break;
+            case 16:
+                Volley(level);
+                break;
+            case 17:
+                Savagery(level);
+                break;
         }
     }
 
@@ -1433,7 +1459,7 @@ public class PlayerCombat : MonoBehaviour
                                 return "Gain " + EarthenMightBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/5 Blossom)";
                             else return "Gain " + EarthenMightBlock(level).ToString("") + " Block\nGain 1 Strength";
                         case 11:
-                            return "Gain 1 Max Mana";
+                            return "Gain 1 Max Mana. Destroy";
                         case 12:
                             if (blossom < EarthenHideReq(level))
                                 return "Gain " + EarthenHideBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/" + EarthenHideReq(level).ToString("") + " Blossom)";
@@ -1442,6 +1468,14 @@ public class PlayerCombat : MonoBehaviour
                             return "Deal " + PowerOfTheWildDamage(level).ToString("") + " Damage\nGain " + PowerOfTheWildBlossom(level).ToString("") + " Blossom";
                         case 14:
                             return "Deal " + PinDownDamage(level).ToString("") + " Damage\nApply " + PinDownSlow(level).ToString("") + " Slow";
+                        case 15:
+                            return "Restore " + RejuvenationRestore(level).ToString("") + " Health. Destroy";
+                        case 16:
+                            return "Deal " + VolleyDamage(level).ToString("") + " Damage\nto random Enemy " + VolleyTargets(level).ToString("") + " Times";
+                        case 17:
+                            if (blossom < SavageryReq(level))
+                                return "Gain " + SavageryStrength(level, false).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\n(" + blossom.ToString("") + "/" + SavageryReq(level).ToString("") + " Blossom)";
+                            else return "Gain " + SavageryStrength(level, true).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\nincrease Blossom required by " + SavageryBlossomInc(level).ToString("");
                     }
                 }
             }
@@ -3428,6 +3462,90 @@ public class PlayerCombat : MonoBehaviour
     int PinDownSlow(int level)
     {
         tempi = PinDownDamage(level) / 4;
+        return tempi;
+    }
+
+    void Rejuvenation(int level) // ID N 15
+    {
+        RestoreHealth(RejuvenationRestore(level));
+    }
+
+    int RejuvenationRestore(int level)
+    {
+        tempi = 6;
+        tempi += 3 * level;
+        return tempi;
+    }
+
+    void Volley(int level) // ID N 16
+    {
+        for (int i = 0; i < VolleyTargets(level); i++)
+        {
+            if (CombatScript.enemiesAlive > 0)
+            {
+                tempi2 = CombatScript.RandomEnemy();
+                CombatScript.Effect(false, 7, false, tempi2);
+                CombatScript.Enemy[tempi2].TakeDamage(VolleyDamage(level));
+            }
+        }
+        OnHit();
+    }
+
+    int VolleyDamage(int level)
+    {
+        tempi = 6 + effect[0];
+        return DamageDealtModifier(tempi);
+    }
+
+    int VolleyTargets(int level)
+    {
+        tempi = 3;
+        tempi += level;
+        return tempi;
+    }
+
+    void Savagery(int level) // ID N 17
+    {
+        if (blossom >= SavageryReq(level))
+        {
+            GainStrength(SavageryStrength(level, true));
+            savageryIncrease += SavageryBlossomInc(level);
+        }
+        else GainStrength(SavageryStrength(level, false));
+        GainBlock(SavageryBlock(level));
+    }
+
+    int SavageryStrength(int level, bool empowered)
+    {
+        tempi = 1;
+        if (empowered)
+        {
+            tempi += 1;
+            tempi += level / 2;
+        }
+        return tempi;
+    }
+
+    int SavageryBlock(int level)
+    {
+        tempi = 3 + effect[1];
+        tempi += 3 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    int SavageryReq(int level)
+    {
+        tempi = 4 + savageryIncrease;
+        tempi -= level;
+        tempi += 4 * (level / 2);
+        return tempi;
+    }
+
+    int SavageryBlossomInc(int level)
+    {
+        tempi = 4;
+        tempi -= level;
+        tempi += 3 * (level / 2);
         return tempi;
     }
 

@@ -386,6 +386,9 @@ public class Combat : MonoBehaviour
             case 24:
                 EffectTooltip.text = "Deflect:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Stored Block & Deal " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Damage when being attacked this Turn";
                 break;
+            case 25:
+                EffectTooltip.text = "Stored Energy:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Energy at the start of next Turn";
+                break;
         }
     }
 

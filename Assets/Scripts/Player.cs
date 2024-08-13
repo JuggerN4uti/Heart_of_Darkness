@@ -297,7 +297,13 @@ public class Player : MonoBehaviour
                 GainHP(4);
                 break;
             case 37:
-                GainHP(8);
+                GainHP(10);
+                break;
+            case 47:
+                StatValues[9] += 1;
+                break;
+            case 48:
+                StatValues[8] += 1;
                 break;
         }
         UpdateInfo();

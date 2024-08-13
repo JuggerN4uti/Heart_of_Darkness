@@ -142,13 +142,13 @@ public class Hand : MonoBehaviour
         {
             cardsPlayed++;
             Player.ItemsScript.SetText();
-            if (cardsPlayed % 8 == 0)
+            if (cardsPlayed % 7 == 0)
                 Draw(1);
         }
 
         if (PlayerScript.Item[21] && destroyed)
         {
-            Player.GainBlock(4);
+            Player.GainBlock(5);
             Draw(1);
         }
 
