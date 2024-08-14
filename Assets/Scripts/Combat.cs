@@ -392,6 +392,9 @@ public class Combat : MonoBehaviour
             case 26:
                 EffectTooltip.text = "Juggernaut:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Shield for every Health Lost";
                 break;
+            case 27:
+                EffectTooltip.text = "Battle Stance:\nAttacks Give " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block, Tripled for Weapon";
+                break;
         }
     }
 
@@ -508,6 +511,9 @@ public class Combat : MonoBehaviour
                 break;
             case 2:
                 EffectTooltip.text = "Blossom:\n Gained each Turn to empower certain Cards";
+                break;
+            case 3:
+                EffectTooltip.text = "Wrath:\n Gained by dealing & taking Damage. Used by certain Cards";
                 break;
         }
     }

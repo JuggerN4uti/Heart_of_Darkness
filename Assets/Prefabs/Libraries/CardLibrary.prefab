@@ -52,6 +52,58 @@ MonoBehaviour:
   - Gain 8 Block
   - Gain 11 Block
   - Gain 14 Block
+--- !u!1 &129610461688669017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2996171092568623671}
+  - component: {fileID: 1780779115414149903}
+  m_Layer: 0
+  m_Name: Blood Boil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2996171092568623671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129610461688669017}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1780779115414149903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129610461688669017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 294a75ad636aafe4687c944ee9c8a9a7, type: 3}
+  CardName: Blood Boil
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 1
+  CardTooltip:
+  - Lose 3 Health. Gain 1 Strength, 2 Dexterity & 4 Energy
+  - Lose 3 Health. Gain 2 Strength, 3 Dexterity & 5 Energy
+  - Lose 3 Health. Gain 3 Strength, 4 Dexterity & 6 Energy
 --- !u!1 &144162809316781829
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +676,58 @@ MonoBehaviour:
   - Deal 9 Damage, Apply 1 Slow & Gain 4 Energy
   - Deal 10 Damage, Apply 2 Slow & Gain 5 Energy
   - Deal 11 Damage, Apply 3 Slow & Gain 6 Energy
+--- !u!1 &992941620462571854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2188602971886690933}
+  - component: {fileID: 1568918874792926640}
+  m_Layer: 0
+  m_Name: Enrage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2188602971886690933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992941620462571854}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1568918874792926640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992941620462571854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: e87b7c228f013e246be2b4b8f8835edb, type: 3}
+  CardName: Enrage
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 4 Wrath. For every 23 Wrath Gain 1 Strength & Energy (max 2)
+  - Gain 6 Wrath. For every 21 Wrath Gain 1 Strength & Energy (max 3)
+  - Gain 8 Wrath. For every 19 Wrath Gain 1 Strength & Energy (max 4)
 --- !u!1 &999633252295893347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1247,6 +1351,12 @@ Transform:
   - {fileID: 3615151340449597829}
   - {fileID: 7089474152623737706}
   - {fileID: 5436238017439909140}
+  - {fileID: 4683505378242309744}
+  - {fileID: 7464512637817678066}
+  - {fileID: 8391157635260334277}
+  - {fileID: 2996171092568623671}
+  - {fileID: 7125317336323644074}
+  - {fileID: 2188602971886690933}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1354,6 +1464,58 @@ MonoBehaviour:
   - Deal 11 Damage, Doubled against not shielded Target
   - Deal 14 Damage, Doubled against not shielded Target
   - Deal 17 Damage, Doubled against not shielded Target
+--- !u!1 &1734590287372624364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4683505378242309744}
+  - component: {fileID: 5321083831253708315}
+  m_Layer: 0
+  m_Name: Execute
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4683505378242309744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734590287372624364}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5321083831253708315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734590287372624364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: e3c09fbafc14b334a9858efafb0be214, type: 3}
+  CardName: Execute
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 13 Damage. Damage doubled against Target below 40% Health
+  - Deal 15 Damage. Damage doubled against Target below 50% Health
+  - Deal 17 Damage. Damage doubled against Target below 60% Health
 --- !u!1 &1908293998173996713
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,6 +3499,12 @@ MonoBehaviour:
   - {fileID: 2323495672573624846}
   - {fileID: 2631285033545131781}
   - {fileID: 8298245413842999666}
+  - {fileID: 5321083831253708315}
+  - {fileID: 3253943634417628008}
+  - {fileID: 5188969547709255887}
+  - {fileID: 1780779115414149903}
+  - {fileID: 6909949671861978848}
+  - {fileID: 1568918874792926640}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -4026,6 +4194,58 @@ MonoBehaviour:
   - Deal 7 Damage, Apply 3 Bleed
   - Deal 8 Damage, Apply 5 Bleed
   - Deal 9 Damage, Apply 7 Bleed
+--- !u!1 &6738582262456009097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8391157635260334277}
+  - component: {fileID: 5188969547709255887}
+  m_Layer: 0
+  m_Name: Siphon Life
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8391157635260334277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738582262456009097}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5188969547709255887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6738582262456009097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 9ccad33a61b961444a9b473633d885f5, type: 3}
+  CardName: Siphon Life
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Deal 1 Damage for every 9 Max Health. Increase Max Health by 2 permamently. Destroy
+  - Deal 1 Damage for every 8 Max Health. Increase Max Health by 4 permamently. Destroy
+  - Deal 1 Damage for every 7 Max Health. Increase Max Health by 6 permamently. Destroy
 --- !u!1 &6818806953550858299
 GameObject:
   m_ObjectHideFlags: 0
@@ -4133,6 +4353,58 @@ MonoBehaviour:
     per 10 Damage
   - Deal 26 Damage. Damage increased by 5 per 6 Mana spent this Combat. Apply 1 Slow
     per 9 Damage
+--- !u!1 &6951708905863824399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7464512637817678066}
+  - component: {fileID: 3253943634417628008}
+  m_Layer: 0
+  m_Name: Reform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7464512637817678066
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951708905863824399}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3253943634417628008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6951708905863824399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 74ac981aee5920e44bc9fbf12ade4666, type: 3}
+  CardName: Reform
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Lose 2 Health. Gain 13 Block & 3 Shield
+  - Lose 2 Health. Gain 17 Block & 5 Shield
+  - Lose 2 Health. Gain 21 Block & 7 Shield
 --- !u!1 &6965736690019580984
 GameObject:
   m_ObjectHideFlags: 0
@@ -4708,6 +4980,58 @@ MonoBehaviour:
   - Gain 6 Block. Block gain increased by 3 per Mana spent this Turn
   - Gain 8 Block. Block gain increased by 4 per Mana spent this Turn
   - Gain 10 Block. Block gain increased by 5 per Mana spent this Turn
+--- !u!1 &8291533209967651770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7125317336323644074}
+  - component: {fileID: 6909949671861978848}
+  m_Layer: 0
+  m_Name: Battle Stance
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7125317336323644074
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291533209967651770}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6909949671861978848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8291533209967651770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: dc9c99cb0eccbd34b8f4ec7aa38d5e4a, type: 3}
+  CardName: Battle Stance
+  CardManaCost: 0200000002000000020000000200000002000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 6 Block. Attacks give 2 Block, tripled for Weapon attack. Destroy
+  - Gain 8 Block. Attacks give 3 Block, tripled for Weapon attack. Destroy
+  - Gain 10 Block. Attacks give 4 Block, tripled for Weapon attack. Destroy
 --- !u!1 &8376270669732810254
 GameObject:
   m_ObjectHideFlags: 0

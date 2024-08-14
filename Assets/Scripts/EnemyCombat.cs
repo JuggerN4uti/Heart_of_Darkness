@@ -1052,6 +1052,7 @@ public class EnemyCombat : MonoBehaviour
         /*if (PlayerScript.Item[31] && amount >= 32 && CombatScript.Player.resistanceRing)
             CombatScript.Player.RingOfResistance();*/
         Display(amount, DamageSprite);
+        CombatScript.Player.GainWrath(amount, 1);
         if (block > 0)
         {
             if (block > amount)
@@ -1383,5 +1384,10 @@ public class EnemyCombat : MonoBehaviour
     {
         tempi = 5 + maxHealth / 5;
         return tempi;
+    }
+
+    public float HealthPercent()
+    {
+        return (health * 1f) / (maxHealth * 1f);
     }
 }

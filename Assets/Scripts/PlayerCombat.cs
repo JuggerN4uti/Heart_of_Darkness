@@ -16,11 +16,11 @@ public class PlayerCombat : MonoBehaviour
     public int maxHealth;
     public int health, shield, block, energy, mana, manaGain, cardDraw, sanity, maxSanity;
     public int[] effect;
-    int tempi, tempi2;
+    int tempi, tempi2, tempi3;
     float temp;
 
     [Header("Ability Stats")]
-    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn, savageryIncrease, rampageIncrease;
+    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn, savageryIncrease, wrath, wrathCharges, rampageIncrease;
 
     [Header("Item Stats")]
     public int turns;
@@ -47,7 +47,7 @@ public class PlayerCombat : MonoBehaviour
     public GameObject BlockDisplay;
     public Image HealthBarFill, SanityBarFill, EnergyBarFill;
     public Button WeaponUseButton;
-    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ValorValue, ComboValue, BlossomValue, WeaponCost, ManaValue;
+    public TMPro.TextMeshProUGUI HealthValue, ShieldValue, BlockValue, SanityValue, EnergyValue, ValorValue, ComboValue, BlossomValue, WrathValue, WeaponCost, ManaValue;
     public TMPro.TextMeshProUGUI[] CurseText;
     public GameObject[] UnitObject, CurseObject;
     public Image[] UnitSprite;
@@ -93,6 +93,8 @@ public class PlayerCombat : MonoBehaviour
             blossom += 3;
         totalManaSpent = 0;
         savageryIncrease = 0;
+        wrath = 0;
+        wrathCharges = 0;
         rampageIncrease = 0;
         attacks = 0;
         drink = 0;
@@ -274,6 +276,7 @@ public class PlayerCombat : MonoBehaviour
         ValorValue.text = valor.ToString("");
         ComboValue.text = combo.ToString("");
         BlossomValue.text = blossom.ToString("");
+        WrathValue.text = wrath.ToString("");
         if (shield > 0)
         {
             ShieldDisplay.SetActive(true);
@@ -704,15 +707,8 @@ public class PlayerCombat : MonoBehaviour
     {
         CombatScript.Effect(false, 0, false, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(WeaponDamage());
-        OnHit();
+        OnHit(true);
         SpendEnergy(energyCost);
-        if (effect[5] > 0)
-        {
-            CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(effect[5]);
-            CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(effect[5]);
-        }
-        if (effect[17] > 0)
-            GainStormCharge(effect[17]);
         UpdateInfo();
     }
 
@@ -741,11 +737,24 @@ public class PlayerCombat : MonoBehaviour
         UpdateInfo();
     }
 
-    void OnHit()
+    void OnHit(bool weapon = false)
     {
         attacks++;
+        if (effect[5] > 0 && weapon)
+        {
+            CombatScript.Enemy[CombatScript.targetedEnemy].GainDaze(effect[5]);
+            CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(effect[5]);
+        }
         if (effect[15] > 0)
             CombatScript.Enemy[CombatScript.targetedEnemy].GainBleed(effect[15]);
+        if (effect[17] > 0 && weapon)
+            GainStormCharge(effect[17]);
+        if (effect[27] > 0)
+        {
+            if (weapon)
+                GainBlock(effect[27] * 3);
+            else GainBlock(effect[27]);
+        }
         if (PlayerScript.Item[9] && attacks % 6 == 0)
             GainStrength(1);
         if (PlayerScript.Item[10] && attacks % 6 == 0)
@@ -851,6 +860,7 @@ public class PlayerCombat : MonoBehaviour
     void LoseHealth(int amount)
     {
         health -= amount;
+        GainWrath(amount, 6);
         if (effect[26] > 0 && amount > 0)
             GainShield(amount * effect[26]);
         if (health <= 0)
@@ -910,6 +920,17 @@ public class PlayerCombat : MonoBehaviour
                 GainEnergy(4);
                 Cards.Draw(1);
             }
+        }
+        UpdateInfo();
+    }
+
+    public void GainWrath(int amount, int multiplyer)
+    {
+        wrathCharges += amount * multiplyer;
+        while (wrathCharges >= 10)
+        {
+            wrathCharges -= 10;
+            wrath++;
         }
         UpdateInfo();
     }
@@ -1231,6 +1252,24 @@ public class PlayerCombat : MonoBehaviour
             case 5:
                 Juggernaut(level);
                 break;
+            case 6:
+                Execute(level);
+                break;
+            case 7:
+                Reform(level);
+                break;
+            case 8:
+                SiphonLife(level);
+                break;
+            case 9:
+                BloodBoil(level);
+                break;
+            case 10:
+                BattleStance(level);
+                break;
+            case 11:
+                Enrage(level);
+                break;
         }
     }
 
@@ -1524,7 +1563,7 @@ public class PlayerCombat : MonoBehaviour
                             case 0:
                                 return "Deal " + RampageDamage(level).ToString("") + " Damage\nIncrease Rampage Damage by " + RampageInc(level).ToString("");
                             case 1:
-                                return "Deal " + DrainDamage(level).ToString("") + " Damage\nRestore " + DrainRestore(level).ToString("") + " Health";
+                                return "Deal " + DrainDamage(level).ToString("") + " Damage\nRestore " + DrainRestore(level).ToString("") + " Health\nDestroy";
                             case 2:
                                 return "Deal " + CarveDamage(level).ToString("") + " Damage\nGain " + CarveBlock(level).ToString("") + " Block";
                             case 3:
@@ -1532,7 +1571,22 @@ public class PlayerCombat : MonoBehaviour
                             case 4:
                                 return "Deal " + SiphonStrengthDamage(level).ToString("") + " Damage\nGain " + SiphonStrengthGain(level).ToString("") + " Strength";
                             case 5:
-                                return "Gain " + JuggernautBlock(level).ToString("") + "Block\nGain Shield equal to Health Lost this Combat. Destroy";
+                                return "Gain " + JuggernautBlock(level).ToString("") + " Block\nGain Shield equal to Health Lost this Combat\nDestroy";
+                            case 6:
+                                return "Deal " + ExecuteDamage(level).ToString("") + " Damage";
+                            case 7:
+                                return "Lose 2 Health, Gain " + ReformBlock(level).ToString("") + " Block\n& " + ReformShield(level).ToString("") + " Shield";
+                            case 8:
+                                return "Deal " + SiphonLifeDamage(level).ToString("") + " Damage\nIncrease Max Health by " + ThickSkinHealth(level).ToString("") + " permamently\nDestroy";
+                            case 9:
+                                return "Lose 3 Health, Gain " + BloodBoilBonus(level, 0).ToString("") + " Strength\n" + BloodBoilBonus(level, 1).ToString("") + " Dexterity\n&" + BloodBoilBonus(level, 3).ToString("") + " Energy\nDestroy";
+                            case 10:
+                                return "Gain " + BattleStanceBlock(level).ToString("") + " Block\nAttacks give " + BattleStanceStacks(level).ToString("") + " Block this Combat, Tripled for Weapon attacks\nDestroy";
+                            case 11:
+                                if (EnrageBuff(level, EnrageWrath(level)) > 0)
+                                    return "Gain " + EnrageWrath(level).ToString("") + " Wrath\nGain " + EnrageBuff(level, EnrageWrath(level)).ToString("") + " Strength & Energy";
+                                else return "Gain " + EnrageWrath(level).ToString("") + " Wrath";
+                                return "Deal " + ExecuteDamage(level).ToString("") + " Damage";
                         }
                     }
                 }
@@ -3731,6 +3785,139 @@ public class PlayerCombat : MonoBehaviour
         tempi = 2 + effect[1];
         tempi += 3 * level;
         return BlockGainedModifier(tempi);
+    }
+
+    void Execute(int level) // ID B 6
+    {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        if (CombatScript.Enemy[CombatScript.targetedEnemy].HealthPercent() < ExecuteThreshhold(level))
+            CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ExecuteDamage(level));
+        OnHit();
+    }
+
+    int ExecuteDamage(int level)
+    {
+        tempi = 13 + effect[0];
+        tempi += 2 * level;
+        if (CombatScript.Enemy[CombatScript.targetedEnemy].HealthPercent() < ExecuteThreshhold(level))
+            tempi *= 2;
+        return DamageDealtModifier(tempi);
+    }
+
+    float ExecuteThreshhold(int level)
+    {
+        temp = 0.4f;
+        temp += 0.1f * level;
+        return temp;
+    }
+
+    void Reform(int level) // ID B 7
+    {
+        LoseHealth(2);
+        GainBlock(ReformBlock(level));
+        GainShield(ReformShield(level));
+    }
+
+    int ReformBlock(int level)
+    {
+        tempi = 13 + effect[1];
+        tempi += 4 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    int ReformShield(int level)
+    {
+        tempi = 3;
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    void SiphonLife(int level) // ID B 8
+    {
+        CombatScript.Effect(false, 16, true, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SiphonLifeDamage(level));
+        OnHit();
+        GainHealth(ThickSkinHealth(level));
+    }
+
+    int SiphonLifeDamage(int level)
+    {
+        tempi2 = 9 - level;
+        tempi = (maxHealth / tempi2) + effect[0];
+        return DamageDealtModifier(tempi);
+    }
+
+    void BloodBoil(int level) // ID B 9
+    {
+        LoseHealth(3);
+        GainStrength(BloodBoilBonus(level, 0));
+        GainDexterity(BloodBoilBonus(level, 1));
+        GainEnergy(BloodBoilBonus(level, 3));
+    }
+
+    int BloodBoilBonus(int level, int bonus)
+    {
+        tempi = 1;
+        tempi += level;
+        tempi += bonus;
+        return tempi;
+    }
+
+    void BattleStance(int level) // ID B 10
+    {
+        GainBlock(BattleStanceBlock(level));
+        effect[27] += BattleStanceStacks(level);
+        Display(BattleStanceStacks(level), effectSprite[27]);
+    }
+
+    int BattleStanceBlock(int level)
+    {
+        tempi = 6 + effect[1];
+        tempi += 2 * level;
+        return BlockGainedModifier(tempi);
+    }
+
+    int BattleStanceStacks(int level)
+    {
+        tempi = 2;
+        tempi += level;
+        return tempi;
+    }
+
+    void Enrage(int level) // ID B 11
+    {
+        GainWrath(EnrageWrath(level), 10);
+        if (EnrageBuff(level, 0) > 0)
+        {
+            GainStrength(EnrageBuff(level, 0));
+            GainEnergy(EnrageBuff(level, 0));
+        }
+    }
+
+    int EnrageWrath(int level)
+    {
+        tempi = 4;
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    int EnrageReq(int level)
+    {
+        tempi2 = 23;
+        tempi2 -= 2 * level;
+        return tempi2;
+    }
+
+    int EnrageBuff(int level, int bonus = 0)
+    {
+        tempi3 = 0;
+        for (int i = 1; i < 3 + level; i++)
+        {
+            if (wrath + bonus >= EnrageReq(level) * i)
+                tempi3++;
+        }
+        return tempi3;
     }
 
     // checks

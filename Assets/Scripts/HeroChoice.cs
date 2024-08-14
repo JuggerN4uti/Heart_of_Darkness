@@ -13,7 +13,7 @@ public class HeroChoice : MonoBehaviour
     [Header("UI")]
     public GameObject HeroChoiceScene;
     public GameObject EquipmentChoiceScene;
-    public GameObject MapScene, ValorDisplay, ComboDisplay, BlossomDisplay;
+    public GameObject MapScene, ValorDisplay, ComboDisplay, BlossomDisplay, WrathDisplay;
     public Image HeroImage, WeaponImage, WeaponImage2;
 
     [Header("Stats")]
@@ -64,7 +64,7 @@ public class HeroChoice : MonoBehaviour
                 {
                     PlayerScript.StatValues[i] += BloodStats[i];
                 }
-                //BlossomDisplay.SetActive(true);
+                WrathDisplay.SetActive(true);
                 DeckScript.CardID[4] = 0 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards + CLibrary.natureCards;
                 DeckScript.CardID[9] = 2 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards + CLibrary.natureCards;
                 break;
