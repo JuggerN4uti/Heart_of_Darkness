@@ -20,7 +20,7 @@ public class PlayerCombat : MonoBehaviour
     float temp;
 
     [Header("Ability Stats")]
-    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn, savageryIncrease;
+    int valor, spentValor, combo, permanentCombo, flurry, lightningDamage, blossom, totalManaSpent, manaSpentTurn, savageryIncrease, rampageIncrease;
 
     [Header("Item Stats")]
     public int turns;
@@ -93,6 +93,7 @@ public class PlayerCombat : MonoBehaviour
             blossom += 3;
         totalManaSpent = 0;
         savageryIncrease = 0;
+        rampageIncrease = 0;
         attacks = 0;
         drink = 0;
         lightningDamage = 36;
@@ -836,18 +837,22 @@ public class PlayerCombat : MonoBehaviour
                 shield = 0;
             }
         }
-        health -= amount;
+        LoseHealth(amount);
         if (PlayerScript.CurseValue[3] > 0 && amount > 0)
             LoseSanity(Random.Range(PlayerScript.CurseValue[3] * 2, PlayerScript.CurseValue[3] * 3 + 1));
-        if (health <= 0)
-            Lost();
-        UpdateInfo();
     }
 
     public void TakeMagicDamage(int amount)
     {
         Display(amount, MagicDamageSprite);
+        LoseHealth(amount);
+    }
+
+    void LoseHealth(int amount)
+    {
         health -= amount;
+        if (effect[26] > 0 && amount > 0)
+            GainShield(amount * effect[26]);
         if (health <= 0)
             Lost();
         UpdateInfo();
@@ -880,7 +885,13 @@ public class PlayerCombat : MonoBehaviour
                 else
                 {
                     which -= Library.waterCards;
-                    UseNatureAbility(which, level);
+                    if (which < Library.natureCards)
+                        UseNatureAbility(which, level);
+                    else
+                    {
+                        which -= Library.natureCards;
+                        UseBloodAbility(which, level);
+                    }
                 }
             }
         }
@@ -1198,6 +1209,31 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    public void UseBloodAbility(int which, int level)
+    {
+        switch (which)
+        {
+            case 0:
+                Rampage(level);
+                break;
+            case 1:
+                Drain(level);
+                break;
+            case 2:
+                Carve(level);
+                break;
+            case 3:
+                Cleave(level);
+                break;
+            case 4:
+                SiphonStrength(level);
+                break;
+            case 5:
+                Juggernaut(level);
+                break;
+        }
+    }
+
     public string AbilityInfo(int which, int level)
     {
         if (which < Library.neutralCards)
@@ -1424,58 +1460,80 @@ public class PlayerCombat : MonoBehaviour
                 else
                 {
                     which -= Library.waterCards;
-                    switch (which)
+                    if (which < Library.natureCards)
                     {
-                        case 0:
-                            return "Deal " + SapMagicDamage(level).ToString("") + " Damage\nGain 1 Mana next Turn";
-                        case 1:
-                            return "Gain " + InnervateMana(level).ToString("") + " Mana\n& Draw 1 Card";
-                        case 2:
-                            return "Gain " + BarkskinBlock(level).ToString("") + " Block";
-                        case 3:
-                            if (level == 0)
-                                return "Draw 1 Card\nGain " + CycleOfLifeBlock(level, 0).ToString("") + " Block";
-                            return "Draw 2 Cards\nGain " + CycleOfLifeBlock(level, 1).ToString("") + " Block";
-                        case 4:
-                            return "Deal " + ForceOfNatureDamage(level).ToString("") + " Damage\nApply " + ForceOfNatureSlow(level).ToString("") + " Slow";
-                        case 5:
-                            if (level == 0)
-                                return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 1 Card\nNext Turn";
-                            return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 2 Cards\nNext Turn";
-                        case 6:
-                            return "Deal " + CleanCutDamage(level).ToString("") + " Damage";
-                        case 7:
-                            return "Gain " + WildGrowthBlock(level).ToString("") + " Block\n& 1 Blossom";
-                        case 8:
-                            if (EntanglingRootsTargets(level) == 0)
-                                return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies";
-                            else if (EntanglingRootsTargets(level) == 1)
-                                return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random 1 Time";
-                            else return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random " + EntanglingRootsTargets(level).ToString("") + " Times";
-                        case 9:
-                            return "Gain " + DeflectBlock(level).ToString("") + " Block\nGain " + DeflectStacks(level).ToString("") + " Stored Block & Deal " + DeflectStacks(level).ToString("") + " Damage when being attacked this Turn";
-                        case 10:
-                            if (blossom < 5)
-                                return "Gain " + EarthenMightBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/5 Blossom)";
-                            else return "Gain " + EarthenMightBlock(level).ToString("") + " Block\nGain 1 Strength";
-                        case 11:
-                            return "Gain 1 Max Mana. Destroy";
-                        case 12:
-                            if (blossom < EarthenHideReq(level))
-                                return "Gain " + EarthenHideBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/" + EarthenHideReq(level).ToString("") + " Blossom)";
-                            else return "Gain " + EarthenHideBlock(level).ToString("") + " Block\nGain 1 Mana";
-                        case 13:
-                            return "Deal " + PowerOfTheWildDamage(level).ToString("") + " Damage\nGain " + PowerOfTheWildBlossom(level).ToString("") + " Blossom";
-                        case 14:
-                            return "Deal " + PinDownDamage(level).ToString("") + " Damage\nApply " + PinDownSlow(level).ToString("") + " Slow";
-                        case 15:
-                            return "Restore " + RejuvenationRestore(level).ToString("") + " Health. Destroy";
-                        case 16:
-                            return "Deal " + VolleyDamage(level).ToString("") + " Damage\nto random Enemy " + VolleyTargets(level).ToString("") + " Times";
-                        case 17:
-                            if (blossom < SavageryReq(level))
-                                return "Gain " + SavageryStrength(level, false).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\n(" + blossom.ToString("") + "/" + SavageryReq(level).ToString("") + " Blossom)";
-                            else return "Gain " + SavageryStrength(level, true).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\nincrease Blossom required by " + SavageryBlossomInc(level).ToString("");
+                        switch (which)
+                        {
+                            case 0:
+                                return "Deal " + SapMagicDamage(level).ToString("") + " Damage\nGain 1 Mana next Turn";
+                            case 1:
+                                return "Gain " + InnervateMana(level).ToString("") + " Mana\n& Draw 1 Card";
+                            case 2:
+                                return "Gain " + BarkskinBlock(level).ToString("") + " Block";
+                            case 3:
+                                if (level == 0)
+                                    return "Draw 1 Card\nGain " + CycleOfLifeBlock(level, 0).ToString("") + " Block";
+                                return "Draw 2 Cards\nGain " + CycleOfLifeBlock(level, 1).ToString("") + " Block";
+                            case 4:
+                                return "Deal " + ForceOfNatureDamage(level).ToString("") + " Damage\nApply " + ForceOfNatureSlow(level).ToString("") + " Slow";
+                            case 5:
+                                if (level == 0)
+                                    return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 1 Card\nNext Turn";
+                                return "Gain " + MeditateBlock(level).ToString("") + " Block\nGain " + MeditateMana(level).ToString("") + " Mana\n& Draw 2 Cards\nNext Turn";
+                            case 6:
+                                return "Deal " + CleanCutDamage(level).ToString("") + " Damage";
+                            case 7:
+                                return "Gain " + WildGrowthBlock(level).ToString("") + " Block\n& 1 Blossom";
+                            case 8:
+                                if (EntanglingRootsTargets(level) == 0)
+                                    return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies";
+                                else if (EntanglingRootsTargets(level) == 1)
+                                    return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random 1 Time";
+                                else return "Deal " + EntanglingRootsDamage(level).ToString("") + " Damage\nApply " + EntanglingRootsSlow(level).ToString("") + " Slow\nto all Enemies\n & at random " + EntanglingRootsTargets(level).ToString("") + " Times";
+                            case 9:
+                                return "Gain " + DeflectBlock(level).ToString("") + " Block\nGain " + DeflectStacks(level).ToString("") + " Stored Block & Deal " + DeflectStacks(level).ToString("") + " Damage when being attacked this Turn";
+                            case 10:
+                                if (blossom < 5)
+                                    return "Gain " + EarthenMightBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/5 Blossom)";
+                                else return "Gain " + EarthenMightBlock(level).ToString("") + " Block\nGain 1 Strength";
+                            case 11:
+                                return "Gain 1 Max Mana. Destroy";
+                            case 12:
+                                if (blossom < EarthenHideReq(level))
+                                    return "Gain " + EarthenHideBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/" + EarthenHideReq(level).ToString("") + " Blossom)";
+                                else return "Gain " + EarthenHideBlock(level).ToString("") + " Block\nGain 1 Mana";
+                            case 13:
+                                return "Deal " + PowerOfTheWildDamage(level).ToString("") + " Damage\nGain " + PowerOfTheWildBlossom(level).ToString("") + " Blossom";
+                            case 14:
+                                return "Deal " + PinDownDamage(level).ToString("") + " Damage\nApply " + PinDownSlow(level).ToString("") + " Slow";
+                            case 15:
+                                return "Restore " + RejuvenationRestore(level).ToString("") + " Health. Destroy";
+                            case 16:
+                                return "Deal " + VolleyDamage(level).ToString("") + " Damage\nto random Enemy " + VolleyTargets(level).ToString("") + " Times";
+                            case 17:
+                                if (blossom < SavageryReq(level))
+                                    return "Gain " + SavageryStrength(level, false).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\n(" + blossom.ToString("") + "/" + SavageryReq(level).ToString("") + " Blossom)";
+                                else return "Gain " + SavageryStrength(level, true).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\nincrease Blossom required by " + SavageryBlossomInc(level).ToString("");
+                        }
+                    }
+                    else
+                    {
+                        which -= Library.natureCards;
+                        switch (which)
+                        {
+                            case 0:
+                                return "Deal " + RampageDamage(level).ToString("") + " Damage\nIncrease Rampage Damage by " + RampageInc(level).ToString("");
+                            case 1:
+                                return "Deal " + DrainDamage(level).ToString("") + " Damage\nRestore " + DrainRestore(level).ToString("") + " Health";
+                            case 2:
+                                return "Deal " + CarveDamage(level).ToString("") + " Damage\nGain " + CarveBlock(level).ToString("") + " Block";
+                            case 3:
+                                return "Deal " + CleaveDamage(level).ToString("") + " Damage\nto all Enemies";
+                            case 4:
+                                return "Deal " + SiphonStrengthDamage(level).ToString("") + " Damage\nGain " + SiphonStrengthGain(level).ToString("") + " Strength";
+                            case 5:
+                                return "Gain " + JuggernautBlock(level).ToString("") + "Block\nGain Shield equal to Health Lost this Combat. Destroy";
+                        }
                     }
                 }
             }
@@ -3140,7 +3198,7 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
-    void Riptide(int level, bool initial)
+    void Riptide(int level, bool initial) // ID W 34
     {
         for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
         {
@@ -3547,6 +3605,132 @@ public class PlayerCombat : MonoBehaviour
         tempi -= level;
         tempi += 3 * (level / 2);
         return tempi;
+    }
+
+    // BLOOD
+    void Rampage(int level) // ID B 0
+    {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(RampageDamage(level));
+        OnHit();
+        rampageIncrease += RampageInc(level);
+    }
+
+    int RampageDamage(int level)
+    {
+        tempi = 10 + effect[0];
+        tempi += 2 * level;
+        tempi += rampageIncrease;
+        return DamageDealtModifier(tempi);
+    }
+
+    int RampageInc(int level)
+    {
+        tempi = 4;
+        tempi += 3 * level;
+        return tempi;
+    }
+
+    void Drain(int level) // ID B 1
+    {
+        CombatScript.Effect(false, 16, true, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DrainDamage(level));
+        OnHit();
+        RestoreHealth(DrainRestore(level));
+    }
+
+    int DrainDamage(int level)
+    {
+        tempi = 12 + effect[0];
+        tempi += 3 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int DrainRestore(int level)
+    {
+        tempi = 5;
+        tempi += 4 * level;
+        return tempi;
+    }
+
+    void Carve(int level) // ID B 2
+    {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(CarveDamage(level));
+        OnHit();
+        GainBlock(CarveBlock(level));
+    }
+
+    int CarveDamage(int level)
+    {
+        tempi = 15 + effect[0];
+        tempi += 5 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    int CarveBlock(int level)
+    {
+        tempi = CarveDamage(level) + effect[1];
+        return BlockGainedModifier(tempi);
+    }
+
+    void Cleave(int level) // ID B 3
+    {
+        for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
+        {
+            if (CombatScript.enemyAlive[i])
+            {
+                CombatScript.Effect(false, 1, false, i);
+                CombatScript.Enemy[i].TakeDamage(CleaveDamage(level));
+            }
+        }
+        OnHit();
+    }
+
+    int CleaveDamage(int level)
+    {
+        tempi = 11 + effect[0];
+        tempi += 4 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+    void SiphonStrength(int level) // ID B 4
+    {
+        CombatScript.Effect(false, 17, true, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(SiphonStrengthDamage(level));
+        OnHit();
+        GainStrength(SiphonStrengthGain(level));
+    }
+
+    int SiphonStrengthDamage(int level)
+    {
+        tempi = 17 + effect[0];
+        tempi += 4 * level;
+        tempi += 2 * (level / 2);
+        return DamageDealtModifier(tempi);
+    }
+
+    int SiphonStrengthGain(int level)
+    {
+        tempi2 = 13;
+        tempi2 -= (level + 1) / 2;
+        tempi2 = SiphonStrengthDamage(level) / tempi2;
+        return tempi2;
+    }
+
+    void Juggernaut(int level) // ID B 5
+    {
+        effect[26] += 1;
+        Display(1, effectSprite[26]);
+        GainBlock(JuggernautBlock(level));
+    }
+
+    int JuggernautBlock(int level)
+    {
+        tempi = 2 + effect[1];
+        tempi += 3 * level;
+        return BlockGainedModifier(tempi);
     }
 
     // checks

@@ -20,6 +20,7 @@ public class HeroChoice : MonoBehaviour
     public int[] LightStats;
     public int[] WaterStats;
     public int[] NatureStats;
+    public int[] BloodStats;
     public int[] weaponDamage, weaponStrengthBonus, weaponEnergyRequirement;
     public string[] weaponName;
 
@@ -57,6 +58,15 @@ public class HeroChoice : MonoBehaviour
                 BlossomDisplay.SetActive(true);
                 DeckScript.CardID[4] = 8 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards;
                 DeckScript.CardID[9] = 2 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards;
+                break;
+            case 3:
+                for (int i = 0; i < LightStats.Length; i++)
+                {
+                    PlayerScript.StatValues[i] += BloodStats[i];
+                }
+                //BlossomDisplay.SetActive(true);
+                DeckScript.CardID[4] = 0 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards + CLibrary.natureCards;
+                DeckScript.CardID[9] = 2 + CLibrary.neutralCards + CLibrary.lightCards + CLibrary.waterCards + CLibrary.natureCards;
                 break;
         }
         PlayerScript.Class = which;

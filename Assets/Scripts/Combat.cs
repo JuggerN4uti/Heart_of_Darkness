@@ -389,6 +389,9 @@ public class Combat : MonoBehaviour
             case 25:
                 EffectTooltip.text = "Stored Energy:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Energy at the start of next Turn";
                 break;
+            case 26:
+                EffectTooltip.text = "Juggernaut:\nGain " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Shield for every Health Lost";
+                break;
         }
     }
 

@@ -137,6 +137,10 @@ public class CardPick : MonoBehaviour
                 break;
             case 2:
                 min = 2 + Library.lightCards + Library.waterCards;
+                max = 2 + Library.lightCards + Library.waterCards + Library.natureCards;
+                break;
+            case 3:
+                min = 2 + Library.lightCards + Library.waterCards + Library.natureCards;
                 max = Library.Cards.Length;
                 break;
         }
