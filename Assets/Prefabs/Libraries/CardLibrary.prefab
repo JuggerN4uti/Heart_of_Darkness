@@ -101,9 +101,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 1
   CardTooltip:
-  - Lose 3 Health. Gain 1 Strength, 2 Dexterity & 4 Energy
-  - Lose 3 Health. Gain 2 Strength, 3 Dexterity & 5 Energy
-  - Lose 3 Health. Gain 3 Strength, 4 Dexterity & 6 Energy
+  - Lose 3 Health. Gain 1 Strength, 2 Dexterity & 4 Energy. Destroy
+  - Lose 3 Health. Gain 2 Strength, 3 Dexterity & 5 Energy. Destroy
+  - Lose 3 Health. Gain 3 Strength, 4 Dexterity & 6 Energy. Destroy
 --- !u!1 &144162809316781829
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +205,61 @@ Transform:
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &304499973000214437
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 118659884296319721}
+  - component: {fileID: 8505409953904868913}
+  m_Layer: 0
+  m_Name: Decimate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &118659884296319721
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304499973000214437}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8505409953904868913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304499973000214437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d4885d50cfd4b904f9689d9deb780706, type: 3}
+  CardName: Decimate
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 12 Damage. For every 24 Wrath increase Damage by 4 & Restore 1 Health (max
+    3)
+  - Deal 16 Damage. For every 22 Wrath increase Damage by 5 & Restore 1 Health (max
+    4)
+  - Deal 20 Damage. For every 20 Wrath increase Damage by 6 & Restore 1 Health (max
+    5)
 --- !u!1 &369342426370396040
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +679,58 @@ MonoBehaviour:
   - Gain 10 Block, Apply 1 Weak
   - Gain 11 Block, Apply 2 Weak
   - Gain 12 Block, Apply 3 Weak
+--- !u!1 &973685996017771279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1146425721605154642}
+  - component: {fileID: 4458582416712363197}
+  m_Layer: 0
+  m_Name: Onslaught
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1146425721605154642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973685996017771279}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4458582416712363197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973685996017771279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: 1e1b7d3c11d464b44b18ab4d12be4a51, type: 3}
+  CardName: Onslaught
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 12 Damage. This gives 150% more Wrath
+  - Deal 15 Damage. This gives 200% more Wrath
+  - Deal 18 Damage. This gives 250% more Wrath
 --- !u!1 &988601383364761070
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,9 +832,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 4 Wrath. For every 23 Wrath Gain 1 Strength & Energy (max 2)
-  - Gain 6 Wrath. For every 21 Wrath Gain 1 Strength & Energy (max 3)
-  - Gain 8 Wrath. For every 19 Wrath Gain 1 Strength & Energy (max 4)
+  - Gain 6 Wrath. For every 26 Wrath Gain 1 Strength & Energy (max 3)
+  - Gain 9 Wrath. For every 24 Wrath Gain 1 Strength & Energy (max 4)
+  - Gain 12 Wrath. For every 22 Wrath Gain 1 Strength & Energy (max 5)
 --- !u!1 &999633252295893347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,12 +1144,12 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 13 Damage & Apply 2 Slow to all Enemies. Also target a random Enemy per
+  - Deal 14 Damage & Apply 2 Slow to all Enemies. Also target a random Enemy per
+    8 Blossom
+  - Deal 18 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+    8 Blossom
+  - Deal 24 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
     7 Blossom
-  - Deal 16 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
-    7 Blossom
-  - Deal 21 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
-    6 Blossom
 --- !u!1 &1348583664235774408
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,6 +1464,10 @@ Transform:
   - {fileID: 2996171092568623671}
   - {fileID: 7125317336323644074}
   - {fileID: 2188602971886690933}
+  - {fileID: 265729744358105474}
+  - {fileID: 1146425721605154642}
+  - {fileID: 5923881839706920906}
+  - {fileID: 118659884296319721}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3505,6 +3616,10 @@ MonoBehaviour:
   - {fileID: 1780779115414149903}
   - {fileID: 6909949671861978848}
   - {fileID: 1568918874792926640}
+  - {fileID: 3215410990901809665}
+  - {fileID: 4458582416712363197}
+  - {fileID: 4414370020518415246}
+  - {fileID: 8505409953904868913}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -3778,6 +3893,58 @@ MonoBehaviour:
   - Gain 1 Block for every 10 Max Health. Increase Max Health by 2 permamently. Destroy
   - Gain 1 Block for every 9 Max Health. Increase Max Health by 4 permamently. Destroy
   - Gain 1 Block for every 8 Max Health. Increase Max Health by 6 permamently. Destroy
+--- !u!1 &6103022313411215938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 265729744358105474}
+  - component: {fileID: 3215410990901809665}
+  m_Layer: 0
+  m_Name: Bloodletting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &265729744358105474
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103022313411215938}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3215410990901809665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103022313411215938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: e58eda6b54a8de84ca2f0c0af2797a7c, type: 3}
+  CardName: Bloodletting
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 0
+  CardTooltip:
+  - Lose 5 Health. Gain 3 Energy, 1 Mana & Draw 1 Card
+  - Lose 4 Health. Gain 4 Energy, 1 Mana & Draw 1 Card
+  - Lose 3 Health. Gain 5 Energy, 1 Mana & Draw 1 Card
 --- !u!1 &6153925152798367221
 GameObject:
   m_ObjectHideFlags: 0
@@ -4353,6 +4520,58 @@ MonoBehaviour:
     per 10 Damage
   - Deal 26 Damage. Damage increased by 5 per 6 Mana spent this Combat. Apply 1 Slow
     per 9 Damage
+--- !u!1 &6879572211509955400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5923881839706920906}
+  - component: {fileID: 4414370020518415246}
+  m_Layer: 0
+  m_Name: Seeing Red
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5923881839706920906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879572211509955400}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4414370020518415246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6879572211509955400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: ca6e6d1235f45634aa6dd60d301a5185, type: 3}
+  CardName: Seeing Red
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 1
+  CardTooltip:
+  - Gain 1 Max Mana, Lose 9 Sanity. Gain 1 Strength for every Curse. Destroy
+  - Gain 1 Max Mana, Lose 6 Sanity. Gain 1 Strength for every Curse. Destroy
+  - Gain 1 Max Mana, Lose 6 Sanity. Gain 2 Strength for every Curse. Destroy
 --- !u!1 &6951708905863824399
 GameObject:
   m_ObjectHideFlags: 0

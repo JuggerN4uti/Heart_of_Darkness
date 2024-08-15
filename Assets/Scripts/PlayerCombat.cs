@@ -24,7 +24,7 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Item Stats")]
     public int turns;
-    public int attacks, drink;
+    public int attacks, drink, extraWrathTick;
     public bool resistanceRing;
 
     [Header("Weapon")]
@@ -98,9 +98,16 @@ public class PlayerCombat : MonoBehaviour
         rampageIncrease = 0;
         attacks = 0;
         drink = 0;
+        if (PlayerScript.Item[52])
+            extraWrathTick = 1;
         lightningDamage = 36;
         if (PlayerScript.Item[46])
             lightningDamage += 11;
+        if (PlayerScript.Item[53] && PlayerScript.CursesCount > 0)
+        {
+            GainStrength(PlayerScript.CursesCount);
+            GainShield(PlayerScript.CursesCount * 3);
+        }
         health = PlayerScript.Health;
         maxHealth = PlayerScript.MaxHealth;
         shield = PlayerScript.StatValues[5];
@@ -210,8 +217,8 @@ public class PlayerCombat : MonoBehaviour
             GainMana(effect[22]);
             effect[22] = 0;
         }
-        if (CombatScript.Enemy[0].effect[21] > 0)
-            GainMana(CombatScript.Enemy[0].effect[21]);
+        if (CombatScript.Enemy[0].effect[21] > 0 || CombatScript.Enemy[1].effect[21] > 0)
+            GainMana(CombatScript.Enemy[0].effect[21] + CombatScript.Enemy[1].effect[21]);
         if (PlayerScript.Item[5] && CombatScript.turn < 3)
             GainMana(1);
         if (PlayerScript.Item[8])
@@ -253,6 +260,8 @@ public class PlayerCombat : MonoBehaviour
             GainStormCharge(1);
         if (PlayerScript.Item[47])
             GainBlock(effect[2]);
+        if (PlayerScript.Item[52])
+            GainWrath(2, 50);
     }
 
     public void UpdateInfo()
@@ -353,6 +362,8 @@ public class PlayerCombat : MonoBehaviour
         if (effect[20] > 0)
             TakeMagicDamage(effect[20]);
         if (CombatScript.Enemy[0].effect[20] > 0 && mana > 0)
+            TakeDamage(mana * 12);
+        if (CombatScript.Enemy[1].effect[20] > 0 && mana > 0)
             TakeDamage(mana * 12);
         if (PlayerScript.CurseValue[1] > 0 && Cards.CardsInHand > 0)
             TakeDamage(PlayerScript.CurseValue[1] * Cards.CardsInHand * 4);
@@ -860,7 +871,7 @@ public class PlayerCombat : MonoBehaviour
     void LoseHealth(int amount)
     {
         health -= amount;
-        GainWrath(amount, 6);
+        GainWrath(amount, 28);
         if (effect[26] > 0 && amount > 0)
             GainShield(amount * effect[26]);
         if (health <= 0)
@@ -927,9 +938,9 @@ public class PlayerCombat : MonoBehaviour
     public void GainWrath(int amount, int multiplyer)
     {
         wrathCharges += amount * multiplyer;
-        while (wrathCharges >= 10)
+        while (wrathCharges >= 50)
         {
-            wrathCharges -= 10;
+            wrathCharges -= 50;
             wrath++;
         }
         UpdateInfo();
@@ -1270,6 +1281,18 @@ public class PlayerCombat : MonoBehaviour
             case 11:
                 Enrage(level);
                 break;
+            case 12:
+                Bloodletting(level);
+                break;
+            case 13:
+                Onslaught(level);
+                break;
+            case 14:
+                SeeingRed(level);
+                break;
+            case 15:
+                Decimate(level);
+                break;
         }
     }
 
@@ -1586,7 +1609,18 @@ public class PlayerCombat : MonoBehaviour
                                 if (EnrageBuff(level, EnrageWrath(level)) > 0)
                                     return "Gain " + EnrageWrath(level).ToString("") + " Wrath\nGain " + EnrageBuff(level, EnrageWrath(level)).ToString("") + " Strength & Energy";
                                 else return "Gain " + EnrageWrath(level).ToString("") + " Wrath";
-                                return "Deal " + ExecuteDamage(level).ToString("") + " Damage";
+                            case 12:
+                                return "Lose " + BloodlettingLoss(level).ToString("") + " Health\nGain " + BloodlettingEnergy(level).ToString("") + " Energy\n1 Mana\n& Draw 1 Card";
+                            case 13:
+                                return "Deal " + OnslaughtDamage(level).ToString("") + " Damage";
+                            case 14:
+                                if (PlayerScript.CursesCount > 0)
+                                    return "Gain 1 Max Mana\n& " + SeeingRedStrength(level).ToString("") + " Strength\nLose " + SeeingRedSanity(level).ToString("") + " Sanity\nDestroy";
+                                else return "Gain 1 Max Mana\nLose " + SeeingRedSanity(level).ToString("") + " Sanity\nDestroy";
+                            case 15:
+                                if (DecimateBuff(level) > 0)
+                                    return "Deal " + DecimateDamage(level).ToString("") + " Damage\nRestore " + DecimateBuff(level).ToString("") + " Health";
+                                else return "Deal " + DecimateDamage(level).ToString("") + " Damage";
                         }
                     }
                 }
@@ -3454,8 +3488,8 @@ public class PlayerCombat : MonoBehaviour
 
     int EntanglingRootsDamage(int level)
     {
-        tempi = 13 + effect[0];
-        tempi += 3 * level;
+        tempi = 14 + effect[0];
+        tempi += 4 * level;
         tempi += (level / 2) * 2;
         return DamageDealtModifier(tempi);
     }
@@ -3469,7 +3503,7 @@ public class PlayerCombat : MonoBehaviour
 
     int EntanglingRootsTargets(int level)
     {
-        tempi2 = 7 - (level / 2);
+        tempi2 = 8 - (level / 2);
         tempi2 = blossom / tempi2;
         return tempi2;
     }
@@ -3815,6 +3849,8 @@ public class PlayerCombat : MonoBehaviour
     void Reform(int level) // ID B 7
     {
         LoseHealth(2);
+        if (PlayerScript.Item[51])
+            RestoreHealth(1);
         GainBlock(ReformBlock(level));
         GainShield(ReformShield(level));
     }
@@ -3851,6 +3887,8 @@ public class PlayerCombat : MonoBehaviour
     void BloodBoil(int level) // ID B 9
     {
         LoseHealth(3);
+        if (PlayerScript.Item[51])
+            RestoreHealth(1);
         GainStrength(BloodBoilBonus(level, 0));
         GainDexterity(BloodBoilBonus(level, 1));
         GainEnergy(BloodBoilBonus(level, 3));
@@ -3887,7 +3925,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Enrage(int level) // ID B 11
     {
-        GainWrath(EnrageWrath(level), 10);
+        GainWrath(EnrageWrath(level), 50);
         if (EnrageBuff(level, 0) > 0)
         {
             GainStrength(EnrageBuff(level, 0));
@@ -3897,14 +3935,14 @@ public class PlayerCombat : MonoBehaviour
 
     int EnrageWrath(int level)
     {
-        tempi = 4;
-        tempi += 2 * level;
+        tempi = 6;
+        tempi += 3 * level;
         return tempi;
     }
 
     int EnrageReq(int level)
     {
-        tempi2 = 23;
+        tempi2 = 26;
         tempi2 -= 2 * level;
         return tempi2;
     }
@@ -3912,12 +3950,116 @@ public class PlayerCombat : MonoBehaviour
     int EnrageBuff(int level, int bonus = 0)
     {
         tempi3 = 0;
-        for (int i = 1; i < 3 + level; i++)
+        for (int i = 1; i < 4 + level + extraWrathTick; i++)
         {
             if (wrath + bonus >= EnrageReq(level) * i)
                 tempi3++;
         }
         return tempi3;
+    }
+
+    void Bloodletting(int level) // ID B 12
+    {
+        LoseHealth(BloodlettingLoss(level));
+        if (PlayerScript.Item[51])
+            RestoreHealth(1);
+        GainEnergy(BloodlettingEnergy(level));
+        GainMana(1);
+        Cards.Draw(1);
+    }
+
+    int BloodlettingLoss(int level)
+    {
+        tempi = 5;
+        tempi -= level;
+        return tempi;
+    }
+
+    int BloodlettingEnergy(int level)
+    {
+        tempi = 3;
+        tempi += level;
+        return tempi;
+    }
+
+    void Onslaught(int level) // ID B 13
+    {
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(OnslaughtDamage(level));
+        OnHit();
+        GainWrath(OnslaughtDamage(level), OnslaughtWrath(level));
+    }
+
+    int OnslaughtDamage(int level)
+    {
+        tempi = 13 + effect[0];
+        tempi += 2 * level;
+        return DamageDealtModifier(tempi);
+    }
+
+     int OnslaughtWrath(int level)
+    {
+        tempi = 6;
+        tempi += 2 * level;
+        return tempi;
+    }
+
+    void SeeingRed(int level) // ID B 14
+    {
+        manaGain++;
+        if (PlayerScript.CursesCount > 0)
+            GainStrength(SeeingRedStrength(level));
+        LoseSanity(SeeingRedSanity(level));
+    }
+
+    int SeeingRedStrength(int level)
+    {
+        tempi = 1;
+        tempi += level / 2;
+        tempi *= PlayerScript.CursesCount;
+        return tempi;
+    }
+
+    int SeeingRedSanity(int level)
+    {
+        tempi = 9;
+        tempi -= 3 * ((level + 1) / 2);
+        return tempi;
+    }
+
+    void Decimate(int level) // ID B 15
+    {
+        if (DecimateBuff(level) > 0)
+            RestoreHealth(DecimateBuff(level));
+        CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+        CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(DecimateDamage(level));
+        OnHit();
+    }
+
+    int DecimateDamage(int level)
+    {
+        tempi = 12 + effect[0];
+        tempi += 4 * level;
+        tempi += (4 + level) * DecimateBuff(level);
+        return DamageDealtModifier(tempi);
+    }
+
+    int DecimateBuff(int level)
+    {
+        tempi3 = 0;
+        for (int i = 1; i < 4 + level + extraWrathTick; i++)
+        {
+            if (wrath >= DecimateReq(level) * i)
+                tempi3++;
+        }
+        return tempi3;
+    }
+
+    int DecimateReq(int level)
+    {
+        tempi2 = 26;
+        tempi2 -= 2 * level;
+        return tempi2;
     }
 
     // checks

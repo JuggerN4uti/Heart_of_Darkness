@@ -352,6 +352,56 @@ MonoBehaviour:
   text: 0
   nonNeutral: 0
   Class: 0
+--- !u!1 &1300103601803714780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1150914250157143197}
+  - component: {fileID: 7091011551562197118}
+  m_Layer: 0
+  m_Name: Dark Blood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1150914250157143197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300103601803714780}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 51
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7091011551562197118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300103601803714780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 8dcffd6b1a5c34c46b8703ebb5bc5072, type: 3}
+  ItemName: Dark Blood
+  ItemTooltip: Gain 10 Max Health, when losing Health form Cards, Restore 1 Health
+  text: 0
+  nonNeutral: 1
+  Class: 3
 --- !u!1 &1575500223698261404
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 5228ae36e2dd61944bb32e17cd6f0d75, type: 3}
   ItemName: Violet Lotus
-  ItemTooltip: Whenever Enemy is Stunned, Gain 1 Mana & 2 Energy next Turn
+  ItemTooltip: Whenever Enemy is Stunned, Gain 1 Mana & 3 Energy next Turn
   text: 0
   nonNeutral: 1
   Class: 2
@@ -1356,6 +1406,56 @@ MonoBehaviour:
   text: 0
   nonNeutral: 1
   Class: 1
+--- !u!1 &4505225656907943945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5320278977450120608}
+  - component: {fileID: 3190553838800366422}
+  m_Layer: 0
+  m_Name: Cursed Stone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5320278977450120608
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505225656907943945}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 53
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3190553838800366422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4505225656907943945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 5d002b53a4f77ec4e979cce93f067b2c, type: 3}
+  ItemName: Cursed Stone
+  ItemTooltip: Start Combat with 1 Strength & 3 Shield for every Curse
+  text: 0
+  nonNeutral: 1
+  Class: 3
 --- !u!1 &4577658771466106992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1587,6 +1687,9 @@ Transform:
   - {fileID: 3646959469158742752}
   - {fileID: 8173690364879281300}
   - {fileID: 3081266337573630164}
+  - {fileID: 1150914250157143197}
+  - {fileID: 2531790447415792084}
+  - {fileID: 5320278977450120608}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1654,6 +1757,9 @@ MonoBehaviour:
   - {fileID: 7913262959773893874}
   - {fileID: 2242751400695878656}
   - {fileID: 8335122274669239297}
+  - {fileID: 7091011551562197118}
+  - {fileID: 780114679744403884}
+  - {fileID: 3190553838800366422}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,6 +2364,56 @@ MonoBehaviour:
   text: 1
   nonNeutral: 0
   Class: 0
+--- !u!1 &7670445747620406819
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2531790447415792084}
+  - component: {fileID: 780114679744403884}
+  m_Layer: 0
+  m_Name: Red Skull
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2531790447415792084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670445747620406819}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 52
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &780114679744403884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7670445747620406819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 8dcffd6b1a5c34c46b8703ebb5bc5072, type: 3}
+  ItemName: Red Skull
+  ItemTooltip: Gain 2 Wrath every Turn. Increase Max of Cards using Wrath by 1
+  text: 0
+  nonNeutral: 1
+  Class: 3
 --- !u!1 &8042306616313430034
 GameObject:
   m_ObjectHideFlags: 0

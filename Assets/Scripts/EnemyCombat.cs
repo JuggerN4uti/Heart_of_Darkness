@@ -934,7 +934,7 @@ public class EnemyCombat : MonoBehaviour
             if (PlayerScript.Item[50])
             {
                 CombatScript.Player.effect[22]++;
-                CombatScript.Player.effect[25] += 2;
+                CombatScript.Player.effect[25] += 3;
                 PlayerScript.UpdateInfo();
             }
             if (effect[16] > 0)
@@ -1052,7 +1052,7 @@ public class EnemyCombat : MonoBehaviour
         /*if (PlayerScript.Item[31] && amount >= 32 && CombatScript.Player.resistanceRing)
             CombatScript.Player.RingOfResistance();*/
         Display(amount, DamageSprite);
-        CombatScript.Player.GainWrath(amount, 1);
+        CombatScript.Player.GainWrath(amount, 4);
         if (block > 0)
         {
             if (block > amount)
@@ -1140,7 +1140,10 @@ public class EnemyCombat : MonoBehaviour
         }
 
         if (tempi > 0)
+        {
             Display(tempi, BreakSprite);
+            CombatScript.Player.GainWrath(amount, 4);
+        }
 
         UpdateInfo();
     }
