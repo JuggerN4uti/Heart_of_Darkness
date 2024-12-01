@@ -115,7 +115,7 @@ public class Hand : MonoBehaviour
         {
             if (playedID == 10)
             {
-                if (Player.HealthProcentage() >= 0.5f)
+                if (Player.HealthProcentage() >= 0.6f)
                     CardDiscard.ShuffleIn(playedID, playedLevel);
                 else destroyed = true;
             }
@@ -136,13 +136,16 @@ public class Hand : MonoBehaviour
         Player.UseAbility(playedID, playedLevel);
         Player.SpendMana(Library.Cards[playedID].CardManaCost[playedLevel]);
         if (PlayerScript.Item[38] && Library.Cards[playedID].CardManaCost[playedLevel] >= 2)
+        {
             Player.EquipmentCooldown(4);
+            Player.GainEnergy(2);
+        }
 
         if (PlayerScript.Item[19])
         {
             cardsPlayed++;
             Player.ItemsScript.SetText();
-            if (cardsPlayed % 7 == 0)
+            if (cardsPlayed % 6 == 0)
                 Draw(1);
         }
 

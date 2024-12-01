@@ -101,9 +101,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 1
   CardTooltip:
-  - Lose 3 Health. Gain 1 Strength, 2 Dexterity & 4 Energy. Destroy
-  - Lose 3 Health. Gain 2 Strength, 3 Dexterity & 5 Energy. Destroy
-  - Lose 3 Health. Gain 3 Strength, 4 Dexterity & 6 Energy. Destroy
+  - Lose 3 Health. Gain 1 Strength, 2 Dexterity & 5 Energy. Destroy
+  - Lose 3 Health. Gain 2 Strength, 3 Dexterity & 7 Energy. Destroy
+  - Lose 3 Health. Gain 3 Strength, 4 Dexterity & 9 Energy. Destroy
 --- !u!1 &144162809316781829
 GameObject:
   m_ObjectHideFlags: 0
@@ -254,12 +254,12 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 12 Damage. For every 24 Wrath increase Damage by 4 & Restore 1 Health (max
-    3)
-  - Deal 16 Damage. For every 22 Wrath increase Damage by 5 & Restore 1 Health (max
+  - Deal 12 Damage. For every 20 Wrath increase Damage by 3 & Restore 1 Health (max
     4)
-  - Deal 20 Damage. For every 20 Wrath increase Damage by 6 & Restore 1 Health (max
+  - Deal 16 Damage. For every 18 Wrath increase Damage by 4 & Restore 1 Health (max
     5)
+  - Deal 20 Damage. For every 16 Wrath increase Damage by 5 & Restore 1 Health (max
+    6)
 --- !u!1 &369342426370396040
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,9 +309,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Apply 4 Bleed & 2 Slow
-  - Apply 5 Bleed & 3 Slow
-  - Apply 6 Bleed & 4 Slow
+  - Deal 1 Damage, Apply 4 Bleed & 2 Slow
+  - Deal 1 Damage, Apply 5 Bleed & 3 Slow
+  - Deal 1 Damage, Apply 6 Bleed & 4 Slow
 --- !u!1 &500263361667982162
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,11 +413,11 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 9 Damage, Gain 2 Energy. Increase Energy gain of all Flurry this Combat
+  - Deal 10 Damage, Gain 3 Energy. Increase Energy gain of all Flurry this Combat
     by 1
-  - Deal 11 Damage, Gain 3 Energy. Increase Energy gain of all Flurry this Combat
+  - Deal 12 Damage, Gain 4 Energy. Increase Energy gain of all Flurry this Combat
     by 2
-  - Deal 13 Damage, Gain 4 Energy. Increase Energy gain of all Flurry this Combat
+  - Deal 14 Damage, Gain 5 Energy. Increase Energy gain of all Flurry this Combat
     by 3
 --- !u!1 &779041492404196398
 GameObject:
@@ -468,9 +468,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 8 Damage. Damage increased by 4 per Combo
-  - Deal 9 Damage. Damage increased by 6 per Combo
-  - Deal 10 Damage. Damage increased by 8 per Combo
+  - Deal 7 Damage. Damage increased by 5 per Combo
+  - Deal 8 Damage. Damage increased by 7 per Combo
+  - Deal 9 Damage. Damage increased by 9 per Combo
 --- !u!1 &825495344298462417
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,9 +572,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 7 Damage, Apply 1 Daze per 2 Damage dealt & 1 Slow
-  - Deal 8 Damage, Apply 1 Daze per 2 Damage dealt & 2 Slow
-  - Deal 10 Damage, Apply 1 Daze per 2 Damage dealt & 3 Slow
+  - Deal 7 Damage, Apply 2 Daze per 5 Damage dealt & 2 Slow
+  - Deal 8 Damage, Apply 2 Daze per 5 Damage dealt & 3 Slow
+  - Deal 10 Damage, Apply 2 Daze per 5 Damage dealt & 4 Slow
 --- !u!1 &918201630401360132
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,9 +624,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - 'Gain 20 Block. Blossom 7: Gain 1 Mana'
-  - 'Gain 24 Block. Blossom 6: Gain 1 Mana'
-  - 'Gain 28 Block. Blossom 5: Gain 1 Mana'
+  - 'Gain 22 Block. Blossom 7: Gain 1 Mana'
+  - 'Gain 26 Block. Blossom 6: Gain 1 Mana'
+  - 'Gain 30 Block. Blossom 5: Gain 1 Mana'
 --- !u!1 &959071048080588986
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,8 +728,8 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 12 Damage. This gives 150% more Wrath
-  - Deal 15 Damage. This gives 200% more Wrath
+  - Deal 14 Damage. This gives 150% more Wrath
+  - Deal 16 Damage. This gives 200% more Wrath
   - Deal 18 Damage. This gives 250% more Wrath
 --- !u!1 &988601383364761070
 GameObject:
@@ -780,9 +780,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 9 Damage, Apply 1 Slow & Gain 4 Energy
-  - Deal 10 Damage, Apply 2 Slow & Gain 5 Energy
-  - Deal 11 Damage, Apply 3 Slow & Gain 6 Energy
+  - Deal 8 Damage, Apply 2 Slow & Gain 4 Energy
+  - Deal 9 Damage, Apply 3 Slow & Gain 5 Energy
+  - Deal 10 Damage, Apply 4 Slow & Gain 6 Energy
 --- !u!1 &992941620462571854
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,9 +832,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 6 Wrath. For every 26 Wrath Gain 1 Strength & Energy (max 3)
-  - Gain 9 Wrath. For every 24 Wrath Gain 1 Strength & Energy (max 4)
-  - Gain 12 Wrath. For every 22 Wrath Gain 1 Strength & Energy (max 5)
+  - Gain 7 Wrath. For every 25 Wrath Gain 1 Strength & Energy (max 3)
+  - Gain 10 Wrath. For every 23 Wrath Gain 1 Strength & Energy (max 4)
+  - Gain 13 Wrath. For every 21 Wrath Gain 1 Strength & Energy (max 5)
 --- !u!1 &999633252295893347
 GameObject:
   m_ObjectHideFlags: 0
@@ -936,9 +936,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 1
   CardTooltip:
-  - Restore 6 Health. Destroy
-  - Restore 9 Health. Destroy
-  - Restore 12 Health. Destroy
+  - Restore 7 Health. Destroy
+  - Restore 11 Health. Destroy
+  - Restore 15 Health. Destroy
 --- !u!1 &1101227934036142529
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,9 +988,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 12 Block & 2 Armor. Destroy
-  - Gain 14 Block & 3 Armor. Destroy
-  - Gain 16 Block & 4 Armor. Destroy
+  - Gain 14 Block & 2 Armor. Destroy
+  - Gain 17 Block & 3 Armor. Destroy
+  - Gain 20 Block & 4 Armor. Destroy
 --- !u!1 &1119688564298723055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,9 +1092,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Dain 7 Block & next Turn
-  - Dain 9 Block & next Turn
-  - Dain 11 Block & next Turn
+  - Dain 8 Block & next Turn
+  - Dain 10 Block & next Turn
+  - Dain 12 Block & next Turn
 --- !u!1 &1308403526492297883
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,11 +1144,11 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 14 Damage & Apply 2 Slow to all Enemies. Also target a random Enemy per
+  - Deal 15 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
     8 Blossom
-  - Deal 18 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+  - Deal 20 Damage & Apply 4 Slow to all Enemies. Also target a random Enemy per
     8 Blossom
-  - Deal 24 Damage & Apply 3 Slow to all Enemies. Also target a random Enemy per
+  - Deal 27 Damage & Apply 4 Slow to all Enemies. Also target a random Enemy per
     7 Blossom
 --- !u!1 &1348583664235774408
 GameObject:
@@ -1199,9 +1199,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 12 Block & 2 Storm Charges
-  - Gain 14 Block & 3 Storm Charges
-  - Gain 16 Block & 4 Storm Charges
+  - Gain 13 Block & 2 Storm Charges
+  - Gain 15 Block & 3 Storm Charges
+  - Gain 17 Block & 4 Storm Charges
 --- !u!1 &1374209237041367263
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,9 +1251,12 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Dexterity. Every Card played this Combat gives 1 Block. Destroy
-  - Gain 1 Dexterity. Every Card played this Combat gives 2 Block. Destroy
-  - Gain 1 Dexterity. Every Card played this Combat gives 3 Block. Destroy
+  - Gain 1 Dexterity. Every Card played & Weapon attack this Combat gives 1 Block.
+    Destroy
+  - Gain 1 Dexterity. Every Card played & Weapon attack this Combat gives 2 Block.
+    Destroy
+  - Gain 1 Dexterity. Every Card played & Weapon attack this Combat gives 3 Block.
+    Destroy
 --- !u!1 &1458681913183884305
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,9 +1358,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 8 Block & 1 Blossom
-  - Gain 12 Block & 1 Blossom
-  - Gain 16 Block & 1 Blossom
+  - Gain 9 Block & 1 Blossom
+  - Gain 13 Block & 1 Blossom
+  - Gain 17 Block & 1 Blossom
 --- !u!1 &1487637774565216117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,6 +1471,10 @@ Transform:
   - {fileID: 1146425721605154642}
   - {fileID: 5923881839706920906}
   - {fileID: 118659884296319721}
+  - {fileID: 4694097801192014364}
+  - {fileID: 684759229887223130}
+  - {fileID: 2285624200421096060}
+  - {fileID: 7592641079843066823}
   m_Father: {fileID: 8680492994918149383}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1520,9 +1527,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 17 Damage. Gain 1 Strength for every 13 Damage
-  - Deal 21 Damage. Gain 1 Strength for every 12 Damage
-  - Deal 27 Damage. Gain 1 Strength for every 12 Damage
+  - Deal 18 Damage. Gain 1 Strength for every 13 Damage
+  - Deal 23 Damage. Gain 1 Strength for every 12 Damage
+  - Deal 30 Damage. Gain 1 Strength for every 12 Damage
 --- !u!1 &1676885426452579541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,8 +1580,8 @@ MonoBehaviour:
   SingleUse: 0
   CardTooltip:
   - Deal 11 Damage, Doubled against not shielded Target
-  - Deal 14 Damage, Doubled against not shielded Target
-  - Deal 17 Damage, Doubled against not shielded Target
+  - Deal 15 Damage, Doubled against not shielded Target
+  - Deal 19 Damage, Doubled against not shielded Target
 --- !u!1 &1734590287372624364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,9 +1631,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 13 Damage. Damage doubled against Target below 40% Health
-  - Deal 15 Damage. Damage doubled against Target below 50% Health
-  - Deal 17 Damage. Damage doubled against Target below 60% Health
+  - Deal 13 Damage. Double Damage & Apply 1 Slow against Target below 40% Health
+  - Deal 15 Damage. Double Damage & Apply 1 Slow against Target below 50% Health
+  - Deal 17 Damage. Double Damage & Apply 1 Slow against Target below 60% Health
 --- !u!1 &1908293998173996713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,9 +1683,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 1
   CardTooltip:
-  - Deal 12 Damage, Reduce Targets Tenacity by 1 & Apply 2 Slow. Destroy
-  - Deal 18 Damage, Reduce Targets Tenacity by 1 & Apply 3 Slow. Destroy
-  - Deal 24 Damage, Reduce Targets Tenacity by 1 & Apply 4 Slow. Destroy
+  - Deal 15 Damage, Reduce Targets Tenacity by 1 & Apply 4 Slow. Destroy
+  - Deal 22 Damage, Reduce Targets Tenacity by 1 & Apply 5 Slow. Destroy
+  - Deal 29 Damage, Reduce Targets Tenacity by 1 & Apply 6 Slow. Destroy
 --- !u!1 &1963042950331429763
 GameObject:
   m_ObjectHideFlags: 0
@@ -1728,9 +1735,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 11 Block, Apply 1 Slow to all Enemies
-  - Gain 13 Block, Apply 2 Slow to all Enemies
-  - Gain 15 Block, Apply 3 Slow to all Enemies
+  - Gain 10 Block, Apply 2 Slow to all Enemies
+  - Gain 12 Block, Apply 3 Slow to all Enemies
+  - Gain 14 Block, Apply 4 Slow to all Enemies
 --- !u!1 &2117553267167418212
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,9 +1787,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 1 Damage, Break up to 8 Shield, Gain that much Block
-  - Deal 2 Damage, Break up to 11 Shield, Gain that much Block
-  - Deal 3 Damage, Break up to 14 Shield, Gain that much Block
+  - Deal 2 Damage, Break up to 9 Shield, Gain that much Block
+  - Deal 3 Damage, Break up to 12 Shield, Gain that much Block
+  - Deal 4 Damage, Break up to 15 Shield, Gain that much Block
 --- !u!1 &2223680159375334428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1832,9 +1839,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 9 Damage, Gain 1 Blossom per 8 Damage
-  - Deal 12 Damage, Gain 1 Blossom per 8 Damage
-  - Deal 15 Damage, Gain 1 Blossom per 8 Damage
+  - Deal 10 Damage, Gain 1 Blossom per 8 Damage
+  - Deal 13 Damage, Gain 1 Blossom per 8 Damage
+  - Deal 16 Damage, Gain 1 Blossom per 8 Damage
 --- !u!1 &2312856137628458427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,9 +1943,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 11 Damage, if the target intends to Attack, Apply 1 Vulnerable
-  - Deal 14 Damage, if the target intends to Attack, Apply 2 Vulnerable
-  - Deal 21 Damage, if the target intends to Attack, Apply 2 Vulnerable
+  - Deal 10 Damage, if the target intends to Attack, Apply 1 Vulnerable & 1 Slow
+  - Deal 12 Damage, if the target intends to Attack, Apply 2 Vulnerable & 2 Slow
+  - Deal 19 Damage, if the target intends to Attack, Apply 2 Vulnerable & 3 Slow
 --- !u!1 &2450913576168355330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1988,9 +1995,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 7 Damage Twice
-  - Deal 7 Damage Thrice
-  - Deal 7 Damage Four Times
+  - Deal 8 Damage Twice
+  - Deal 8 Damage Thrice
+  - Deal 8 Damage Four Times
 --- !u!1 &2462809486461673001
 GameObject:
   m_ObjectHideFlags: 0
@@ -2040,9 +2047,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 20 Damage, 1 Slow, 1 Weak & 1 Vulnerable
-  - Deal 25 Damage, 2 Slow, 2 Weak & 1 Vulnerable
-  - Deal 30 Damage, 2 Slow, 2 Weak & 2 Vulnerable
+  - Deal 19 Damage, 3 Slow, 1 Weak & 1 Vulnerable
+  - Deal 24 Damage, 4 Slow, 2 Weak & 1 Vulnerable
+  - Deal 29 Damage, 5 Slow, 2 Weak & 2 Vulnerable
 --- !u!1 &2496964385644088991
 GameObject:
   m_ObjectHideFlags: 0
@@ -2092,9 +2099,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 6 Damage to a random Enemy 3 times
-  - Deal 6 Damage to a random Enemy 4 times
-  - Deal 6 Damage to a random Enemy 5 times
+  - Deal 7 Damage to a random Enemy 3 times
+  - Deal 7 Damage to a random Enemy 4 times
+  - Deal 7 Damage to a random Enemy 5 times
 --- !u!1 &2697824346853653083
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,9 +2151,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 6 Sanity & Block. Apply 1 Slow to all Enemies for every Curse. Destroy
-  - Gain 8 Sanity & Block. Apply 2 Slow to all Enemies for every Curse. Destroy
-  - Gain 10 Sanity & Block. Apply 3 Slow to all Enemies for every Curse. Destroy
+  - Gain 5 Sanity & Block. Apply 2 Slow to all Enemies for every Curse. Destroy
+  - Gain 8 Sanity & Block. Apply 3 Slow to all Enemies for every Curse. Destroy
+  - Gain 11 Sanity & Block. Apply 4 Slow to all Enemies for every Curse. Destroy
 --- !u!1 &2747833667349942888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,9 +2203,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Strength & 12 Block. Destroy
-  - Gain 2 Strength & 15 Block. Destroy
-  - Gain 3 Strength & 18 Block. Destroy
+  - Gain 1 Strength & 14 Block. Destroy
+  - Gain 2 Strength & 17 Block. Destroy
+  - Gain 3 Strength & 20 Block. Destroy
 --- !u!1 &2759308553959675417
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,9 +2307,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 7 Block, Restore 4 Health. Destroy
-  - Gain 10 Block, Restore 6 Health. Destroy
-  - Gain 13 Block, Restore 8 Health. Destroy
+  - Gain 8 Block, Restore 5 Health. Destroy
+  - Gain 11 Block, Restore 7 Health. Destroy
+  - Gain 14 Block, Restore 9 Health. Destroy
 --- !u!1 &2954933077985121303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,9 +2359,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 12 Block, if you are below 50% Gain 20 Block instead and Destroy
-  - Gain 16 Block, if you are below 50% Gain 28 Block instead and Destroy
-  - Gain 20 Block, if you are below 50% Gain 36 Block instead and Destroy
+  - Gain 12 Block, if you are below 60% Gain 20 Block instead and Destroy
+  - Gain 16 Block, if you are below 60% Gain 28 Block instead and Destroy
+  - Gain 20 Block, if you are below 60% Gain 36 Block instead and Destroy
 --- !u!1 &3065999187759993969
 GameObject:
   m_ObjectHideFlags: 0
@@ -2404,9 +2411,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - 'Deal 12 Damage. Valor 4: Gain 1 Strength, otherwise Gain 1 Valor'
-  - 'Deal 14 Damage. Valor 3: Gain 1 Strength, otherwise Gain 2 Valor'
-  - 'Deal 16 Damage. Valor 5: Gain 2 Strength, otherwise Gain 3 Valor'
+  - 'Deal 13 Damage. Valor 4: Gain 1 Strength, otherwise Gain 1 Valor'
+  - 'Deal 15 Damage. Valor 3: Gain 1 Strength, otherwise Gain 2 Valor'
+  - 'Deal 17 Damage. Valor 5: Gain 2 Strength, otherwise Gain 3 Valor'
 --- !u!1 &3098920686773599662
 GameObject:
   m_ObjectHideFlags: 0
@@ -2511,6 +2518,58 @@ MonoBehaviour:
   - Gain 1 Mana & Draw a Card. Destroy
   - Gain 2 Mana & Draw a Card. Destroy
   - Gain 3 Mana & Draw a Card. Destroy
+--- !u!1 &3315703604667283090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7592641079843066823}
+  - component: {fileID: 1500592198827917513}
+  m_Layer: 0
+  m_Name: Pommel Strike
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7592641079843066823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315703604667283090}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1500592198827917513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3315703604667283090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d4885d50cfd4b904f9689d9deb780706, type: 3}
+  CardName: Pommel Strike
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 3 Damage. Gain 1 Strength
+  - Deal 7 Damage. Gain 1 Strength
+  - Deal 7 Damage. Gain 2 Strength
 --- !u!1 &3527039016728313761
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,9 +2723,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 17 Damage, Apply 3 Daze & 2 Weak
-  - Deal 21 Damage, Apply 5 Daze & 3 Weak
-  - Deal 25 Damage, Apply 7 Daze & 4 Weak
+  - Deal 18 Damage, Apply 4 Daze & 2 Weak
+  - Deal 22 Damage, Apply 6 Daze & 3 Weak
+  - Deal 26 Damage, Apply 8 Daze & 4 Weak
 --- !u!1 &3627225682483906447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2711,7 +2770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardSprite: {fileID: 21300000, guid: cf026de1c97e5d642bed9980a73c270c, type: 3}
+  CardSprite: {fileID: 21300000, guid: 72eb87043123cae48b6fb09ec7701a78, type: 3}
   CardName: Strike
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
@@ -2820,9 +2879,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Deal 9 Damage, Gain 10 Silver. Destroy
-  - Deal 11 Damage, Gain 14 Silver. Destroy
-  - Deal 13 Damage, Gain 18 Silver. Destroy
+  - Deal 10 Damage, Gain 11 Silver. Destroy
+  - Deal 12 Damage, Gain 16 Silver. Destroy
+  - Deal 14 Damage, Gain 21 Silver. Destroy
 --- !u!1 &3824815911611863322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,9 +2931,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 11 Damage, Gain 1 Mana next Turn
-  - Deal 15 Damage, Gain 1 Mana next Turn
-  - Deal 19 Damage, Gain 1 Mana next Turn
+  - Deal 10 Damage, Apply 1 Slow. Gain 1 Mana next Turn
+  - Deal 14 Damage, Apply 1 Slow. Gain 1 Mana next Turn
+  - Deal 18 Damage, Apply 1 Slow. Gain 1 Mana next Turn
 --- !u!1 &3911556929416912178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2976,9 +3035,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 7 Block. Gain 1 Mana & Draw 1 Card next Turn
-  - Gain 9 Block. Gain 1 Mana & Draw 2 Cards next Turn
-  - Gain 10 Block. Gain 2 Mana & Draw 2 Cards next Turn
+  - Gain 7 Block. Gain 1 Mana, 2 Block & Draw 1 Card next Turn
+  - Gain 8 Block. Gain 1 Mana. 4 Block & Draw 2 Cards next Turn
+  - Gain 9 Block. Gain 2 Mana. 6 Block & Draw 2 Cards next Turn
 --- !u!1 &4180856026954887197
 GameObject:
   m_ObjectHideFlags: 0
@@ -3029,8 +3088,8 @@ MonoBehaviour:
   SingleUse: 0
   CardTooltip:
   - Draw 1 Card, Gain 3 Block
-  - Draw 1 Card, Gain 6 Block
-  - Draw 1 Card, Gain 9 Block
+  - Draw 1 Card, Gain 7 Block
+  - Draw 1 Card, Gain 11 Block
 --- !u!1 &4307091882574880402
 GameObject:
   m_ObjectHideFlags: 0
@@ -3080,9 +3139,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
   CardTooltip:
-  - Deal 6 Damage, Apply 1 Slow
-  - Deal 7 Damage, Apply 2 Slow
-  - Deal 8 Damage, Apply 3 Slow
+  - Deal 5 Damage, Apply 2 Slow
+  - Deal 6 Damage, Apply 3 Slow
+  - Deal 7 Damage, Apply 4 Slow
 --- !u!1 &4360541367262055021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,9 +3258,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 11 Damage, Apply 4 Daze & 3 Slow. Damage Dealt increased by targets Daze
-  - Deal 15 Damage, Apply 6 Daze & 4 Slow. Damage Dealt increased by targets Daze
-  - Deal 19 Damage, Apply 8 Daze & 5 Slow. Damage Dealt increased by targets Daze
+  - Deal 12 Damage, Apply 4 Daze & 4 Slow. Damage Dealt increased by targets Daze
+  - Deal 17 Damage, Apply 6 Daze & 5 Slow. Damage Dealt increased by targets Daze
+  - Deal 22 Damage, Apply 8 Daze & 6 Slow. Damage Dealt increased by targets Daze
 --- !u!1 &4682696695095343883
 GameObject:
   m_ObjectHideFlags: 0
@@ -3251,9 +3310,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Strength, 1 Resistance & 1 Dexterity. Destroy
-  - Gain 2 Strength, 1 Resistance & 2 Dexterity. Destroy
-  - Gain 2 Strength, 2 Resistance & 3 Dexterity. Destroy
+  - Gain 1 Strength, 1 Resistance & 2 Dexterity. Destroy
+  - Gain 2 Strength, 1 Resistance & 3 Dexterity. Destroy
+  - Gain 2 Strength, 2 Resistance & 4 Dexterity. Destroy
 --- !u!1 &4688838065884363077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3355,9 +3414,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Apply 6 Slow, but increase Targets Tenacity by 1
-  - Apply 9 Slow, but increase Targets Tenacity by 1
-  - Apply 12 Slow, but increase Targets Tenacity by 1
+  - Apply 7 Slow, but increase Targets Tenacity by 1
+  - Apply 10 Slow, but increase Targets Tenacity by 1
+  - Apply 13 Slow, but increase Targets Tenacity by 1
 --- !u!1 &5087491476194605148
 GameObject:
   m_ObjectHideFlags: 0
@@ -3620,6 +3679,10 @@ MonoBehaviour:
   - {fileID: 4458582416712363197}
   - {fileID: 4414370020518415246}
   - {fileID: 8505409953904868913}
+  - {fileID: 8217649946860786792}
+  - {fileID: 6909910882597525409}
+  - {fileID: 2534803122944292297}
+  - {fileID: 1500592198827917513}
   CardLevel:
   - {fileID: 21300000, guid: ccb927310c79c9b4c898d3d00d62fe51, type: 3}
   - {fileID: 21300000, guid: c67fef194b2297a4eb9ef49939f09ac0, type: 3}
@@ -3679,9 +3742,116 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
   CardTooltip:
-  - 'Deal 6 Damage. Valor 5: Twice, otherwise Gain 1 Valor'
-  - 'Deal 9 Damage. Valor 5: Twice, otherwise Gain 1 Valor'
-  - 'Deal 10 Damage. Valor 4: Twice, otherwise Gain 1 Valor'
+  - 'Deal 7 Damage. Valor 5: Twice, otherwise Gain 1 Valor'
+  - 'Deal 10 Damage. Valor 5: Twice, otherwise Gain 1 Valor'
+  - 'Deal 11 Damage. Valor 4: Twice, otherwise Gain 1 Valor'
+--- !u!1 &5452372633329148270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4694097801192014364}
+  - component: {fileID: 8217649946860786792}
+  m_Layer: 0
+  m_Name: Trample
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4694097801192014364
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452372633329148270}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8217649946860786792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5452372633329148270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d4885d50cfd4b904f9689d9deb780706, type: 3}
+  CardName: Trample
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Deal 7 Damage, Apply 1 Slow. Increase Damage & Slow by 1 for every 21% Health
+    target is missing
+  - Deal 8 Damage, Apply 1 Slow. Increase Damage & Slow by 1 for every 19% Health
+    target is missing
+  - Deal 9 Damage, Apply 1 Slow. Increase Damage & Slow by 1 for every 17% Health
+    target is missing
+--- !u!1 &5590534141246998181
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 684759229887223130}
+  - component: {fileID: 6909910882597525409}
+  m_Layer: 0
+  m_Name: Power Through
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &684759229887223130
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590534141246998181}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 17
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6909910882597525409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590534141246998181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d4885d50cfd4b904f9689d9deb780706, type: 3}
+  CardName: Power Through
+  CardManaCost: 0100000001000000010000000100000001000000
+  SingleUse: 0
+  CardTooltip:
+  - Gain 9 Block. For every 5 Wrath increase Block gained by 1 (max 9)
+  - Gain 12 Block. For every 5 Wrath increase Block gained by 1 (max 14)
+  - Gain 15 Block. For every 5 Wrath increase Block gained by 1 (max 19)
 --- !u!1 &5631511503270810478
 GameObject:
   m_ObjectHideFlags: 0
@@ -3731,9 +3901,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 8 Damage, Apply 2 Slow
-  - Deal 10 Damage, Apply 3 Slow
-  - Deal 12 Damage, Apply 4 Slow
+  - Deal 8 Damage, Apply 3 Slow
+  - Deal 11 Damage, Apply 4 Slow
+  - Deal 14 Damage, Apply 5 Slow
 --- !u!1 &5634097945806098322
 GameObject:
   m_ObjectHideFlags: 0
@@ -3838,9 +4008,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 3 Dexterity, Gain 1 Energy. Destroy
-  - Gain 4 Dexterity, Gain 4 Energy. Destroy
-  - Gain 5 Dexterity, Gain 7 Energy. Destroy
+  - Gain 3 Dexterity, Gain 1 Energy & 1 Valor. Destroy
+  - Gain 4 Dexterity, Gain 5 Energy & 1 Valor. Destroy
+  - Gain 5 Dexterity, Gain 9 Energy & 1 Valor. Destroy
 --- !u!1 &5928905428446462531
 GameObject:
   m_ObjectHideFlags: 0
@@ -3890,9 +4060,12 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Block for every 10 Max Health. Increase Max Health by 2 permamently. Destroy
-  - Gain 1 Block for every 9 Max Health. Increase Max Health by 4 permamently. Destroy
-  - Gain 1 Block for every 8 Max Health. Increase Max Health by 6 permamently. Destroy
+  - Gain 1 Block for every 10 Max Health & 1 Shield for every 60. Increase Max Health
+    by 2 permamently. Destroy
+  - Gain 1 Block for every 9 Max Health & 1 Shield for every 50. Increase Max Health
+    by 4 permamently. Destroy
+  - Gain 1 Block for every 8 Max Health & 1 Shield for every 40. Increase Max Health
+    by 6 permamently. Destroy
 --- !u!1 &6103022313411215938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3943,8 +4116,8 @@ MonoBehaviour:
   SingleUse: 0
   CardTooltip:
   - Lose 5 Health. Gain 3 Energy, 1 Mana & Draw 1 Card
-  - Lose 4 Health. Gain 4 Energy, 1 Mana & Draw 1 Card
-  - Lose 3 Health. Gain 5 Energy, 1 Mana & Draw 1 Card
+  - Lose 4 Health. Gain 5 Energy, 1 Mana & Draw 1 Card
+  - Lose 3 Health. Gain 7 Energy, 1 Mana & Draw 1 Card
 --- !u!1 &6153925152798367221
 GameObject:
   m_ObjectHideFlags: 0
@@ -3994,9 +4167,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 7 Damage, Apply 1 Slow per 4 Damage
-  - Deal 10 Damage, Apply 1 Slow per 4 Damage
-  - Deal 13 Damage, Apply 1 Slow per 4 Damage
+  - Deal 9 Damage, Apply 2 Slow per 7 Damage
+  - Deal 13 Damage, Apply 2 Slow per 7 Damage
+  - Deal 17 Damage, Apply 2 Slow per 7 Damage
 --- !u!1 &6173071058473636468
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,9 +4271,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 2 Damage. Damage Dealt increased by targets intented Attack
-  - Deal 6 Damage. Damage Dealt increased by targets intented Attack
-  - Deal 10 Damage. Damage Dealt increased by targets intented Attack
+  - Deal 2 Damage. Damage Dealt increased by targets Attack Value
+  - Deal 5 Damage. Damage Dealt increased by 6 for every 5 targets Attack Value
+  - Deal 8 Damage. Damage Dealt increased by 7 for every 5 targets Attack Value
 --- !u!1 &6462604992758054141
 GameObject:
   m_ObjectHideFlags: 0
@@ -4150,9 +4323,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 15 Damage, Gain that much Block
-  - Deal 20 Damage, Gain that much Block
-  - Deal 25 Damage, Gain that much Block
+  - Deal 16 Damage, Gain that much Block
+  - Deal 21 Damage, Gain that much Block
+  - Deal 26 Damage, Gain that much Block
 --- !u!1 &6533309539730056994
 GameObject:
   m_ObjectHideFlags: 0
@@ -4199,12 +4372,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardSprite: {fileID: 21300000, guid: d2e445c2007338b4bbd8a6a3d39c8980, type: 3}
   CardName: Hammer of Wrath
-  CardManaCost: 0100000001000000010000000100000001000000
+  CardManaCost: 0100000001000000000000000000000000000000
   SingleUse: 1
   CardTooltip:
-  - Increase your Weapon Damage by 2. Weapon hits Apply 1 Daze & Slow
-  - Increase your Weapon Damage by 4. Weapon hits Apply 1 Daze & Slow
-  - Increase your Weapon Damage by 6. Weapon hits Apply 1 Daze & Slow
+  - Increase your Weapon Damage by 3 & Gain 2 Energy. Weapon hits Apply 1 Daze &
+    Slow
+  - Increase your Weapon Damage by 5 & Gain 4 Energy. Weapon hits Apply 1 Daze &
+    Slow
+  - Increase your Weapon Damage by 5 & Gain 4 Energy. Weapon hits Apply 1 Daze &
+    Slow
 --- !u!1 &6622724283889857847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4254,9 +4430,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
   CardTooltip:
-  - 'Combo 4: Gain 1 Mana, Draw 1 Card & Gain 1 Energy'
-  - 'Combo 4: Gain 1 Mana, Draw 2 Cards & Gain 2 Energy'
-  - 'Combo 4: Gain 2 Mana, Draw 2 Cards & Gain 3 Energy'
+  - 'Combo 4: Gain 1 Mana, Draw 1 Card & Gain 2 Energy'
+  - 'Combo 4: Gain 1 Mana, Draw 2 Cards & Gain 4 Energy'
+  - 'Combo 4: Gain 2 Mana, Draw 2 Cards & Gain 6 Energy'
 --- !u!1 &6703391293828820304
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,9 +4482,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 16 Damage & Apply 2 Slow to all Enemies, Gain 2 Valor
-  - Deal 22 Damage & Apply 3 Slow to all Enemies, Gain 3 Valor
-  - Deal 28 Damage & Apply 4 Slow to all Enemies, Gain 4 Valor
+  - Deal 16 Damage & Apply 4 Slow to all Enemies, Gain 3 Valor
+  - Deal 22 Damage & Apply 5 Slow to all Enemies, Gain 4 Valor
+  - Deal 28 Damage & Apply 6 Slow to all Enemies, Gain 5 Valor
 --- !u!1 &6724833001348074672
 GameObject:
   m_ObjectHideFlags: 0
@@ -4358,9 +4534,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 7 Damage, Apply 3 Bleed
-  - Deal 8 Damage, Apply 5 Bleed
-  - Deal 9 Damage, Apply 7 Bleed
+  - Deal 5 Damage, Apply 3 Bleed & 1 Slow
+  - Deal 6 Damage, Apply 5 Bleed & 1 Slow
+  - Deal 7 Damage, Apply 7 Bleed & 1 Slow
 --- !u!1 &6738582262456009097
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,9 +4638,9 @@ MonoBehaviour:
   CardManaCost: 0200000001000000000000000000000000000000
   SingleUse: 1
   CardTooltip:
-  - Gain Shield equal to Health Lost this Combat. Destroy
-  - Gain Shield equal to Health Lost this Combat. Destroy
-  - Gain Shield equal to Health Lost this Combat. Destroy
+  - Gain 4 Block. Gain Shield equal to Health Lost this Combat. Destroy
+  - Gain 7 Block. Gain Shield equal to Health Lost this Combat. Destroy
+  - Gain 10 Block. Gain Shield equal to Health Lost this Combat. Destroy
 --- !u!1 &6865833207568054539
 GameObject:
   m_ObjectHideFlags: 0
@@ -4514,12 +4690,12 @@ MonoBehaviour:
   CardManaCost: 0300000003000000030000000300000003000000
   SingleUse: 0
   CardTooltip:
-  - Deal 18 Damage. Damage increased by 3 per 4 Mana spent this Combat. Apply 1 Slow
-    per 11 Damage
-  - Deal 22 Damage. Damage increased by 4 per 5 Mana spent this Combat. Apply 1 Slow
+  - Deal 19 Damage. Damage increased by 4 per 5 Mana spent this Combat. Apply 1 Slow
     per 10 Damage
-  - Deal 26 Damage. Damage increased by 5 per 6 Mana spent this Combat. Apply 1 Slow
+  - Deal 24 Damage. Damage increased by 5 per 6 Mana spent this Combat. Apply 1 Slow
     per 9 Damage
+  - Deal 29 Damage. Damage increased by 6 per 7 Mana spent this Combat. Apply 1 Slow
+    per 8 Damage
 --- !u!1 &6879572211509955400
 GameObject:
   m_ObjectHideFlags: 0
@@ -4569,9 +4745,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 1
   CardTooltip:
-  - Gain 1 Max Mana, Lose 9 Sanity. Gain 1 Strength for every Curse. Destroy
-  - Gain 1 Max Mana, Lose 6 Sanity. Gain 1 Strength for every Curse. Destroy
-  - Gain 1 Max Mana, Lose 6 Sanity. Gain 2 Strength for every Curse. Destroy
+  - Gain 1 Max Mana, Lose 8 Sanity. Gain 1 Strength for every Curse. Destroy
+  - Gain 1 Max Mana, Lose 5 Sanity. Gain 1 Strength for every Curse. Destroy
+  - Gain 1 Max Mana, Lose 4 Sanity. Gain 2 Strength for every Curse. Destroy
 --- !u!1 &6951708905863824399
 GameObject:
   m_ObjectHideFlags: 0
@@ -4621,9 +4797,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Lose 2 Health. Gain 13 Block & 3 Shield
-  - Lose 2 Health. Gain 17 Block & 5 Shield
-  - Lose 2 Health. Gain 21 Block & 7 Shield
+  - Lose 2 Health. Gain 14 Block & 4 Shield
+  - Lose 2 Health. Gain 18 Block & 6 Shield
+  - Lose 2 Health. Gain 22 Block & 8 Shield
 --- !u!1 &6965736690019580984
 GameObject:
   m_ObjectHideFlags: 0
@@ -4673,9 +4849,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 16 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
-  - Deal 21 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
-  - Deal 23 Damage. Gain 1 Energy & Apply 1 Slow for every 5 Damage
+  - Deal 18 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
+  - Deal 24 Damage. Gain 1 Energy & Apply 1 Slow for every 6 Damage
+  - Deal 27 Damage. Gain 1 Energy & Apply 1 Slow for every 5 Damage
 --- !u!1 &7100370504168578127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,9 +4901,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 2 Block. Block gained increased by 2 per targets Tenacity. Apply 1 Slow
-  - Gain 6 Block. Block gained increased by 2 per targets Tenacity. Apply 1 Slow
-  - Gain 7 Block. Block gained increased by 2 per targets Tenacity. Apply 2 Slow
+  - Gain 1 Block. Block gained increased by 2 per targets Tenacity. Apply 2 Slow
+  - Gain 5 Block. Block gained increased by 2 per targets Tenacity. Apply 2 Slow
+  - Gain 6 Block. Block gained increased by 2 per targets Tenacity. Apply 3 Slow
 --- !u!1 &7198086857684198475
 GameObject:
   m_ObjectHideFlags: 0
@@ -4829,9 +5005,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 10 Damage. Increase Damage of Rampage this Combat by 4
-  - Deal 12 Damage. Increase Damage of Rampage this Combat by 7
-  - Deal 14 Damage. Increase Damage of Rampage this Combat by 10
+  - Deal 10 Damage. Increase Damage of Rampage this Combat by 5
+  - Deal 13 Damage. Increase Damage of Rampage this Combat by 8
+  - Deal 16 Damage. Increase Damage of Rampage this Combat by 11
 --- !u!1 &7225966427374117781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4881,9 +5057,11 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 0
   CardTooltip:
-  - Deal 10 Damage & Apply 2 Slow to all Enemies. Repeat this next Turn
-  - Deal 10 Damage & Apply 2 Slow to all Enemies. Repeat this Twice next Turn
-  - Deal 10 Damage & Apply 2 Slow to all Enemies. Repeat this Thrice next Turn
+  - Deal 10 Damage & Apply 3 Slow to all Enemies. Repeat this next Turn
+  - Deal 10 Damage & Apply 3 Slow to all Enemies. Repeat this next 2 Turns. Gain
+    3 Block
+  - Deal 10 Damage & Apply 3 Slow to all Enemies. Repeat this next 3 Turns. Gain
+    9 Block
 --- !u!1 &7455830186716806652
 GameObject:
   m_ObjectHideFlags: 0
@@ -4933,9 +5111,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 2 Damage & Apply 2 Bleed. Bleed applied increased by targets Tenacity
-  - Deal 3 Damage & Apply 4 Bleed. Bleed applied increased by targets Tenacity
-  - Deal 4 Damage & Apply 6 Bleed. Bleed applied increased by targets Tenacity
+  - Deal 3 Damage & Apply 1 Bleed. Bleed applied increased by targets Tenacity
+  - Deal 4 Damage & Apply 3 Bleed. Bleed applied increased by targets Tenacity
+  - Deal 1 Damage & Apply 4 Bleed. Damage & Bleed applied increased by targets Tenacity
 --- !u!1 &7467217022583733082
 GameObject:
   m_ObjectHideFlags: 0
@@ -5089,11 +5267,11 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - 'Gain 1 Strength & 3 Block. Blossom 4: Gain 2 Strength instead, but increase
+  - 'Gain 1 Strength & 5 Block. Blossom 3: Gain 2 Strength instead, but increase
     Blossom required by 4'
-  - 'Gain 1 Strength & 6 Block. Blossom 3: Gain 2 Strength instead, but increase
+  - 'Gain 1 Strength & 8 Block. Blossom 3: Gain 2 Strength instead, but increase
     Blossom required by 3'
-  - 'Gain 1 Strength & 9 Block. Blossom 6: Gain 3 Strength instead, but increase
+  - 'Gain 1 Strength & 11 Block. Blossom 5: Gain 3 Strength instead, but increase
     Blossom required by 5'
 --- !u!1 &7900035142374541429
 GameObject:
@@ -5144,9 +5322,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 11 Block. Gain 2 Stored Block & Deal 2 Damage when being attacked this Turn
-  - Gain 13 Block. Gain 4 Stored Block & Deal 4 Damage when being attacked this Turn
-  - Gain 15 Block. Gain 6 Stored Block & Deal 6 Damage when being attacked this Turn
+  - Gain 9 Block. Gain 3 Stored Block & Deal 3 Damage when being attacked this Turn
+  - Gain 12 Block. Gain 5 Stored Block & Deal 5 Damage when being attacked this Turn
+  - Gain 15 Block. Gain 7 Stored Block & Deal 7 Damage when being attacked this Turn
 --- !u!1 &7986722737720104172
 GameObject:
   m_ObjectHideFlags: 0
@@ -5196,9 +5374,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 6 Block. Block gain increased by 3 per Mana spent this Turn
-  - Gain 8 Block. Block gain increased by 4 per Mana spent this Turn
-  - Gain 10 Block. Block gain increased by 5 per Mana spent this Turn
+  - Gain 7 Block. Block gain increased by 3 per Mana spent this Turn
+  - Gain 9 Block. Block gain increased by 4 per Mana spent this Turn
+  - Gain 11 Block. Block gain increased by 5 per Mana spent this Turn
 --- !u!1 &8291533209967651770
 GameObject:
   m_ObjectHideFlags: 0
@@ -5248,9 +5426,9 @@ MonoBehaviour:
   CardManaCost: 0200000002000000020000000200000002000000
   SingleUse: 1
   CardTooltip:
-  - Gain 6 Block. Attacks give 2 Block, tripled for Weapon attack. Destroy
-  - Gain 8 Block. Attacks give 3 Block, tripled for Weapon attack. Destroy
-  - Gain 10 Block. Attacks give 4 Block, tripled for Weapon attack. Destroy
+  - Gain 8 Block. Attacks give 2 Block, tripled for Weapon attack. Destroy
+  - Gain 11 Block. Attacks give 3 Block, tripled for Weapon attack. Destroy
+  - Gain 14 Block. Attacks give 4 Block, tripled for Weapon attack. Destroy
 --- !u!1 &8376270669732810254
 GameObject:
   m_ObjectHideFlags: 0
@@ -5300,9 +5478,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - 'Gain 9 Block. Blossom 5: Increase Block gained by 4 & Gain 1 Strength'
-  - 'Gain 12 Block. Blossom 5: Increase Block gained by 6 & Gain 1 Strength'
-  - 'Gain 15 Block. Blossom 5: Increase Block gained by 8 & Gain 1 Strength'
+  - 'Gain 10 Block. Blossom 5: Increase Block gained by 4 & Gain 1 Strength'
+  - 'Gain 13 Block. Blossom 5: Increase Block gained by 6 & Gain 1 Strength'
+  - 'Gain 16 Block. Blossom 5: Increase Block gained by 8 & Gain 1 Strength'
 --- !u!1 &8451823244882498875
 GameObject:
   m_ObjectHideFlags: 0
@@ -5352,9 +5530,61 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Draw 1 Card. Gain 2 Block for every Card in Hand
-  - Draw 2 Card. Gain 2 Block for every Card in Hand
-  - Draw 2 Card. Gain 3 Block for every Card in Hand
+  - Draw 1 Card. Gain 2 Block, increased by 2 for every Card in Hand
+  - Draw 2 Card. Gain 2 Block, increased by 2 for every Card in Hand
+  - Draw 2 Card. Gain 2 Block, increased by 3 for every Card in Hand
+--- !u!1 &8596557677735883516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2285624200421096060}
+  - component: {fileID: 2534803122944292297}
+  m_Layer: 0
+  m_Name: Uppercut
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2285624200421096060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596557677735883516}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6389422593335048351}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2534803122944292297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8596557677735883516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e246838a2f304104c9427d70df9cd5cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CardSprite: {fileID: 21300000, guid: d4885d50cfd4b904f9689d9deb780706, type: 3}
+  CardName: Uppercut
+  CardManaCost: 0000000000000000000000000000000000000000
+  SingleUse: 0
+  CardTooltip:
+  - 'Deal 7 Damage. Strength 5: Apply 2 Slow & Draw a Card'
+  - 'Deal 9 Damage. Strength 4: Apply 3 Slow & Draw a Card'
+  - 'Deal 12 Damage. Strength 4: Apply 3 Slow & Draw 2 Cards'
 --- !u!1 &8655902471418726768
 GameObject:
   m_ObjectHideFlags: 0
@@ -5508,9 +5738,12 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 1 Damage. Damage increased by Targets Bleed
-  - Deal 5 Damage. Damage increased by Targets Bleed
-  - Deal 9 Damage. Damage increased by Targets Bleed
+  - Deal 1 Damage. Damage increased by Targets Bleed. For every 12 Damage, Apply
+    1 Slow (max 2)
+  - Deal 5 Damage. Damage increased by Targets Bleed. For every 11 Damage, Apply
+    1 Slow (max 2)
+  - Deal 9 Damage. Damage increased by Targets Bleed. For every 10 Damage, Apply
+    1 Slow (max 2)
 --- !u!1 &8747331849559699352
 GameObject:
   m_ObjectHideFlags: 0
@@ -5612,9 +5845,9 @@ MonoBehaviour:
   CardManaCost: 0000000000000000000000000000000000000000
   SingleUse: 0
   CardTooltip:
-  - 'Deal 4 Damage, Gain 1 Storm Charge per 2 Combo. Combo 4: Gain 3 more Storm Charges'
-  - 'Deal 6 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 3 more Storm Charges'
-  - 'Deal 8 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 4 more Storm Charges'
+  - 'Deal 5 Damage, Gain 1 Storm Charge per 2 Combo. Combo 4: Gain 3 more Storm Charges'
+  - 'Deal 7 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 3 more Storm Charges'
+  - 'Deal 9 Damage, Gain 1 Storm Charge per 2 Combo. Combo 3: Gain 4 more Storm Charges'
 --- !u!1 &8869626160299543852
 GameObject:
   m_ObjectHideFlags: 0
@@ -5716,9 +5949,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 11 Damage, Draw 1 Card
-  - Deal 12 Damage, Draw 2 Cards
-  - Deal 16 Damage, Draw 2 Cards
+  - Deal 10 Damage, Apply 1 Slow. Draw 1 Card
+  - Deal 11 Damage, Apply 1 Slow. Draw 2 Card
+  - Deal 13 Damage, Apply 2 Slow. Draw 2 Card
 --- !u!1 &8959023271854829270
 GameObject:
   m_ObjectHideFlags: 0
@@ -5768,9 +6001,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Gain 10 Block. Resistance bonus is Doubled
-  - Gain 12 Block. Resistance bonus is Tripled
-  - Gain 14 Block. Resistance bonus is Quadrupled
+  - Gain 11 Block. Resistance bonus is Doubled
+  - Gain 13 Block. Resistance bonus is Tripled
+  - Gain 15 Block. Resistance bonus is Quadrupled
 --- !u!1 &8973711149042071427
 GameObject:
   m_ObjectHideFlags: 0
@@ -5872,9 +6105,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - Deal 11 Damage to all Enemies
-  - Deal 15 Damage to all Enemies
-  - Deal 19 Damage to all Enemies
+  - Deal 12 Damage to all Enemies
+  - Deal 16 Damage to all Enemies
+  - Deal 20 Damage to all Enemies
 --- !u!1 &9100902807311367969
 GameObject:
   m_ObjectHideFlags: 0
@@ -5924,9 +6157,9 @@ MonoBehaviour:
   CardManaCost: 0100000001000000010000000100000001000000
   SingleUse: 0
   CardTooltip:
-  - 'Gain 11 Block. Combo 3: Gain it again.'
-  - 'Gain 14 Block. Combo 3: Gain it again.'
-  - 'Gain 17 Block. Combo 3: Gain it again.'
+  - 'Gain 12 Block. Combo 3: Gain it again.'
+  - 'Gain 15 Block. Combo 3: Gain it again.'
+  - 'Gain 18 Block. Combo 3: Gain it again.'
 --- !u!1 &9138291028712447086
 GameObject:
   m_ObjectHideFlags: 0

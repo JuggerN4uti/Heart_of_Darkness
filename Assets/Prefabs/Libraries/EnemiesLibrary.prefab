@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Mad Scientist
   UnitID: 11
-  UnitHealth: 116
+  UnitHealth: 120
   UnitShield: 48
   UnitTenacity: 2
   MovesCount: 3
@@ -150,7 +150,7 @@ MonoBehaviour:
   UnitID: 17
   UnitHealth: 800
   UnitShield: 0
-  UnitTenacity: 8
+  UnitTenacity: 10
   MovesCount: 4
   boss: 1
   UnitSprite: {fileID: 21300000, guid: 19ba551643ebd314e9478480b36efa7d, type: 3}
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Mud Pile
   UnitID: 18
-  UnitHealth: 60
+  UnitHealth: 61
   UnitShield: 0
   UnitTenacity: 1
   MovesCount: 2
@@ -413,8 +413,8 @@ MonoBehaviour:
   UnitName: Living Corpse
   UnitID: 4
   UnitHealth: 68
-  UnitShield: 92
-  UnitTenacity: 4
+  UnitShield: 91
+  UnitTenacity: 5
   MovesCount: 4
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 7e45077649483d74bb219d76e5b11904, type: 3}
@@ -621,9 +621,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Ratking
   UnitID: 9
-  UnitHealth: 800
+  UnitHealth: 832
   UnitShield: 0
-  UnitTenacity: 6
+  UnitTenacity: 7
   MovesCount: 4
   boss: 1
   UnitSprite: {fileID: 21300000, guid: 8c85f80ce38ba354f83bf8619d4c2ff6, type: 3}
@@ -690,7 +690,7 @@ MonoBehaviour:
   UnitID: 8
   UnitHealth: 34
   UnitShield: 99
-  UnitTenacity: 4
+  UnitTenacity: 5
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 5e6dd842184ad1d4f8359812cfe2c525, type: 3}
@@ -753,9 +753,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Monstrosity
   UnitID: 12
-  UnitHealth: 262
+  UnitHealth: 279
   UnitShield: 48
-  UnitTenacity: 6
+  UnitTenacity: 7
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 1535435be5f4fa149b1b068430fc7301, type: 3}
@@ -820,7 +820,7 @@ MonoBehaviour:
   UnitID: 1
   UnitHealth: 127
   UnitShield: 0
-  UnitTenacity: 4
+  UnitTenacity: 5
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 0b82d3a5ffef1eb43aebb706f1bf7733, type: 3}
@@ -883,9 +883,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Faceless One
   UnitID: 6
-  UnitHealth: 928
-  UnitShield: 228
-  UnitTenacity: 8
+  UnitHealth: 947
+  UnitShield: 232
+  UnitTenacity: 10
   MovesCount: 4
   boss: 0
   UnitSprite: {fileID: 21300000, guid: c2fe469302cdb66458318b68b48901ad, type: 3}
@@ -951,8 +951,8 @@ MonoBehaviour:
   UnitName: Lord of Torment
   UnitID: 20
   UnitHealth: 780
-  UnitShield: 225
-  UnitTenacity: 10
+  UnitShield: 248
+  UnitTenacity: 13
   MovesCount: 4
   boss: 1
   UnitSprite: {fileID: 21300000, guid: 3c264efd08d0b6044bb93ae4be8f093f, type: 3}
@@ -1017,7 +1017,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Voidling
   UnitID: 16
-  UnitHealth: 144
+  UnitHealth: 153
   UnitShield: 13
   UnitTenacity: 3
   MovesCount: 3
@@ -1082,9 +1082,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Soul Collector
   UnitID: 13
-  UnitHealth: 66
+  UnitHealth: 69
   UnitShield: 100
-  UnitTenacity: 5
+  UnitTenacity: 6
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 578e922d7bed0b34495bd0ad880dcf93, type: 3}
@@ -1147,9 +1147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Abomination
   UnitID: 15
-  UnitHealth: 480
+  UnitHealth: 489
   UnitShield: 0
-  UnitTenacity: 6
+  UnitTenacity: 7
   MovesCount: 4
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 639efcd50114aa04282ff7eb93a74688, type: 3}
@@ -1214,9 +1214,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: RatGod
   UnitID: 19
-  UnitHealth: 1200
+  UnitHealth: 1272
   UnitShield: 0
-  UnitTenacity: 7
+  UnitTenacity: 8
   MovesCount: 4
   boss: 1
   UnitSprite: {fileID: 21300000, guid: 68eb677719c893c428b1642a2a646281, type: 3}
@@ -1281,9 +1281,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Shambler
   UnitID: 7
-  UnitHealth: 308
+  UnitHealth: 326
   UnitShield: 43
-  UnitTenacity: 6
+  UnitTenacity: 7
   MovesCount: 4
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 601d7112c960b9247807022185554a98, type: 3}
@@ -1451,9 +1451,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Rotfiend
   UnitID: 3
-  UnitHealth: 161
+  UnitHealth: 164
   UnitShield: 0
-  UnitTenacity: 5
+  UnitTenacity: 6
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 157428db6a52e3c45a0f97e8ef33583f, type: 3}
@@ -1516,9 +1516,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: The Bog
   UnitID: 21
-  UnitHealth: 1200
+  UnitHealth: 1248
   UnitShield: 0
-  UnitTenacity: 10
+  UnitTenacity: 12
   MovesCount: 4
   boss: 1
   UnitSprite: {fileID: 21300000, guid: 09b2450658bee9546b16d147f107f5c6, type: 3}
@@ -1585,7 +1585,7 @@ MonoBehaviour:
   UnitID: 5
   UnitHealth: 41
   UnitShield: 95
-  UnitTenacity: 4
+  UnitTenacity: 5
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: a0801a1d0f8478b4bbf49b574414f992, type: 3}
@@ -1648,9 +1648,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Lord of Torment
   UnitID: 14
-  UnitHealth: 650
-  UnitShield: 185
-  UnitTenacity: 8
+  UnitHealth: 700
+  UnitShield: 187
+  UnitTenacity: 10
   MovesCount: 4
   boss: 1
   UnitSprite: {fileID: 21300000, guid: b25c8506ca1a00c4280b0d0705129365, type: 3}
@@ -1715,9 +1715,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Husk
   UnitID: 2
-  UnitHealth: 135
+  UnitHealth: 142
   UnitShield: 0
-  UnitTenacity: 5
+  UnitTenacity: 6
   MovesCount: 4
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 07ef83d7275f3f548ad2c11fc512f841, type: 3}
@@ -1726,7 +1726,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d8027fa0614db3f4eb65bafd49af3623, type: 3}
   - {fileID: 21300000, guid: 9ae153ad962602c4fa63b6beba48eeb2, type: 3}
   - {fileID: 21300000, guid: 743cef94cb049b34f87fbb232a133036, type: 3}
-  MovesValues: 15000000000000000800000008000000
+  MovesValues: 14000000000000000800000008000000
   MovesCooldowns: 01000000020000000200000003000000
   StartingEffects: 000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   additionalText:
@@ -1782,9 +1782,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: Shambler
   UnitID: 10
-  UnitHealth: 135
-  UnitShield: 270
-  UnitTenacity: 5
+  UnitHealth: 141
+  UnitShield: 280
+  UnitTenacity: 6
   MovesCount: 4
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 725f667a1729ea7489a3425827f65e2a, type: 3}
@@ -1997,7 +1997,7 @@ MonoBehaviour:
   UnitID: 0
   UnitHealth: 84
   UnitShield: 48
-  UnitTenacity: 4
+  UnitTenacity: 5
   MovesCount: 3
   boss: 0
   UnitSprite: {fileID: 21300000, guid: 209d0e16be0deff47ab7817c9874cda5, type: 3}

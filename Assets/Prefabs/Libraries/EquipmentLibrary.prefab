@@ -203,10 +203,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EquipmentSprite: {fileID: 21300000, guid: df623b58c786e304498ff8a611ca0012, type: 3}
   EquipmentName: Mace
-  EquipmentTooltip: Deal 6 Damage, Apply 1 Slow
-  Cost: 5
+  EquipmentTooltip: Deal 5 Damage, Apply 1 Slow
+  Cost: 4
   Uses: 1
-  Cooldown: 5
+  Cooldown: 4
   Gain: 1
 --- !u!1 &4322571984280903323
 GameObject:

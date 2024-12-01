@@ -48,19 +48,19 @@ public class ItemsCollected : MonoBehaviour
                     ItemText[i].text = (Player.attacks % 3).ToString("");
                     break;
                 case 12:
-                    ItemText[i].text = (Player.attacks % 9).ToString("");
+                    ItemText[i].text = (Player.attacks % 8).ToString("");
                     break;
                 case 17:
-                    ItemText[i].text = (Player.attacks % 3).ToString("");
+                    ItemText[i].text = (Player.attacks % 4).ToString("");
                     break;
                 case 19:
-                    ItemText[i].text = (Player.Cards.cardsPlayed % 7).ToString("");
+                    ItemText[i].text = (Player.Cards.cardsPlayed % 6).ToString("");
                     break;
                 case 34:
                     ItemText[i].text = (Player.drink).ToString("");
                     break;
                 case 43:
-                    ItemText[i].text = (2 + Player.CombatScript.turn / 2).ToString("");
+                    ItemText[i].text = (3 + Player.CombatScript.turn).ToString("");
                     break;
             }
         }

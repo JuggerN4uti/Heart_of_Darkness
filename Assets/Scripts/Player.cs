@@ -238,13 +238,13 @@ public class Player : MonoBehaviour
         switch (which)
         {
             case 1:
-                GainHP(20);
+                GainHP(25);
                 break;
             case 2:
-                StatValues[8] += 2;
+                StatValues[8] += 3;
                 break;
             case 3:
-                StatValues[7] += 2;
+                StatValues[7] += 3;
                 break;
             case 4:
                 StatValues[9] += 3;
@@ -253,11 +253,12 @@ public class Player : MonoBehaviour
                 BaseMana++;
                 break;
             case 7:
-                StatValues[5] += 7;
+                StatValues[5] += 12;
                 // thorns
                 break;
             case 18:
                 BaseMana++;
+                BaseDraw++;
                 break;
             case 20:
                 BaseMana++;
@@ -267,7 +268,7 @@ public class Player : MonoBehaviour
                 StatValues[8] += 1;
                 break;
             case 27:
-                StatValues[5] += 5;
+                StatValues[5] += 7;
                 break;
             case 28:
                 StatValues[8] += 1;
@@ -288,22 +289,30 @@ public class Player : MonoBehaviour
                 CheckForRings();
                 break;
             case 33:
+                GainHP(11);
                 CheckForRings();
                 break;
             case 34:
                 StatValues[9] += 1;
                 break;
             case 35:
-                GainHP(4);
+                GainHP(7);
+                break;
+            case 36:
+                StatValues[5] += 3;
                 break;
             case 37:
-                GainHP(10);
+                GainHP(15);
                 break;
             case 47:
+                StatValues[5] += 2;
                 StatValues[9] += 1;
                 break;
             case 48:
                 StatValues[8] += 1;
+                break;
+            case 49:
+                GainHP(5);
                 break;
         }
         UpdateInfo();

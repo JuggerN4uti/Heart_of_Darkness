@@ -424,7 +424,7 @@ public class Combat : MonoBehaviour
                 EffectTooltip.text = "Dreadful Aura:\nEvery Turn reduce Player sanity by " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0");
                 break;
             case 7:
-                EffectTooltip.text = "Rot:\nEvery Turn Gain " + (3 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Block, " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength & 1 Slow";
+                EffectTooltip.text = "Rot:\nEvery Turn Gain " + (2 * Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]]).ToString("0") + " Block, " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " Strength & 1 Slow";
                 break;
             case 8:
                 EffectTooltip.text = "Enormous:\nGain " + Enemy[enemy].effect[Enemy[enemy].effectsActive[effect]].ToString("0") + " more Tenacity when Stunned";

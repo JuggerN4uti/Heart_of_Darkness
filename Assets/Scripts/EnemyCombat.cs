@@ -92,11 +92,14 @@ public class EnemyCombat : MonoBehaviour
         }
         if (PlayerScript.Item[15])
         {
-            GainDaze(5);
-            GainSlow(2);
+            GainDaze(7);
+            GainSlow(5);
         }
         if (PlayerScript.Item[24])
+        {
             GainBleed(4);
+            GainSlow(1);
+        }
         LevelValue.text = (level + 1).ToString("0");
         UpdateInfo();
         StartTurn();
@@ -192,7 +195,7 @@ public class EnemyCombat : MonoBehaviour
             effect[0]--;
         if (effect[7] > 0)
         {
-            GainBlock(effect[7] * 3);
+            GainBlock(effect[7] * 2);
             GainStrength(effect[7]);
             GainSlow(1);
         }
@@ -265,7 +268,7 @@ public class EnemyCombat : MonoBehaviour
         if (PlayerScript.Item[43])
         {
             CombatScript.Effect(false, 5, true, order);
-            TakeDamage(2 + CombatScript.turn / 2);
+            TakeDamage(3 + CombatScript.turn);
         }
         if (block > 0)
             block = 0;
@@ -357,8 +360,8 @@ public class EnemyCombat : MonoBehaviour
                     GainSlow(1);
                     break;
                 case (2, 1): // Dried Hide
-                    GainBlock(LevelCalculated(12 + tenacity));
-                    GainShield(LevelCalculated(4 + 2 * tenacity));
+                    GainBlock(LevelCalculated(11 + tenacity));
+                    GainShield(LevelCalculated(2 + 2 * tenacity));
                     break;
                 case (2, 2): // Haunting Wail
                     CombatScript.Player.TakeDamage(AttackDamage());
@@ -462,7 +465,7 @@ public class EnemyCombat : MonoBehaviour
                 case (6, 2): // Tentacle Slam
                     CombatScript.Player.TakeDamage(AttackDamage());
                     OnHit();
-                    GainDaze(AttackDamage() * tenacity / 70);
+                    GainDaze(AttackDamage() * tenacity / 66);
                     GainSlow(2);
                     break;
                 case (6, 3): // Void Barrier
@@ -538,7 +541,7 @@ public class EnemyCombat : MonoBehaviour
                         OnHit();
                     }
                     GainHealth(LevelCalculated(3 + (effect[3] * 5) / 9));
-                    tempi = (maxHealth - 800) / 19 - 2;
+                    tempi = (maxHealth - 832) / 19 - 2;
                     if (tempi > 0)
                         GainStrength(LevelCalculated(tempi));
                     break;
@@ -612,14 +615,14 @@ public class EnemyCombat : MonoBehaviour
                     GainHealth(LevelCalculated(tempi));
                     break;
                 case (11, 2): // Succumb
-                    tempi = 15;
+                    tempi = 16;
                     tempi2 = LevelCalculated(2);
                     if (slow >= tempi2)
                         slow -= tempi2;
                     else
                     {
                         tempi2 -= slow;
-                        tempi += 5 * tempi2;
+                        tempi += 4 * tempi2;
                         slow = 0;
                     }
                     GainBlock(LevelCalculated(tempi));
@@ -820,7 +823,7 @@ public class EnemyCombat : MonoBehaviour
                         OnHit();
                     }
                     GainHealth(LevelCalculated(5 + (effect[3] * 8) / 9));
-                    tempi = (maxHealth - 1200) / 14 - 3;
+                    tempi = (maxHealth - 1272) / 14 - 3;
                     if (tempi > 0)
                         GainStrength(LevelCalculated(tempi));
                     break;
@@ -928,7 +931,7 @@ public class EnemyCombat : MonoBehaviour
             if (effect[2] > 0)
                 TakeDamage(effect[2]);
             if (PlayerScript.Item[26])
-                GainDaze(tenacity);
+                GainDaze(4);
             if (PlayerScript.Item[13])
                 TakeDamage(7);
             if (PlayerScript.Item[50])
@@ -1021,13 +1024,13 @@ public class EnemyCombat : MonoBehaviour
         {
             if (effect[0] > 0)
             {
-                value *= 3;
-                value /= 5;
+                value *= 19;
+                value /= 25;
             }
             else
             {
-                value *= 19;
-                value /= 20;
+                value *= 47;
+                value /= 50;
             }
         }
         return value;
@@ -1043,12 +1046,14 @@ public class EnemyCombat : MonoBehaviour
             amount /= 5;
             GainBleed(1);
         }
-        if (PlayerScript.Item[30] && amount >= 20)
+        if (PlayerScript.Item[30] && amount >= 18)
         {
             if (PlayerScript.Item[33])
                 amount += 8;
             else amount += 4;
         }
+        if (PlayerScript.Item[26] && amount >= 25)
+            GainSlow(1);
         /*if (PlayerScript.Item[31] && amount >= 32 && CombatScript.Player.resistanceRing)
             CombatScript.Player.RingOfResistance();*/
         Display(amount, DamageSprite);
@@ -1197,13 +1202,13 @@ public class EnemyCombat : MonoBehaviour
         if (PlayerScript.Item[13])
             TakeDamage(7 * amount);
         if (PlayerScript.Item[42])
-            GainSlow(amount * 2);
+            GainSlow(amount * 3);
         UpdateInfo();
     }
 
     public void GainBleed(int amount)
     {
-        if (PlayerScript.Item[25] && amount >= 3)
+        if (PlayerScript.Item[25] && amount >= 2)
             amount++;
         effect[1] += amount;
         Display(amount, effectSprite[1]);
@@ -1231,7 +1236,7 @@ public class EnemyCombat : MonoBehaviour
         if (PlayerScript.Item[13])
             TakeDamage(7 * amount);
         if (PlayerScript.Item[42])
-            GainSlow(amount * 2);
+            GainSlow(amount * 4);
         UpdateInfo();
     }
 
@@ -1319,10 +1324,10 @@ public class EnemyCombat : MonoBehaviour
             GainBleed(LevelCalculated(tempi));
         health += maxHealth;
         maxHealth *= 2;
-        health += LevelCalculated(30);
-        maxHealth += LevelCalculated(30);
+        health += LevelCalculated(39);
+        maxHealth += LevelCalculated(39);
         slow = 0;
-        tenacity = LevelCalculated(6);
+        tenacity = LevelCalculated(7);
         slow = LevelCalculated(tempi) / 4;
         if (!stunned)
             stunned = true;
