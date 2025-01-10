@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: c8a3a5210b385b04c9b5bc8532013898, type: 3}
   ItemName: Amethyst Shard
-  ItemTooltip: Gain 1 extra Mana on first 3 Turns
+  ItemTooltip: Gain 6 Max Health & 1 extra Mana on first 3 Turns
   text: 0
   nonNeutral: 0
   Class: 0
@@ -202,6 +202,56 @@ MonoBehaviour:
   text: 0
   nonNeutral: 0
   Class: 0
+--- !u!1 &702580518665907929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6298257214942951042}
+  - component: {fileID: 5292985029148019718}
+  m_Layer: 0
+  m_Name: Heart of the Champion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6298257214942951042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702580518665907929}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 57
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5292985029148019718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702580518665907929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 5dd8657ba2c75e1478f6c7fd3c8cc6ba, type: 3}
+  ItemName: Heart of the Champion
+  ItemTooltip: Gain 16 Max Health. Start Combat with 1 Wrath for every 4 bonus Health
+  text: 0
+  nonNeutral: 1
+  Class: 3
 --- !u!1 &746340115692774379
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,11 +298,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 6e82f5effb41e2d418d1246013cad4f8, type: 3}
   ItemName: Duality Stone
-  ItemTooltip: Draw additional Card every odd Turn & +2 Cooldown on Equipment on
-    every even Turn
+  ItemTooltip: Draw additional Card every odd Turn & gain 1 Mana every even Turn
   text: 0
   nonNeutral: 0
   Class: 0
+--- !u!1 &756104120899096991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548724220414324840}
+  - component: {fileID: 1635640949370107687}
+  m_Layer: 0
+  m_Name: Green Fruit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548724220414324840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756104120899096991}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 56
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1635640949370107687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756104120899096991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 7e854e5136da62843bd3684ee68ce3d7, type: 3}
+  ItemName: Green Fruit
+  ItemTooltip: Gain additional Blossom every 3 Turns. Restore 1 Health for every
+    3 Blossom after Combat
+  text: 1
+  nonNeutral: 1
+  Class: 2
 --- !u!1 &812429089564479260
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 29db939b7f1eb014dba6b858c1afa995, type: 3}
   ItemName: Lily Pad
-  ItemTooltip: Gain 1 permament Combo. Reaching 5x Combo gives 4 Energy & 1 Card
+  ItemTooltip: Gain 2 permament Combo. Reaching 5x Combo gives 2 Energy & 1 Card
     Draw
   text: 0
   nonNeutral: 1
@@ -702,7 +802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 5228ae36e2dd61944bb32e17cd6f0d75, type: 3}
   ItemName: Violet Lotus
-  ItemTooltip: Whenever Enemy is Stunned, Gain 1 Mana & 3 Energy next Turn
+  ItemTooltip: Enemies have 1 less Tenacity. Whenever Enemy is Stunned, Gain 1 Mana
+    & Energy next Turn
   text: 0
   nonNeutral: 1
   Class: 2
@@ -1104,7 +1205,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 5c8cf33e495879e4093930fb8bf22582, type: 3}
   ItemName: Sapling
-  ItemTooltip: Gain 5 Max Health. Start with 3 Blossom
+  ItemTooltip: Gain 8 Max Health. Start with 4 Blossom
   text: 0
   nonNeutral: 1
   Class: 2
@@ -1308,6 +1409,56 @@ MonoBehaviour:
   text: 1
   nonNeutral: 0
   Class: 0
+--- !u!1 &3753172241626226386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2223593478287309243}
+  - component: {fileID: 6714010436687281106}
+  m_Layer: 0
+  m_Name: Angel Feather
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2223593478287309243
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3753172241626226386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 54
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6714010436687281106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3753172241626226386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: 0f86a0142ce9b5841ae74dae3bf0b073, type: 3}
+  ItemName: Angel Feather
+  ItemTooltip: Gain 1 Resistance, whenever you gain 10 or more Block, gain 1 Shield
+  text: 0
+  nonNeutral: 1
+  Class: 0
 --- !u!1 &4150834564318633801
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,7 +1505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 4e0b69a18b2185c48bbcf7af69d4a370, type: 3}
   ItemName: Sapphire Shard
-  ItemTooltip: Gain 4 Dexterity
+  ItemTooltip: Gain 6 Max Health & 4 Dexterity
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1505,7 +1656,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 8a3d20c28722e604bb7245be723967a4, type: 3}
   ItemName: Emerald Shard
-  ItemTooltip: Gain 25 Max Health
+  ItemTooltip: Gain 30 Max Health
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1605,8 +1756,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 9813ae641dd1aa74b96867941b3dc7b4, type: 3}
   ItemName: Marshmallows
-  ItemTooltip: Gain 7 Max Health, when visiting Camp, Restore 2 Health & 1 Sanity
-    for every 5 Cards in Deck
+  ItemTooltip: Gain 3 Max Health, when visiting Camp, Restore 2 Health & 1 Sanity
+    for every 4 Cards in Deck
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1693,6 +1844,10 @@ Transform:
   - {fileID: 1150914250157143197}
   - {fileID: 2531790447415792084}
   - {fileID: 5320278977450120608}
+  - {fileID: 2223593478287309243}
+  - {fileID: 4446045929506684095}
+  - {fileID: 548724220414324840}
+  - {fileID: 6298257214942951042}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1763,6 +1918,10 @@ MonoBehaviour:
   - {fileID: 7091011551562197118}
   - {fileID: 780114679744403884}
   - {fileID: 3190553838800366422}
+  - {fileID: 6714010436687281106}
+  - {fileID: 503365035293975608}
+  - {fileID: 1635640949370107687}
+  - {fileID: 5292985029148019718}
 --- !u!1 &5167939553508927080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,8 +1968,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: a90b354caf6068644a787583a1872856, type: 3}
   ItemName: Hourglass
-  ItemTooltip: After shuffling at least 14 Cards into Draw Pile, gain 1 Mana & 4
-    Energy
+  ItemTooltip: After shuffling, gain 1 Mana for every 13 Cards shuffeled & 1 Energy
+    for every 4
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1860,7 +2019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: c1b9c3f956a9a9f4d8b99c57708c629c, type: 3}
   ItemName: Reaper Scythe
-  ItemTooltip: Ending Turn with unspent Mana gives 1 Strength & 7 Block
+  ItemTooltip: Ending Turn with unspent Mana gives 2 Strength & 3 Block
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1910,7 +2069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 03a58de95605aeb488945f0b98b271fd, type: 3}
   ItemName: Ruby Shard
-  ItemTooltip: Gain 3 Strength
+  ItemTooltip: Gain 6 Max Health & 3 Strength
   text: 0
   nonNeutral: 0
   Class: 0
@@ -1960,7 +2119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: b78f37b4fbb617046b4eb2f306b4e430, type: 3}
   ItemName: Bandages
-  ItemTooltip: Reduce Bleed by 1 each Turn. Restore 6% missing Health after Combat
+  ItemTooltip: Reduce Bleed by 1 each Turn. Restore 7% missing Health after Combat
   text: 0
   nonNeutral: 0
   Class: 0
@@ -2061,7 +2220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 86847eb706767c24abba2cbc64aea81b, type: 3}
   ItemName: Arcane Dust
-  ItemTooltip: Every 3 Turns gain 1 extra Mana & Draw a Card
+  ItemTooltip: Every 4 Turns gain 2 extra Mana & Draw a Card
   text: 1
   nonNeutral: 0
   Class: 0
@@ -2313,7 +2472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 7170a5fdbd2250d4e8cfbb3184c9f508, type: 3}
   ItemName: Ring of Resistance
-  ItemTooltip: Gain 1 Resistance, whenever you gain 14 or more Block, increase it
+  ItemTooltip: Gain 1 Resistance, whenever you gain 12 or more Block, increase it
     by 3
   text: 0
   nonNeutral: 0
@@ -2464,7 +2623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 81aaa7f4a3243f94bb236f2bbc9a6e7c, type: 3}
   ItemName: Topaz Shard
-  ItemTooltip: Gain 3 Resistance
+  ItemTooltip: Gain 6 Max Health & 3 Resistance
   text: 0
   nonNeutral: 0
   Class: 0
@@ -2665,8 +2824,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: ab22ee711a51043439ff1d3405413191, type: 3}
   ItemName: Halo
-  ItemTooltip: Every Turn Gain 1 Valor. Whenever you Gain Valor, also Gain 3 Block
-    & 1 Energy
+  ItemTooltip: Every Turn Gain 1 Valor. Whenever you Gain Valor, also Gain 1 Block,
+    Shield & Energy
   text: 0
   nonNeutral: 1
   Class: 0
@@ -2766,10 +2925,60 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: 55d27209fe557464990e3a6db3f675ba, type: 3}
   ItemName: Shattered Mirror
-  ItemTooltip: Gain 1 max Mana, but Draw 1 less Card each Turn
+  ItemTooltip: Gain 2 max Mana, but Draw 1 less Card each Turn
   text: 0
   nonNeutral: 0
   Class: 0
+--- !u!1 &8588729718247462038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4446045929506684095}
+  - component: {fileID: 503365035293975608}
+  m_Layer: 0
+  m_Name: Tidestone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4446045929506684095
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588729718247462038}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8680492994918149383}
+  m_RootOrder: 55
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &503365035293975608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8588729718247462038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b20f3036802c34182b467c33bbcaca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemSprite: {fileID: 21300000, guid: f74cfa255235df747a308e53073473c9, type: 3}
+  ItemName: Tidestone
+  ItemTooltip: Every 14 bonus Cards played give 1 Strength, Resistance & Dexterity
+  text: 1
+  nonNeutral: 1
+  Class: 1
 --- !u!1 &8994416201596517766
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,7 +3075,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSprite: {fileID: 21300000, guid: fde7b9ddd69bc1944ab6d40fbf93c01b, type: 3}
   ItemName: Runic Dagger
-  ItemTooltip: Every 8 attacks gain 1 Mana
+  ItemTooltip: Every 7 attacks gain 1 Mana
   text: 1
   nonNeutral: 0
   Class: 0

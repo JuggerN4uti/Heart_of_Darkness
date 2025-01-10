@@ -36,7 +36,7 @@ public class ItemsCollected : MonoBehaviour
             switch (ItemID[i])
             {
                 case 8:
-                    ItemText[i].text = (Player.turns % 3).ToString("");
+                    ItemText[i].text = (Player.turns % 4).ToString("");
                     break;
                 case 9:
                     ItemText[i].text = (Player.attacks % 6).ToString("");
@@ -48,7 +48,7 @@ public class ItemsCollected : MonoBehaviour
                     ItemText[i].text = (Player.attacks % 3).ToString("");
                     break;
                 case 12:
-                    ItemText[i].text = (Player.attacks % 8).ToString("");
+                    ItemText[i].text = (Player.attacks % 7).ToString("");
                     break;
                 case 17:
                     ItemText[i].text = (Player.attacks % 4).ToString("");
@@ -61,6 +61,12 @@ public class ItemsCollected : MonoBehaviour
                     break;
                 case 43:
                     ItemText[i].text = (3 + Player.CombatScript.turn).ToString("");
+                    break;
+                case 55:
+                    ItemText[i].text = Player.tidestone.ToString("");
+                    break;
+                case 56:
+                    ItemText[i].text = (Player.bonusBlossom % 3).ToString("");
                     break;
             }
         }

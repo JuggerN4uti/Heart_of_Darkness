@@ -90,6 +90,8 @@ public class EnemyCombat : MonoBehaviour
             tenacity += effect[18] - 5;
             effect[18] = 5;
         }
+        if (PlayerScript.Item[50] && tenacity > 1)
+            tenacity--;
         if (PlayerScript.Item[15])
         {
             GainDaze(7);
@@ -937,7 +939,7 @@ public class EnemyCombat : MonoBehaviour
             if (PlayerScript.Item[50])
             {
                 CombatScript.Player.effect[22]++;
-                CombatScript.Player.effect[25] += 3;
+                CombatScript.Player.effect[25]++;
                 PlayerScript.UpdateInfo();
             }
             if (effect[16] > 0)

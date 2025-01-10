@@ -395,6 +395,9 @@ public class Combat : MonoBehaviour
             case 27:
                 EffectTooltip.text = "Battle Stance:\nAttacks Give " + Player.effect[Player.effectsActive[effect]].ToString("0") + " Block, Tripled for Weapon";
                 break;
+            case 28:
+                EffectTooltip.text = "Beast Within:\nWeapon deals " + Player.effect[Player.effectsActive[effect]].ToString("0") + " more Damage for every Strength";
+                break;
         }
     }
 

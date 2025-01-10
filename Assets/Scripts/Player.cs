@@ -238,16 +238,22 @@ public class Player : MonoBehaviour
         switch (which)
         {
             case 1:
-                GainHP(25);
+                GainHP(30);
                 break;
             case 2:
+                GainHP(6);
                 StatValues[8] += 3;
                 break;
             case 3:
+                GainHP(6);
                 StatValues[7] += 3;
                 break;
             case 4:
-                StatValues[9] += 3;
+                GainHP(6);
+                StatValues[9] += 4;
+                break;
+            case 5:
+                GainHP(6);
                 break;
             case 6:
                 BaseMana++;
@@ -261,7 +267,7 @@ public class Player : MonoBehaviour
                 BaseDraw++;
                 break;
             case 20:
-                BaseMana++;
+                BaseMana += 2;
                 BaseDraw--;
                 break;
             case 25:
@@ -296,7 +302,7 @@ public class Player : MonoBehaviour
                 StatValues[9] += 1;
                 break;
             case 35:
-                GainHP(7);
+                GainHP(3);
                 break;
             case 36:
                 StatValues[5] += 3;
@@ -312,7 +318,16 @@ public class Player : MonoBehaviour
                 StatValues[8] += 1;
                 break;
             case 49:
-                GainHP(5);
+                GainHP(8);
+                break;
+            case 51:
+                GainHP(15);
+                break;
+            case 54:
+                StatValues[7] += 1;
+                break;
+            case 57:
+                GainHP(16);
                 break;
         }
         UpdateInfo();

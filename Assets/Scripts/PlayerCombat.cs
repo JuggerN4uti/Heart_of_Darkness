@@ -24,8 +24,8 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Item Stats")]
     public int turns;
-    public int attacks, drink, extraWrathTick;
-    public bool resistanceRing;
+    public int attacks, drink, extraWrathTick, tidestone, bonusBlossom;
+    public bool resistanceRing, firstCard;
 
     [Header("Weapon")]
     public GameObject TheWeapon;
@@ -86,18 +86,22 @@ public class PlayerCombat : MonoBehaviour
         combo = 0;
         permanentCombo = 0;
         if (PlayerScript.Item[44])
-            permanentCombo++;
+            permanentCombo += 2;
         flurry = 0;
         blossom = 0;
         if (PlayerScript.Item[49])
-            blossom += 3;
+            blossom += 4;
         totalManaSpent = 0;
         savageryIncrease = 0;
-        wrath = 0;
+        if (PlayerScript.Item[57])
+            wrath = (PlayerScript.MaxHealth - PlayerScript.BaseHealth) / 4;
+        else wrath = 0;
         wrathCharges = 0;
         rampageIncrease = 0;
         attacks = 0;
         drink = 0;
+        tidestone = 0;
+        firstCard = true;
         if (PlayerScript.Item[52])
             extraWrathTick = 1;
         lightningDamage = 36;
@@ -172,7 +176,9 @@ public class PlayerCombat : MonoBehaviour
     {
         ItemsScript.ResetText();
         if (PlayerScript.Item[16])
-            RestoreHealth((maxHealth - health) * 6 / 100);
+            RestoreHealth((maxHealth - health) * 7 / 100);
+        if (PlayerScript.Item[56])
+            RestoreHealth(blossom / 3);
         PlayerScript.MaxHealth = maxHealth;
         PlayerScript.Health = health;
         PlayerScript.MaxSanity = maxSanity;
@@ -183,6 +189,13 @@ public class PlayerCombat : MonoBehaviour
     public void StartTurn()
     {
         combo = permanentCombo;
+        firstCard = true;
+        if (PlayerScript.Item[56])
+        {
+            bonusBlossom++;
+            if (bonusBlossom % 3 == 0)
+                GainBlossom(1);
+        }
         GainBlossom(1);
         manaSpentTurn = 0;
         resistanceRing = true;
@@ -230,9 +243,9 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[8])
         {
             turns++;
-            if (turns % 3 == 0)
+            if (turns % 4 == 0)
             {
-                GainMana(1);
+                GainMana(2);
                 Cards.Draw(1);
             }
         }
@@ -253,7 +266,7 @@ public class PlayerCombat : MonoBehaviour
         if (PlayerScript.Item[23] && CombatScript.turn % 2 == 1)
             Cards.Draw(1);
         if (PlayerScript.CurseValue[2] > 0 && CombatScript.turn % 2 == 0)
-            CombatScript.EnemiesGainStrength(PlayerScript.CurseValue[2]);
+            GainMana(1);
         EquipmentCooldown(1);
         if (PlayerScript.Item[23] && CombatScript.turn % 2 == 0)
             EquipmentCooldown(2);
@@ -374,8 +387,8 @@ public class PlayerCombat : MonoBehaviour
             effect[8]--;
         if (PlayerScript.Item[40] && mana > 0)
         {
-            GainStrength(1);
-            GainBlock(7);
+            GainStrength(2);
+            GainBlock(3);
         }
         //mana = 0;
         LoseSanity(TurnSanity());
@@ -478,12 +491,14 @@ public class PlayerCombat : MonoBehaviour
 
     public void GainBlock(int amount)
     {
-        if (PlayerScript.Item[31] && amount >= 14)
+        if (PlayerScript.Item[31] && amount >= 12)
         {
             if (PlayerScript.Item[33])
                 amount += 6;
             else amount += 3;
         }
+        if (PlayerScript.Item[54] && amount >= 10)
+            GainShield(1);
         block += amount;
         Display(amount, BlockSprite);
         UpdateInfo();
@@ -553,7 +568,8 @@ public class PlayerCombat : MonoBehaviour
         Display(amount, ValorSprite);
         if (PlayerScript.Item[41])
         {
-            GainBlock(amount * 3);
+            GainBlock(amount);
+            GainShield(amount);
             GainEnergy(amount);
         }
         UpdateInfo();
@@ -785,7 +801,7 @@ public class PlayerCombat : MonoBehaviour
             GainResistance(1);
         if (PlayerScript.Item[11] && attacks % 3 == 0)
             GainBlock(4);
-        if (PlayerScript.Item[12] && attacks % 8 == 0)
+        if (PlayerScript.Item[12] && attacks % 7 == 0)
             GainMana(1);
         if (PlayerScript.Item[17] && attacks % 4 == 0)
             GainEnergy(3);
@@ -793,7 +809,7 @@ public class PlayerCombat : MonoBehaviour
 
     int WeaponDamage()
     {
-        tempi = baseDamage + strengthScaling * effect[0];
+        tempi = baseDamage + (strengthScaling + effect[28]) * effect[0];
         return DamageDealtModifier(tempi);
     }
 
@@ -926,6 +942,23 @@ public class PlayerCombat : MonoBehaviour
                         which -= Library.natureCards;
                         UseBloodAbility(which, level);
                     }
+                }
+            }
+        }
+
+        if (PlayerScript.Item[55])
+        {
+            if (firstCard)
+                firstCard = false;
+            else
+            {
+                tidestone++;
+                if (tidestone >= 14)
+                {
+                    tidestone -= 14;
+                    GainStrength(1);
+                    GainResistance(1);
+                    GainDexterity(1);
                 }
             }
         }
@@ -1251,6 +1284,18 @@ public class PlayerCombat : MonoBehaviour
             case 17:
                 Savagery(level);
                 break;
+            case 18:
+                BeastWithin(level);
+                break;
+            case 19:
+                Lacerate(level);
+                break;
+            case 20:
+                Patience(level);
+                break;
+            case 21:
+                SavageRoar(level);
+                break;
         }
     }
 
@@ -1424,7 +1469,7 @@ public class PlayerCombat : MonoBehaviour
                     case 32:
                         return "Deal " + PenanceDamage(level).ToString("") + " Damage\nGain " + PenanceBlock(level).ToString("") + " Block";
                     case 33:
-                        return "Gain " + GuardianAngelResistance(level).ToString("") + " Resistance\n" + GuardianAngelArmor(level).ToString("") + " Armor\nBlock gained from Armor is affected by Resistance\nDestroy";
+                        return "Gain " + GuardianAngelBlock(level).ToString("") + "Block\n" + GuardianAngelResistance(level).ToString("") + " Resistance\n& " + GuardianAngelArmor(level).ToString("") + " Armor\nBlock gained from Armor is affected by Resistance\nDestroy";
                     case 34:
                         if (CombatScript.Enemy[CombatScript.targetedEnemy].IntentToAttack())
                             return "Deal " + VengeanceDamage(level).ToString("") + " Damage, Gain " + VengeanceStrength(level).ToString("") + " Strength\n& " + VengeanceEnergy(level).ToString("") + " Energy";
@@ -1496,7 +1541,7 @@ public class PlayerCombat : MonoBehaviour
                         case 22:
                             return "Gain " + StrengthOfTheDepthsStrength(level).ToString("") + " Strength\n& " + StrengthOfTheDepthsBlock(level).ToString("") + " Block";
                         case 23:
-                            return "Every Weapon Attack Gives " + TridentOfStormsStacks(level).ToString("") + " Storm Charges\nDestroy";
+                            return "Gain 1 Dexterity\nEvery Weapon Attack Gives " + TridentOfStormsStacks(level).ToString("") + " Storm Charges\nDestroy";
                         case 24:
                             return "Gain " + ConduitBlock(level).ToString("") + " Block\n& " + ConduitCharges(level).ToString("") + " Storm Charges";
                         case 25:
@@ -1558,7 +1603,7 @@ public class PlayerCombat : MonoBehaviour
                             case 0:
                                 return "Deal " + SapMagicDamage(level).ToString("") + " Damage\nApply 1 Slow\nGain 1 Mana next Turn";
                             case 1:
-                                return "Gain " + InnervateMana(level).ToString("") + " Mana\n& Draw 1 Card";
+                                return "Gain " + InnervateMana(level).ToString("") + " Mana\n" + InnervateEnergy(level).ToString("") + " Energy\n& Draw 1 Card";
                             case 2:
                                 return "Gain " + BarkskinBlock(level).ToString("") + " Block";
                             case 3:
@@ -1588,7 +1633,7 @@ public class PlayerCombat : MonoBehaviour
                                     return "Gain " + EarthenMightBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/5 Blossom)";
                                 else return "Gain " + EarthenMightBlock(level).ToString("") + " Block\nGain 1 Strength";
                             case 11:
-                                return "Gain 1 Max Mana. Destroy";
+                                return "Gain 1 Max Mana\n& 1 Mana next Turn.\nDestroy";
                             case 12:
                                 if (blossom < EarthenHideReq(level))
                                     return "Gain " + EarthenHideBlock(level).ToString("") + " Block\n(" + blossom.ToString("") + "/" + EarthenHideReq(level).ToString("") + " Blossom)";
@@ -1605,6 +1650,16 @@ public class PlayerCombat : MonoBehaviour
                                 if (blossom < SavageryReq(level))
                                     return "Gain " + SavageryStrength(level, false).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\n(" + blossom.ToString("") + "/" + SavageryReq(level).ToString("") + " Blossom)";
                                 else return "Gain " + SavageryStrength(level, true).ToString("") + " Strength\n& " + SavageryBlock(level) + " Block\nincrease Blossom required by " + SavageryBlossomInc(level).ToString("");
+                            case 18:
+                                return "Increase Strength effect on Weapon by 1\nGain " + BeastWithinStrength(level).ToString("") + " Strength\n& Dexterity\nDestroy";
+                            case 19:
+                                return "Deal " + LacerateDamage(level).ToString("") + " Damage\n& Apply 1 Slow.\nKeep repeating with " + LacerateDecrease(level).ToString("") + " Damage less";
+                            case 20:
+                                if (PatienceShield(level) > 0)
+                                    return "Remove all Block to gain " + PatienceBlock(level).ToString("") + " Block next Turn\n& " + PatienceShield(level).ToString("") + " Shield";
+                                else return "Remove all Block to gain " + PatienceBlock(level).ToString("") + " Block next Turn";
+                            case 21:
+                                return "Gain " + SavageRoarBuff(level).ToString("") + " Strength, Blossom\n& " + (level + 2).ToString("") + " Energy\nApply " + SavageRoarSlow(level).ToString("") + " Slow to all Enemies\nDestroy";
                         }
                     }
                     else
@@ -1626,7 +1681,7 @@ public class PlayerCombat : MonoBehaviour
                                 return "Gain " + JuggernautBlock(level).ToString("") + " Block\nGain Shield equal to Health Lost this Combat\nDestroy";
                             case 6:
                                 if (CombatScript.Enemy[CombatScript.targetedEnemy].HealthPercent() < ExecuteThreshhold(level))
-                                    return "Deal " + ExecuteDamage(level).ToString("") + " Damage\nApply 1 Slow";
+                                    return "Deal " + ExecuteDamage(level).ToString("") + " Damage\nApply 2 Slow";
                                 else return "Deal " + ExecuteDamage(level).ToString("") + " Damage";
                             case 7:
                                 return "Lose 2 Health, Gain " + ReformBlock(level).ToString("") + " Block\n& " + ReformShield(level).ToString("") + " Shield";
@@ -1762,8 +1817,8 @@ public class PlayerCombat : MonoBehaviour
 
     int SpearThrustBreak(int level)
     {
-        tempi = 8;
-        tempi += 5 * level;
+        tempi = 10;
+        tempi += 6 * level;
         return tempi;
     }
 
@@ -1883,8 +1938,8 @@ public class PlayerCombat : MonoBehaviour
 
     int EmpowerEnergy(int level)
     {
-        tempi = 2;
-        tempi += 2 * level;
+        tempi = 3;
+        tempi += 3 * level;
         return tempi;
     }
 
@@ -1904,7 +1959,7 @@ public class PlayerCombat : MonoBehaviour
 
     int InspireBlock(int level)
     {
-        tempi = 6 + effect[1];
+        tempi = 7 + effect[1];
         tempi += 2 * level;
         if (level > 1)
             tempi += 4;
@@ -2022,7 +2077,7 @@ public class PlayerCombat : MonoBehaviour
 
     int GoldenAegisBlock(int level)
     {
-        tempi = 10 + effect[1];
+        tempi = 11 + effect[1];
         tempi += 2 * level;
         return BlockGainedModifier(tempi);
     }
@@ -2055,7 +2110,7 @@ public class PlayerCombat : MonoBehaviour
 
     int ShieldGlareBlock(int level)
     {
-        tempi = 10 + effect[1];
+        tempi = 11 + effect[1];
         tempi += level;
         return BlockGainedModifier(tempi);
     }
@@ -2077,7 +2132,7 @@ public class PlayerCombat : MonoBehaviour
 
     int SmiteDamage(int level)
     {
-        tempi = 5 + effect[0];
+        tempi = 6 + effect[0];
         tempi += 1 * level;
         return DamageDealtModifier(tempi);
     }
@@ -2374,7 +2429,7 @@ public class PlayerCombat : MonoBehaviour
 
     int ShieldOfHopeBlock(int level)
     {
-        tempi = ((maxHealth - health) * (2 + level)) / 4 + effect[1];
+        tempi = ((maxHealth - health) * (5 + 3 * level)) / 10 + effect[1];
         return BlockGainedModifier(tempi);
     }
 
@@ -2441,7 +2496,7 @@ public class PlayerCombat : MonoBehaviour
 
     int BarricadeBlock(int level)
     {
-        tempi = 11 + effect[1];
+        tempi = 12 + effect[1];
         tempi += 4 * level;
         if (tempi > 1)
             tempi -= 2;
@@ -2523,7 +2578,7 @@ public class PlayerCombat : MonoBehaviour
 
     int PenanceDamage(int level)
     {
-        tempi = 7 + effect[0];
+        tempi = 8 + effect[0];
         tempi += 2 * level;
         return DamageDealtModifier(tempi);
     }
@@ -2537,10 +2592,18 @@ public class PlayerCombat : MonoBehaviour
 
     void GuardianAngel(int level) // ID L 33
     {
+        GainBlock(GuardianAngelBlock(level));
         GainResistance(GuardianAngelResistance(level));
         GainArmor(GuardianAngelArmor(level));
         effect[13] += 1;
         Display(1, effectSprite[13]);
+    }
+
+    int GuardianAngelBlock(int level)
+    {
+        tempi = 6 + effect[1];
+        tempi += 3 * level;
+        return BlockGainedModifier(tempi);
     }
 
     int GuardianAngelResistance(int level)
@@ -2573,7 +2636,7 @@ public class PlayerCombat : MonoBehaviour
 
     int VengeanceDamage(int level)
     {
-        tempi = 11 + effect[0];
+        tempi = 12 + effect[0];
         tempi += 2 * level;
         return DamageDealtModifier(tempi);
     }
@@ -2597,6 +2660,7 @@ public class PlayerCombat : MonoBehaviour
         CombatScript.Effect(false, 5, true, CombatScript.targetedEnemy);
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(HolyFireDamage(level));
         OnHit();
+        GainValor(1);
     }
 
     int HolyFireDamage(int level)
@@ -2635,7 +2699,7 @@ public class PlayerCombat : MonoBehaviour
 
     int HarpoonThrowDamage(int level)
     {
-        tempi = 10 + effect[0];
+        tempi = 11 + effect[0];
         tempi += 1 * level;
         if (level > 1)
             tempi += 2;
@@ -2695,7 +2759,7 @@ public class PlayerCombat : MonoBehaviour
     int EnsnareSlow(int level)
     {
         tempi = 7;
-        tempi += 3 * level;
+        tempi += 4 * level;
         return tempi;
     }
 
@@ -2709,7 +2773,7 @@ public class PlayerCombat : MonoBehaviour
 
     int ViciousSlashDamage(int level)
     {
-        tempi = 6 + effect[0];
+        tempi = 7 + effect[0];
         tempi += 1 * level;
         return DamageDealtModifier(tempi);
     }
@@ -2761,13 +2825,13 @@ public class PlayerCombat : MonoBehaviour
     int ProtectiveBubbleBlock(int level)
     {
         tempi = 13 + effect[1];
-        tempi += 2 * level;
+        tempi += 3 * level;
         return BlockGainedModifier(tempi);
     }
 
     int ProtectiveBubbleShield(int level)
     {
-        tempi = 5;
+        tempi = 6;
         tempi += 3 * level;
         return tempi;
     }
@@ -2886,7 +2950,7 @@ public class PlayerCombat : MonoBehaviour
     int ShellsUpBlock(int level)
     {
         tempi = 15 + effect[1];
-        tempi += 4 * level;
+        tempi += 5 * level;
         return BlockGainedModifier(tempi);
     }
 
@@ -3053,7 +3117,7 @@ public class PlayerCombat : MonoBehaviour
 
     int DredgeLineDamage(int level)
     {
-        tempi = 8 + effect[0];
+        tempi = 9 + effect[0];
         tempi += 1 * level;
         return DamageDealtModifier(tempi);
     }
@@ -3122,6 +3186,7 @@ public class PlayerCombat : MonoBehaviour
 
     void TridentOfStorms(int level) // ID W 23
     {
+        GainDexterity(1);
         effect[17] += TridentOfStormsStacks(level);
         Display(TridentOfStormsStacks(level), effectSprite[17]);
     }
@@ -3193,7 +3258,7 @@ public class PlayerCombat : MonoBehaviour
 
     int NimbleEnergy(int level)
     {
-        tempi = 3;
+        tempi = 4;
         tempi += 2 * level;
         return tempi;
     }
@@ -3221,7 +3286,7 @@ public class PlayerCombat : MonoBehaviour
 
     int SinkDamage(int level)
     {
-        tempi = 12 + effect[0];
+        tempi = 13 + effect[0];
         tempi += 3 * level;
         return DamageDealtModifier(tempi);
     }
@@ -3316,7 +3381,7 @@ public class PlayerCombat : MonoBehaviour
 
     int FrozenTouchSlow(int level)
     {
-        tempi = 2;
+        tempi = 3;
         tempi += level;
         return tempi;
     }
@@ -3365,14 +3430,14 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 1 + effect[1];
         tempi += 4 * level;
-        tempi -= (level / 2) * 3;
+        tempi -= (level / 2) * 2;
         tempi += 2 * CombatScript.Enemy[CombatScript.targetedEnemy].tenacity;
         return BlockGainedModifier(tempi);
     }
 
     int AcclimationSlow(int level)
     {
-        tempi = 2;
+        tempi = 3;
         tempi += level / 2;
         return tempi;
     }
@@ -3394,7 +3459,7 @@ public class PlayerCombat : MonoBehaviour
 
     int TorrentCharges(int level)
     {
-        tempi = 3;
+        tempi = 4;
         tempi += level;
         return tempi;
     }
@@ -3458,6 +3523,7 @@ public class PlayerCombat : MonoBehaviour
     void Innervate(int level) // ID N 1
     {
         GainMana(InnervateMana(level));
+        GainEnergy(InnervateEnergy(level));
         Cards.Draw(1);
     }
 
@@ -3465,6 +3531,13 @@ public class PlayerCombat : MonoBehaviour
     {
         tempi = 1;
         tempi += level;
+        return tempi;
+    }
+
+    int InnervateEnergy(int level)
+    {
+        tempi = 1;
+        tempi += 2 * level;
         return tempi;
     }
 
@@ -3572,7 +3645,7 @@ public class PlayerCombat : MonoBehaviour
 
     int CleanCutDamage(int level)
     {
-        tempi = 11 + effect[0];
+        tempi = 12 + effect[0];
         tempi += 4 * level;
         if (CombatScript.Enemy[CombatScript.targetedEnemy].TotalBlock() <= 0)
             tempi *= 2;
@@ -3621,7 +3694,7 @@ public class PlayerCombat : MonoBehaviour
 
     int EntanglingRootsDamage(int level)
     {
-        tempi = 15 + effect[0];
+        tempi = 17 + effect[0];
         tempi += 5 * level;
         tempi += (level / 2) * 2;
         return DamageDealtModifier(tempi);
@@ -3827,6 +3900,100 @@ public class PlayerCombat : MonoBehaviour
         return tempi;
     }
 
+    void BeastWithin(int level) // ID N 18
+    {
+        effect[28] += 1;
+        GainStrength(BeastWithinStrength(level));
+        GainDexterity(BeastWithinStrength(level));
+    }
+
+    int BeastWithinStrength(int level)
+    {
+        tempi = 1;
+        tempi += level;
+        return tempi;
+    }
+
+    void Lacerate(int level) // ID N 19
+    {
+        tempi3 = LacerateDamage(level);
+        for (int i = tempi3; i > 0; i -= LacerateDecrease(level))
+        {
+            if (CombatScript.enemyAlive[CombatScript.targetedEnemy])
+            {
+                CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
+                CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(i);
+                CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(1);
+                OnHit();
+            }
+        }
+    }
+
+    int LacerateDamage(int level)
+    {
+        tempi = 14 + effect[0];
+        tempi += 4 * level;
+        tempi -= 2 * (level / 2);
+        return DamageDealtModifier(tempi);
+    }
+
+    int LacerateDecrease(int level)
+    {
+        tempi = 8;
+        tempi -= level / 2;
+        return tempi;
+    }
+
+    void Patience(int level) // ID N 20
+    {
+        effect[3] += PatienceBlock(level);
+        if (PatienceShield(level) > 0)
+            GainShield(PatienceShield(level));
+        block = 0;
+    }
+
+    int PatienceBlock(int level)
+    {
+        tempi = 5 - level;
+        tempi2 = (block * (tempi + 1)) / tempi;
+        return tempi2;
+    }
+
+    int PatienceShield(int level)
+    {
+        tempi = 5 - level;
+        tempi2 = block / tempi;
+        return tempi2;
+    }
+
+    void SavageRoar(int level) // ID N 21
+    {
+        GainStrength(SavageRoarBuff(level));
+        GainBlossom(SavageRoarBuff(level));
+        GainEnergy(SavageRoarBuff(level) + 1);
+
+        for (int i = 0; i < CombatScript.enemyAlive.Length; i++)
+        {
+            if (CombatScript.enemyAlive[i])
+            {
+                CombatScript.Effect(false, 0, true, i);
+                CombatScript.Enemy[i].GainSlow(SavageRoarSlow(level));
+            }
+        }
+    }
+
+    int SavageRoarBuff(int level)
+    {
+        tempi = 1 + level;
+        return tempi;
+    }
+
+    int SavageRoarSlow(int level)
+    {
+        tempi = 2 + level;
+        return tempi;
+    }
+
     // BLOOD
     void Rampage(int level) // ID B 0
     {
@@ -3838,7 +4005,7 @@ public class PlayerCombat : MonoBehaviour
 
     int RampageDamage(int level)
     {
-        tempi = 10 + effect[0];
+        tempi = 11 + effect[0];
         tempi += 3 * level;
         tempi += rampageIncrease;
         return DamageDealtModifier(tempi);
@@ -3868,8 +4035,8 @@ public class PlayerCombat : MonoBehaviour
 
     int DrainRestore(int level)
     {
-        tempi = 5;
-        tempi += 4 * level;
+        tempi = 6;
+        tempi += 5 * level;
         return tempi;
     }
 
@@ -3925,9 +4092,9 @@ public class PlayerCombat : MonoBehaviour
 
     int SiphonStrengthDamage(int level)
     {
-        tempi = 18 + effect[0];
-        tempi += 5 * level;
-        tempi += 2 * (level / 2);
+        tempi = 20 + effect[0];
+        tempi += 6 * level;
+        tempi += 3 * (level / 2);
         return DamageDealtModifier(tempi);
     }
 
@@ -3959,7 +4126,7 @@ public class PlayerCombat : MonoBehaviour
         if (CombatScript.Enemy[CombatScript.targetedEnemy].HealthPercent() < ExecuteThreshhold(level))
         {
             CombatScript.Effect(false, 1, false, CombatScript.targetedEnemy);
-            CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(1);
+            CombatScript.Enemy[CombatScript.targetedEnemy].GainSlow(2);
         }
         CombatScript.Enemy[CombatScript.targetedEnemy].TakeDamage(ExecuteDamage(level));
         OnHit();
@@ -4014,8 +4181,8 @@ public class PlayerCombat : MonoBehaviour
 
     int SiphonLifeDamage(int level)
     {
-        tempi2 = 9 - level;
-        tempi = (maxHealth / tempi2) + effect[0];
+        tempi2 = 17 - 2 * level;
+        tempi = (maxHealth * 2) / tempi2 + effect[0];
         return DamageDealtModifier(tempi);
     }
 
